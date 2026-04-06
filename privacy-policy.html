@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Faz Hoq</title>
+    <title>Faz Hoq | Privacy Policy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,42 +20,91 @@
             background-color: var(--dark-bg);
             color: #ffffff;
             overflow-x: hidden;
-            padding-bottom: 8rem;
         }
 
-        a {
-            color: var(--brand-orange);
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        h1, h2, h3 {
+            font-weight: 800;
         }
 
-        h1, h2 {
-            color: var(--brand-orange);
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .orange-glow {
+            box-shadow: 0 0 40px rgba(255, 107, 44, 0.3);
         }
 
         .bento-card {
             background: linear-gradient(145deg, #141414, #0f0f0f);
             border: 1px solid #222;
-            border-radius: 2rem;
             padding: 3rem;
-            margin: 2rem auto;
+            border-radius: 2rem;
             max-width: 900px;
+            margin: 4rem auto;
+            line-height: 1.75;
         }
 
-        footer a:hover {
+        a {
             color: var(--brand-orange);
+            text-decoration: underline;
         }
 
-        p {
-            color: #ccc;
-            line-height: 1.7;
-            margin-bottom: 1rem;
+        a:hover {
+            color: #ffffff;
         }
     </style>
 </head>
 <body class="pb-40">
 
+    <!-- Header -->
     <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
-        <div class="text-2xl font-black tracking-tighter">FA
+        <div class="text-2xl font-black tracking-tighter">FAZ HOQ<span class="text-[#FF6B2C]">.</span></div>
+        <div class="flex items-center gap-4">
+            <a href="mailto:Fazhoq1977@gmail.com" class="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all">
+                Start a Project
+            </a>
+        </div>
+    </nav>
+
+    <!-- Privacy Policy Card -->
+    <section class="bento-card" data-aos="fade-up">
+        <h1 class="text-4xl mb-6 text-gradient">Privacy Policy</h1>
+        
+        <p>Welcome to <strong>Faz Hoq</strong> (“I”, “me”, “my”). Your privacy is important. This policy explains how I handle your information when you visit my website.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">1. Information I Do Not Collect</h2>
+        <p>I do not collect personal information such as your name, email, phone number, or IP address. You can browse this site freely without sharing any personal data.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">2. Contact Forms & Emails</h2>
+        <p>If you choose to contact me via email or form submission, your message will only be used to respond to your inquiry. Messages are not stored permanently or shared with any third parties.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">3. Cookies & Tracking</h2>
+        <p>This website does not use cookies, analytics, or tracking scripts. If third-party tools are added in the future (like chat widgets), their own privacy policies will apply.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">4. Third-Party Links</h2>
+        <p>My site may contain links to external services (e.g., WhatsApp, email, or social media). I am not responsible for their data practices. Please review their privacy policies before use.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">5. Data Security</h2>
+        <p>As I do not collect personal data, no data storage occurs. Any messages sent voluntarily via email are secured by standard email protocols.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">6. Children</h2>
+        <p>This website is not intended for use by children under 13.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">7. Updates to This Policy</h2>
+        <p>This policy may be updated occasionally. The “last updated” date will always indicate the most current version.</p>
+
+        <h2 class="text-2xl mt-8 mb-4">8. Contact Me</h2>
+        <p>If you have any questions about this Privacy Policy, contact me at <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a>.</p>
+
+        <p class="mt-8 text-sm text-white/40">&copy; 2026 FAZ HOQ • DIGITAL ARCHITECT</p>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+
+</body>
+</html>
