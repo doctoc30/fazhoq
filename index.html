@@ -2,576 +2,147 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Faz Hoq · Solo Web Designer</title>
-    <!-- Google Fonts & simple reset -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faz Hoq | Digital Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
         body {
-            background: #fefaf5;  /* warm off-white, like clean paper */
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #1e1b1a;
-            line-height: 1.4;
-            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: #FFF8F0; /* Soft cream from your branding */
+            color: #1a1a1a;
         }
 
-        /* main container with subtle max-width and center */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 2rem 1.8rem 6rem 1.8rem;
+        .brand-orange { color: #E87732; }
+        .bg-brand-orange { background-color: #E87732; }
+        
+        /* The "App Dock" Styling */
+        .app-dock {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(232, 119, 50, 0.2);
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
         }
 
-        /* ---------- HERO + BRANDING inspired by the image (VIBZ style) ---------- */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 2.5rem;
+        /* Glassmorphism for cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
         }
 
-        .tagline-badge {
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: #c27e4a;
-            background: #f3ede7;
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            width: fit-content;
-        }
-
-        .main-headline {
-            font-size: clamp(2.8rem, 8vw, 5.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #2d2a27 0%, #b95f2c 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .headline-sub {
-            font-size: 1.2rem;
-            color: #5a4e45;
-            max-width: 680px;
-            font-weight: 400;
-            border-left: 3px solid #e2c7b1;
-            padding-left: 1.2rem;
-        }
-
-        /* "We Build Websites For: Painters" style block — matching the ref image */
-        .industry-prompt {
-            background: #ffffffdd;
-            backdrop-filter: blur(2px);
-            border-radius: 36px;
-            padding: 1.5rem 2rem;
-            margin: 1rem 0 0.5rem 0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
-            border: 1px solid #f1e4da;
-        }
-
-        .build-for {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #23201e;
-        }
-
-        .build-for span {
-            background: #faeedf;
-            padding: 0.1rem 0.4rem;
-            border-radius: 24px;
-            display: inline-block;
-        }
-
-        .search-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.2rem;
-            margin: 1.5rem 0 0.8rem;
-        }
-
-        .search-bar {
-            flex: 2;
-            min-width: 200px;
-            background: #fff7f0;
-            border: 1px solid #eadbcb;
-            border-radius: 60px;
-            padding: 0.9rem 1.5rem;
-            font-size: 1rem;
-            color: #1f1c19;
-            transition: all 0.2s;
-        }
-
-        .search-bar:focus {
-            outline: none;
-            border-color: #c27e4a;
-            box-shadow: 0 0 0 3px rgba(194,126,74,0.2);
-        }
-
-        .popular-cats {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #a07655;
-            letter-spacing: 0.3px;
-        }
-
-        .category-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-top: 0.8rem;
-        }
-
-        .chip {
-            background: #f3ede7;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #4f3e32;
-            cursor: default;
-            transition: 0.1s;
-            border: 1px solid transparent;
-        }
-
-        .chip:hover {
-            background: #e7d9cf;
-            border-color: #dbbb9c;
-        }
-
-        /* Featured message: solo designer */
-        .solo-badge {
-            margin: 2rem 0 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .avatar-symbol {
-            width: 48px;
-            height: 48px;
-            background: #e1cfbe;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #784a1e;
-        }
-
-        .solo-text {
-            font-weight: 500;
-            color: #6b4f38;
-        }
-
-        /* ----- APP-LIKE DOCK (macOS / iOS style) ----- */
-        .dock-wrapper {
-            position: fixed;
-            bottom: 24px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        .dock {
-            background: rgba(30, 28, 27, 0.85);
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 0.7rem 1.2rem;
-            display: flex;
-            gap: 0.6rem;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.15);
-            pointer-events: auto;
-            transition: all 0.2s ease;
-            border: 0.5px solid rgba(255,255,240,0.25);
-        }
-
-        .dock-item {
-            background: rgba(255,255,245,0.1);
-            backdrop-filter: blur(4px);
-            border-radius: 40px;
-            padding: 0.7rem 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #fef6ed;
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-            text-decoration: none;
-            border: none;
-            font-family: inherit;
-        }
-
-        /* individual dock colors for better differentiation */
-        .dock-item.cta-phone {
-            background: rgba(52, 199, 89, 0.2);
-        }
-        .dock-item.cta-wa {
-            background: rgba(37, 211, 102, 0.2);
-        }
-        .dock-item.cta-mail {
-            background: rgba(100, 126, 255, 0.2);
-        }
-        .dock-item.cta-text {
-            background: rgba(255, 159, 10, 0.2);
-        }
-        .dock-item.cta-call2 {
-            background: rgba(90, 200, 250, 0.2);
-        }
-
-        .dock-item:hover {
-            transform: translateY(-4px);
-            background: rgba(255,255,240,0.25);
-            color: white;
-        }
-
-        .dock-icon {
-            font-size: 1.25rem;
-            font-weight: 400;
-        }
-
-        /* additional style for responsiveness */
-        @media (max-width: 680px) {
-            .container {
-                padding: 1.2rem 1.2rem 5rem 1.2rem;
-            }
-            .dock {
-                padding: 0.5rem 0.9rem;
-                gap: 0.3rem;
-            }
-            .dock-item {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.75rem;
-                gap: 5px;
-            }
-            .dock-icon {
-                font-size: 1rem;
-            }
-            .build-for {
-                font-size: 1.5rem;
-            }
-            .industry-prompt {
-                padding: 1rem 1.2rem;
-            }
-        }
-
-        /* portfolio preview minimal section */
-        .services-section {
-            margin: 3.5rem 0 2rem;
-        }
-
-        .section-title {
-            font-size: 1.7rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            margin-bottom: 1.5rem;
-            color: #2a241f;
-        }
-
-        .grid-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .card {
-            flex: 1 1 260px;
-            background: #ffffffd9;
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            padding: 1.5rem;
-            border: 1px solid #f0e2d6;
-            transition: all 0.2s;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            color: #6c5b4e;
-            font-size: 0.9rem;
-        }
-
-        /* footer minimal */
-        .footer-note {
-            margin-top: 4rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #b6a187;
-            border-top: 1px solid #efe2d7;
-            padding-top: 2rem;
-        }
-
-        button, a.dock-item {
-            background: none;
-            border: none;
-        }
-
-        /* notification toasts? optional but clean */
-        .toast-msg {
-            position: fixed;
-            bottom: 95px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f1c19e6;
-            backdrop-filter: blur(12px);
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            z-index: 1100;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-            font-family: monospace;
-        }
-
-        @media (max-width: 550px) {
-            .toast-msg {
-                font-size: 0.7rem;
-                white-space: nowrap;
-                bottom: 85px;
-            }
-        }
+        .hero-text { line-height: 0.9; }
     </style>
 </head>
-<body>
+<body class="pb-32">
 
-<div class="container">
-    <!-- Hero section — inspired by the given image "We Build Websites For: Painters" + branding -->
-    <div class="hero">
-        <div class="tagline-badge">✦ FAZ HOQ · SOLO WEB DESIGNER</div>
-        <div class="main-headline">
-            We Build<br>
-            Websites For:<br>
-            <span style="background: linear-gradient(135deg,#c97e4a,#e5a36f); background-clip:text; -webkit-background-clip:text; color:transparent;">Ambitious Creators</span>
-        </div>
-        <div class="headline-sub">
-            Clean, modern, conversion-focused design. One-man studio, full dedication.
-        </div>
-    </div>
+    <nav class="flex justify-between items-center p-6 lg:px-12">
+        <div class="text-3xl font-black tracking-tighter">FAZ HOQ<span class="brand-orange">.</span></div>
+        <a href="mailto:Fazhoq1977@gmail.com" class="bg-white px-6 py-2 rounded-full font-bold shadow-sm border border-orange-100 flex items-center gap-2">
+            <i class="fa-solid font-light fa-user-circle brand-orange"></i> Client Portal
+        </a>
+    </nav>
 
-    <!-- exactly matching the "We Build Websites For: Painters / Search any industry..." vibe from image -->
-    <div class="industry-prompt">
-        <div class="build-for">
-            We Build Websites For: <span>Painters</span>
+    <section class="px-6 py-12 lg:py-24 text-center max-w-4xl mx-auto">
+        <h2 data-aos="fade-up" class="brand-orange text-4xl lg:text-7xl font-black hero-text mb-2">
+            We Build <br> Websites For:
+        </h2>
+        <h1 data-aos="fade-up" data-aos-delay="200" class="text-5xl lg:text-8xl font-black mb-10">
+            Visionaries
+        </h1>
+        
+        <div data-aos="zoom-in" data-aos-delay="400" class="relative max-w-xl mx-auto">
+            <input type="text" placeholder="Search any industry..." class="w-full p-6 rounded-3xl shadow-xl border-none focus:ring-2 focus:ring-orange-400 outline-none text-lg">
+            <button class="absolute right-3 top-3 bg-brand-orange text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </div>
-        <div class="search-row">
-            <input type="text" class="search-bar" id="industrySearch" placeholder="Search any industry... (e.g., plumber, artist, bakery)">
-            <div class="popular-cats">OR SELECT FROM POPULAR CATEGORIES</div>
-        </div>
-        <div class="category-chips" id="categoryChips">
-            <div class="chip" data-industry="Painters">🎨 Painters</div>
-            <div class="chip" data-industry="Plumbers">🔧 Plumbers</div>
-            <div class="chip" data-industry="Electricians">⚡ Electricians</div>
-            <div class="chip" data-industry="Cafes">☕ Cafes</div>
-            <div class="chip" data-industry="Photographers">📸 Photographers</div>
-            <div class="chip" data-industry="Salons">💇 Salons</div>
-        </div>
-        <div style="margin-top: 12px; font-size: 0.8rem; color:#b2825b;" id="searchFeedback">✨ Tailored websites for any niche — just ask.</div>
-    </div>
+    </section>
 
-    <!-- solo web designer credibility / minimal branding -->
-    <div class="solo-badge">
-        <div class="avatar-symbol">FH</div>
-        <div class="solo-text">
-            <strong>faz Hoq</strong> — independent web crafter • 100% hands-on • fast & modern
-        </div>
-    </div>
-
-    <!-- micro services / work style (minimal but adds substance) -->
-    <div class="services-section">
-        <div class="section-title">handcrafted digital presence</div>
-        <div class="grid-cards">
-            <div class="card">
-                <h3>⚡ lightning fast</h3>
-                <p>Optimized performance, Core Web Vitals ready.</p>
+    <section class="py-12 px-6">
+        <p class="text-center font-bold tracking-widest text-orange-800 opacity-60 uppercase mb-8">Popular Categories</p>
+        <div class="flex gap-6 overflow-x-auto pb-10 no-scrollbar">
+            <div data-aos="fade-right" class="min-w-[300px] h-96 bg-emerald-900 rounded-[2rem] p-8 text-white flex flex-col justify-between">
+                <h3 class="text-2xl font-bold">Eco-Brand<br>Websites</h3>
+                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
             </div>
-            <div class="card">
-                <h3>🎨 bespoke identity</h3>
-                <p>No templates — unique design for painters, plumbers, creators.</p>
+            <div data-aos="fade-right" data-aos-delay="100" class="min-w-[300px] h-96 bg-zinc-400 rounded-[2rem] p-8 text-white flex flex-col justify-between">
+                <h3 class="text-2xl font-bold">Artist's<br>Digital Space</h3>
+                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
             </div>
-            <div class="card">
-                <h3>📱 app-like dock</h3>
-                <p>Instant contact: call, text, WhatsApp, email — right at your fingertips.</p>
+            <div data-aos="fade-right" data-aos-delay="200" class="min-w-[300px] h-96 bg-brand-orange rounded-[2rem] p-8 text-white flex flex-col justify-between">
+                <h3 class="text-2xl font-bold">High-End<br>E-Commerce</h3>
+                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
             </div>
         </div>
+    </section>
+
+    <section class="px-6 py-20 bg-white rounded-[3rem] mx-4 shadow-inner" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-4xl font-black mb-6 leading-tight">Ready to boost your <span class="brand-orange">online presence?</span></h3>
+            <p class="text-gray-500 text-lg mb-8">Based in the UK, Faz Hoq delivers bespoke digital experiences that convert visitors into customers.</p>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="p-6 glass-card rounded-3xl">
+                    <p class="text-3xl font-black brand-orange">100%</p>
+                    <p class="font-bold text-sm">Bespoke Design</p>
+                </div>
+                <div class="p-6 glass-card rounded-3xl">
+                    <p class="text-3xl font-black brand-orange">24/7</p>
+                    <p class="font-bold text-sm">Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-50">
+        <div class="app-dock rounded-[2.5rem] p-4 flex justify-between items-center">
+            <a href="tel:07706345874" class="flex flex-col items-center group">
+                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-brand-orange group-hover:text-white transition-all">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <span class="text-[10px] font-bold mt-1 uppercase">Call</span>
+            </a>
+
+            <a href="https://wa.me/447706345874" class="flex flex-col items-center group">
+                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-[#25D366] group-hover:text-white transition-all">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </div>
+                <span class="text-[10px] font-bold mt-1 uppercase">WhatsApp</span>
+            </a>
+
+            <a href="mailto:Fazhoq1977@gmail.com" class="flex flex-col items-center -mt-10">
+                <div class="w-16 h-16 flex items-center justify-center rounded-full bg-brand-orange text-white shadow-lg shadow-orange-300 animate-bounce">
+                    <i class="fa-solid fa-bolt text-2xl"></i>
+                </div>
+                <span class="text-[10px] font-black mt-2 brand-orange uppercase">Hire Faz</span>
+            </a>
+
+            <a href="sms:07706345874" class="flex flex-col items-center group">
+                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </div>
+                <span class="text-[10px] font-bold mt-1 uppercase">Text</span>
+            </a>
+
+            <a href="mailto:Fazhoq1977@gmail.com" class="flex flex-col items-center group">
+                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-zinc-900 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <span class="text-[10px] font-bold mt-1 uppercase">Email</span>
+            </a>
+        </div>
     </div>
 
-    <div class="footer-note">
-        © 2026 Faz Hoq — one client at a time • UK based
-    </div>
-</div>
-
-<!-- fixed dock: exactly as required: cts (call/text?), WhatsApp, call, text, email, phone number & email. 
-     dock includes: WhatsApp, Call (07706345874), Text (SMS), Email, plus additional call via phone icon.
-     And we display 07706345874 and email: Fazhoq1977@gmail.com -->
-<div class="dock-wrapper">
-    <div class="dock">
-        <!-- WhatsApp -->
-        <div class="dock-item cta-wa" id="whatsappBtn">
-            <span class="dock-icon">💬</span>
-            <span>WhatsApp</span>
-        </div>
-        <!-- Call (direct phone) -->
-        <div class="dock-item cta-phone" id="callBtn">
-            <span class="dock-icon">📞</span>
-            <span>Call</span>
-        </div>
-        <!-- Text / SMS -->
-        <div class="dock-item cta-text" id="textBtn">
-            <span class="dock-icon">✉️📱</span>
-            <span>Text</span>
-        </div>
-        <!-- Email -->
-        <div class="dock-item cta-mail" id="emailBtn">
-            <span class="dock-icon">📧</span>
-            <span>Email</span>
-        </div>
-        <!-- secondary call / direct number display as per requirement, but we also embed the number -->
-        <div class="dock-item cta-call2" id="callNumberBtn">
-            <span class="dock-icon">📞+</span>
-            <span>07706 345874</span>
-        </div>
-    </div>
-</div>
-
-<!-- toast message for copy / non-action confirmation -->
-<div id="toastMsg" class="toast-msg">✨</div>
-
-<script>
-    // Contact details
-    const PHONE_NUMBER = "07706345874";
-    const EMAIL_ADDRESS = "Fazhoq1977@gmail.com";
-    const FULL_PHONE_LINK = "tel:+447706345874";   // UK format
-    const SMS_LINK = "sms:+447706345874";
-    const WHATSAPP_LINK = "https://wa.me/447706345874";   // international format without plus? wa.me/447706345874 works
-
-    // Helper: show toast message
-    function showToast(message, duration = 1800) {
-        const toast = document.getElementById('toastMsg');
-        toast.textContent = message;
-        toast.style.opacity = '1';
-        setTimeout(() => {
-            toast.style.opacity = '0';
-        }, duration);
-    }
-
-    // Action handlers with smooth UX
-    function handleCall() {
-        window.location.href = FULL_PHONE_LINK;
-        showToast("📞 Calling 07706 345874 ...");
-    }
-
-    function handleText() {
-        window.location.href = SMS_LINK;
-        showToast("💬 Open SMS to 07706 345874");
-    }
-
-    function handleWhatsApp() {
-        window.open(WHATSAPP_LINK, '_blank');
-        showToast("💚 Opening WhatsApp chat with Faz Hoq");
-    }
-
-    function handleEmail() {
-        window.location.href = `mailto:${EMAIL_ADDRESS}?subject=Website%20Inquiry%20-%20Faz%20Hoq&body=Hello%20Faz%2C%20I%27m%20interested%20in%20a%20website%20project.`;
-        showToast(`📧 Compose email to ${EMAIL_ADDRESS}`);
-    }
-
-    function handleShowNumber() {
-        // copy number or show? We can copy to clipboard for better UX
-        navigator.clipboard.writeText(PHONE_NUMBER).then(() => {
-            showToast(`📋 Copied ${PHONE_NUMBER} to clipboard`);
-        }).catch(() => {
-            showToast(`📞 Phone: ${PHONE_NUMBER}`);
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-back'
         });
-        // also we could trigger call but the button is separate. but as per "dock with cts, WhatsApp, call, text, email, 07706345874"
-        // this element explicitly shows number and copies
-    }
-
-    // Attach event listeners
-    document.getElementById('whatsappBtn').addEventListener('click', handleWhatsApp);
-    document.getElementById('callBtn').addEventListener('click', handleCall);
-    document.getElementById('textBtn').addEventListener('click', handleText);
-    document.getElementById('emailBtn').addEventListener('click', handleEmail);
-    document.getElementById('callNumberBtn').addEventListener('click', handleShowNumber);
-
-    // Optional: Category chips and search interaction — just for branding fun and to respect original image search
-    const searchInput = document.getElementById('industrySearch');
-    const searchFeedback = document.getElementById('searchFeedback');
-    const chips = document.querySelectorAll('.chip');
-
-    function updateIndustryFeedback(industry) {
-        if (!industry || industry.trim() === "") {
-            searchFeedback.innerHTML = `✨ Tailored websites for any niche — just ask.`;
-            return;
-        }
-        searchFeedback.innerHTML = `🔥 Building modern sites for <strong>${industry}</strong> — let’s create your standout web presence.`;
-    }
-
-    function handleChipClick(e) {
-        const industry = e.currentTarget.getAttribute('data-industry');
-        if (industry) {
-            searchInput.value = industry;
-            updateIndustryFeedback(industry);
-            showToast(`✨ ${industry} websites — Faz Hoq got you!`);
-        }
-    }
-
-    chips.forEach(chip => {
-        chip.addEventListener('click', handleChipClick);
-    });
-
-    searchInput.addEventListener('input', (e) => {
-        const val = e.target.value.trim();
-        if (val === "") {
-            updateIndustryFeedback("");
-        } else {
-            updateIndustryFeedback(val);
-        }
-    });
-
-    // small initial default to show personality
-    updateIndustryFeedback("Painters");
-
-    // Additional micro animation: Dock stays above all, beautiful
-    // Also ensure that clicking on any dock item is responsive and doesn't cause issues
-    // provide extra call and text support, phone number display in dock exactly matches required
-    // also text message uses sms: scheme and works on mobile
-
-    // For desktop browsers that may not handle sms: perfectly but will prompt mail client or default app. Graceful.
-    // Also make the dock icons accessible
-    console.log("Faz Hoq — solo web designer | app-like dock ready");
-</script>
-
-<!-- extra note: includes all contact methods: WhatsApp, Call, Text, Email, and explicit number display + copy.
-     And the one-page design uses warm minimalist colors, dock mimics modern OS X/ iOS dock.
-     Also keeps the same vibe as "We Build Websites For: Painters / search any industry" reference image. -->
+    </script>
 </body>
 </html>
