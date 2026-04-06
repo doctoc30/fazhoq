@@ -1,310 +1,203 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faz Hoq | Digital Growth Partner</title>
+    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
         
         :root {
             --brand-orange: #FF6B2C;
-            --dark-bg: #0A0A0A;
+            --app-white: #F8F8F8;
         }
 
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: 'Outfit', sans-serif;
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            overflow-x: hidden;
+            background: var(--app-white);
+            color: #111;
+            /* The Magic: Scroll Snapping */
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        section {
+            height: 100vh;
             width: 100%;
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .orange-glow {
-            box-shadow: 0 0 40px rgba(255, 107, 44, 0.3);
-        }
-
-        .glass-dock {
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2.5rem;
-        }
-
-        .bento-card {
-            background: linear-gradient(145deg, #141414, #0f0f0f);
-            border: 1px solid #222;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .bento-card:hover {
-            border-color: var(--brand-orange);
-            transform: scale(1.02);
-        }
-
-        .industry-rotator {
-            display: inline-block;
-            color: var(--brand-orange);
-            min-width: 320px;
-            text-align: center;
-        }
-
-        /* Hamburger Menu Styles */
-        #mobileMenuOverlay {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .menu-open {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
             overflow: hidden;
         }
 
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; transform: translateY(10px); }
-            10%, 90% { opacity: 1; transform: translateY(0); }
+        .huge-text {
+            font-size: clamp(4rem, 18vw, 15rem);
+            font-weight: 900;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
         }
 
-        .animate-industry {
-            animation: fadeInOut 3s infinite;
+        /* Subtle Swiping Animation for Elements */
+        section > * {
+            transition: all 0.8s cubic-bezier(0.2, 0, 0, 1);
         }
 
-        footer a:hover {
-            color: var(--brand-orange);
+        /* Nav Glassmorphism */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            mix-blend-difference: difference;
+            color: white;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Dock Positioning */
+        .app-dock {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 2.5rem;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .bg-accent { color: var(--brand-orange); }
+        
+        .indicator {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+            opacity: 0.2;
         }
     </style>
 </head>
-<body class="pb-40">
+<body>
 
-    <div id="mobileMenuOverlay" class="fixed inset-0 bg-[#0A0A0A] z-[100] translate-x-full flex flex-col items-center justify-center space-y-8">
-        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-3xl">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <a href="https://doctoc30.github.io/fazhoq/about-me.html" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter hover:text-[#FF6B2C] transition-colors">About Me</a>
-        <a href="https://doctoc30.github.io/fazhoq/pricing.html" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter hover:text-[#FF6B2C] transition-colors">Pricing</a>
-        <a href="https://doctoc30.github.io/fazhoq/faq.html" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter hover:text-[#FF6B2C] transition-colors">FAQ</a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="px-8 py-3 bg-[#FF6B2C] rounded-full font-bold uppercase text-sm">Start a Project</a>
-    </div>
-
-    <div class="relative w-full overflow-x-hidden">
-
-        <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
-            <div class="text-2xl font-black tracking-tighter">FAZ HOQ<span class="text-[#FF6B2C]">.</span></div>
-            
-            <div class="hidden md:flex items-center gap-8">
-                <a href="https://doctoc30.github.io/fazhoq/about-me.html" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all">About Me</a>
-                <a href="https://doctoc30.github.io/fazhoq/pricing.html" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all">Pricing</a>
-                <a href="https://doctoc30.github.io/fazhoq/faq.html" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all">FAQ</a>
-                <a href="mailto:Fazhoq1977@gmail.com" class="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all">
-                    Start a Project
-                </a>
-            </div>
-
-            <button onclick="toggleMenu()" class="md:hidden text-2xl p-2">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </button>
-        </nav>
-
-        <section class="relative px-6 pt-20 pb-28 flex flex-col items-center text-center">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[600px] bg-[#FF6B2C]/5 blur-[100px] md:blur-[140px] rounded-full -z-10"></div>
-            
-            <div data-aos="fade-down" class="flex items-center gap-2 mb-8 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
-                <div class="h-1.5 w-1.5 rounded-full bg-[#FF6B2C] animate-ping"></div>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-[#FF6B2C]">Available for New Partners</span>
-            </div>
-
-            <h1 data-aos="fade-up" class="text-6xl md:text-9xl font-[900] tracking-tighter mb-6 leading-[0.85] uppercase">
-                I BUILD WEBSITES<br><span class="text-gradient font-[300]">DESIGNED FOR</span><br>
-                <span id="industryText" class="industry-rotator italic">RETAILERS.</span>
-            </h1>
-
-            <p data-aos="fade-up" data-aos-delay="200" class="max-w-2xl text-gray-400 text-lg md:text-xl font-light mb-12">
-                Elevating small businesses with high-performance digital stores and portfolios. If you're ready to grow, I'm ready to build.
-            </p>
-
-            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-wrap justify-center gap-6">
-                <div class="flex flex-col items-center">
-                    <span class="text-3xl font-black">Fast</span>
-                    <span class="text-[10px] uppercase opacity-40 font-bold tracking-widest">Turnaround</span>
-                </div>
-                <div class="w-px h-12 bg-white/10 hidden md:block"></div>
-                <div class="flex flex-col items-center">
-                    <span class="text-3xl font-black">Clean</span>
-                    <span class="text-[10px] uppercase opacity-40 font-bold tracking-widest">Modern UX</span>
-                </div>
-                <div class="w-px h-12 bg-white/10 hidden md:block"></div>
-                <div class="flex flex-col items-center">
-                    <span class="text-3xl font-black">Ready</span>
-                    <span class="text-[10px] uppercase opacity-40 font-bold tracking-widest">To Convert</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-4 scroll-mt-24">
-            <div data-aos="fade-right" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-end min-h-[400px]">
-                <span class="text-[#FF6B2C] font-bold text-sm uppercase tracking-widest mb-4">Your Personal Architect</span>
-                <h3 class="text-4xl font-black mb-6">I'm Faz Hoq.</h3>
-                <p class="text-gray-400 text-lg leading-relaxed">
-                    I believe small businesses deserve enterprise-grade design. I work directly with you to turn your vision into a digital reality that converts visitors into loyal customers.
-                </p>
-            </div>
-            
-            <div data-aos="fade-up" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
-                    <i class="fa-solid fa-bolt text-[#FF6B2C]"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-2">SEO Optimized</h4>
-                    <p class="text-sm text-white/50">Built from the ground up to be found by the people who matter most: your customers.</p>
-                </div>
-            </div>
-
-            <div data-aos="fade-left" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 rounded-2xl bg-[#FF6B2C] flex items-center justify-center text-white">
-                    <i class="fa-solid fa-gem"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-2">Premium UI</h4>
-                    <p class="text-sm text-white/50">I create interfaces that look expensive, feel smooth, and function perfectly.</p>
-                </div>
-            </div>
-
-            <div id="pricing" data-aos="fade-up" class="md:col-span-4 bento-card p-8 md:p-12 rounded-[2.5rem] bg-white/5 flex flex-col gap-10 scroll-mt-24">
-                <div class="text-center md:text-left flex-1">
-                    <h3 class="text-4xl font-black mb-2 uppercase italic text-gradient">Ownership Options</h3>
-                    <p class="text-white/60 mb-8 max-w-3xl text-lg">No hidden fees, no complex tiers. Just two simple ways to work together.</p>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all text-center md:text-left">
-                            <h4 class="text-[#FF6B2C] font-black text-2xl mb-4 uppercase">Managed Monthly</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">Complete peace of mind. I handle the hosting, security, and updates. You focus on running your business; I'll make sure the site is always perfect.</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all text-center md:text-left">
-                            <h4 class="text-white font-black text-2xl mb-4 uppercase">One-Off Build</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">Full asset ownership. I design and build your platform, then hand over the keys. You own the code 100% for life.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="faq" data-aos="fade-up" class="md:col-span-4 bento-card p-8 md:p-12 rounded-[2.5rem] bg-white/5 scroll-mt-24">
-                <h3 class="text-3xl font-black mb-8 uppercase italic text-gradient">Common Questions</h3>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="font-bold text-[#FF6B2C] mb-2">How long does it take?</h4>
-                        <p class="text-gray-400 text-sm">Typically 1-2 weeks depending on the complexity and scope of the build.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-[#FF6B2C] mb-2">What if I need changes?</h4>
-                        <p class="text-gray-400 text-sm">Managed clients get unlimited small updates. One-off builds include a handover guide.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="mt-24 mb-16 text-center px-6">
-            <div class="max-w-7xl mx-auto border-t border-white/5 pt-12">
-                <p class="text-3xl font-black tracking-tighter mb-4 uppercase">FAZ HOQ<span class="text-[#FF6B2C]">.</span></p>
-                
-                <div class="grid md:grid-cols-3 gap-8 mb-12">
-                    <div class="flex flex-col items-center">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">Location</span>
-                        <p class="text-sm font-medium">London, United Kingdom</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">Direct Contact</span>
-                        <a href="mailto:Fazhoq1977@gmail.com" class="text-sm font-medium hover:text-[#FF6B2C]">Fazhoq1977@gmail.com</a>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">Legal</span>
-                        <a href="https://doctoc30.github.io/fazhoq/privacy-policy" target="_blank" class="text-sm font-medium hover:text-[#FF6B2C]">Privacy Policy</a>
-                    </div>
-                </div>
-
-                <p class="text-white/20 text-[9px] font-bold tracking-[0.4em] uppercase">
-                    &copy; 2026 FAZ HOQ • DIGITAL ARCHITECT
-                </p>
-            </div>
-        </footer>
-
-    </div>
-
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-[480px] z-50">
-        <div class="glass-dock p-3 flex justify-between items-center shadow-2xl">
-            
-            <a href="tel:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
-                <i class="fa-solid fa-phone text-lg mb-1"></i>
-                <span class="text-[9px] uppercase font-bold opacity-50">Call</span>
-            </a>
-
-            <a href="https://wa.me/447706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-[#25D366]/20 text-[#25D366] transition-all">
-                <i class="fa-brands fa-whatsapp text-xl mb-1"></i>
-                <span class="text-[9px] uppercase font-bold opacity-70">WhatsApp</span>
-            </a>
-
-            <a href="mailto:Fazhoq1977@gmail.com" class="relative group">
-                <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#FF6B2C] text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap animate-pulse">
-                    LET'S TALK
-                </div>
-                <div class="w-16 h-16 bg-[#FF6B2C] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B2C]/40 group-hover:rotate-12 transition-transform">
-                    <i class="fa-solid fa-lightbulb text-xl text-white"></i>
-                </div>
-            </a>
-
-            <a href="sms:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
-                <i class="fa-solid fa-comment-dots text-lg mb-1"></i>
-                <span class="text-[9px] uppercase font-bold opacity-50">Text</span>
-            </a>
-
-            <a href="mailto:Fazhoq1977@gmail.com" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
-                <i class="fa-solid fa-envelope text-lg mb-1"></i>
-                <span class="text-[9px] uppercase font-bold opacity-50">Email</span>
-            </a>
-
+    <nav>
+        <div class="text-2xl font-black tracking-tighter">FAZ HOQ.</div>
+        <div class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
+            <a href="about-me.html">Story</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="mailto:Fazhoq1977@gmail.com">Project</a>
         </div>
+    </nav>
+
+    <div class="indicator">
+        <div class="dot" style="opacity: 1;"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <section style="background: #fff;">
+        <p class="text-xs font-black tracking-[0.4em] mb-4 text-[#FF6B2C]">DIGITAL ARCHITECT</p>
+        <h1 class="huge-text text-center">
+            BUILDING <br> <span class="bg-accent italic">STORES.</span>
+        </h1>
+        <p class="mt-8 text-lg font-medium opacity-40 max-w-sm text-center">Swipe to explore the future of your business.</p>
+    </section>
+
+    <section style="background: #F2F2F2;">
+        <h2 class="huge-text">FAZ<br>HOQ.</h2>
+        <div class="max-w-md mt-10">
+            <p class="text-xl leading-snug font-medium mb-6">
+                I believe in speed, precision, and enterprise-grade design for small retailers. 
+            </p>
+            <a href="https://doctoc30.github.io/fazhoq/about-me.html" class="inline-flex items-center gap-4 bg-black text-white px-8 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-[#FF6B2C] transition-colors">
+                Read My Story <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <section style="background: #fff;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl">
+            <div>
+                <h3 class="huge-text" style="font-size: 8vw;">UI/UX<br>READY.</h3>
+            </div>
+            <div class="flex flex-col justify-center">
+                <p class="text-2xl font-black uppercase mb-4 text-[#FF6B2C]">High Octane Growth</p>
+                <p class="text-gray-400 text-lg">My platforms are built for mobile-first users. They load fast, look expensive, and convert visitors into loyal customers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: #000; color: #fff;">
+        <h2 class="huge-text text-white">LET'S<br>GO.</h2>
+        <div class="mt-12">
+            <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-4xl font-black underline decoration-[#FF6B2C] underline-offset-8">Fazhoq1977@gmail.com</a>
+        </div>
+    </section>
+
+    <div class="app-dock">
+        <a href="sms:07706345874" class="text-xl hover:scale-125 transition-transform"><i class="fa-solid fa-comment-dots"></i></a>
+        
+        <a href="https://wa.me/447706345874" class="relative group">
+            <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/40 group-hover:scale-110 transition-all">
+                <i class="fa-brands fa-whatsapp text-3xl text-white"></i>
+            </div>
+        </a>
+
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl hover:scale-125 transition-transform"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+
     <script>
-        AOS.init({ duration: 1000, once: true });
- 
-        // Menu Toggle Logic
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenuOverlay');
-            const body = document.body;
-            if (menu.classList.contains('translate-x-full')) {
-                menu.classList.remove('translate-x-full');
-                menu.classList.add('translate-x-0');
-                body.classList.add('menu-open');
-            } else {
-                menu.classList.remove('translate-x-0');
-                menu.classList.add('translate-x-full');
-                body.classList.remove('menu-open');
-            }
-        }
+        // Smooth scroll transition observer
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.dot');
 
-        const industries = ["RETAILERS.", "CAFES.", "CREATIVES.", "SERVICES.", "STARTUPS.", "LOCAL SHOPS."];
-        let currentIndex = 0;
-        const industryElement = document.getElementById("industryText");
+        const observerOptions = {
+            threshold: 0.5
+        };
 
-        setInterval(() => {
-            industryElement.classList.add('animate-industry');
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % industries.length;
-                industryElement.textContent = industries[currentIndex];
-            }, 500);
-            
-            setTimeout(() => {
-                industryElement.classList.remove('animate-industry');
-            }, 2500);
-        }, 3000);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Update dots
+                    const index = Array.from(sections).indexOf(entry.target);
+                    dots.forEach((dot, i) => {
+                        dot.style.opacity = i === index ? "1" : "0.2";
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
