@@ -17,7 +17,7 @@
         html, body {
             margin: 0; padding: 0; height: 100%; width: 100%;
             overflow: hidden; font-family: 'Outfit', sans-serif;
-            background: #000; touch-action: none;
+            background: #fff; touch-action: none;
             -webkit-user-select: none;
         }
 
@@ -41,106 +41,128 @@
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        /* REFINED BALANCED TYPOGRAPHY */
+        /* REFINED TYPOGRAPHY - Prevents overflowing in landscape/desktop */
         .text-wrap {
             width: 100%;
-            max-width: 1400px; /* Prevents text from hitting edges on ultrawide */
-            margin: 0 auto;
+            max-width: 1200px;
             text-align: center;
+            z-index: 20;
         }
 
         .huge-text {
-            /* Min: 3.5rem (Mobile)
-               Mid: 12vw (Scaling)
-               Max: 10rem (Desktop) 
-            */
-            font-size: clamp(3.5rem, 11vw, 9.5rem);
+            /* Scales safely on all orientations */
+            font-size: clamp(3rem, 15vmin, 9rem);
             font-weight: 900;
             line-height: 0.85;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            display: block;
         }
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* UI Elements */
+        /* DESKTOP NAV */
+        .nav-link {
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: color 0.3s;
+        }
+
+        /* MOBILE MENU OVERLAY */
+        #mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--brand-orange); z-index: 2000;
+            display: none; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 2rem;
+        }
+
+        /* DOCK & FOOTER */
         .app-dock {
-            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom));
+            position: fixed; bottom: max(4.5rem, env(safe-area-inset-bottom) + 3rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); border-radius: 3rem;
             padding: 0.7rem 1.5rem; display: flex; gap: 2rem;
             align-items: center; z-index: 1000;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.05);
         }
+
+        footer {
+            position: fixed; bottom: 1.5rem; width: 100%;
+            text-align: center; font-size: 10px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 0.3em;
+            opacity: 0.3; z-index: 1000; pointer-events: none;
+        }
+        
+        .bg-dark-footer { color: white; opacity: 0.5; }
 
         .nav-dots {
             position: fixed; right: 1.5rem; top: 50%;
             transform: translateY(-50%); z-index: 1000;
-            display: flex; flex-direction: column; gap: 1.2rem;
+            display: flex; flex-direction: column; gap: 1rem;
         }
-
-        .dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: rgba(0,0,0,0.15); transition: all 0.4s ease;
-        }
-
-        .dot.active { background: var(--brand-orange); transform: scale(2); }
-        .bg-dark .dot { background: rgba(255,255,255,0.2); }
-        
-        /* Landscape/Tablet adjustment */
-        @media (max-height: 600px) {
-            .huge-text { font-size: clamp(2.5rem, 15vh, 6rem); }
-        }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
+        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1000] p-6 md:p-10 pointer-events-none flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter uppercase pointer-events-auto">FAZ HOQ<span class="accent">.</span></div>
+    <nav class="fixed top-0 w-full z-[1500] p-8 md:p-12 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+        
+        <div class="hidden md:flex gap-10">
+            <a href="#" onclick="goToSlide(1)" class="nav-link hover:text-[#FF6B2C]">Strategy</a>
+            <a href="#" onclick="goToSlide(2)" class="nav-link hover:text-[#FF6B2C]">Design</a>
+            <a href="#" onclick="goToSlide(4)" class="nav-link hover:text-[#FF6B2C]">Contact</a>
+        </div>
+
+        <button class="md:hidden text-2xl" id="menu-btn">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </button>
     </nav>
 
+    <div id="mobile-menu">
+        <button class="absolute top-10 right-10 text-3xl text-white" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#" onclick="goToSlide(1); toggleMenu()" class="text-4xl font-black text-white italic">STRATEGY</a>
+        <a href="#" onclick="goToSlide(2); toggleMenu()" class="text-4xl font-black text-white italic">DESIGN</a>
+        <a href="#" onclick="goToSlide(4); toggleMenu()" class="text-4xl font-black text-white italic">CONTACT</a>
+    </div>
+
     <div class="nav-dots" id="dotContainer">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
         
         <section class="active">
             <div class="text-wrap">
-                <span class="accent font-black text-[10px] tracking-[0.4em] mb-4 block">AVAILABLE FOR PROJECTS</span>
+                <span class="accent font-black text-[10px] tracking-[0.4em] mb-4 block">LONDON UK</span>
                 <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
             </div>
         </section>
 
         <section>
             <div class="text-wrap">
-                <span class="accent font-black text-[10px] tracking-widest mb-4 block">01. QUALITY</span>
-                <h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2>
-                <p class="mt-6 text-lg font-medium opacity-40 max-w-sm mx-auto">Pixel-perfect development that loads at the speed of thought.</p>
+                <h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
+                <p class="mt-6 text-sm font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">I build tools that generate revenue through smart UX triggers.</p>
             </div>
         </section>
 
         <section class="bg-dark">
             <div class="text-wrap">
-                <span class="accent font-black text-[10px] tracking-widest mb-4 block">02. USER EXPERIENCE</span>
                 <h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2>
-                <p class="mt-6 text-lg font-medium opacity-40 max-w-sm mx-auto">Engaging design that keeps your users hooked.</p>
+                <p class="mt-6 text-sm font-bold opacity-40 uppercase tracking-widest max-w-xs mx-auto">Engaging design that keeps your users hooked.</p>
             </div>
         </section>
 
         <section>
             <div class="text-wrap">
-                <span class="accent font-black text-[10px] tracking-widest mb-4 block">03. REVENUE</span>
-                <h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
-                <p class="mt-6 text-lg font-medium opacity-40 max-w-md mx-auto">I build tools that generate revenue through smart UX triggers.</p>
+                <h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2>
+                <p class="mt-6 text-sm font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">Pixel-perfect development that loads at the speed of thought.</p>
             </div>
         </section>
 
@@ -148,7 +170,7 @@
             <div class="text-wrap">
                 <h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2>
                 <div class="mt-12">
-                    <a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-3xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">
+                    <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-4xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">
                         Fazhoq1977@gmail.com
                     </a>
                 </div>
@@ -156,20 +178,25 @@
         </section>
     </div>
 
+    <footer id="main-footer">
+        LONDON UK &nbsp; | &nbsp; PRIVACY POLICY &nbsp; | &nbsp; &copy; 2024
+    </footer>
+
     <div class="app-dock">
-        <a href="sms:07706345874" class="text-xl p-2 text-gray-400 hover:text-black transition-colors"><i class="fa-solid fa-comment"></i></a>
+        <a href="sms:07706345874" class="text-xl p-2 text-gray-400 hover:text-black"><i class="fa-solid fa-comment"></i></a>
         <a href="https://wa.me/447706345874">
-            <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/20 hover:scale-110 transition-transform">
+            <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/20">
                 <i class="fa-brands fa-whatsapp text-3xl text-white"></i>
             </div>
         </a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl p-2 text-gray-400 hover:text-black transition-colors"><i class="fa-solid fa-paper-plane"></i></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl p-2 text-gray-400 hover:text-black"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
 
     <script>
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
+        const footer = document.getElementById('main-footer');
         let currentIdx = 0;
         let isMoving = false;
 
@@ -180,7 +207,11 @@
                 else if (i < currentIdx) sec.classList.add('prev');
             });
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
-            document.body.style.backgroundColor = sections[currentIdx].classList.contains('bg-dark') ? "#050505" : "#fff";
+            
+            const isDark = sections[currentIdx].classList.contains('bg-dark');
+            document.body.style.backgroundColor = isDark ? "#050505" : "#fff";
+            document.body.style.color = isDark ? "#fff" : "#000";
+            footer.classList.toggle('bg-dark-footer', isDark);
         }
 
         function navigate(dir) {
@@ -194,7 +225,20 @@
             }
         }
 
-        // Swipe
+        function goToSlide(index) {
+            currentIdx = index;
+            updateUI();
+        }
+
+        // Menu Toggle
+        const menuOverlay = document.getElementById('mobile-menu');
+        function toggleMenu() {
+            menuOverlay.style.display = menuOverlay.style.display === 'flex' ? 'none' : 'flex';
+        }
+        document.getElementById('menu-btn').onclick = toggleMenu;
+        document.getElementById('close-btn').onclick = toggleMenu;
+
+        // Gestures
         let startX = 0, startY = 0;
         window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
         window.addEventListener('touchend', e => {
@@ -206,15 +250,8 @@
             }
         }, { passive: false });
 
-        // Scroll
         window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
         
-        // Keys
-        window.addEventListener('keydown', e => {
-            if (["ArrowRight", "ArrowDown", " "].includes(e.key)) navigate(1);
-            if (["ArrowLeft", "ArrowUp"].includes(e.key)) navigate(-1);
-        });
-
         updateUI();
     </script>
 </body>
