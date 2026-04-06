@@ -31,7 +31,7 @@
             width: 100%; height: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            padding: 1.5rem;
+            padding: 2rem;
             background: var(--app-white);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -41,17 +41,25 @@
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        /* ULTRA MASSIVE TYPOGRAPHY */
-        .huge-text {
-            /* Increased clamp values for much larger impact */
-            font-size: clamp(4rem, 18vw, 16rem);
-            font-weight: 900;
-            line-height: 0.78;
-            letter-spacing: -0.08em;
-            text-transform: uppercase;
-            text-align: center;
-            word-break: break-word;
+        /* REFINED BALANCED TYPOGRAPHY */
+        .text-wrap {
             width: 100%;
+            max-width: 1400px; /* Prevents text from hitting edges on ultrawide */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .huge-text {
+            /* Min: 3.5rem (Mobile)
+               Mid: 12vw (Scaling)
+               Max: 10rem (Desktop) 
+            */
+            font-size: clamp(3.5rem, 11vw, 9.5rem);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            display: block;
         }
 
         .accent { color: var(--brand-orange); }
@@ -66,6 +74,7 @@
             padding: 0.7rem 1.5rem; display: flex; gap: 2rem;
             align-items: center; z-index: 1000;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-dots {
@@ -81,6 +90,11 @@
 
         .dot.active { background: var(--brand-orange); transform: scale(2); }
         .bg-dark .dot { background: rgba(255,255,255,0.2); }
+        
+        /* Landscape/Tablet adjustment */
+        @media (max-height: 600px) {
+            .huge-text { font-size: clamp(2.5rem, 15vh, 6rem); }
+        }
     </style>
 </head>
 <body>
@@ -100,45 +114,56 @@
     <div class="slide-container" id="master-wrapper">
         
         <section class="active">
-            <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent text-black">VISION</span><span class="accent">.</span></h1>
-            <p class="mt-8 text-[10px] font-black uppercase tracking-[0.4em] opacity-20">Scroll to Explore</p>
+            <div class="text-wrap">
+                <span class="accent font-black text-[10px] tracking-[0.4em] mb-4 block">AVAILABLE FOR PROJECTS</span>
+                <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
+            </div>
         </section>
 
         <section>
-            <span class="accent font-black text-[10px] tracking-widest mb-4">01. QUALITY</span>
-            <h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2>
-            <p class="mt-8 text-lg font-medium opacity-40">Speed meets precision.</p>
+            <div class="text-wrap">
+                <span class="accent font-black text-[10px] tracking-widest mb-4 block">01. QUALITY</span>
+                <h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2>
+                <p class="mt-6 text-lg font-medium opacity-40 max-w-sm mx-auto">Pixel-perfect development that loads at the speed of thought.</p>
+            </div>
         </section>
 
         <section class="bg-dark">
-            <span class="accent font-black text-[10px] tracking-widest mb-4">02. MAGIC</span>
-            <h2 class="huge-text italic">WOW<span class="accent">!</span><br>DESIGN.</h2>
-            <p class="mt-8 text-lg font-medium opacity-40">Hooking every user.</p>
+            <div class="text-wrap">
+                <span class="accent font-black text-[10px] tracking-widest mb-4 block">02. USER EXPERIENCE</span>
+                <h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2>
+                <p class="mt-6 text-lg font-medium opacity-40 max-w-sm mx-auto">Engaging design that keeps your users hooked.</p>
+            </div>
         </section>
 
         <section>
-            <span class="accent font-black text-[10px] tracking-widest mb-4">03. REVENUE</span>
-            <h2 class="huge-text">STRATEGY<br><span class="accent">PARTNER.</span></h2>
+            <div class="text-wrap">
+                <span class="accent font-black text-[10px] tracking-widest mb-4 block">03. REVENUE</span>
+                <h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
+                <p class="mt-6 text-lg font-medium opacity-40 max-w-md mx-auto">I build tools that generate revenue through smart UX triggers.</p>
+            </div>
         </section>
 
         <section class="bg-dark">
-            <h2 class="huge-text">HIRE<br>ME<span class="accent">.</span></h2>
-            <div class="mt-12">
-                <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-4xl font-black underline decoration-[#FF6B2C] underline-offset-8">
-                    Fazhoq1977@gmail.com
-                </a>
+            <div class="text-wrap">
+                <h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2>
+                <div class="mt-12">
+                    <a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-3xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">
+                        Fazhoq1977@gmail.com
+                    </a>
+                </div>
             </div>
         </section>
     </div>
 
     <div class="app-dock">
-        <a href="sms:07706345874" class="text-xl p-2"><i class="fa-solid fa-comment"></i></a>
+        <a href="sms:07706345874" class="text-xl p-2 text-gray-400 hover:text-black transition-colors"><i class="fa-solid fa-comment"></i></a>
         <a href="https://wa.me/447706345874">
-            <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg">
+            <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/20 hover:scale-110 transition-transform">
                 <i class="fa-brands fa-whatsapp text-3xl text-white"></i>
             </div>
         </a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl p-2"><i class="fa-solid fa-paper-plane"></i></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl p-2 text-gray-400 hover:text-black transition-colors"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
 
     <script>
@@ -155,7 +180,7 @@
                 else if (i < currentIdx) sec.classList.add('prev');
             });
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
-            document.body.classList.toggle('bg-dark', sections[currentIdx].classList.contains('bg-dark'));
+            document.body.style.backgroundColor = sections[currentIdx].classList.contains('bg-dark') ? "#050505" : "#fff";
         }
 
         function navigate(dir) {
@@ -165,30 +190,26 @@
                 isMoving = true;
                 currentIdx = target;
                 updateUI();
-                setTimeout(() => { isMoving = false; }, 700);
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
-        // Improved Touch System
+        // Swipe
         let startX = 0, startY = 0;
-        window.addEventListener('touchstart', e => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }, { passive: false });
-
+        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
         window.addEventListener('touchend', e => {
-            const diffX = startX - e.changedTouches[0].clientX;
-            const diffY = startY - e.changedTouches[0].clientY;
-            if (Math.abs(diffX) > 40 || Math.abs(diffY) > 40) {
-                if (Math.abs(diffX) > Math.abs(diffY)) navigate(diffX > 0 ? 1 : -1);
-                else navigate(diffY > 0 ? 1 : -1);
+            const dX = startX - e.changedTouches[0].clientX;
+            const dY = startY - e.changedTouches[0].clientY;
+            if (Math.abs(dX) > 40 || Math.abs(dY) > 40) {
+                if (Math.abs(dX) > Math.abs(dY)) navigate(dX > 0 ? 1 : -1);
+                else navigate(dY > 0 ? 1 : -1);
             }
         }, { passive: false });
 
-        window.addEventListener('wheel', e => {
-            if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1);
-        }, { passive: true });
-
+        // Scroll
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
+        
+        // Keys
         window.addEventListener('keydown', e => {
             if (["ArrowRight", "ArrowDown", " "].includes(e.key)) navigate(1);
             if (["ArrowLeft", "ArrowUp"].includes(e.key)) navigate(-1);
