@@ -7,26 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
         
         :root {
             --brand-orange: #FF6B2C;
             --app-white: #FFFFFF;
-            --bg-light: #fffaf7;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
             margin: 0; padding: 0; height: 100%; width: 100%;
             overflow: hidden; font-family: 'Outfit', sans-serif;
-            background: var(--bg-light); 
-            touch-action: pan-y pinch-zoom;
+            background: #fff; touch-action: none;
+            -webkit-user-select: none;
         }
 
         .slide-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
@@ -36,79 +28,45 @@
             width: 100%; height: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            padding: 2rem 1.5rem;
-            background: var(--bg-light);
+            padding: 2rem;
+            background: var(--app-white);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        .text-wrap { 
-            width: 100%; 
-            max-width: 1200px; 
-            text-align: center; 
-            z-index: 20; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            justify-content: center;
-        }
+        .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
         .huge-text {
-            font-size: clamp(3rem, 12vmin, 7rem);
+            font-size: clamp(3rem, 15vmin, 9rem);
             font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -0.03em;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
         }
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* ========== AVATAR + SEARCH BAR EXACT LAYOUT (BELOW AVATAR, PUSHED UP) ========== */
-        .avatar-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-
+        /* HERO CHARACTER - ENHANCED SIZE FOR PORTRAIT */
         .waving-hand {
-            width: clamp(300px, 70vw, 550px);
+            width: clamp(320px, 75vw, 600px); /* Increased width for portrait impact */
             height: auto;
-            margin-bottom: -25px;
+            margin-bottom: -15px;
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
             pointer-events: none;
-            mix-blend-mode: multiply;
-            transition: margin-bottom 0.2s ease;
+            mix-blend-mode: multiply; 
         }
 
-        /* Portrait mode: push avatar slightly up so search bar sits snugly below */
-        @media (orientation: portrait) {
-            .waving-hand {
-                margin-bottom: -40px;
-            }
-            .search-below-avatar {
-                margin-top: -8px;
-                width: 100%;
-                max-width: 500px;
-            }
-        }
-
-        /* Landscape: compact */
+        /* LANDSCAPE FIX: Shrink avatar to fit header/content */
         @media (orientation: landscape) {
-            .waving-hand { width: clamp(180px, 28vh, 280px); margin-bottom: -15px; margin-top: 10px; }
-            .huge-text { font-size: clamp(2.5rem, 9vh, 4.5rem); }
-            .search-below-avatar { max-width: 420px; }
+            .waving-hand { width: clamp(180px, 30vh, 300px); margin-top: 20px; }
+            .huge-text { font-size: clamp(2.5rem, 10vh, 5rem); }
         }
 
         @keyframes wave {
@@ -118,224 +76,58 @@
             50% { transform: rotate(4deg) scale(1); }
         }
 
-        /* CUSTOM SEARCH BAR (exactly as vibz style, orange accents) */
-        .search-wrapper {
-            background: white;
-            border-radius: 60px;
-            padding: 6px 10px 6px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 20px 35px rgba(255, 107, 0, 0.12);
-            width: 100%;
-            border: 1px solid rgba(255,107,0,0.2);
-            transition: all 0.2s;
-        }
-        .search-wrapper input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 14px 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            background: transparent;
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: -0.2px;
-        }
-        .search-wrapper input::placeholder {
-            color: #aaa;
-            font-weight: 500;
-        }
-        .search-icon-btn {
-            width: 52px;
-            height: 52px;
-            background: var(--brand-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-        }
-        .search-icon-btn:active { transform: scale(0.94); }
-
-        /* TYPEWRITER (I Build Websites For: X) */
-        .tagline-wrapper {
-            margin: 15px 0 5px;
-            text-align: center;
-        }
-        .build-for-label {
-            font-size: clamp(1.4rem, 5vw, 2.2rem);
-            font-weight: 800;
-            color: #1a1a1a;
-            letter-spacing: -0.3px;
-        }
-        .typewriter-highlight {
-            font-size: clamp(1.8rem, 6vw, 2.8rem);
-            font-weight: 900;
-            color: var(--brand-orange);
-            text-transform: capitalize;
-            display: inline-block;
-            min-width: 160px;
-            border-right: 3px solid var(--brand-orange);
-            padding-right: 6px;
-            animation: blinkCursor 0.8s step-end infinite;
-        }
-        @keyframes blinkCursor {
-            0%, 100% { border-color: var(--brand-orange); }
-            50% { border-color: transparent; }
-        }
-
-        /* HIDE all extra text (LONDON UK, etc.) as per request: "remove all other text see image : I Build Websites For:" */
-        .extra-text-hidden {
-            display: none;
-        }
-
-        /* CATEGORY LAYER (second swipe) */
-        .category-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 248, 242, 0.98);
-            backdrop-filter: blur(30px);
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
-            padding: 30px 20px;
-            overflow-y: auto;
-        }
-        .category-overlay.active {
-            transform: translateY(0);
-        }
-        .category-header {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--brand-orange);
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-        }
-        .cats-grid {
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin: 20px 0;
-        }
-        .cat-pill {
-            background: white;
-            border-radius: 100px;
-            padding: 18px 24px;
-            font-weight: 800;
-            font-size: 1.3rem;
-            text-align: center;
-            color: #121212;
-            border: 1px solid rgba(255,107,0,0.2);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .cat-pill:active {
-            background: var(--brand-orange);
-            color: white;
-            transform: scale(0.97);
-        }
-        .subcat-panel {
-            width: 100%;
-            max-width: 700px;
-            display: none;
-            text-align: center;
-        }
-        .subcat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .back-cat-btn {
-            background: white;
-            border: 1px solid var(--brand-orange);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        .sub-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            max-height: 55vh;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        .sub-niche {
-            background: white;
-            border-radius: 50px;
-            padding: 12px 24px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.1s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .sub-niche:active {
-            background: var(--brand-orange);
-            color: white;
-        }
-        .close-cat {
-            width: 60px;
-            height: 60px;
-            background: var(--brand-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-top: 25px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255,107,0,0.3);
-        }
-
-        /* DOCK + NAVIGATION (preserved) */
-        .app-dock {
-            position: fixed; bottom: max(1.8rem, env(safe-area-inset-bottom) + 1rem);
-            left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.9rem 2.2rem; display: flex; gap: 2.8rem; align-items: center; z-index: 1000;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.05);
-            width: fit-content; min-width: 270px;
-        }
-        .dock-btn { font-size: 1.7rem; transition: 0.2s; color: var(--brand-orange); cursor: pointer; }
-        .dock-btn:active { transform: scale(0.9); }
-        .nav-dots { position: fixed; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.15); transition: 0.2s; }
-        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
-        footer { position: fixed; bottom: 0.4rem; width: 100%; text-align: center; font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.2; z-index: 900; pointer-events: none; }
-        nav.top-nav { position: fixed; top: 0; width: 100%; z-index: 1500; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: transparent; }
-        .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; cursor: pointer; }
-        .menu-icon { font-size: 1.8rem; cursor: pointer; }
+        /* NAVIGATION */
+        .nav-link { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; transition: color 0.3s; }
         #mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-orange); z-index: 2000; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
-        @media (max-width: 640px) { .app-dock { gap: 2rem; padding: 0.7rem 1.8rem; } .dock-btn { font-size: 1.5rem; } }
+
+        /* WIDER & BIGGER DOCK DESIGN */
+        .app-dock {
+            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1.5rem);
+            left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px); border-radius: 5rem;
+            padding: 1rem 2.5rem; /* Wider padding */
+            display: flex; gap: 3rem; /* Larger gap */
+            align-items: center; z-index: 1000;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            border: 1px solid rgba(0,0,0,0.05);
+            width: fit-content;
+            min-width: 280px; /* Ensures width presence */
+        }
+
+        .dock-btn { 
+            font-size: 1.8rem; /* Bigger icons */
+            transition: all 0.3s ease; 
+            color: var(--brand-orange); /* All icons brand orange */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dock-btn:hover { transform: translateY(-5px); }
+        .dock-btn:active { transform: scale(0.9); }
+
+        footer { position: fixed; bottom: 0.5rem; width: 100%; text-align: center; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.2; z-index: 900; pointer-events: none; }
+        
+        .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
+        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="logo" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <div class="menu-icon" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></div>
+    <nav class="fixed top-0 w-full z-[1500] p-8 md:p-12 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+        <div class="hidden md:flex gap-10">
+            <a href="#" onclick="goToSlide(1)" class="nav-link hover:text-[#FF6B2C]">Strategy</a>
+            <a href="#" onclick="goToSlide(2)" class="nav-link hover:text-[#FF6B2C]">Design</a>
+            <a href="#" onclick="goToSlide(4)" class="nav-link hover:text-[#FF6B2C]">Contact</a>
+        </div>
+        <button class="md:hidden text-2xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
     <div id="mobile-menu">
-        <button class="absolute top-10 right-10 text-4xl text-white" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        <button class="absolute top-10 right-10 text-3xl text-white" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
         <a href="#" onclick="goToSlide(1); toggleMenu()" class="text-4xl font-black text-white italic">STRATEGY</a>
         <a href="#" onclick="goToSlide(2); toggleMenu()" class="text-4xl font-black text-white italic">DESIGN</a>
         <a href="#" onclick="goToSlide(4); toggleMenu()" class="text-4xl font-black text-white italic">CONTACT</a>
@@ -346,37 +138,21 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: AVATAR + SEARCH BAR + "I Build Websites For:" + typewriter -->
         <section class="active">
             <div class="text-wrap">
-                <div class="avatar-section">
-                    <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                    <!-- search bar exactly below avatar (slightly pushed up via margin negative) -->
-                    <div class="search-below-avatar" style="width:100%; max-width:520px;">
-                        <div class="search-wrapper">
-                            <input type="text" id="globalSearchInput" placeholder="Search any industry... (e.g., lawyer, plumber)" autocomplete="off">
-                            <button class="search-icon-btn" id="searchMainBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Only "I Build Websites For:" + dynamic typewriter, all other text removed -->
-                <div class="tagline-wrapper">
-                    <span class="build-for-label">I Build Websites For:</span>
-                    <span class="typewriter-highlight" id="dynamicNicheWriter">plumbers</span>
-                </div>
-                <!-- hidden hint for swipe categories -->
-                <p class="text-[10px] font-bold opacity-40 mt-4 tracking-wide">← swipe to explore categories →</p>
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
+                <span class="accent font-black text-[10px] tracking-[0.4em] mb-3 block">LONDON UK</span>
+                <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
             </div>
         </section>
 
-        <!-- other slides (preserved but cleaned) -->
         <section><div class="text-wrap"><h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">I build tools that generate revenue through smart UX triggers.</p></div></section>
         <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2><p class="mt-4 text-xs font-bold opacity-40 uppercase tracking-widest max-w-xs mx-auto">Engaging design that keeps your users hooked.</p></div></section>
         <section><div class="text-wrap"><h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">Pixel-perfect development that loads at the speed of thought.</p></div></section>
         <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-4xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">Fazhoq1977@gmail.com</a></div></div></section>
     </div>
 
-    <footer>&copy; 2025 | LONDON UK | VISIONARY CODE</footer>
+    <footer>&copy; 2024 | LONDON UK | PRIVACY POLICY</footer>
 
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
@@ -384,249 +160,53 @@
         <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
 
-    <!-- CATEGORY LAYER (Second Swipe) -->
-    <div id="categoryModal" class="category-overlay">
-        <div class="category-header">SELECT BY CATEGORY</div>
-        <div id="mainCategoriesPanel" class="cats-grid"></div>
-        <div id="subcategorySection" class="subcat-panel">
-            <div class="subcat-header">
-                <button id="backToCategories" class="back-cat-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <span id="selectedCategoryTitle" class="font-black text-xl text-[#FF6B2C]"></span>
-            </div>
-            <div id="subItemsList" class="sub-list"></div>
-        </div>
-        <div class="close-cat" onclick="closeCategoryModal()"><i class="fa-solid fa-xmark"></i></div>
-    </div>
-
     <script>
-        // --------------------------------------------------------------
-        // 100+ NICHE DATA (fully replicated from vibz js style)
-        const nicheCategories = {
-            "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists", "Nutritionists", "Chiropractors", "Med Spas", "Veterinarians", "Pilates Studios"],
-            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths", "Painters", "HVAC Technicians", "Handymen", "Gardeners", "Roofers", "Masons"],
-            "Professional Services": ["Lawyers", "Accountants", "Real Estate Agents", "Tutors", "Marketing Agencies", "Consultants", "Architects", "Financial Advisors", "IT Consultants", "HR Consultants"],
-            "Food & Drink": ["Restaurants", "Cafes & Coffee", "Bakeries", "Bars & Clubs", "Catering", "Takeaways", "Food Trucks", "Breweries", "Wineries", "Pizzerias"],
-            "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops", "Jewelry Designers", "Tattoo Studios", "Tailors", "Bookstores", "Gift Shops"]
-        };
-        
-        // Flattened array of 100+ unique niches for typewriter (expanded)
-        const allNichesMaster = [
-            "plumbers", "electricians", "carpenters", "painters", "roofers", "landscapers", "gardeners", "cleaners", "handymen", "locksmiths",
-            "dentists", "gyms", "barbers", "lawyers", "restaurants", "cafes", "bakeries", "spas", "physiotherapists", "yoga instructors",
-            "therapists", "nutritionists", "chiropractors", "real estate agents", "accountants", "marketing agencies", "consultants",
-            "photographers", "florists", "boutiques", "pet shops", "tattoo artists", "tailors", "food trucks", "breweries", "wineries",
-            "catering", "takeaways", "bars", "clubs", "architects", "financial advisors", "it consultants", "med spas", "jewelry designers",
-            "hvac technicians", "dog groomers", "vets", "pilates studios", "dance studios", "music teachers", "tutors", "interior designers",
-            "landscape architects", "event planners", "wedding planners", "videographers", "graphic designers", "web developers", "seo experts",
-            "social media managers", "salons", "nail salons", "massage therapists", "acupuncturists", "optometrists", "pharmacies", "furniture stores"
-        ];
-        
-        // Typewriter logic (exactly replicates vibz but with Faz Hoq tagline)
-        let twIdx = 0, twChar = 0, isDeletingFlag = false;
-        let typeInterval;
-        const typeSpan = document.getElementById("dynamicNicheWriter");
-        
-        function startNicheTypewriter() {
-            if (typeInterval) clearInterval(typeInterval);
-            twIdx = Math.floor(Math.random() * allNichesMaster.length);
-            twChar = 0;
-            isDeletingFlag = false;
-            typeInterval = setInterval(updateTypewriterEffect, 82);
-        }
-        
-        function updateTypewriterEffect() {
-            if (!typeSpan) return;
-            const currentNiche = allNichesMaster[twIdx];
-            if (!isDeletingFlag) {
-                typeSpan.textContent = currentNiche.substring(0, twChar + 1);
-                twChar++;
-                if (twChar === currentNiche.length) {
-                    isDeletingFlag = true;
-                    setTimeout(() => {}, 1700);
-                }
-            } else {
-                typeSpan.textContent = currentNiche.substring(0, twChar - 1);
-                twChar--;
-                if (twChar === 0) {
-                    isDeletingFlag = false;
-                    let newIdx;
-                    do { newIdx = Math.floor(Math.random() * allNichesMaster.length); } 
-                    while (newIdx === twIdx && allNichesMaster.length > 1);
-                    twIdx = newIdx;
-                }
-            }
-        }
-        
-        // ---------- CATEGORY LAYER (Second Swipe) ----------
-        const modal = document.getElementById("categoryModal");
-        const mainPanel = document.getElementById("mainCategoriesPanel");
-        const subPanelDiv = document.getElementById("subcategorySection");
-        const subListContainer = document.getElementById("subItemsList");
-        const categoryTitleSpan = document.getElementById("selectedCategoryTitle");
-        
-        function renderMainCategories() {
-            mainPanel.innerHTML = "";
-            Object.keys(nicheCategories).forEach(cat => {
-                const pill = document.createElement("div");
-                pill.className = "cat-pill";
-                pill.textContent = cat;
-                pill.onclick = () => showSubcategories(cat);
-                mainPanel.appendChild(pill);
-            });
-        }
-        
-        function showSubcategories(category) {
-            const nichesList = nicheCategories[category];
-            subListContainer.innerHTML = "";
-            nichesList.forEach(niche => {
-                const subDiv = document.createElement("div");
-                subDiv.className = "sub-niche";
-                subDiv.textContent = niche;
-                subDiv.onclick = () => {
-                    document.getElementById("globalSearchInput").value = niche;
-                    closeCategoryModal();
-                    triggerSearchFlow(niche);
-                };
-                subListContainer.appendChild(subDiv);
-            });
-            categoryTitleSpan.textContent = category;
-            mainPanel.style.display = "none";
-            subPanelDiv.style.display = "block";
-        }
-        
-        function backToMain() {
-            mainPanel.style.display = "flex";
-            subPanelDiv.style.display = "none";
-        }
-        
-        function openCategoryModal() {
-            mainPanel.style.display = "flex";
-            subPanelDiv.style.display = "none";
-            renderMainCategories();
-            modal.classList.add("active");
-        }
-        
-        function closeCategoryModal() {
-            modal.classList.remove("active");
-        }
-        
-        // Search + redirection simulation (with loading feedback)
-        function triggerSearchFlow(overrideNiche = null) {
-            let searchVal = overrideNiche ? overrideNiche.trim() : document.getElementById("globalSearchInput").value.trim();
-            if (!searchVal) return;
-            const searchBtn = document.getElementById("searchMainBtn");
-            const originalIcon = searchBtn.innerHTML;
-            searchBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-            setTimeout(() => {
-                // Brand-aligned action: showcase VIBZ-style but keeping Faz Hoq consistency (demo alert with style)
-                alert(`✨ ${searchVal.toUpperCase()} ✨\nFaz Hoq will architect a premium, high-conversion website for your ${searchVal} business. Let's build something visionary.`);
-                searchBtn.innerHTML = originalIcon;
-                // You could redirect to funnel later
-            }, 600);
-        }
-        
-        // ----- SWIPE DETECTION (for second swipe to open categories on slide 0) -----
-        let touchStartX = 0, touchStartY = 0;
-        let currentActiveSlide = 0;
-        
-        function handleSwipeToOpen(e) {
-            if (currentIdx !== 0) return;
-            const deltaX = e.changedTouches[0].clientX - touchStartX;
-            const deltaY = e.changedTouches[0].clientY - touchStartY;
-            if (Math.abs(deltaX) > 55 && Math.abs(deltaY) < 70 && deltaX < 0) {
-                e.preventDefault();
-                openCategoryModal();
-            }
-        }
-        
-        document.body.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: false });
-        document.body.addEventListener('touchend', handleSwipeToOpen);
-        
-        // bind search button and enter key
-        document.getElementById("searchMainBtn").addEventListener("click", () => {
-            const val = document.getElementById("globalSearchInput").value.trim();
-            if (val) triggerSearchFlow(val);
-            else openCategoryModal();
-        });
-        document.getElementById("globalSearchInput").addEventListener("keypress", (e) => {
-            if (e.key === "Enter") {
-                const val = e.target.value.trim();
-                if (val) triggerSearchFlow(val);
-                else openCategoryModal();
-            }
-        });
-        
-        document.getElementById("backToCategories").addEventListener("click", backToMain);
-        
-        // ----- SLIDE MANAGER (preserve original Faz Hoq navigation) -----
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0;
-        let isMoving = false;
-        
-        function updateSlideUI() {
+        let currentIdx = 0; let isMoving = false;
+
+        function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
-            const isDark = sections[currentIdx]?.classList.contains('bg-dark');
-            document.body.style.backgroundColor = isDark ? "#050505" : "#fffaf7";
-            if (currentIdx === 0) {
-                if (!typeInterval) startNicheTypewriter();
-            } else {
-                if (typeInterval) clearInterval(typeInterval);
-                typeInterval = null;
-            }
+            const isDark = sections[currentIdx].classList.contains('bg-dark');
+            document.body.style.backgroundColor = isDark ? "#050505" : "#fff";
+            document.body.style.color = isDark ? "#fff" : "#000";
         }
-        
-        function navigateSlide(dir) {
+
+        function navigate(dir) {
             if (isMoving) return;
             const target = currentIdx + dir;
             if (target >= 0 && target < sections.length) {
-                isMoving = true;
-                currentIdx = target;
-                updateSlideUI();
-                setTimeout(() => { isMoving = false; }, 700);
+                isMoving = true; currentIdx = target; updateUI();
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
-        
-        function goToSlide(index) {
-            if (index !== currentIdx && index >= 0 && index < sections.length) {
-                currentIdx = index;
-                updateSlideUI();
-            }
-        }
-        
-        // touch / wheel events
-        let startGlobalX = 0, startGlobalY = 0;
-        window.addEventListener('touchstart', e => { startGlobalX = e.touches[0].clientX; startGlobalY = e.touches[0].clientY; });
-        window.addEventListener('touchend', e => {
-            const diffX = startGlobalX - e.changedTouches[0].clientX;
-            const diffY = startGlobalY - e.changedTouches[0].clientY;
-            if (Math.abs(diffX) > 40 || Math.abs(diffY) > 40) {
-                if (Math.abs(diffX) > Math.abs(diffY)) navigateSlide(diffX > 0 ? 1 : -1);
-                else navigateSlide(diffY > 0 ? 1 : -1);
-            }
-        });
-        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 12) navigateSlide(e.deltaY > 0 ? 1 : -1); }, { passive: true });
-        
-        function toggleMenu() { const mm = document.getElementById('mobile-menu'); mm.style.display = mm.style.display === 'flex' ? 'none' : 'flex'; }
+
+        function goToSlide(index) { currentIdx = index; updateUI(); }
+        const menuOverlay = document.getElementById('mobile-menu');
+        function toggleMenu() { menuOverlay.style.display = menuOverlay.style.display === 'flex' ? 'none' : 'flex'; }
         document.getElementById('menu-btn').onclick = toggleMenu;
         document.getElementById('close-btn').onclick = toggleMenu;
-        
-        // initializers
-        renderMainCategories();
-        updateSlideUI();
-        startNicheTypewriter();
-        window.closeCategoryModal = closeCategoryModal;
-        window.openCategoryModal = openCategoryModal;
-        window.triggerSearchFlow = triggerSearchFlow;
+
+        let startX = 0, startY = 0;
+        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
+        window.addEventListener('touchend', e => {
+            const dX = startX - e.changedTouches[0].clientX;
+            const dY = startY - e.changedTouches[0].clientY;
+            if (Math.abs(dX) > 40 || Math.abs(dY) > 40) {
+                if (Math.abs(dX) > Math.abs(dY)) navigate(dX > 0 ? 1 : -1);
+                else navigate(dY > 0 ? 1 : -1);
+            }
+        }, { passive: false });
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
+        updateUI();
     </script>
 </body>
 </html>
+
+
