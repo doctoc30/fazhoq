@@ -62,16 +62,18 @@
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* HERO CHARACTER - OPTIMIZED */
+        /* HERO CHARACTER - LARGE & ANIMATED */
         .waving-hand {
-            width: clamp(280px, 50vw, 550px); /* Massive presence */
+            /* Increased size to fill the hero area */
+            width: clamp(280px, 55vw, 580px); 
             height: auto;
-            margin-bottom: -10px;
+            margin-bottom: -15px; /* Pulls the text tighter to the character */
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
             pointer-events: none;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.05));
+            /* Added a soft glow/shadow for depth */
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
         }
 
         @keyframes wave {
