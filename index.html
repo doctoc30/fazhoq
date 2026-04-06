@@ -3,145 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faz Hoq | Digital Designer</title>
+    <title>Faz Hoq | Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap');
         
+        :root {
+            --brand-orange: #FF6B2C;
+            --dark-bg: #0A0A0A;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FFF8F0; /* Soft cream from your branding */
-            color: #1a1a1a;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        .brand-orange { color: #E87732; }
-        .bg-brand-orange { background-color: #E87732; }
-        
-        /* The "App Dock" Styling */
-        .app-dock {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(232, 119, 50, 0.2);
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Glassmorphism for cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid white;
+        .orange-glow {
+            box-shadow: 0 0 40px rgba(255, 107, 44, 0.15);
         }
 
-        .hero-text { line-height: 0.9; }
+        /* Glass Dock */
+        .glass-dock {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+        }
+
+        /* Smooth Bento Grids */
+        .bento-card {
+            background: #141414;
+            border: 1px solid #222;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .bento-card:hover {
+            border-color: var(--brand-orange);
+            transform: translateY(-5px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
-<body class="pb-32">
+<body class="pb-40">
 
-    <nav class="flex justify-between items-center p-6 lg:px-12">
-        <div class="text-3xl font-black tracking-tighter">FAZ HOQ<span class="brand-orange">.</span></div>
-        <a href="mailto:Fazhoq1977@gmail.com" class="bg-white px-6 py-2 rounded-full font-bold shadow-sm border border-orange-100 flex items-center gap-2">
-            <i class="fa-solid font-light fa-user-circle brand-orange"></i> Client Portal
+    <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
+        <div class="text-2xl font-black tracking-tighter">FAZ HOQ<span class="text-[#FF6B2C]">.</span></div>
+        <div class="hidden md:flex gap-8 text-sm font-medium opacity-60">
+            <a href="#" class="hover:opacity-100">Work</a>
+            <a href="#" class="hover:opacity-100">Process</a>
+            <a href="#" class="hover:opacity-100">Contact</a>
+        </div>
+        <a href="mailto:Fazhoq1977@gmail.com" class="px-5 py-2 border border-white/10 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all">
+            Let's Talk
         </a>
     </nav>
 
-    <section class="px-6 py-12 lg:py-24 text-center max-w-4xl mx-auto">
-        <h2 data-aos="fade-up" class="brand-orange text-4xl lg:text-7xl font-black hero-text mb-2">
-            We Build <br> Websites For:
-        </h2>
-        <h1 data-aos="fade-up" data-aos-delay="200" class="text-5xl lg:text-8xl font-black mb-10">
-            Visionaries
-        </h1>
+    <section class="relative px-6 pt-20 pb-32 flex flex-col items-center text-center">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#FF6B2C]/10 blur-[120px] rounded-full -z-10"></div>
         
-        <div data-aos="zoom-in" data-aos-delay="400" class="relative max-w-xl mx-auto">
-            <input type="text" placeholder="Search any industry..." class="w-full p-6 rounded-3xl shadow-xl border-none focus:ring-2 focus:ring-orange-400 outline-none text-lg">
-            <button class="absolute right-3 top-3 bg-brand-orange text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
-                <i class="fa-solid fa-magnifying-glass"></i>
+        <span data-aos="fade-up" class="px-4 py-1.5 rounded-full border border-[#FF6B2C]/30 text-[#FF6B2C] text-xs font-bold uppercase tracking-widest mb-8">
+            Available for New Projects
+        </span>
+
+        <h1 data-aos="fade-up" data-aos-delay="100" class="text-6xl md:text-8xl font-black tracking-tight mb-6 leading-[0.9]">
+            WE BUILD<br><span class="text-gradient">WEBSITES FOR</span><br>
+            <span class="text-[#FF6B2C]">VISIONARIES.</span>
+        </h1>
+
+        <p data-aos="fade-up" data-aos-delay="200" class="max-w-xl text-gray-400 text-lg md:text-xl font-light mb-12">
+            High-performance digital experiences for brands that refuse to look ordinary.
+        </p>
+
+        <div data-aos="fade-up" data-aos-delay="300" class="flex gap-4">
+            <button class="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-bold orange-glow hover:scale-105 transition-transform">
+                Start a Project
+            </button>
+            <button class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/10 transition-all">
+                View Portfolio
             </button>
         </div>
     </section>
 
-    <section class="py-12 px-6">
-        <p class="text-center font-bold tracking-widest text-orange-800 opacity-60 uppercase mb-8">Popular Categories</p>
-        <div class="flex gap-6 overflow-x-auto pb-10 no-scrollbar">
-            <div data-aos="fade-right" class="min-w-[300px] h-96 bg-emerald-900 rounded-[2rem] p-8 text-white flex flex-col justify-between">
-                <h3 class="text-2xl font-bold">Eco-Brand<br>Websites</h3>
-                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
-            </div>
-            <div data-aos="fade-right" data-aos-delay="100" class="min-w-[300px] h-96 bg-zinc-400 rounded-[2rem] p-8 text-white flex flex-col justify-between">
-                <h3 class="text-2xl font-bold">Artist's<br>Digital Space</h3>
-                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
-            </div>
-            <div data-aos="fade-right" data-aos-delay="200" class="min-w-[300px] h-96 bg-brand-orange rounded-[2rem] p-8 text-white flex flex-col justify-between">
-                <h3 class="text-2xl font-bold">High-End<br>E-Commerce</h3>
-                <div class="bg-white/20 p-4 rounded-xl backdrop-blur-md">View Case Study →</div>
-            </div>
+    <section class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div data-aos="zoom-in" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-end min-h-[400px] relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-20"><i class="fa-solid fa-code text-8xl"></i></div>
+            <h3 class="text-3xl font-bold mb-2">Clean Code.</h3>
+            <p class="text-gray-400">Pixel-perfect development that loads at the speed of thought.</p>
+        </div>
+        
+        <div data-aos="zoom-in" data-aos-delay="100" class="bento-card p-10 rounded-[2.5rem] bg-[#FF6B2C] border-none text-white flex flex-col justify-between">
+            <div class="text-5xl font-black italic">WOW!</div>
+            <p class="font-medium text-lg leading-tight">Interaction design that keeps your users hooked.</p>
+        </div>
+
+        <div data-aos="zoom-in" data-aos-delay="200" class="bento-card p-10 rounded-[2.5rem] flex flex-col items-center justify-center text-center">
+            <div class="text-5xl font-black text-[#FF6B2C] mb-2">99%</div>
+            <p class="text-sm uppercase tracking-widest opacity-60">Client Satisfaction</p>
+        </div>
+
+        <div data-aos="zoom-in" data-aos-delay="300" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-center">
+            <h3 class="text-2xl font-bold mb-4">Strategic Design Partner</h3>
+            <p class="text-gray-400">I don't just build sites; I build business tools that generate revenue through smart UX and psychological design triggers.</p>
         </div>
     </section>
 
-    <section class="px-6 py-20 bg-white rounded-[3rem] mx-4 shadow-inner" data-aos="fade-up">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-4xl font-black mb-6 leading-tight">Ready to boost your <span class="brand-orange">online presence?</span></h3>
-            <p class="text-gray-500 text-lg mb-8">Based in the UK, Faz Hoq delivers bespoke digital experiences that convert visitors into customers.</p>
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="p-6 glass-card rounded-3xl">
-                    <p class="text-3xl font-black brand-orange">100%</p>
-                    <p class="font-bold text-sm">Bespoke Design</p>
-                </div>
-                <div class="p-6 glass-card rounded-3xl">
-                    <p class="text-3xl font-black brand-orange">24/7</p>
-                    <p class="font-bold text-sm">Support</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-50">
-        <div class="app-dock rounded-[2.5rem] p-4 flex justify-between items-center">
-            <a href="tel:07706345874" class="flex flex-col items-center group">
-                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-brand-orange group-hover:text-white transition-all">
-                    <i class="fa-solid fa-phone"></i>
-                </div>
-                <span class="text-[10px] font-bold mt-1 uppercase">Call</span>
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-[450px] z-50">
+        <div class="glass-dock p-3 flex justify-between items-center shadow-2xl">
+            
+            <a href="tel:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
+                <i class="fa-solid fa-phone text-lg mb-1"></i>
+                <span class="text-[9px] uppercase font-bold opacity-50">Call</span>
             </a>
 
-            <a href="https://wa.me/447706345874" class="flex flex-col items-center group">
-                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-[#25D366] group-hover:text-white transition-all">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                </div>
-                <span class="text-[10px] font-bold mt-1 uppercase">WhatsApp</span>
+            <a href="https://wa.me/447706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-[#25D366]/20 text-[#25D366] transition-all">
+                <i class="fa-brands fa-whatsapp text-xl mb-1"></i>
+                <span class="text-[9px] uppercase font-bold opacity-70">WhatsApp</span>
             </a>
 
-            <a href="mailto:Fazhoq1977@gmail.com" class="flex flex-col items-center -mt-10">
-                <div class="w-16 h-16 flex items-center justify-center rounded-full bg-brand-orange text-white shadow-lg shadow-orange-300 animate-bounce">
-                    <i class="fa-solid fa-bolt text-2xl"></i>
+            <a href="mailto:Fazhoq1977@gmail.com" class="relative group">
+                <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#FF6B2C] text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap animate-bounce">
+                    HIRE ME
                 </div>
-                <span class="text-[10px] font-black mt-2 brand-orange uppercase">Hire Faz</span>
+                <div class="w-16 h-16 bg-[#FF6B2C] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B2C]/40 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-paper-plane text-xl text-white"></i>
+                </div>
             </a>
 
-            <a href="sms:07706345874" class="flex flex-col items-center group">
-                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                    <i class="fa-solid fa-comment-dots"></i>
-                </div>
-                <span class="text-[10px] font-bold mt-1 uppercase">Text</span>
+            <a href="sms:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
+                <i class="fa-solid fa-comment-dots text-lg mb-1"></i>
+                <span class="text-[9px] uppercase font-bold opacity-50">Text</span>
             </a>
 
-            <a href="mailto:Fazhoq1977@gmail.com" class="flex flex-col items-center group">
-                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-zinc-100 group-hover:bg-zinc-900 group-hover:text-white transition-all">
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <span class="text-[10px] font-bold mt-1 uppercase">Email</span>
+            <a href="mailto:Fazhoq1977@gmail.com" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
+                <i class="fa-solid fa-envelope text-lg mb-1"></i>
+                <span class="text-[9px] uppercase font-bold opacity-50">Email</span>
             </a>
+
         </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1000,
-            once: true,
-            easing: 'ease-out-back'
+            duration: 1200,
+            once: false,
+            mirror: true
         });
     </script>
 </body>
