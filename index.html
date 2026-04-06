@@ -1,640 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Faz Hoq · Solo Web Design</title>
-  <!-- Google Fonts: Inter + subtle display -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (free) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Faz Hoq · Solo Web Designer</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: #faf3e8;  /* light brownish / warm sand */
-      font-family: 'Inter', sans-serif;
-      color: #2a241a;
-      line-height: 1.45;
-      scroll-behavior: smooth;
-    }
+        body {
+            background: #fefaf5;  /* warm off-white, like clean paper */
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e1b1a;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
 
-    /* main container with bottom dock spacing */
-    .main-content {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem 1.8rem 7rem 1.8rem;
-    }
+        /* main container with subtle max-width and center */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem 6rem 1.8rem;
+        }
 
-    /* header / personal branding */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 3rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid #e2d4c4;
-    }
-    .logo h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #b87c4a, #7b4a2a);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .logo span {
-      font-weight: 400;
-      font-size: 0.9rem;
-      color: #9b7b5c;
-      display: block;
-      margin-top: 4px;
-    }
-    .badge {
-      background: #e9ddcf;
-      padding: 0.4rem 1rem;
-      border-radius: 60px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #6b3f1c;
-    }
-    .badge i {
-      margin-right: 6px;
-    }
+        /* ---------- HERO + BRANDING inspired by the image (VIBZ style) ---------- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 2.5rem;
+        }
 
-    /* hero section — personal, no agency */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2.5rem;
-      margin-bottom: 4rem;
-    }
-    .hero-text {
-      flex: 1.2;
-    }
-    .hero-text .greeting {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: #b45f2b;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-    .hero-text h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.2rem;
-      color: #2b2218;
-    }
-    .hero-text .highlight {
-      color: #b45f2b;
-      border-bottom: 3px solid #e9cba7;
-      display: inline-block;
-    }
-    .hero-text p {
-      font-size: 1.1rem;
-      color: #4a3a2a;
-      margin-bottom: 1.8rem;
-      max-width: 90%;
-    }
-    .price-tag {
-      display: inline-block;
-      background: #2b2218;
-      color: #fcf3e6;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-    .price-tag i {
-      margin-right: 8px;
-      color: #e9cba7;
-    }
-    .hero-avatar {
-      flex: 0.8;
-      background: #e8dccc;
-      border-radius: 48% 52% 38% 62% / 56% 44% 56% 44%;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
-    }
-    .avatar-icon {
-      font-size: 5rem;
-      color: #7b4a2a;
-      background: #fff6eb;
-      width: 180px;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin: 0 auto;
-      box-shadow: inset 0 0 0 3px #f5e8da, 0 10px 20px rgba(0,0,0,0.05);
-    }
-    .avatar-icon i {
-      font-size: 5rem;
-    }
+        .tagline-badge {
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #c27e4a;
+            background: #f3ede7;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            width: fit-content;
+        }
 
-    /* services / what i deliver */
-    .services {
-      margin: 3rem 0 3rem;
-    }
-    .section-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #2b2218;
-    }
-    .section-title i {
-      color: #b45f2b;
-      font-size: 1.8rem;
-    }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.8rem;
-    }
-    .card {
-      background: #fffcf7;
-      border-radius: 28px;
-      padding: 1.5rem;
-      flex: 1 1 200px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.05);
-      border: 1px solid #ede3d6;
-      transition: all 0.2s ease;
-    }
-    .card i {
-      font-size: 2rem;
-      color: #b45f2b;
-      margin-bottom: 1rem;
-    }
-    .card h3 {
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      font-size: 1.2rem;
-    }
-    .card p {
-      color: #5a4a34;
-      font-size: 0.9rem;
-    }
+        .main-headline {
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2d2a27 0%, #b95f2c 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-    /* testimonial / trust (personal touch) */
-    .trust {
-      background: #efe3d4;
-      border-radius: 32px;
-      padding: 2rem;
-      margin: 2.5rem 0;
-    }
-    .trust i.fa-quote-left {
-      color: #b45f2b;
-      font-size: 1.6rem;
-      opacity: 0.7;
-    }
-    .trust p {
-      font-style: italic;
-      font-size: 1.05rem;
-      margin: 0.8rem 0 0.8rem;
-      color: #2b241a;
-    }
-    .client-name {
-      font-weight: 700;
-      margin-top: 0.5rem;
-    }
+        .headline-sub {
+            font-size: 1.2rem;
+            color: #5a4e45;
+            max-width: 680px;
+            font-weight: 400;
+            border-left: 3px solid #e2c7b1;
+            padding-left: 1.2rem;
+        }
 
-    /* fixed bottom dock: contains contact form + buttons (app-like) */
-    .bottom-dock {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-      max-width: 92vw;
-      background: rgba(43, 34, 24, 0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 48px;
-      padding: 0.9rem 1.2rem;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,245,230,0.2);
-      z-index: 1000;
-      transition: all 0.2s;
-      border: 0.5px solid rgba(255,235,210,0.3);
-    }
-    .dock-container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-    /* quick action icons (whatsapp, call, email, messenger) */
-    .dock-icons {
-      display: flex;
-      gap: 1rem;
-      background: rgba(255,245,230,0.08);
-      padding: 0.4rem 0.8rem;
-      border-radius: 60px;
-    }
-    .dock-icon {
-      background: transparent;
-      border: none;
-      color: #f7ede2;
-      font-size: 1.4rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 50%;
-      transition: all 0.2s;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .dock-icon:hover {
-      background: rgba(255,215,170,0.2);
-      transform: translateY(-2px);
-    }
-    .dock-icon span {
-      display: none;
-    }
-    /* contact form inline inside dock */
-    .dock-form {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      flex-wrap: wrap;
-      background: rgba(255,245,230,0.1);
-      padding: 0.3rem 0.8rem;
-      border-radius: 60px;
-    }
-    .dock-form input {
-      background: #fffaf2;
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-family: 'Inter', sans-serif;
-      width: 180px;
-      outline: none;
-      color: #2b2218;
-    }
-    .dock-form input::placeholder {
-      color: #a28d72;
-    }
-    .dock-form button {
-      background: #b45f2b;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 40px;
-      color: white;
-      font-weight: 600;
-      font-size: 0.8rem;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s;
-    }
-    .dock-form button:hover {
-      background: #9a4a1a;
-      transform: scale(0.97);
-    }
+        /* "We Build Websites For: Painters" style block — matching the ref image */
+        .industry-prompt {
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            padding: 1.5rem 2rem;
+            margin: 1rem 0 0.5rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #f1e4da;
+        }
 
-    /* toast message */
-    .toast-msg {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #2b241a;
-      color: #f7ede2;
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      z-index: 1100;
-      backdrop-filter: blur(10px);
-      background: rgba(0,0,0,0.85);
-      pointer-events: none;
-      transition: opacity 0.2s;
-      opacity: 0;
-      white-space: nowrap;
-      font-family: 'Inter', sans-serif;
-    }
+        .build-for {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #23201e;
+        }
 
-    @media (max-width: 780px) {
-      .dock-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .dock-icons {
-        justify-content: center;
-      }
-      .dock-form {
-        justify-content: center;
-      }
-      .hero-text h1 {
-        font-size: 2.4rem;
-      }
-      .hero-text p {
-        max-width: 100%;
-      }
-      .main-content {
-        padding: 1.5rem 1rem 8rem 1rem;
-      }
-      .bottom-dock {
-        bottom: 0.8rem;
-        width: 95vw;
-        padding: 0.8rem;
-      }
-      .dock-form input {
-        width: 140px;
-      }
-    }
+        .build-for span {
+            background: #faeedf;
+            padding: 0.1rem 0.4rem;
+            border-radius: 24px;
+            display: inline-block;
+        }
 
-    button {
-      background: none;
-      border: none;
-    }
-    .btn-primary {
-      background: #b45f2b;
-      color: white;
-      padding: 0.8rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #c9b69c;
-      padding: 0.7rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      color: #4a3a2a;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #9b846b;
-      margin-top: 3rem;
-      border-top: 1px solid #e2d4c4;
-      padding-top: 2rem;
-    }
-    a {
-      text-decoration: none;
-    }
-  </style>
+        .search-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .search-bar {
+            flex: 2;
+            min-width: 200px;
+            background: #fff7f0;
+            border: 1px solid #eadbcb;
+            border-radius: 60px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            color: #1f1c19;
+            transition: all 0.2s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #c27e4a;
+            box-shadow: 0 0 0 3px rgba(194,126,74,0.2);
+        }
+
+        .popular-cats {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #a07655;
+            letter-spacing: 0.3px;
+        }
+
+        .category-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 0.8rem;
+        }
+
+        .chip {
+            background: #f3ede7;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4f3e32;
+            cursor: default;
+            transition: 0.1s;
+            border: 1px solid transparent;
+        }
+
+        .chip:hover {
+            background: #e7d9cf;
+            border-color: #dbbb9c;
+        }
+
+        /* Featured message: solo designer */
+        .solo-badge {
+            margin: 2rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .avatar-symbol {
+            width: 48px;
+            height: 48px;
+            background: #e1cfbe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #784a1e;
+        }
+
+        .solo-text {
+            font-weight: 500;
+            color: #6b4f38;
+        }
+
+        /* ----- APP-LIKE DOCK (macOS / iOS style) ----- */
+        .dock-wrapper {
+            position: fixed;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .dock {
+            background: rgba(30, 28, 27, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            gap: 0.6rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.15);
+            pointer-events: auto;
+            transition: all 0.2s ease;
+            border: 0.5px solid rgba(255,255,240,0.25);
+        }
+
+        .dock-item {
+            background: rgba(255,255,245,0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 0.7rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #fef6ed;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        /* individual dock colors for better differentiation */
+        .dock-item.cta-phone {
+            background: rgba(52, 199, 89, 0.2);
+        }
+        .dock-item.cta-wa {
+            background: rgba(37, 211, 102, 0.2);
+        }
+        .dock-item.cta-mail {
+            background: rgba(100, 126, 255, 0.2);
+        }
+        .dock-item.cta-text {
+            background: rgba(255, 159, 10, 0.2);
+        }
+        .dock-item.cta-call2 {
+            background: rgba(90, 200, 250, 0.2);
+        }
+
+        .dock-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,240,0.25);
+            color: white;
+        }
+
+        .dock-icon {
+            font-size: 1.25rem;
+            font-weight: 400;
+        }
+
+        /* additional style for responsiveness */
+        @media (max-width: 680px) {
+            .container {
+                padding: 1.2rem 1.2rem 5rem 1.2rem;
+            }
+            .dock {
+                padding: 0.5rem 0.9rem;
+                gap: 0.3rem;
+            }
+            .dock-item {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.75rem;
+                gap: 5px;
+            }
+            .dock-icon {
+                font-size: 1rem;
+            }
+            .build-for {
+                font-size: 1.5rem;
+            }
+            .industry-prompt {
+                padding: 1rem 1.2rem;
+            }
+        }
+
+        /* portfolio preview minimal section */
+        .services-section {
+            margin: 3.5rem 0 2rem;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 1.5rem;
+            color: #2a241f;
+        }
+
+        .grid-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .card {
+            flex: 1 1 260px;
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 1.5rem;
+            border: 1px solid #f0e2d6;
+            transition: all 0.2s;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #6c5b4e;
+            font-size: 0.9rem;
+        }
+
+        /* footer minimal */
+        .footer-note {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #b6a187;
+            border-top: 1px solid #efe2d7;
+            padding-top: 2rem;
+        }
+
+        button, a.dock-item {
+            background: none;
+            border: none;
+        }
+
+        /* notification toasts? optional but clean */
+        .toast-msg {
+            position: fixed;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f1c19e6;
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 1100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            font-family: monospace;
+        }
+
+        @media (max-width: 550px) {
+            .toast-msg {
+                font-size: 0.7rem;
+                white-space: nowrap;
+                bottom: 85px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="main-content">
-  <!-- personal branding: FAZ HOQ solo agency -->
-  <div class="top-bar">
-    <div class="logo">
-      <h1>Faz Hoq<span>.</span></h1>
-      <span>solo web design · no agency overhead</span>
+<div class="container">
+    <!-- Hero section — inspired by the given image "We Build Websites For: Painters" + branding -->
+    <div class="hero">
+        <div class="tagline-badge">✦ FAZ HOQ · SOLO WEB DESIGNER</div>
+        <div class="main-headline">
+            We Build<br>
+            Websites For:<br>
+            <span style="background: linear-gradient(135deg,#c97e4a,#e5a36f); background-clip:text; -webkit-background-clip:text; color:transparent;">Ambitious Creators</span>
+        </div>
+        <div class="headline-sub">
+            Clean, modern, conversion-focused design. One-man studio, full dedication.
+        </div>
     </div>
-    <div class="badge"><i class="fas fa-glasses"></i> available for 1-on-1 collaboration</div>
-  </div>
 
-  <!-- Hero: only me, independent designer -->
-  <div class="hero">
-    <div class="hero-text">
-      <div class="greeting"><i class="fas fa-hand-peace"></i> I'm Faz Hoq</div>
-      <h1>Web design that feels <span class="highlight">personal</span> & performs like a dream</h1>
-      <p>No big agency confusion. No layers of account managers. Just me — building high-craft, conversion-focused websites for founders who value quality. Your project, my full attention.</p>
-      <div class="price-tag"><i class="fas fa-pound-sign"></i> Fixed from £50k · full 1-page landing page & beyond</div>
+    <!-- exactly matching the "We Build Websites For: Painters / Search any industry..." vibe from image -->
+    <div class="industry-prompt">
+        <div class="build-for">
+            We Build Websites For: <span>Painters</span>
+        </div>
+        <div class="search-row">
+            <input type="text" class="search-bar" id="industrySearch" placeholder="Search any industry... (e.g., plumber, artist, bakery)">
+            <div class="popular-cats">OR SELECT FROM POPULAR CATEGORIES</div>
+        </div>
+        <div class="category-chips" id="categoryChips">
+            <div class="chip" data-industry="Painters">🎨 Painters</div>
+            <div class="chip" data-industry="Plumbers">🔧 Plumbers</div>
+            <div class="chip" data-industry="Electricians">⚡ Electricians</div>
+            <div class="chip" data-industry="Cafes">☕ Cafes</div>
+            <div class="chip" data-industry="Photographers">📸 Photographers</div>
+            <div class="chip" data-industry="Salons">💇 Salons</div>
+        </div>
+        <div style="margin-top: 12px; font-size: 0.8rem; color:#b2825b;" id="searchFeedback">✨ Tailored websites for any niche — just ask.</div>
     </div>
-    <div class="hero-avatar">
-      <div class="avatar-icon">
-        <i class="fas fa-code"></i>
-      </div>
+
+    <!-- solo web designer credibility / minimal branding -->
+    <div class="solo-badge">
+        <div class="avatar-symbol">FH</div>
+        <div class="solo-text">
+            <strong>faz Hoq</strong> — independent web crafter • 100% hands-on • fast & modern
+        </div>
     </div>
-  </div>
 
-  <!-- What I deliver: expertise, solo craftsman -->
-  <div class="services">
-    <div class="section-title">
-      <i class="fas fa-crown"></i>
-      <span>The £50k full-stack experience (just you & me)</span>
+    <!-- micro services / work style (minimal but adds substance) -->
+    <div class="services-section">
+        <div class="section-title">handcrafted digital presence</div>
+        <div class="grid-cards">
+            <div class="card">
+                <h3>⚡ lightning fast</h3>
+                <p>Optimized performance, Core Web Vitals ready.</p>
+            </div>
+            <div class="card">
+                <h3>🎨 bespoke identity</h3>
+                <p>No templates — unique design for painters, plumbers, creators.</p>
+            </div>
+            <div class="card">
+                <h3>📱 app-like dock</h3>
+                <p>Instant contact: call, text, WhatsApp, email — right at your fingertips.</p>
+            </div>
+        </div>
     </div>
-    <div class="cards">
-      <div class="card"><i class="fas fa-palette"></i><h3>Bespoke design</h3><p>Pixel-perfect UI/UX, tailored to your brand, handcrafted from scratch.</p></div>
-      <div class="card"><i class="fas fa-code"></i><h3>Clean development</h3><p>Semantic HTML/CSS/JS, fast loading, responsive & future-proof.</p></div>
-      <div class="card"><i class="fas fa-mobile-alt"></i><h3>App-like interface</h3><p>Bottom dock, micro-interactions & mobile-first philosophy.</p></div>
-      <div class="card"><i class="fas fa-rocket"></i><h3>Launch & beyond</h3><p>SEO, analytics setup, performance optimization & 30 days support.</p></div>
+
+    <div class="footer-note">
+        © 2026 Faz Hoq — one client at a time • UK based
     </div>
-  </div>
-
-  <!-- Testimonial / trust (personal work) -->
-  <div class="trust">
-    <i class="fas fa-quote-left"></i>
-    <p>“Working with Faz was radically different from any agency. He owns the entire process, listens deeply, and delivered a site that outperformed our expectations. The £50k investment felt like a steal for the quality.”</p>
-    <div class="client-name">— Morgan K., Founder of Lumina Studio</div>
-  </div>
-
-  <!-- Additional CTA to show confidence -->
-  <div style="text-align: center; margin: 2rem 0 1rem;">
-    <button class="btn-primary" id="heroContactBtn"><i class="fab fa-whatsapp"></i> Start your project</button>
-    <button class="btn-outline" id="secondaryMailBtn" style="margin-left: 1rem;"><i class="far fa-envelope"></i> Quick question</button>
-  </div>
-
-  <footer>
-    © 2026 Faz Hoq — independent web design. Built with <i class="fas fa-heart" style="color: #b45f2b;"></i> for founders & creators.
-  </footer>
 </div>
 
-<!-- BOTTOM DOCK: contains contact form + WhatsApp, Call, Email, Messenger icons (app-like) -->
-<div class="bottom-dock">
-  <div class="dock-container">
-    <!-- Icon row: whatsapp, call, email, messenger -->
-    <div class="dock-icons">
-      <button class="dock-icon" data-action="whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></button>
-      <button class="dock-icon" data-action="call" title="Call"><i class="fas fa-phone-alt"></i><span>Call</span></button>
-      <button class="dock-icon" data-action="email" title="Email"><i class="far fa-envelope"></i><span>Email</span></button>
-      <button class="dock-icon" data-action="messenger" title="Messenger"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></button>
+<!-- fixed dock: exactly as required: cts (call/text?), WhatsApp, call, text, email, phone number & email. 
+     dock includes: WhatsApp, Call (07706345874), Text (SMS), Email, plus additional call via phone icon.
+     And we display 07706345874 and email: Fazhoq1977@gmail.com -->
+<div class="dock-wrapper">
+    <div class="dock">
+        <!-- WhatsApp -->
+        <div class="dock-item cta-wa" id="whatsappBtn">
+            <span class="dock-icon">💬</span>
+            <span>WhatsApp</span>
+        </div>
+        <!-- Call (direct phone) -->
+        <div class="dock-item cta-phone" id="callBtn">
+            <span class="dock-icon">📞</span>
+            <span>Call</span>
+        </div>
+        <!-- Text / SMS -->
+        <div class="dock-item cta-text" id="textBtn">
+            <span class="dock-icon">✉️📱</span>
+            <span>Text</span>
+        </div>
+        <!-- Email -->
+        <div class="dock-item cta-mail" id="emailBtn">
+            <span class="dock-icon">📧</span>
+            <span>Email</span>
+        </div>
+        <!-- secondary call / direct number display as per requirement, but we also embed the number -->
+        <div class="dock-item cta-call2" id="callNumberBtn">
+            <span class="dock-icon">📞+</span>
+            <span>07706 345874</span>
+        </div>
     </div>
-    <!-- inline contact form inside bottom dock (full work) -->
-    <div class="dock-form">
-      <input type="text" id="dockName" placeholder="Your name" autocomplete="off">
-      <input type="email" id="dockEmail" placeholder="Email address">
-      <button id="dockFormSubmitBtn"><i class="fas fa-paper-plane"></i> Send</button>
-    </div>
-  </div>
 </div>
 
-<div id="globalToast" class="toast-msg">✨ Message sent — I'll reply within 12h</div>
+<!-- toast message for copy / non-action confirmation -->
+<div id="toastMsg" class="toast-msg">✨</div>
 
 <script>
-  // -------------------------------
-  // FAZ HOQ - SOLO AGENCY BOTTOM DOCK + FORM + CONTACT ACTIONS
-  // -------------------------------
+    // Contact details
+    const PHONE_NUMBER = "07706345874";
+    const EMAIL_ADDRESS = "Fazhoq1977@gmail.com";
+    const FULL_PHONE_LINK = "tel:+447706345874";   // UK format
+    const SMS_LINK = "sms:+447706345874";
+    const WHATSAPP_LINK = "https://wa.me/447706345874";   // international format without plus? wa.me/447706345874 works
 
-  // Replace with your actual contact info (demo ready)
-  const CONTACT = {
-    whatsappLink: "https://wa.me/447700900123?text=Hi%20Faz%2C%20I'm%20interested%20in%20your%20%C2%A350k%20web%20design%20project",
-    phoneNumber: "+447700900123",
-    emailAddress: "faz@hoq.design",
-    messengerLink: "https://m.me/fazhoq.design"   // placeholder, works as messenger uri
-  };
+    // Helper: show toast message
+    function showToast(message, duration = 1800) {
+        const toast = document.getElementById('toastMsg');
+        toast.textContent = message;
+        toast.style.opacity = '1';
+        setTimeout(() => {
+            toast.style.opacity = '0';
+        }, duration);
+    }
 
-  // Toast helper
-  function showToast(message, duration = 2300) {
-    const toast = document.getElementById('globalToast');
-    if (!toast) return;
-    toast.style.transition = 'opacity 0.2s';
-    toast.textContent = message;
-    toast.style.opacity = '1';
-    setTimeout(() => {
-      toast.style.opacity = '0';
-    }, duration);
-  }
+    // Action handlers with smooth UX
+    function handleCall() {
+        window.location.href = FULL_PHONE_LINK;
+        showToast("📞 Calling 07706 345874 ...");
+    }
 
-  // handle dock icon actions (WhatsApp, Call, Email, Messenger)
-  function handleContactAction(action) {
-    switch (action) {
-      case 'whatsapp':
-        window.open(CONTACT.whatsappLink, '_blank');
-        showToast('Opening WhatsApp · Let’s build something great!');
-        break;
-      case 'call':
-        if (/mobile|android|iphone|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent)) {
-          window.location.href = `tel:${CONTACT.phoneNumber}`;
-          showToast(`Calling ${CONTACT.phoneNumber} ...`);
-        } else {
-          navigator.clipboard.writeText(CONTACT.phoneNumber).then(() => {
-            showToast(`📞 Number copied: ${CONTACT.phoneNumber} (call from your phone)`);
-          }).catch(() => {
-            showToast(`📞 Call me at ${CONTACT.phoneNumber}`);
-          });
+    function handleText() {
+        window.location.href = SMS_LINK;
+        showToast("💬 Open SMS to 07706 345874");
+    }
+
+    function handleWhatsApp() {
+        window.open(WHATSAPP_LINK, '_blank');
+        showToast("💚 Opening WhatsApp chat with Faz Hoq");
+    }
+
+    function handleEmail() {
+        window.location.href = `mailto:${EMAIL_ADDRESS}?subject=Website%20Inquiry%20-%20Faz%20Hoq&body=Hello%20Faz%2C%20I%27m%20interested%20in%20a%20website%20project.`;
+        showToast(`📧 Compose email to ${EMAIL_ADDRESS}`);
+    }
+
+    function handleShowNumber() {
+        // copy number or show? We can copy to clipboard for better UX
+        navigator.clipboard.writeText(PHONE_NUMBER).then(() => {
+            showToast(`📋 Copied ${PHONE_NUMBER} to clipboard`);
+        }).catch(() => {
+            showToast(`📞 Phone: ${PHONE_NUMBER}`);
+        });
+        // also we could trigger call but the button is separate. but as per "dock with cts, WhatsApp, call, text, email, 07706345874"
+        // this element explicitly shows number and copies
+    }
+
+    // Attach event listeners
+    document.getElementById('whatsappBtn').addEventListener('click', handleWhatsApp);
+    document.getElementById('callBtn').addEventListener('click', handleCall);
+    document.getElementById('textBtn').addEventListener('click', handleText);
+    document.getElementById('emailBtn').addEventListener('click', handleEmail);
+    document.getElementById('callNumberBtn').addEventListener('click', handleShowNumber);
+
+    // Optional: Category chips and search interaction — just for branding fun and to respect original image search
+    const searchInput = document.getElementById('industrySearch');
+    const searchFeedback = document.getElementById('searchFeedback');
+    const chips = document.querySelectorAll('.chip');
+
+    function updateIndustryFeedback(industry) {
+        if (!industry || industry.trim() === "") {
+            searchFeedback.innerHTML = `✨ Tailored websites for any niche — just ask.`;
+            return;
         }
-        break;
-      case 'email':
-        window.location.href = `mailto:${CONTACT.emailAddress}?subject=Web%20design%20inquiry%20(%C2%A350k%20project)&body=Hi%20Faz%2C%20I'd%20like%20to%20discuss%20my%20landing%20page...`;
-        showToast('Opening email — let’s start a conversation');
-        break;
-      case 'messenger':
-        window.open(CONTACT.messengerLink, '_blank');
-        showToast('Let’s chat on Messenger. I reply within hours!');
-        break;
-      default:
-        break;
+        searchFeedback.innerHTML = `🔥 Building modern sites for <strong>${industry}</strong> — let’s create your standout web presence.`;
     }
-  }
 
-  // Attach dock icons event listeners
-  const dockIconBtns = document.querySelectorAll('.dock-icon');
-  dockIconBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const action = btn.getAttribute('data-action');
-      if (action) handleContactAction(action);
-    });
-  });
-
-  // BOTTOM DOCK FORM SUBMIT (contact form fully functional)
-  const formSubmitBtn = document.getElementById('dockFormSubmitBtn');
-  const nameInput = document.getElementById('dockName');
-  const emailInput = document.getElementById('dockEmail');
-
-  function submitContactForm() {
-    const name = nameInput?.value.trim();
-    const email = emailInput?.value.trim();
-    if (!name || !email) {
-      showToast('⚠️ Please enter both name and email', 1800);
-      return;
+    function handleChipClick(e) {
+        const industry = e.currentTarget.getAttribute('data-industry');
+        if (industry) {
+            searchInput.value = industry;
+            updateIndustryFeedback(industry);
+            showToast(`✨ ${industry} websites — Faz Hoq got you!`);
+        }
     }
-    if (!email.includes('@') || !email.includes('.')) {
-      showToast('📧 Please enter a valid email address', 1800);
-      return;
-    }
-    // Simulate sending enquiry: prepare email subject/body
-    const subject = `New enquiry from ${name} via bottom dock form`;
-    const body = `Name: ${name}%0AEmail: ${email}%0AMessage: I'm interested in the £50k web design package. Please get in touch!`;
-    window.location.href = `mailto:${CONTACT.emailAddress}?subject=${encodeURIComponent(subject)}&body=${body}`;
-    showToast(`Thanks ${name}! Email draft opened — I'll respond promptly.`);
-    // optional: clear fields after action
-    if (nameInput) nameInput.value = '';
-    if (emailInput) emailInput.value = '';
-  }
 
-  if (formSubmitBtn) {
-    formSubmitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      submitContactForm();
+    chips.forEach(chip => {
+        chip.addEventListener('click', handleChipClick);
     });
-  }
 
-  // also allow pressing Enter inside email input (nice ux)
-  if (emailInput) {
-    emailInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitContactForm();
-      }
+    searchInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        if (val === "") {
+            updateIndustryFeedback("");
+        } else {
+            updateIndustryFeedback(val);
+        }
     });
-  }
-  if (nameInput) {
-    nameInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitContactForm();
-      }
-    });
-  }
 
-  // Hero buttons trigger actions (start project -> WhatsApp, quick question -> email)
-  const heroContactBtn = document.getElementById('heroContactBtn');
-  const secondaryMailBtn = document.getElementById('secondaryMailBtn');
-  if (heroContactBtn) {
-    heroContactBtn.addEventListener('click', () => {
-      handleContactAction('whatsapp');
-    });
-  }
-  if (secondaryMailBtn) {
-    secondaryMailBtn.addEventListener('click', () => {
-      handleContactAction('email');
-    });
-  }
+    // small initial default to show personality
+    updateIndustryFeedback("Painters");
 
-  // Optional: micro-interactions for all buttons (app-like feel)
-  const allButtons = document.querySelectorAll('button');
-  allButtons.forEach(btn => {
-    btn.addEventListener('mousedown', () => {
-      btn.style.transform = 'scale(0.97)';
-      setTimeout(() => { btn.style.transform = ''; }, 120);
-    });
-    btn.addEventListener('touchstart', () => {
-      btn.style.transform = 'scale(0.97)';
-      setTimeout(() => { btn.style.transform = ''; }, 120);
-    });
-  });
+    // Additional micro animation: Dock stays above all, beautiful
+    // Also ensure that clicking on any dock item is responsive and doesn't cause issues
+    // provide extra call and text support, phone number display in dock exactly matches required
+    // also text message uses sms: scheme and works on mobile
 
-  // Also dynamic year in footer
-  const footer = document.querySelector('footer');
-  if (footer) {
-    footer.innerHTML = footer.innerHTML.replace('2026', new Date().getFullYear());
-  }
-
-  // small console presence
-  console.log('Faz Hoq — solo agency landing with bottom dock form + WhatsApp, Call, Email, Messenger');
+    // For desktop browsers that may not handle sms: perfectly but will prompt mail client or default app. Graceful.
+    // Also make the dock icons accessible
+    console.log("Faz Hoq — solo web designer | app-like dock ready");
 </script>
+
+<!-- extra note: includes all contact methods: WhatsApp, Call, Text, Email, and explicit number display + copy.
+     And the one-page design uses warm minimalist colors, dock mimics modern OS X/ iOS dock.
+     Also keeps the same vibe as "We Build Websites For: Painters / search any industry" reference image. -->
 </body>
 </html>
