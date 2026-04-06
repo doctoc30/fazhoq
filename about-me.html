@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap');
-        
+
         :root {
             --brand-orange: #FF6B2C;
             --dark-bg: #0A0A0A;
@@ -58,13 +58,12 @@
             text-align: center;
         }
 
-        /* Hamburger Menu Overlay */
         #mobileMenuOverlay {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(20px);
         }
-        
+
         .menu-open { overflow: hidden; }
 
         @keyframes fadeInOut {
@@ -81,6 +80,7 @@
 </head>
 <body class="pb-40">
 
+    <!-- Mobile Menu Overlay -->
     <div id="mobileMenuOverlay" class="fixed inset-0 z-[100] translate-x-full flex flex-col items-center justify-center space-y-8">
         <button onclick="toggleMenu()" class="absolute top-10 right-10 text-3xl">
             <i class="fa-solid fa-xmark"></i>
@@ -92,10 +92,9 @@
     </div>
 
     <div class="relative w-full overflow-x-hidden">
-
+        <!-- Navbar -->
         <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
             <div class="text-2xl font-black tracking-tighter">FAZ HOQ<span class="text-[#FF6B2C]">.</span></div>
-            
             <div class="hidden md:flex items-center gap-8 text-[10px] font-bold uppercase tracking-[0.2em]">
                 <a href="#about" class="text-white/40 hover:text-white transition-all">About Me</a>
                 <a href="#pricing" class="text-white/40 hover:text-white transition-all">Pricing</a>
@@ -104,42 +103,43 @@
                     Start a Project
                 </a>
             </div>
-
             <button onclick="toggleMenu()" class="md:hidden text-2xl p-2"><i class="fa-solid fa-bars-staggered"></i></button>
         </nav>
 
+        <!-- Hero Section -->
         <section class="relative px-6 pt-20 pb-28 flex flex-col items-center text-center">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[600px] bg-[#FF6B2C]/5 blur-[100px] md:blur-[140px] rounded-full -z-10"></div>
-            
             <div data-aos="fade-down" class="flex items-center gap-2 mb-8 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
                 <div class="h-1.5 w-1.5 rounded-full bg-[#FF6B2C] animate-ping"></div>
                 <span class="text-[10px] font-bold uppercase tracking-widest text-[#FF6B2C]">Available for New Partners</span>
             </div>
-
             <h1 data-aos="fade-up" class="text-6xl md:text-9xl font-[900] tracking-tighter mb-6 leading-[0.85] uppercase">
-                I BUILD WEBSITES<br><span class="text-gradient font-[300]">DESIGNED FOR</span><br>
-                <span id="industryText" class="industry-rotator italic">RETAILERS.</span>
+                I PROVIDE<br><span class="text-gradient font-[300]">FULL DIGITAL SOLUTIONS</span><br>
+                <span id="industryText" class="industry-rotator italic">FOR RETAILERS.</span>
             </h1>
-
             <p data-aos="fade-up" data-aos-delay="200" class="max-w-2xl text-gray-400 text-lg md:text-xl font-light mb-12">
-                Elevating small businesses with high-performance digital stores and portfolios. If you're ready to grow, I'm ready to build.
+                Complete websites and digital platforms, designed to convert visitors into loyal customers. 
+                Everything from premium design, SEO optimization, to performance-ready code—fully managed for your growth.
             </p>
         </section>
 
+        <!-- About Me Section -->
         <section id="about" class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-4 scroll-mt-24 mb-24">
             <div data-aos="fade-right" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-end min-h-[450px]">
                 <span class="text-[#FF6B2C] font-bold text-sm uppercase tracking-widest mb-4">Passionate Growth Partner</span>
                 <h3 class="text-4xl font-black mb-6">I'm Faz Hoq.</h3>
                 <p class="text-gray-400 text-lg leading-relaxed mb-4">
-                    I’m passionate about helping small businesses navigate their website journey. Whether you **don't have the time** to build it yourself, **lack the technical knowledge**, or just want a **fresh upgrade** to stand out, I'm here to help.
+                    I provide **full-service digital solutions** for small businesses and local shops. From design and development to SEO and growth strategy, you get a platform that's ready to perform from day one.
                 </p>
                 <p class="text-gray-400 text-lg leading-relaxed">
-                    I believe local shops and service providers deserve enterprise-grade design without the "Agency BS."
+                    My goal is to remove the complexity of digital growth so you can focus on running your business while your website works for you.
                 </p>
             </div>
-            
+
             <div data-aos="fade-up" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center"><i class="fa-solid fa-bolt text-[#FF6B2C]"></i></div>
+                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
+                    <i class="fa-solid fa-bolt text-[#FF6B2C]"></i>
+                </div>
                 <div>
                     <h4 class="font-bold text-xl mb-2">SEO Optimized</h4>
                     <p class="text-sm text-white/50">Built to be found by the customers who matter most to your business.</p>
@@ -147,54 +147,58 @@
             </div>
 
             <div data-aos="fade-left" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 rounded-2xl bg-[#FF6B2C] flex items-center justify-center text-white"><i class="fa-solid fa-gem"></i></div>
+                <div class="w-12 h-12 rounded-2xl bg-[#FF6B2C] flex items-center justify-center text-white">
+                    <i class="fa-solid fa-gem"></i>
+                </div>
                 <div>
                     <h4 class="font-bold text-xl mb-2">Premium UI</h4>
                     <p class="text-sm text-white/50">Modern, expensive-looking interfaces that function perfectly on all devices.</p>
                 </div>
             </div>
 
+            <!-- Pricing Section -->
             <div id="pricing" data-aos="fade-up" class="md:col-span-4 bento-card p-8 md:p-12 rounded-[2.5rem] bg-white/5 flex flex-col gap-10 scroll-mt-24">
                 <div class="text-center md:text-left flex-1">
                     <h3 class="text-4xl font-black mb-2 uppercase italic text-gradient">Simple Ownership Options</h3>
                     <p class="text-white/60 mb-8 max-w-3xl text-lg">No hidden small print. Just two straightforward ways to work together.</p>
-                    
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all text-center md:text-left">
                             <h4 class="text-[#FF6B2C] font-black text-2xl mb-4 uppercase">Managed Monthly</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">Complete peace of mind. I handle the hosting, security, and updates. You focus on your business; I'll keep the site running perfectly.</p>
+                            <p class="text-sm text-gray-400 leading-relaxed">Complete peace of mind. I handle the hosting, security, and updates. You focus on your business; I keep the site running perfectly.</p>
                         </div>
                         <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all text-center md:text-left">
                             <h4 class="text-white font-black text-2xl mb-4 uppercase">One-Off Build</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">Full asset ownership. I design and build your platform, then hand over the keys. You own the code and the site 100% for life.</p>
+                            <p class="text-sm text-gray-400 leading-relaxed">Full asset ownership. I provide your platform fully ready to use—you own the code and site 100% for life.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- FAQ Section -->
             <div id="faq" data-aos="fade-up" class="md:col-span-4 bento-card p-8 md:p-12 rounded-[2.5rem] bg-white/5 scroll-mt-24">
                 <h3 class="text-3xl font-black mb-8 uppercase italic text-gradient">Common Questions</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
                         <h4 class="font-bold text-[#FF6B2C] mb-2 uppercase tracking-tighter">How long does it take?</h4>
-                        <p class="text-gray-400 text-sm">Most small business builds take 1-2 weeks depending on the complexity of the project.</p>
+                        <p class="text-gray-400 text-sm">Most small business solutions are provided within 1-2 weeks depending on complexity.</p>
                     </div>
                     <div>
                         <h4 class="font-bold text-[#FF6B2C] mb-2 uppercase tracking-tighter">Do I own the domain?</h4>
-                        <p class="text-gray-400 text-sm">Yes. Whether you buy outright or use my managed service, you are always the owner of your brand assets.</p>
+                        <p class="text-gray-400 text-sm">Yes. Whether you use my managed service or one-off option, you always own your brand assets.</p>
                     </div>
                     <div>
                         <h4 class="font-bold text-[#FF6B2C] mb-2 uppercase tracking-tighter">What if I need updates?</h4>
-                        <p class="text-gray-400 text-sm">Managed clients get unlimited small updates. One-off builds include a 30-day support window post-launch.</p>
+                        <p class="text-gray-400 text-sm">Managed clients get unlimited small updates. One-off solutions include a 30-day support window post-delivery.</p>
                     </div>
                     <div>
                         <h4 class="font-bold text-[#FF6B2C] mb-2 uppercase tracking-tighter">Are the sites mobile friendly?</h4>
-                        <p class="text-gray-400 text-sm">Absolutely. 80% of your customers are on phones; I build "mobile-first" to ensure they convert.</p>
+                        <p class="text-gray-400 text-sm">Absolutely. 80% of your customers are on phones; I provide mobile-first platforms that convert.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Footer -->
         <footer class="mt-24 mb-16 text-center px-6">
             <div class="max-w-7xl mx-auto border-t border-white/5 pt-12">
                 <p class="text-3xl font-black tracking-tighter mb-4 uppercase">FAZ HOQ<span class="text-[#FF6B2C]">.</span></p>
@@ -217,6 +221,7 @@
         </footer>
     </div>
 
+    <!-- Floating Contact Dock -->
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-[480px] z-50">
         <div class="glass-dock p-3 flex justify-between items-center shadow-2xl">
             <a href="tel:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all"><i class="fa-solid fa-phone text-lg mb-1"></i><span class="text-[9px] uppercase font-bold opacity-50">Call</span></a>
