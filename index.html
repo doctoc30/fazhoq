@@ -14,7 +14,6 @@
             --app-white: #FFFFFF;
         }
 
-        /* Lock Viewport & Disable Vertical Scroll */
         html, body {
             margin: 0;
             padding: 0;
@@ -22,29 +21,49 @@
             width: 100vw;
             overflow: hidden; 
             font-family: 'Outfit', sans-serif;
-            background: var(--app-white);
-            touch-action: none; /* Crucial for app-like feel on mobile */
+            background: #000; /* Background for the "slide behind" effect */
+            touch-action: none;
         }
 
-        /* The Horizontal Slider Container */
-        #viewport {
-            display: flex;
-            height: 100%;
-            width: 400vw; /* 4 sections */
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            will-change: transform;
+        /* The Container */
+        .slide-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            perspective: 1000px;
         }
 
         section {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            position: relative;
+            background: var(--app-white);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        /* Section States */
+        .slide-next {
+            transform: translateX(100%);
+            z-index: 2;
+        }
+
+        .slide-active {
+            transform: translateX(0);
+            z-index: 3;
+        }
+
+        .slide-prev {
+            transform: translateX(-100%);
+            z-index: 1;
+            opacity: 0;
         }
 
         .huge-text {
@@ -56,7 +75,20 @@
             text-align: center;
         }
 
-        /* Floating App Dock */
+        /* Nav & Dock */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+        nav * { pointer-events: auto; }
+
         .app-dock {
             position: fixed;
             bottom: 2.5rem;
@@ -74,108 +106,67 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
-        /* Top Progress Bar (Visual feedback for swiping) */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(0,0,0,0.03);
-            z-index: 101;
-        }
-
-        #pBar {
-            height: 100%;
-            width: 25%; /* 1/4 slides */
-            background: var(--brand-orange);
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-origin: left;
-        }
-
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #000; color: #fff; }
 
-        /* Navigation Header */
-        nav {
+        /* Progress Line */
+        .progress-line {
             position: fixed;
             top: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            pointer-events: none;
-        }
-        
-        nav * { pointer-events: auto; }
-
-        .slide-hint {
-            position: absolute;
-            bottom: 8rem;
-            font-size: 10px;
-            font-weight: 900;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.2;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.4; }
+            left: 0;
+            height: 4px;
+            background: var(--brand-orange);
+            z-index: 1100;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
 </head>
 <body>
 
-    <div class="progress-container">
-        <div id="pBar"></div>
-    </div>
+    <div class="progress-line" id="progress"></div>
 
     <nav>
         <div class="text-2xl font-black tracking-tighter uppercase">FAZ<span class="accent">.</span></div>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-6 py-2 rounded-full">Contact</a>
+        <div class="text-[9px] font-black uppercase tracking-[0.3em] opacity-40">Digital Architect</div>
     </nav>
 
-    <div id="viewport">
-        <section>
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">WELCOME</span>
-            <h1 class="huge-text">DIGITAL<br>ARCHITECT<span class="accent">.</span></h1>
-            <div class="slide-hint">Swipe Sideways</div>
+    <div class="slide-wrapper">
+        <section id="s0" class="slide-active">
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">EST. 2026</span>
+            <h1 class="huge-text">PREMIUM<br>STORES<span class="accent">.</span></h1>
+            <p class="mt-12 text-[10px] font-black uppercase tracking-widest opacity-20">Scroll or Swipe Side</p>
         </section>
 
-        <section style="background: #F9F9F9;">
+        <section id="s1" class="slide-next">
             <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">THE PARTNER</span>
-            <h2 class="huge-text">I AM<br><span class="accent">FAZ HOQ.</span></h2>
+            <h2 class="huge-text italic">I AM<br>FAZ HOQ.</h2>
             <div class="mt-12 text-center max-w-sm">
-                <p class="text-xl font-medium opacity-50 mb-8 leading-tight">Elevating retailers with enterprise-level digital stores.</p>
-                <a href="about-me.html" class="inline-block border-b-2 border-black pb-1 font-black uppercase text-[10px]">View My Story</a>
+                <p class="text-lg font-medium opacity-50 mb-8 leading-tight">Elevating small business to enterprise standards.</p>
+                <a href="https://doctoc30.github.io/fazhoq/about-me.html" class="inline-block bg-black text-white px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-widest">About Me</a>
             </div>
         </section>
 
-        <section>
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">SOLUTIONS</span>
-            <h2 class="huge-text">UI & SEO<br><span class="accent italic">DRIVEN.</span></h2>
+        <section id="s2" class="slide-next">
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">VALUES</span>
+            <h2 class="huge-text">OWN THE<br><span class="accent">CODE.</span></h2>
             <div class="mt-10 flex gap-12">
                 <div class="text-center">
-                    <p class="text-4xl font-black">100%</p>
-                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">Ownership</p>
+                    <p class="text-4xl font-black">FAST</p>
+                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">Build</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-4xl font-black">FAST</p>
-                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">Delivery</p>
+                    <p class="text-4xl font-black">CLEAN</p>
+                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">UX/UI</p>
                 </div>
             </div>
         </section>
 
-        <section class="bg-dark">
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">CONNECT</span>
+        <section id="s3" class="slide-next bg-dark">
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">CONTACT</span>
             <h2 class="huge-text">LET'S<br>BUILD<span class="accent">.</span></h2>
             <div class="mt-12">
                 <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-5xl font-black underline decoration-[#FF6B2C] underline-offset-8">
-                    Fazhoq1977@gmail.com
+                    Email Me
                 </a>
             </div>
         </section>
@@ -194,61 +185,73 @@
     </div>
 
     <script>
-        let currentSlide = 0;
-        const totalSlides = 4;
-        const viewport = document.getElementById('viewport');
-        const pBar = document.getElementById('pBar');
+        let current = 0;
+        const total = 4;
         let isMoving = false;
+        const progressBar = document.getElementById('progress');
 
-        function moveSlide(direction) {
+        function updateProgress() {
+            progressBar.style.width = ((current + 1) / total) * 100 + "%";
+        }
+
+        function navigate(dir) {
             if (isMoving) return;
-            const target = currentSlide + direction;
-            
-            if (target >= 0 && target < totalSlides) {
-                isMoving = true;
-                currentSlide = target;
-                
-                // Animate Slider
-                viewport.style.transform = `translateX(-${currentSlide * 100}vw)`;
-                
-                // Animate Progress Bar
-                pBar.style.transform = `translateX(${currentSlide * 100}%)`;
+            let next = current + dir;
 
-                setTimeout(() => { isMoving = false; }, 850);
+            if (next >= 0 && next < total) {
+                isMoving = true;
+                
+                const currentEl = document.getElementById(`s${current}`);
+                const nextEl = document.getElementById(`s${next}`);
+
+                if (dir > 0) {
+                    // Moving Forward
+                    currentEl.className = "slide-prev";
+                    nextEl.className = "slide-active";
+                } else {
+                    // Moving Backward
+                    currentEl.className = "slide-next";
+                    nextEl.className = "slide-active";
+                }
+
+                current = next;
+                updateProgress();
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
-        // --- INTERACTION LOGIC ---
+        // --- Event Listeners ---
 
-        // 1. Mouse Wheel (PC) - Interprets vertical scroll as horizontal swipe
+        // Scroll Wheel (Interprets vertical as page swap)
         window.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > 10) {
-                if (e.deltaY > 0) moveSlide(1);  // Scroll Down -> Move Right
-                else moveSlide(-1);              // Scroll Up -> Move Left
+            if (Math.abs(e.deltaY) > 20) {
+                navigate(e.deltaY > 0 ? 1 : -1);
             }
         }, { passive: true });
 
-        // 2. Touch Swipe (Mobile)
-        let touchStartX = 0;
-        window.addEventListener('touchstart', (e) => { 
-            touchStartX = e.touches[0].clientX; 
+        // Touch Swiping
+        let startX = 0;
+        let startY = 0;
+        window.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const diff = touchStartX - touchEndX;
+            let endX = e.changedTouches[0].clientX;
+            let endY = e.changedTouches[0].clientY;
             
-            if (Math.abs(diff) > 40) { // Threshold for swipe
-                if (diff > 0) moveSlide(1);  // Swipe Left -> Next
-                else moveSlide(-1);          // Swipe Right -> Prev
+            let diffX = startX - endX;
+            let diffY = startY - endY;
+
+            // Trigger on either vertical or horizontal swipe
+            if (Math.abs(diffX) > 50 || Math.abs(diffY) > 50) {
+                if (diffX > 0 || diffY > 0) navigate(1);
+                else navigate(-1);
             }
         }, { passive: true });
 
-        // 3. Arrow Keys (Keyboard)
-        window.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight" || e.key === "ArrowDown") moveSlide(1);
-            if (e.key === "ArrowLeft" || e.key === "ArrowUp") moveSlide(-1);
-        });
+        updateProgress();
     </script>
 </body>
 </html>
