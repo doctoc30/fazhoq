@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
+    <title>FAZ HOQ | Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,270 +14,175 @@
             --app-white: #FFFFFF;
         }
 
-        /* Essential for App-Feel: Disable all native scrolling/overscroll */
         html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden; 
-            font-family: 'Outfit', sans-serif;
-            background: #000;
-            touch-action: none; /* Prevents browser handling of gestures */
-            -webkit-user-select: none; /* Prevents accidental text highlights during swipe */
+            margin: 0; padding: 0; height: 100vh; width: 100vw;
+            overflow: hidden; font-family: 'Outfit', sans-serif;
+            background: #fff; touch-action: none;
+            -webkit-user-select: none;
         }
 
-        .slide-container {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
+        #master-slider {
+            display: flex; height: 100%; width: 500vw; /* 5 Sections */
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
         }
 
         section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            background: var(--app-white);
-            /* Using hardware acceleration for smoother swipes */
-            transform: translate3d(100%, 0, 0);
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            visibility: hidden;
+            width: 100vw; height: 100vh; flex-shrink: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 2rem; position: relative;
         }
 
-        section.active {
-            transform: translate3d(0, 0, 0);
-            visibility: visible;
-            z-index: 10;
-        }
-
-        section.prev {
-            transform: translate3d(-100%, 0, 0);
-            visibility: visible;
-            z-index: 5;
-        }
-
-        /* Responsive Typography */
         .huge-text {
-            font-size: clamp(3rem, 14vw, 11rem);
-            font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -0.06em;
-            text-transform: uppercase;
+            font-size: clamp(3.5rem, 15vw, 12rem);
+            font-weight: 900; line-height: 0.8;
+            letter-spacing: -0.07em; text-transform: uppercase;
             text-align: center;
-            word-break: break-word;
         }
 
-        /* App Dock Fix for Mobile Safe Areas */
+        .accent { color: var(--brand-orange); }
+
+        /* Floating App Dock */
         .app-dock {
-            position: fixed;
-            bottom: max(2rem, env(safe-area-inset-bottom));
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom));
+            left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 3rem; padding: 0.8rem 1.5rem;
+            display: flex; gap: 2rem; align-items: center;
+            z-index: 1000; box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        /* Progress Fill */
+        .p-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(0,0,0,0.05); z-index: 1001;
+        }
+        #p-fill {
+            height: 100%; width: 20%; background: var(--brand-orange);
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: left;
+        }
+
+        /* Funky Content Cards */
+        .content-card {
+            background: #F9F9F9;
             border-radius: 3rem;
-            padding: 0.7rem 1.5rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            width: fit-content;
-            min-width: 280px;
-            justify-content: space-around;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(0,0,0,0.03);
         }
-
-        /* Hide Scrollbar indicators */
-        ::-webkit-scrollbar { display: none; }
-
-        .accent { color: var(--brand-orange); }
-        .bg-dark { background-color: #050505; color: #fff; }
-
-        /* Progress Indicator */
-        .nav-dots {
-            position: fixed;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--brand-orange);
-            transform: scale(1.5);
-        }
-
-        .bg-dark .dot { background: rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1000] p-6 md:p-10 pointer-events-none flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter uppercase pointer-events-auto">FAZ<span class="accent">.</span></div>
-        <div class="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 hidden md:block">Digital Store Architect</div>
+    <div class="p-bar"><div id="p-fill"></div></div>
+
+    <nav class="fixed top-0 w-full z-[1000] p-8 flex justify-between items-center pointer-events-none">
+        <div class="text-2xl font-black tracking-tighter pointer-events-auto">FAZ HOQ<span class="accent">.</span></div>
     </nav>
 
-    <div class="nav-dots" id="dotContainer">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-
-    <div class="slide-container" id="master-wrapper">
+    <div id="master-slider">
         
-        <section class="active">
-            <span class="text-[10px] font-black tracking-[0.4em] accent mb-4">CONCEPT</span>
-            <h1 class="huge-text">DIGITAL<br>STORES<span class="accent">.</span></h1>
-            <p class="mt-8 text-xs font-bold uppercase opacity-30 tracking-widest animate-pulse">Swipe to navigate</p>
+        <section>
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">PERSONAL ARCHITECT</span>
+            <h1 class="huge-text">WE BUILD<br><span class="accent">VISION.</span></h1>
+            <p class="mt-8 text-gray-400 font-bold uppercase text-[10px] tracking-widest animate-pulse">Swipe to Begin</p>
+        </section>
+
+        <section style="background: #F4F4F4;">
+            <div class="content-card">
+                <div class="text-6xl accent mb-8"><i class="fa-solid fa-code"></i></div>
+                <h2 class="text-5xl font-black mb-4 leading-none uppercase">Clean<br>Code.</h2>
+                <p class="text-xl text-gray-500 font-medium leading-tight">
+                    Pixel-perfect development that loads at the speed of thought.
+                </p>
+            </div>
         </section>
 
         <section>
-            <span class="text-[10px] font-black tracking-[0.4em] accent mb-4">PARTNER</span>
-            <h2 class="huge-text italic">FAZ<br>HOQ.</h2>
-            <p class="mt-6 text-lg md:text-xl text-gray-500 max-w-xs text-center font-medium leading-tight">
-                Modern solutions for the next generation of retailers.
-            </p>
+            <div class="text-center px-6">
+                <h2 class="huge-text mb-10" style="font-size: 8vw;">STRATEGIC<br><span class="accent italic">PARTNER.</span></h2>
+                <p class="max-w-xl mx-auto text-gray-500 text-xl font-medium leading-snug">
+                    I don't just build sites; I build business tools that generate revenue through smart UX and psychological design triggers.
+                </p>
+            </div>
         </section>
 
-        <section>
-            <span class="text-[10px] font-black tracking-[0.4em] accent mb-4">VALUES</span>
-            <h2 class="huge-text">ELITE<br><span class="accent">UX/UI.</span></h2>
-            <div class="mt-10 flex gap-8 md:gap-16">
-                <div class="text-center">
-                    <div class="text-3xl md:text-5xl font-black">100%</div>
-                    <div class="text-[9px] font-black opacity-40 uppercase tracking-widest">Ownership</div>
+        <section style="background: #000; color: #fff;">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
+                <div class="bg-[#FF6B2C] p-12 rounded-[3rem] text-white">
+                    <div class="text-6xl font-black italic mb-4">WOW!</div>
+                    <p class="text-xl font-bold leading-tight">Interaction design that keeps your users hooked.</p>
                 </div>
-                <div class="text-center">
-                    <div class="text-3xl md:text-5xl font-black">FAST</div>
-                    <div class="text-[9px] font-black opacity-40 uppercase tracking-widest">Launch</div>
+                <div class="bg-white/10 p-12 rounded-[3rem] flex flex-col items-center justify-center text-center">
+                    <div class="text-7xl font-black accent mb-2">99%</div>
+                    <p class="text-xs uppercase tracking-widest font-black opacity-40">Client Satisfaction</p>
                 </div>
             </div>
         </section>
 
-        <section class="bg-dark">
-            <span class="text-[10px] font-black tracking-[0.4em] accent mb-4">CONNECT</span>
-            <h2 class="huge-text">HIRE<br>ME<span class="accent">.</span></h2>
-            <div class="mt-8">
-                <a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-4xl font-black underline decoration-[#FF6B2C] underline-offset-8 transition-colors hover:text-[#FF6B2C]">
-                    Email Now
+        <section>
+            <h2 class="huge-text accent">HIRE<br>ME.</h2>
+            <div class="mt-12 text-center">
+                <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-5xl font-black underline underline-offset-8 decoration-black hover:decoration-[#FF6B2C] transition-all">
+                    Email Faz
                 </a>
             </div>
         </section>
+
     </div>
 
     <div class="app-dock">
-        <a href="sms:07706345874" class="text-xl p-2"><i class="fa-solid fa-message"></i></a>
-        <a href="https://wa.me/447706345874">
+        <a href="tel:07706345874" class="text-gray-400 hover:text-black"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://wa.me/447706345874" class="relative group">
             <div class="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/20">
                 <i class="fa-brands fa-whatsapp text-3xl text-white"></i>
             </div>
         </a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-xl p-2"><i class="fa-solid fa-paper-plane"></i></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-gray-400 hover:text-black"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
 
     <script>
-        const wrapper = document.getElementById('master-wrapper');
-        const sections = wrapper.querySelectorAll('section');
-        const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0;
+        let current = 0;
+        const total = 5;
+        const slider = document.getElementById('master-slider');
+        const pFill = document.getElementById('p-fill');
         let isMoving = false;
-
-        // Configuration
-        const threshold = 40; // Minimum px to trigger swipe
-
-        function updateUI() {
-            sections.forEach((sec, i) => {
-                sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
-            });
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIdx);
-            });
-
-            // Toggle dark mode dots for the last slide
-            if(sections[currentIdx].classList.contains('bg-dark')) {
-                document.body.classList.add('bg-dark');
-            } else {
-                document.body.classList.remove('bg-dark');
-            }
-        }
 
         function navigate(dir) {
             if (isMoving) return;
-            const target = currentIdx + dir;
-            if (target >= 0 && target < sections.length) {
+            const target = current + dir;
+            if (target >= 0 && target < total) {
                 isMoving = true;
-                currentIdx = target;
-                updateUI();
-                setTimeout(() => { isMoving = false; }, 600);
+                current = target;
+                slider.style.transform = `translateX(-${current * 100}vw)`;
+                pFill.style.transform = `translateX(${current * 100}%)`;
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
-        // --- GESTURE ENGINE ---
-
-        // Touch handling
-        let startX = 0;
-        let startY = 0;
-
-        window.addEventListener('touchstart', e => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }, { passive: false });
-
-        window.addEventListener('touchend', e => {
-            const endX = e.changedTouches[0].clientX;
-            const endY = e.changedTouches[0].clientY;
-            const diffX = startX - endX;
-            const diffY = startY - endY;
-
-            // Check if horizontal OR vertical swipe is stronger
-            if (Math.abs(diffX) > threshold || Math.abs(diffY) > threshold) {
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    navigate(diffX > 0 ? 1 : -1);
-                } else {
-                    navigate(diffY > 0 ? 1 : -1);
-                }
-            }
-        }, { passive: false });
-
-        // Wheel handling (Desktop)
+        // Mouse Wheel Logic
         window.addEventListener('wheel', e => {
-            if (Math.abs(e.deltaY) > 10) {
-                navigate(e.deltaY > 0 ? 1 : -1);
-            }
+            if (Math.abs(e.deltaY) > 20) navigate(e.deltaY > 0 ? 1 : -1);
         }, { passive: true });
 
-        // Keyboard handling
-        window.addEventListener('keydown', e => {
-            if (e.key === "ArrowRight" || e.key === "ArrowDown") navigate(1);
-            if (e.key === "ArrowLeft" || e.key === "ArrowUp") navigate(-1);
-        });
+        // Touch Logic
+        let startX = 0;
+        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        window.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+        }, { passive: true });
 
-        // Initialize
-        updateUI();
+        // Keyboard Logic
+        window.addEventListener('keydown', e => {
+            if (e.key === "ArrowRight") navigate(1);
+            if (e.key === "ArrowLeft") navigate(-1);
+        });
     </script>
 </body>
 </html>
