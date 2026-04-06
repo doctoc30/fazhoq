@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faz Hoq | Digital Designer & Developer</title>
+    <title>Faz Hoq | The Tradesman's Designer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,110 +29,137 @@
         }
 
         .orange-glow {
-            box-shadow: 0 0 40px rgba(255, 107, 44, 0.25);
+            box-shadow: 0 0 40px rgba(255, 107, 44, 0.3);
         }
 
-        /* Glass Dock */
         .glass-dock {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2rem;
+            border-radius: 2.5rem;
         }
 
-        /* Smooth Bento Grids */
         .bento-card {
-            background: #141414;
+            background: linear-gradient(145deg, #141414, #0f0f0f);
             border: 1px solid #222;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .bento-card:hover {
             border-color: var(--brand-orange);
-            transform: translateY(-5px);
+            transform: scale(1.02);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0A0A0A; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        /* Typewriter / Flip effect for Trades */
+        .trade-rotator {
+            display: inline-block;
+            color: var(--brand-orange);
+            min-width: 300px;
+            text-align: center;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-trade {
+            animation: fadeInOut 3s infinite;
+        }
     </style>
 </head>
 <body class="pb-40">
 
     <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
         <div class="text-2xl font-black tracking-tighter">FAZ HOQ<span class="text-[#FF6B2C]">.</span></div>
-        <div class="hidden md:flex gap-8 text-sm font-medium opacity-60">
-            <a href="#work" class="hover:opacity-100">My Work</a>
-            <a href="#about" class="hover:opacity-100">About Me</a>
-            <a href="mailto:Fazhoq1977@gmail.com" class="hover:opacity-100">Contact</a>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span class="text-[10px] font-bold uppercase tracking-widest opacity-50">Online Now</span>
+        <div class="flex items-center gap-4">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hidden md:block">UK Based • Premium Builds</span>
+            <a href="mailto:Fazhoq1977@gmail.com" class="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all">
+                Project Inquiry
+            </a>
         </div>
     </nav>
 
-    <section class="relative px-6 pt-20 pb-32 flex flex-col items-center text-center">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#FF6B2C]/10 blur-[120px] rounded-full -z-10"></div>
+    <section class="relative px-6 pt-20 pb-28 flex flex-col items-center text-center">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FF6B2C]/5 blur-[140px] rounded-full -z-10"></div>
         
-        <span data-aos="fade-up" class="px-4 py-1.5 rounded-full border border-[#FF6B2C]/30 text-[#FF6B2C] text-xs font-bold uppercase tracking-widest mb-8">
-            Independent Web Designer
-        </span>
+        <div data-aos="fade-down" class="flex items-center gap-2 mb-8 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
+            <div class="h-1.5 w-1.5 rounded-full bg-[#FF6B2C] animate-ping"></div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#FF6B2C]">Booking for May 2026</span>
+        </div>
 
-        <h1 data-aos="fade-up" data-aos-delay="100" class="text-6xl md:text-8xl font-black tracking-tight mb-6 leading-[0.9]">
-            I BUILD<br><span class="text-gradient">WEBSITES FOR</span><br>
-            <span class="text-[#FF6B2C]">PAINTERS.</span>
+        <h1 data-aos="fade-up" class="text-5xl md:text-8xl font-black tracking-tight mb-6 leading-[0.9]">
+            I BUILD WEBSITES<br><span class="text-gradient font-light">SPECIALLY FOR</span><br>
+            <span id="tradeText" class="trade-rotator italic">PAINTERS.</span>
         </h1>
 
-        <p data-aos="fade-up" data-aos-delay="200" class="max-w-xl text-gray-400 text-lg md:text-xl font-light mb-12">
-            I help solo decorators and painting firms win more high-ticket jobs with high-performance digital presence.
+        <p data-aos="fade-up" data-aos-delay="200" class="max-w-2xl text-gray-400 text-lg md:text-xl font-light mb-12">
+            I don’t do "corporate." I build hard-working websites for hard-working tradesmen. Get a site that works as hard as you do.
         </p>
 
-        <div data-aos="fade-up" data-aos-delay="300" class="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/447706345874" class="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-bold orange-glow hover:scale-105 transition-transform flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-            <a href="#work" class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/10 transition-all">
-                View My Recent Work
-            </a>
-        </div>
-    </section>
-
-    <section id="about" class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        <div data-aos="zoom-in" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-end min-h-[400px] relative overflow-hidden">
-            <div class="absolute top-10 right-10 opacity-10">
-                <i class="fa-solid fa-user-tie text-[12rem]"></i>
+        <div data-aos="fade-up" data-aos-delay="300" class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-col items-center">
+                <span class="text-3xl font-black">24h</span>
+                <span class="text-[10px] uppercase opacity-40 font-bold">Response Time</span>
             </div>
-            <h3 class="text-3xl font-bold mb-4 text-[#FF6B2C]">I'm Faz.</h3>
-            <p class="text-gray-300 text-lg max-w-md">
-                I don’t just build websites; I build business tools. I understand that for a professional painter, your website needs to do one thing: <strong>Get you leads while you’re on the ladder.</strong> 
-            </p>
-        </div>
-        
-        <div data-aos="zoom-in" data-aos-delay="100" class="bento-card p-10 rounded-[2.5rem] bg-[#FF6B2C] border-none text-white flex flex-col justify-between">
-            <div class="text-4xl font-black leading-tight uppercase">Bespoke<br>For Trades</div>
-            <p class="font-medium text-sm leading-tight opacity-90">I focus 100% on trade professionals. I know exactly what your customers are looking for.</p>
-        </div>
-
-        <div data-aos="zoom-in" data-aos-delay="200" class="bento-card p-10 rounded-[2.5rem] flex flex-col items-center justify-center text-center">
-            <div class="text-5xl font-black text-[#FF6B2C] mb-2">1-on-1</div>
-            <p class="text-sm uppercase tracking-widest opacity-60">Personal Service</p>
-        </div>
-
-        <div data-aos="zoom-in" data-aos-delay="300" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-center">
-            <h3 class="text-2xl font-bold mb-4">Why work with me?</h3>
-            <p class="text-gray-400 leading-relaxed">
-                You’ll deal with me directly—no account managers, no delays. I provide pixel-perfect development, SEO that actually works on Google, and a design that makes your painting business look like the most premium choice in town.
-            </p>
+            <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-3xl font-black">7 Days</span>
+                <span class="text-[10px] uppercase opacity-40 font-bold">Average Build</span>
+            </div>
+            <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-3xl font-black">#1</span>
+                <span class="text-[10px] uppercase opacity-40 font-bold">Local SEO</span>
+            </div>
         </div>
     </section>
 
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-[450px] z-50">
+    <section class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <div data-aos="fade-right" class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-end min-h-[400px]">
+            <span class="text-[#FF6B2C] font-bold text-sm uppercase tracking-widest mb-4">The Face Behind the Code</span>
+            <h3 class="text-4xl font-black mb-6">I'm Faz Hoq.</h3>
+            <p class="text-gray-400 text-lg leading-relaxed">
+                I noticed most trade websites look like they were built in 2005. I'm here to change that. I work 1-on-1 with you to create a digital presence that commands respect, looks premium, and—most importantly—**makes your phone ring.**
+            </p>
+        </div>
+        
+        <div data-aos="fade-up" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
+                <i class="fa-solid fa-gauge-high text-[#FF6B2C]"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-xl mb-2">Turbo Speed</h4>
+                <p class="text-sm text-white/50">Google loves fast sites. I build for speed so you rank higher.</p>
+            </div>
+        </div>
+
+        <div data-aos="fade-left" class="bento-card p-8 rounded-[2.5rem] flex flex-col justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-[#FF6B2C] flex items-center justify-center text-white">
+                <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-xl mb-2">Mobile Ready</h4>
+                <p class="text-sm text-white/50">Your customers book from their phones. I make it easy.</p>
+            </div>
+        </div>
+
+        <div data-aos="fade-up" class="md:col-span-4 bento-card p-8 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8 bg-white/5">
+            <div class="text-center md:text-left flex-1">
+                <h3 class="text-3xl font-black mb-4">No Agency BS. No Monthly Fees.</h3>
+                <p class="text-white/60">You pay once, you own the site. I don't hide behind account managers. If you have a question, you text me directly. Simple as that.</p>
+            </div>
+            <a href="https://wa.me/447706345874" class="w-full md:w-auto bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-black orange-glow text-center">
+                LET'S BUILD IT
+            </a>
+        </div>
+    </section>
+
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-[480px] z-50">
         <div class="glass-dock p-3 flex justify-between items-center shadow-2xl">
             
-            <a href="tel:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all text-white">
+            <a href="tel:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
                 <i class="fa-solid fa-phone text-lg mb-1"></i>
                 <span class="text-[9px] uppercase font-bold opacity-50">Call</span>
             </a>
@@ -143,20 +170,20 @@
             </a>
 
             <a href="mailto:Fazhoq1977@gmail.com" class="relative group">
-                <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#FF6B2C] text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap animate-bounce">
-                    HIRE ME
+                <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#FF6B2C] text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap animate-pulse">
+                    READY TO WORK?
                 </div>
-                <div class="w-16 h-16 bg-[#FF6B2C] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B2C]/40 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-bolt text-xl text-white"></i>
+                <div class="w-16 h-16 bg-[#FF6B2C] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B2C]/40 group-hover:rotate-12 transition-transform">
+                    <i class="fa-solid fa-hammer text-xl text-white"></i>
                 </div>
             </a>
 
-            <a href="sms:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all text-white">
+            <a href="sms:07706345874" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
                 <i class="fa-solid fa-comment-dots text-lg mb-1"></i>
                 <span class="text-[9px] uppercase font-bold opacity-50">Text</span>
             </a>
 
-            <a href="mailto:Fazhoq1977@gmail.com" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all text-white">
+            <a href="mailto:Fazhoq1977@gmail.com" class="w-14 h-14 flex flex-col items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
                 <i class="fa-solid fa-envelope text-lg mb-1"></i>
                 <span class="text-[9px] uppercase font-bold opacity-50">Email</span>
             </a>
@@ -166,12 +193,24 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: false,
-            mirror: true,
-            easing: 'ease-out-back'
-        });
+        AOS.init({ duration: 1000, once: true });
+
+        // Trade Rotator Script
+        const trades = ["PAINTERS.", "PLUMBERS.", "BUILDERS.", "ELECTRICIANS.", "ROOFERS.", "DECORATORS."];
+        let currentIndex = 0;
+        const tradeElement = document.getElementById("tradeText");
+
+        setInterval(() => {
+            tradeElement.classList.add('animate-trade');
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % trades.length;
+                tradeElement.textContent = trades[currentIndex];
+            }, 500);
+            
+            setTimeout(() => {
+                tradeElement.classList.remove('animate-trade');
+            }, 2500);
+        }, 3000);
     </script>
 </body>
 </html>
