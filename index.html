@@ -14,24 +14,24 @@
             --app-white: #FFFFFF;
         }
 
-        /* Lock the viewport */
+        /* Lock Viewport & Disable Vertical Scroll */
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden; 
             font-family: 'Outfit', sans-serif;
             background: var(--app-white);
-            touch-action: none;
+            touch-action: none; /* Crucial for app-like feel on mobile */
         }
 
-        /* The Horizontal Slider */
+        /* The Horizontal Slider Container */
         #viewport {
             display: flex;
             height: 100%;
-            width: 400%; /* 4 sections = 400% */
-            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            width: 400vw; /* 4 sections */
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform;
         }
 
@@ -48,28 +48,13 @@
         }
 
         .huge-text {
-            font-size: clamp(3.5rem, 15vw, 12rem);
+            font-size: clamp(3.5rem, 16vw, 13rem);
             font-weight: 900;
-            line-height: 0.85;
+            line-height: 0.8;
             letter-spacing: -0.07em;
             text-transform: uppercase;
             text-align: center;
         }
-
-        /* App-Style Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            pointer-events: none;
-        }
-        
-        nav * { pointer-events: auto; }
 
         /* Floating App Dock */
         .app-dock {
@@ -89,95 +74,107 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
-        /* Horizontal Progress Indicator */
-        .progress-bar {
+        /* Top Progress Bar (Visual feedback for swiping) */
+        .progress-container {
             position: fixed;
             top: 0;
             left: 0;
-            height: 6px;
-            background: var(--brand-orange);
-            width: 25%;
-            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.03);
             z-index: 101;
+        }
+
+        #pBar {
+            height: 100%;
+            width: 25%; /* 1/4 slides */
+            background: var(--brand-orange);
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: left;
         }
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #000; color: #fff; }
 
-        /* Next/Prev Buttons for Desktop */
-        .nav-btn {
+        /* Navigation Header */
+        nav {
             position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
+            top: 0;
+            width: 100%;
             z-index: 100;
-            border: none;
-            transition: all 0.3s;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
         }
-        .nav-btn:hover { background: var(--brand-orange); color: white; }
-        #prevBtn { left: 2rem; display: none; }
-        #nextBtn { right: 2rem; }
+        
+        nav * { pointer-events: auto; }
 
+        .slide-hint {
+            position: absolute;
+            bottom: 8rem;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            opacity: 0.2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="progress-bar" id="pBar"></div>
+    <div class="progress-container">
+        <div id="pBar"></div>
+    </div>
 
     <nav>
-        <div class="text-3xl font-black tracking-tighter">FAZ<span class="accent">.</span></div>
-        <div class="flex gap-4">
-            <a href="mailto:Fazhoq1977@gmail.com" class="bg-black text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Hire Me</a>
-        </div>
+        <div class="text-2xl font-black tracking-tighter uppercase">FAZ<span class="accent">.</span></div>
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-6 py-2 rounded-full">Contact</a>
     </nav>
-
-    <button class="nav-btn" id="prevBtn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-    <button class="nav-btn" id="nextBtn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
 
     <div id="viewport">
         <section>
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">01 / CONCEPT</span>
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">WELCOME</span>
             <h1 class="huge-text">DIGITAL<br>ARCHITECT<span class="accent">.</span></h1>
-            <p class="mt-8 text-gray-300 font-black uppercase text-[10px] tracking-widest">Swipe Side to Explore</p>
+            <div class="slide-hint">Swipe Sideways</div>
         </section>
 
-        <section style="background: #F8F8F8;">
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">02 / PARTNER</span>
-            <h2 class="huge-text">I AM<br><span class="accent italic">FAZ HOQ.</span></h2>
+        <section style="background: #F9F9F9;">
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">THE PARTNER</span>
+            <h2 class="huge-text">I AM<br><span class="accent">FAZ HOQ.</span></h2>
             <div class="mt-12 text-center max-w-sm">
-                <p class="text-xl font-medium text-gray-500 mb-8">I build platforms that turn local retailers into digital leaders.</p>
-                <a href="about-me.html" class="inline-block border-b-4 border-black pb-1 font-black uppercase text-xs">Full Portfolio</a>
+                <p class="text-xl font-medium opacity-50 mb-8 leading-tight">Elevating retailers with enterprise-level digital stores.</p>
+                <a href="about-me.html" class="inline-block border-b-2 border-black pb-1 font-black uppercase text-[10px]">View My Story</a>
             </div>
         </section>
 
         <section>
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">03 / SOLUTIONS</span>
-            <h2 class="huge-text">PREMIUM<br>UI & SEO</h2>
-            <div class="mt-12 flex gap-10">
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">SOLUTIONS</span>
+            <h2 class="huge-text">UI & SEO<br><span class="accent italic">DRIVEN.</span></h2>
+            <div class="mt-10 flex gap-12">
                 <div class="text-center">
                     <p class="text-4xl font-black">100%</p>
-                    <p class="text-[10px] font-black opacity-40 uppercase">Ownership</p>
+                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">Ownership</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-4xl font-black">72H</p>
-                    <p class="text-[10px] font-black opacity-40 uppercase">Support</p>
+                    <p class="text-4xl font-black">FAST</p>
+                    <p class="text-[9px] font-black opacity-30 uppercase tracking-widest">Delivery</p>
                 </div>
             </div>
         </section>
 
         <section class="bg-dark">
-            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">04 / CONNECT</span>
+            <span class="text-[10px] font-black tracking-[0.5em] accent mb-6">CONNECT</span>
             <h2 class="huge-text">LET'S<br>BUILD<span class="accent">.</span></h2>
             <div class="mt-12">
-                <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-5xl font-black hover:text-[#FF6B2C] transition-colors">
+                <a href="mailto:Fazhoq1977@gmail.com" class="text-2xl md:text-5xl font-black underline decoration-[#FF6B2C] underline-offset-8">
                     Fazhoq1977@gmail.com
                 </a>
             </div>
@@ -201,8 +198,6 @@
         const totalSlides = 4;
         const viewport = document.getElementById('viewport');
         const pBar = document.getElementById('pBar');
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
         let isMoving = false;
 
         function moveSlide(direction) {
@@ -213,39 +208,47 @@
                 isMoving = true;
                 currentSlide = target;
                 
-                // Animate Viewport
+                // Animate Slider
                 viewport.style.transform = `translateX(-${currentSlide * 100}vw)`;
                 
                 // Animate Progress Bar
                 pBar.style.transform = `translateX(${currentSlide * 100}%)`;
-                
-                // Toggle Desktop Buttons
-                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
-                nextBtn.style.display = currentSlide === (totalSlides - 1) ? 'none' : 'flex';
 
-                setTimeout(() => { isMoving = false; }, 700);
+                setTimeout(() => { isMoving = false; }, 850);
             }
         }
 
-        // Swipe Detection (Mobile)
+        // --- INTERACTION LOGIC ---
+
+        // 1. Mouse Wheel (PC) - Interprets vertical scroll as horizontal swipe
+        window.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > 10) {
+                if (e.deltaY > 0) moveSlide(1);  // Scroll Down -> Move Right
+                else moveSlide(-1);              // Scroll Up -> Move Left
+            }
+        }, { passive: true });
+
+        // 2. Touch Swipe (Mobile)
         let touchStartX = 0;
-        window.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+        window.addEventListener('touchstart', (e) => { 
+            touchStartX = e.touches[0].clientX; 
+        }, { passive: true });
+
         window.addEventListener('touchend', (e) => {
             const touchEndX = e.changedTouches[0].clientX;
             const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
+            
+            if (Math.abs(diff) > 40) { // Threshold for swipe
                 if (diff > 0) moveSlide(1);  // Swipe Left -> Next
-                else moveSlide(-1);         // Swipe Right -> Prev
-            }
-        });
-
-        // Mouse Wheel (PC - optional but handy)
-        window.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > 20) {
-                if (e.deltaY > 0) moveSlide(1);
-                else moveSlide(-1);
+                else moveSlide(-1);          // Swipe Right -> Prev
             }
         }, { passive: true });
+
+        // 3. Arrow Keys (Keyboard)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") moveSlide(1);
+            if (e.key === "ArrowLeft" || e.key === "ArrowUp") moveSlide(-1);
+        });
     </script>
 </body>
 </html>
