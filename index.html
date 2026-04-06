@@ -41,7 +41,6 @@
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        /* REFINED TYPOGRAPHY - Prevents overflowing in landscape/desktop */
         .text-wrap {
             width: 100%;
             max-width: 1200px;
@@ -50,7 +49,6 @@
         }
 
         .huge-text {
-            /* Scales safely on all orientations */
             font-size: clamp(3rem, 15vmin, 9rem);
             font-weight: 900;
             line-height: 0.85;
@@ -60,6 +58,26 @@
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
+
+        /* WAVING HAND ANIMATION */
+        .waving-hand {
+            width: clamp(80px, 15vw, 150px);
+            margin: 0 auto 1.5rem;
+            transform-origin: bottom center;
+            animation: wave 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
 
         /* DESKTOP NAV */
         .nav-link {
@@ -140,6 +158,7 @@
         
         <section class="active">
             <div class="text-wrap">
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2822.png" alt="Waving Hello" class="waving-hand">
                 <span class="accent font-black text-[10px] tracking-[0.4em] mb-4 block">LONDON UK</span>
                 <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
             </div>
@@ -230,7 +249,6 @@
             updateUI();
         }
 
-        // Menu Toggle
         const menuOverlay = document.getElementById('mobile-menu');
         function toggleMenu() {
             menuOverlay.style.display = menuOverlay.style.display === 'flex' ? 'none' : 'flex';
@@ -238,7 +256,6 @@
         document.getElementById('menu-btn').onclick = toggleMenu;
         document.getElementById('close-btn').onclick = toggleMenu;
 
-        // Gestures
         let startX = 0, startY = 0;
         window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
         window.addEventListener('touchend', e => {
