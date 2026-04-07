@@ -11,7 +11,8 @@
         
         :root {
             --brand-orange: #FF6B2C;
-            --app-white: #FFFFFF;
+            --app-white: #FFF9F6; /* Slightly off-white to match the screenshot */
+            --card-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
         html, body {
@@ -28,7 +29,7 @@
             width: 100%; height: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            padding: 2rem;
+            padding: 1.5rem;
             background: var(--app-white);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,111 +39,136 @@
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
+        .text-wrap { width: 100%; max-width: 600px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 9vmin, 5rem);
+        .huge-text {
+            font-size: clamp(2.2rem, 9vmin, 4.8rem);
             font-weight: 900;
             line-height: 1.1;
             letter-spacing: -0.05em;
         }
 
-        /* FIX: Stable Typewriter Height to prevent jumping */
-        .typewriter-box {
-            min-height: 1.2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
+        /* CATEGORY GRID STYLES */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            box-shadow: var(--card-shadow);
+            text-decoration: none;
+            color: #000;
+            transition: transform 0.2s ease;
+        }
+
+        .category-card:active { transform: scale(0.96); }
+
+        .category-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--brand-orange);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 15px rgba(255, 107, 44, 0.25);
+        }
+
+        .category-label {
+            font-weight: 900;
+            font-size: 0.95rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .full-width-card {
+            grid-column: span 2;
+            flex-direction: row;
+            padding: 1.2rem 2rem;
+            justify-content: flex-start;
+            gap: 1.5rem;
+        }
+
+        /* HERO ELEMENTS */
         .waving-hand {
-            width: clamp(240px, 42vh, 400px);
+            width: clamp(250px, 60vw, 400px);
             height: auto;
-            transform-origin: bottom center;
-            animation: wave 2.5s infinite ease-in-out;
-            display: block;
-            pointer-events: none;
+            margin-top: -60px;
+            margin-bottom: 10px;
             mix-blend-mode: multiply; 
-            margin-top: -80px; 
-            margin-bottom: 5px;
         }
 
-        @media (orientation: landscape) {
-            .waving-hand { 
-                width: clamp(140px, 22vh, 260px); 
-                margin-top: 0; 
-                margin-bottom: 15px;
-            }
-            .hero-title { font-size: clamp(1.8rem, 7vh, 3.5rem); }
-        }
-
-        /* PROMINENT SEARCH BAR */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
-            padding: 8px; 
+            padding: 6px; 
             display: flex; 
             align-items: center; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); 
             width: 95%;
-            max-width: 480px; 
-            margin: 40px auto 0;
-            border: 3px solid #000; /* Bolder border */
-            transform: scale(1.05);
+            margin-top: 30px;
+            border: 2px solid #000; 
         }
 
         .search-container input { 
             flex: 1; border: none; outline: none; 
-            padding: 12px 20px; font-size: 1.1rem; 
-            font-weight: 800; background: transparent; color: #000;
+            padding: 10px 18px; font-size: 1.1rem; 
+            font-weight: 700; background: transparent;
         }
-
-        .search-container input::placeholder { color: rgba(0,0,0,0.4); }
 
         .search-icon-btn { 
-            width: 52px; height: 52px; 
+            width: 45px; height: 45px; 
             background: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; 
-            color: #fff; cursor: pointer; border: none; 
-            transition: background 0.3s;
-        }
-        
-        .search-icon-btn:hover { background: var(--brand-orange); }
-        .search-icon-btn i { font-size: 1.4rem; }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            10% { transform: rotate(6deg) scale(1.02); }
-            20% { transform: rotate(-4deg) scale(1.02); }
-            50% { transform: rotate(4deg) scale(1); }
+            color: #fff; border: none; 
         }
 
+        /* DOCK & DOTS */
         .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
+            position: fixed; bottom: max(1.2rem, env(safe-area-inset-bottom));
             left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.5rem; display: flex; gap: 3rem;
-            align-items: center; z-index: 1000;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px); border-radius: 5rem;
+            padding: 0.7rem 2rem; display: flex; gap: 2rem;
+            z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.1); }
+        .dock-btn { font-size: 1.6rem; color: var(--brand-orange); }
+        .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 0.8rem; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
         .dot.active { background: var(--brand-orange); transform: scale(2); }
+
+        @media (orientation: landscape) {
+            .category-grid { grid-template-columns: repeat(4, 1fr); }
+            .full-width-card { grid-column: span 2; }
+            .waving-hand { width: 180px; margin-top: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-8 md:p-12 flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+    <nav class="fixed top-0 w-full z-[1500] p-6 flex justify-between items-center">
+        <div class="text-xl font-black tracking-tighter uppercase" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+        <button class="text-2xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
-    <div class="nav-dots fixed right-5 top-1/2 -translate-y-1/2 z-[1000] flex flex-col gap-4">
+    <div class="nav-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
@@ -150,22 +176,50 @@
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <h1 class="hero-title">I build websites for:</h1>
-                <div class="typewriter-box">
-                    <div class="hero-title accent" id="typewriter">&nbsp;</div>
-                </div>
+                <h1 class="huge-text">I build websites for:</h1>
+                <div class="huge-text accent" id="typewriter">&nbsp;</div>
                 
                 <div class="search-container">
-                    <input type="text" id="mainSearch" placeholder="Enter your industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                     <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="hero-title">Strategic<br><span class="accent">Partner.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title italic">Wow<span class="accent">!</span><br>Interaction.</h2></div></section>
-        <section><div class="text-wrap"><h2 class="hero-title">Clean<br><span class="accent">Code.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title">Let's<br><span class="accent">Build.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-2xl font-black border-b-4 border-[#FF6B2C] pb-2">Get in touch</a></div></div></section>
+        <section>
+            <div class="text-wrap">
+                <h2 class="text-xs font-black tracking-[0.2em] text-orange-500 mb-2 uppercase">Or select from popular categories</h2>
+                
+                <div class="category-grid">
+                    <a href="#" class="category-card">
+                        <div class="category-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="category-label">Health &<br>Wellness</span>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon"><i class="fa-solid fa-hammer"></i></div>
+                        <span class="category-label">Home &<br>Trades</span>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <span class="category-label">Professional<br>Services</span>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="category-label">Food &<br>Drink</span>
+                    </a>
+                    <a href="#" class="category-card full-width-card">
+                        <div class="category-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="category-label text-left">Retail & Creative Industries</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
+        
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
+        
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-3xl font-black border-b-4 border-[#FF6B2C] pb-2">Contact</a></div></div></section>
     </div>
 
     <div class="app-dock">
@@ -175,63 +229,30 @@
     </div>
 
     <script>
-        const nicheWords = [
-            "Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Restaurants", "Architects", 
-            "Physios", "Roofers", "Cafes", "Bakeries", "Accountants", "Trainers", "Painters", 
-            "Locksmiths", "Florists", "Pet Shops", "Boutiques", "E-commerce", "Artists",
-            "Tutors", "Agencies", "Consultants", "Real Estate", "Mechanics", "Yoga Studios",
-            "Spas", "Beauticians", "Landscapers", "Cleaners", "Carpenters", "Handymen", "Chauffeurs",
-            "Solar Experts", "Glaziers", "Scaffolders", "Event Planners", "DJs", "Caterers", "Opticians", 
-            "Vets", "Daycares", "Recruitment", "Tattoo Artists", "Jewellers", "Tailors", "Music Schools",
-            "Coaches", "Therapists", "Plasterers", "Garden Centers", "Wine Bars", "Steakhouses", "Sushi Bars",
-            "Hair Salons", "Nail Bars", "Bridal Shops", "Startups", "Estate Agents", "Charities", "Churches", 
-            "Private Chefs", "Travel Agents", "Pest Control", "Ironing Pros", "Window Cleaners", "Cycle Shops", 
-            "Vape Shops", "Gift Shops", "Antique Dealers", "Surgeons", "Dog Groomers", "Podiatrists"
-        ];
-
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms"];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
         function type() {
             const currentWord = nicheWords[wordIndex];
-            
-            if (isDeleting) {
-                charIndex--;
-            } else {
-                charIndex++;
-            }
-
-            // Using &nbsp; if string is empty to keep height stable
+            if (isDeleting) charIndex--; else charIndex++;
             const str = currentWord.substring(0, charIndex);
             typewriterEl.innerHTML = str === "" ? "&nbsp;" : str;
-
-            let typeSpeed = isDeleting ? 40 : 80;
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1800;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % nicheWords.length;
-                typeSpeed = 400;
-            }
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentWord.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; typeSpeed = 500; }
             setTimeout(type, typeSpeed);
         }
-
-        window.onload = () => { type(); };
+        window.onload = type;
 
         function triggerSearch() {
             const val = document.getElementById('mainSearch').value.trim();
             if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
 
-        // SLIDE ENGINE
-        const wrapper = document.getElementById('master-wrapper');
-        const sections = wrapper.querySelectorAll('section');
+        const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0; let isMoving = false;
+        let currentIdx = 0, isMoving = false;
 
         function updateUI() {
             sections.forEach((sec, i) => {
@@ -240,9 +261,6 @@
                 else if (i < currentIdx) sec.classList.add('prev');
             });
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
-            const isDark = sections[currentIdx].classList.contains('bg-dark');
-            document.body.style.backgroundColor = isDark ? "#050505" : "#fff";
-            document.body.style.color = isDark ? "#fff" : "#000";
         }
 
         function navigate(dir) {
@@ -254,19 +272,14 @@
             }
         }
 
-        function goToSlide(index) { currentIdx = index; updateUI(); }
-
-        let startX = 0, startY = 0;
-        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
+        let startY = 0;
+        window.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
-            const dX = startX - e.changedTouches[0].clientX;
             const dY = startY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 40 || Math.abs(dY) > 40) {
-                if (Math.abs(dX) > Math.abs(dY)) navigate(dX > 0 ? 1 : -1);
-                else navigate(dY > 0 ? 1 : -1);
-            }
-        }, { passive: false });
-        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
+            if (Math.abs(dY) > 50) navigate(dY > 0 ? 1 : -1);
+        });
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); });
+        function goToSlide(index) { currentIdx = index; updateUI(); }
     </script>
 </body>
 </html>
