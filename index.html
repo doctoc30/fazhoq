@@ -12,7 +12,6 @@
         :root {
             --brand-orange: #FF6B2C;
             --app-white: #FFFFFF;
-            /* REMOVED SHADOW - only border outline remains for tiles */
             --tile-border: 3px solid #000;
         }
 
@@ -40,27 +39,34 @@
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .text-wrap { 
+            width: 100%; 
+            max-width: 1200px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            /* Added top padding to push content up and create space */
+            padding-top: 1.5rem;
+        }
 
-        /* ========== HEADER: LOGO + HAMBURGER BIGGER (TASK 2) ========== */
+        /* ========== HEADER: LOGO + HAMBURGER BIGGER ========== */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1500;
             padding: 1.5rem 2rem;
             display: flex; justify-content: space-between; align-items: center;
             background: transparent;
         }
-        /* Logo bigger */
         .brand-logo {
-            font-size: 2rem;        /* Increased from default text-xl (~1.25rem) to 2rem */
+            font-size: 2rem;
             font-weight: 900;
             letter-spacing: -0.02em;
             cursor: pointer;
             transition: transform 0.1s ease;
         }
         .brand-logo:active { transform: scale(0.97); }
-        /* Hamburger button bigger */
         .menu-btn {
-            font-size: 2.2rem;       /* Significantly larger */
+            font-size: 2.2rem;
             background: none;
             border: none;
             color: #000;
@@ -72,28 +78,24 @@
         .accent { color: var(--brand-orange); }
 
         .huge-text {
-            font-size: clamp(2.2rem, 9vmin, 4.8rem);
+            font-size: clamp(2rem, 8vmin, 4.5rem);
             font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
         }
 
-        /* ========== SEARCH BAR: CENTERED & PUSHED UP (TASK 1) ========== */
-        /* Added margin-top reduction and refined centering for all devices */
+        /* ========== SEARCH BAR: CENTERED & PUSHED UP ========== */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
             padding: 6px 10px 6px 6px;
             display: flex; 
             align-items: center; 
-            /* Removed deep shadow, using clean border */
             box-shadow: none;
             width: 95%; 
             max-width: 500px; 
-            /* Pushed up: reduced margin-top from 30px to 12px + relative shift */
-            margin-top: 12px;
+            margin-top: 20px;
             border: 3px solid #000; 
             box-sizing: border-box;
             overflow: hidden;
-            /* Ensure centering on all devices */
             margin-left: auto;
             margin-right: auto;
         }
@@ -121,10 +123,47 @@
             cursor: pointer;
         }
 
-        /* ========== CATEGORY TILES: SLIGHTLY SMALLER + BORDER ONLY (TASKS 3 & 4) ========== */
+        /* ========== AVATAR (WAVING HAND) - MOVED UP WITH ADEQUATE SPACING ========== */
+        .avatar-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            /* Push avatar upward by adjusting margin */
+            margin-top: -2rem;
+        }
+        .waving-hand { 
+            width: clamp(220px, 55vw, 320px); 
+            height: auto; 
+            mix-blend-mode: multiply; 
+            animation: wave 2.5s infinite ease-in-out;
+            display: block;
+        }
+        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+
+        /* Content group with proper spacing between avatar, text, and search */
+        .content-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: 0.75rem;
+        }
+        
+        /* Typewriter container with proper margins */
+        .typewriter-container {
+            margin: 0.5rem 0 0.25rem;
+        }
+        
+        /* Heading spacing */
+        .hero-heading {
+            margin-bottom: 0.25rem;
+        }
+
+        /* ========== CATEGORY TILES: SLIGHTLY SMALLER + BORDER ONLY ========== */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 70px; /* reduced from 110px to push content up slightly */
+            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 60px;
             margin-bottom: 1.2rem;
         }
 
@@ -133,24 +172,21 @@
             width: 100%; max-width: 520px; margin-bottom: 100px; 
         }
 
-        /* Tiles: Smaller padding, slightly smaller text, and NO SHADOW — only border outline */
         .category-tile {
             background: #fff; 
             border: 3px solid #000; 
             border-radius: 20px;
-            padding: 1.2rem 0.8rem;   /* Reduced from 1.8rem 1rem to make tiles slightly smaller */
+            padding: 1.2rem 0.8rem;
             display: flex; 
             flex-direction: column;
             align-items: center; 
-            gap: 0.6rem;              /* Reduced gap */
-            /* NO box-shadow (task 4: shades removed, just border outline) */
+            gap: 0.6rem;
             box-shadow: none;
             transition: transform 0.15s ease;
             cursor: pointer;
         }
         .category-tile:active { transform: scale(0.96); }
         
-        /* Icon container slightly smaller to match tile scale */
         .tile-icon { 
             width: 48px; 
             height: 48px; 
@@ -164,12 +200,11 @@
         }
         .tile-label { 
             font-weight: 900; 
-            font-size: 0.85rem;   /* Slightly smaller text */
+            font-size: 0.85rem;
             line-height: 1.2; 
             color: #000; 
             text-align: center;
         }
-        /* For the spanning tile in row layout (Retail & Creative) */
         .category-tile[style*="grid-column: span 2"] {
             flex-direction: row;
             gap: 0.8rem;
@@ -180,7 +215,7 @@
             height: 44px;
         }
 
-        /* TASK 2: VIBZ ANIMATIONS (preserved) */
+        /* VIBZ ANIMATIONS */
         .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -227,7 +262,7 @@
             75% { transform: rotate(-15deg); }
         }
 
-        /* TASK 3: SWIPE COUNTER PROGRESS (already functional) */
+        /* SWIPE COUNTER PROGRESS */
         .swipe-counter {
             position: fixed;
             right: 20px;
@@ -268,10 +303,6 @@
         .cat-item:active { transform: translateY(4px); box-shadow: 0 4px 0 #000; }
         .close-layer { margin-top: 30px; width: 60px; height: 60px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
 
-        /* AVATAR */
-        .waving-hand { width: clamp(250px, 70vw, 400px); height: auto; mix-blend-mode: multiply; animation: wave 2.5s infinite ease-in-out; }
-        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
-
         /* DOCK */
         .app-dock {
             position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
@@ -282,7 +313,7 @@
         }
         .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
 
-        /* LANDSCAPE FIXES + additional adjustments for search centering */
+        /* LANDSCAPE FIXES */
         @media (orientation: landscape) {
             .text-wrap { 
                 flex-direction: row; 
@@ -290,6 +321,7 @@
                 justify-content: center; 
                 gap: 2rem; 
                 max-width: 90%;
+                padding-top: 0.5rem;
             }
             .content-group { 
                 display: flex; 
@@ -298,37 +330,59 @@
                 text-align: left;
             }
             .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 50px;}
+            .avatar-section { 
+                margin-top: 0;
+                margin-bottom: 0;
+            }
             .waving-hand { height: 55vh; width: auto; max-width: 35vw; }
-            .search-container { margin-top: 12px; width: 100%; }
-            /* header adjustments */
+            .search-container { margin-top: 16px; width: 100%; }
             nav { padding: 1rem 2rem; }
         }
         
-        /* Additional fine-tuning for very small devices to keep search centered and pushed up */
-        @media (max-height: 650px) {
-            .search-container { margin-top: 8px; }
-            .category-header { margin-top: 40px; }
+        /* Adjust for shorter screens to prevent congestion */
+        @media (max-height: 700px) {
+            .avatar-section {
+                margin-top: -1rem;
+            }
+            .waving-hand {
+                width: clamp(180px, 40vw, 260px);
+            }
+            .hero-heading {
+                font-size: clamp(1.8rem, 6vmin, 3.5rem);
+            }
+            .search-container {
+                margin-top: 12px;
+            }
+            .content-group {
+                gap: 0.4rem;
+            }
         }
         
-        /* Make sure first slide content-group spacing feels balanced: search slightly upward */
-        .content-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+        /* Fine tuning for very tall screens */
+        @media (min-height: 800px) {
+            .avatar-section {
+                margin-top: -1rem;
+            }
+            .content-group {
+                gap: 1rem;
+            }
         }
-        /* push up search relative to the typewriter line - consistent centering */
-        section.active .search-container {
-            margin-top: 6px;
+        
+        /* Force adequate spacing - avatar moved up, elements well separated */
+        section.active .text-wrap {
+            justify-content: center;
+        }
+        
+        /* Ensure no congestion between avatar and text */
+        .avatar-section + .content-group {
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <!-- TASK 2: Logo bigger: brand-logo class with 2rem font size -->
         <div class="brand-logo" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <!-- TASK 2: Hamburger menu bigger: increased font-size & added class -->
         <button class="menu-btn" id="hamburgerBtn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
@@ -345,15 +399,20 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- Slide 1: Hero + search (centered and pushed up) -->
+        <!-- Slide 1: Hero with avatar moved up for adequate spacing -->
         <section class="active">
             <div class="text-wrap">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
+                <!-- Avatar section: positioned higher to create breathing room -->
+                <div class="avatar-section">
+                    <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
+                </div>
                 
                 <div class="content-group">
-                    <h1 class="huge-text">I build websites for:</h1>
-                    <div class="huge-text accent" id="typewriter">&nbsp;</div>
-                    <!-- TASK 1: Search bar is centered, margin adjusted to push slightly upward -->
+                    <h1 class="huge-text hero-heading">I build websites for:</h1>
+                    <div class="typewriter-container">
+                        <div class="huge-text accent" id="typewriter">&nbsp;</div>
+                    </div>
+                    <!-- Search bar with appropriate top margin, not congested -->
                     <div class="search-container">
                         <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                         <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -362,13 +421,12 @@
             </div>
         </section>
 
-        <!-- Slide 2: Categories (tiles now smaller, no shadows, only border outline) -->
+        <!-- Slide 2: Categories -->
         <section>
             <div class="text-wrap">
                 <div class="flex flex-col items-center w-full">
                     <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
                     <div class="category-grid">
-                        <!-- Each tile: NO shadow, only border outline (task 4) + slightly smaller dimensions (task 3) -->
                         <div class="category-tile" onclick="openNiche('Health & Wellness')">
                             <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
                             <span class="tile-label">Health & Wellness</span>
@@ -395,7 +453,7 @@
         </section>
 
         <!-- Slide 3: Final CTA -->
-        <section class="bg-dark text-white"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
     </div>
 
     <div class="app-dock">
@@ -428,7 +486,6 @@
         }
         window.onload = type;
 
-        // Toggle categories modal
         function toggleCategories() { 
             document.getElementById('category-layer').classList.toggle('active'); 
         }
@@ -456,12 +513,11 @@
             if(val && val.trim() !== "") {
                 window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val.trim());
             } else {
-                // subtle feedback: if empty search, do nothing but maybe focus
                 document.getElementById('mainSearch').focus();
             }
         }
 
-        // Swipe navigation logic + sync dots
+        // Swipe navigation
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
@@ -472,7 +528,6 @@
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
-            // Update progress dots (Task 3 already functional)
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentIdx);
             });
@@ -492,6 +547,7 @@
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
+            if(!e.changedTouches[0]) return;
             let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
@@ -503,39 +559,44 @@
             }
         }
         
-        // hamburger menu (bigger button) triggers category modal on any slide (extra UX)
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         if(hamburgerBtn) {
             hamburgerBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // If we are on the categories slide (slide index 1), we can also open modal.
-                // Otherwise just open categories modal to quickly select niche.
                 toggleCategories();
             });
         }
         
-        // Ensure search bar is centered after any orientation changes and dynamic resize
-        window.addEventListener('resize', () => {
-            // forces reflow to keep consistent but no extra logic needed.
-        });
-        
-        // Additional: manually adjust first slide content vertical rhythm to push search slightly up
-        // This is already handled by margin-top reduction + relative centering.
-        // Also apply slight margin to the first slide heading to reduce gap.
-        const firstSlideContent = document.querySelector('section.active .content-group');
-        if(firstSlideContent) {
-            // Fine-tune existing style for visual push upward without breaking responsiveness
-            firstSlideContent.style.marginTop = '-8px';
-        }
-        
-        // Final fix to make sure category tiles have absolutely no shadow (override any inline from previous code)
+        // Ensure all category tiles have no shadow
         document.querySelectorAll('.category-tile').forEach(tile => {
             tile.style.boxShadow = 'none';
         });
         
-        // Initialize UI
         updateUI();
+        
+        // Extra adjustment to ensure avatar is truly moved up on all devices
+        // This creates adequate space between avatar, text, and search bar
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Final spacing refinement - avatar up, everything breathable */
+            .avatar-section {
+                transform: translateY(-8px);
+            }
+            @media (max-height: 700px) {
+                .avatar-section {
+                    transform: translateY(-4px);
+                }
+                .content-group {
+                    margin-top: -6px;
+                }
+            }
+            @media (min-height: 800px) {
+                .avatar-section {
+                    transform: translateY(-12px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
-```
