@@ -12,7 +12,12 @@
         :root {
             --brand-orange: #FF6B2C;
             --app-white: #FFFFFF;
-            --tile-border: 3px solid #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html, body {
@@ -29,7 +34,7 @@
             width: 100%; height: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            padding: 2rem;
+            padding: 1.5rem;
             background: var(--app-white);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -41,12 +46,11 @@
 
         .text-wrap { 
             width: 100%; 
-            max-width: 1300px; 
+            max-width: 1400px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             text-align: center;
-            padding-top: 0.5rem;
         }
 
         /* ========== HEADER: LOGO + HAMBURGER BIGGER ========== */
@@ -57,43 +61,53 @@
             background: transparent;
         }
         .brand-logo {
-            font-size: 2.2rem;  /* Even larger logo */
+            font-size: 2.5rem;  /* Much larger logo */
             font-weight: 900;
             letter-spacing: -0.02em;
             cursor: pointer;
-            transition: transform 0.1s ease;
         }
-        .brand-logo:active { transform: scale(0.97); }
         .menu-btn {
-            font-size: 2.4rem;  /* Larger hamburger */
+            font-size: 2.8rem;  /* Much larger hamburger */
             background: none;
             border: none;
             color: #000;
             cursor: pointer;
-            transition: transform 0.1s ease;
             line-height: 1;
         }
-        .menu-btn:active { transform: scale(0.92); }
         .accent { color: var(--brand-orange); }
 
-        /* LARGER TEXT elements */
-        .huge-text {
-            font-size: clamp(2.5rem, 10vmin, 5.5rem);
-            font-weight: 900; 
-            line-height: 1.15; 
+        /* ========== MASSIVE TEXT SIZE ========== */
+        .hero-heading {
+            font-size: clamp(3rem, 12vmin, 6.5rem);
+            font-weight: 900;
+            line-height: 1.1;
             letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+        
+        #typewriter {
+            font-size: clamp(3rem, 12vmin, 6.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            min-height: 1.2em;
+            color: var(--brand-orange);
+        }
+        
+        .typewriter-container {
+            margin: 0.5rem 0 0.5rem;
         }
 
-        /* ========== LARGER AVATAR with proper positioning ========== */
+        /* ========== MASSIVE AVATAR ========== */
         .avatar-section {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 0.75rem;
-            margin-top: -1.5rem;  /* Moved up for spacing */
+            margin-bottom: 1rem;
+            margin-top: -2rem;
         }
         .waving-hand { 
-            width: clamp(280px, 65vw, 420px);  /* SIGNIFICANTLY LARGER avatar */
+            width: clamp(380px, 75vw, 550px);  /* DRAMATICALLY LARGER avatar */
             height: auto; 
             mix-blend-mode: multiply; 
             animation: wave 2.5s infinite ease-in-out;
@@ -102,62 +116,49 @@
         }
         @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(6deg); } }
 
-        /* Content group with adequate spacing */
+        /* Content group with generous spacing */
         .content-group {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            gap: 0.85rem;
-            margin-top: 0.25rem;
-        }
-        
-        /* Larger typewriter text */
-        .typewriter-container {
-            margin: 0.5rem 0 0.25rem;
-        }
-        #typewriter {
-            min-height: 1.2em;
-            font-size: clamp(2.2rem, 9vmin, 5rem);
-            font-weight: 900;
-        }
-        
-        .hero-heading {
-            margin-bottom: 0.15rem;
-            font-size: clamp(2.2rem, 8.5vmin, 5rem);
+            gap: 1.25rem;
+            margin-top: 0.5rem;
         }
 
-        /* ========== SEARCH BAR: LARGER & CENTERED ========== */
+        /* ========== LARGER SEARCH BAR ========== */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
-            padding: 8px 12px 8px 8px;
+            padding: 10px 16px 10px 12px;
             display: flex; 
             align-items: center; 
             box-shadow: none;
             width: 95%; 
-            max-width: 580px;  /* Wider search bar */
-            margin-top: 24px;
-            border: 3px solid #000; 
+            max-width: 650px;  /* Wider search bar */
+            margin-top: 28px;
+            border: 4px solid #000; 
             box-sizing: border-box;
             overflow: hidden;
-            margin-left: auto;
-            margin-right: auto;
         }
         .search-container input { 
             flex: 1; 
             border: none; 
             outline: none; 
-            padding: 14px 18px;  /* Larger padding */
-            font-size: 1.25rem;  /* Larger input text */
+            padding: 18px 20px;  /* Much larger padding */
+            font-size: 1.5rem;  /* Larger input text */
             font-weight: 800; 
             background: transparent;
             min-width: 0;
         }
+        .search-container input::placeholder {
+            font-size: 1.3rem;
+            color: #999;
+        }
         .search-icon-btn { 
             flex-shrink: 0; 
-            width: 56px;   /* Larger button */
-            height: 56px; 
+            width: 68px;   /* Much larger button */
+            height: 68px; 
             background: #000; 
             border-radius: 50%; 
             display: flex; 
@@ -166,58 +167,66 @@
             color: #fff; 
             border: none; 
             cursor: pointer;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
         }
 
         /* ========== CATEGORY TILES: SLIGHTLY SMALLER (per task) + BORDER ONLY ========== */
         .category-header {
-            color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.9rem; letter-spacing: 0.05em; margin-top: 50px;
-            margin-bottom: 1.2rem;
+            color: var(--brand-orange); 
+            font-weight: 900; 
+            text-transform: uppercase;
+            font-size: 1rem; 
+            letter-spacing: 0.08em; 
+            margin-top: 40px;
+            margin-bottom: 1.5rem;
         }
 
         .category-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
-            width: 100%; max-width: 540px; margin-bottom: 90px; 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1rem; 
+            width: 100%; 
+            max-width: 560px; 
+            margin-bottom: 80px; 
         }
 
         .category-tile {
             background: #fff; 
             border: 3px solid #000; 
-            border-radius: 20px;
-            padding: 1rem 0.7rem;   /* Slightly smaller padding */
+            border-radius: 24px;
+            padding: 0.9rem 0.6rem;   /* Slightly smaller padding */
             display: flex; 
             flex-direction: column;
             align-items: center; 
             gap: 0.5rem;
-            box-shadow: none;
+            box-shadow: none !important;
             transition: transform 0.15s ease;
             cursor: pointer;
         }
         .category-tile:active { transform: scale(0.96); }
         
         .tile-icon { 
-            width: 46px;   /* Slightly smaller icon */
-            height: 46px; 
+            width: 44px;   /* Slightly smaller icon */
+            height: 44px; 
             background: var(--brand-orange); 
             color: white; 
-            border-radius: 12px; 
+            border-radius: 14px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 1.25rem; 
+            font-size: 1.2rem; 
         }
         .tile-label { 
             font-weight: 900; 
-            font-size: 0.82rem;  /* Slightly smaller text */
+            font-size: 0.8rem;  /* Slightly smaller text */
             line-height: 1.2; 
             color: #000; 
             text-align: center;
         }
         .category-tile[style*="grid-column: span 2"] {
             flex-direction: row;
-            gap: 0.7rem;
-            padding: 0.9rem 1rem;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
         }
         .category-tile[style*="grid-column: span 2"] .tile-icon {
             width: 42px;
@@ -227,7 +236,7 @@
             font-size: 0.85rem;
         }
 
-        /* VIBZ ANIMATIONS (preserved) */
+        /* VIBZ ANIMATIONS */
         .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -274,7 +283,7 @@
             75% { transform: rotate(-15deg); }
         }
 
-        /* SWIPE COUNTER PROGRESS */
+        /* SWIPE COUNTER */
         .swipe-counter {
             position: fixed;
             right: 20px;
@@ -282,23 +291,23 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             z-index: 2000;
         }
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #D1D1D1;
             border-radius: 50%;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .dot.active {
             background: var(--brand-orange);
-            height: 24px;
-            border-radius: 10px;
+            height: 28px;
+            border-radius: 12px;
         }
 
-        /* LAYER for categories popup */
+        /* CATEGORY LAYER */
         #category-layer {
             position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px); z-index: 3000;
@@ -307,23 +316,23 @@
         }
         #category-layer.active { display: flex; }
         .cat-item { 
-            font-size: 1.6rem; font-weight: 900; color: #000; padding: 15px 40px; 
-            background: #fff; border: 3px solid #000; border-radius: 50px; 
-            margin: 8px; width: 100%; max-width: 400px; text-align: center;
+            font-size: 1.8rem; font-weight: 900; color: #000; padding: 18px 45px; 
+            background: #fff; border: 3px solid #000; border-radius: 60px; 
+            margin: 10px; width: 100%; max-width: 450px; text-align: center;
             box-shadow: 0 10px 0 #000; transition: 0.1s;
         }
         .cat-item:active { transform: translateY(4px); box-shadow: 0 4px 0 #000; }
-        .close-layer { margin-top: 30px; width: 60px; height: 60px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
+        .close-layer { margin-top: 35px; width: 70px; height: 70px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; }
 
         /* DOCK */
         .app-dock {
             position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem; align-items: center; z-index: 2500;
+            padding: 0.9rem 2.5rem; display: flex; gap: 2.8rem; align-items: center; z-index: 2500;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
         }
-        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
+        .dock-btn { font-size: 2rem; color: var(--brand-orange); }
 
         /* LANDSCAPE ADJUSTMENTS */
         @media (orientation: landscape) {
@@ -331,9 +340,8 @@
                 flex-direction: row; 
                 text-align: left; 
                 justify-content: center; 
-                gap: 2.5rem; 
+                gap: 3rem; 
                 max-width: 95%;
-                padding-top: 0;
             }
             .content-group { 
                 display: flex; 
@@ -341,64 +349,101 @@
                 align-items: flex-start; 
                 text-align: left;
             }
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 800px; margin-bottom: 40px;}
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 850px; margin-bottom: 40px;}
             .avatar-section { 
                 margin-top: 0;
                 margin-bottom: 0;
             }
             .waving-hand { 
-                height: 60vh; 
+                height: 65vh; 
                 width: auto; 
-                max-width: 38vw;
+                max-width: 40vw;
             }
-            .search-container { margin-top: 20px; width: 100%; max-width: 520px; }
+            .search-container { 
+                margin-top: 20px; 
+                width: 100%; 
+                max-width: 580px;
+            }
             nav { padding: 1rem 2rem; }
-            .hero-heading { font-size: clamp(2rem, 7vmin, 4rem); }
-            #typewriter { font-size: clamp(2rem, 7vmin, 4.2rem); }
+            .hero-heading { font-size: clamp(2.8rem, 9vmin, 5rem); }
+            #typewriter { font-size: clamp(2.8rem, 9vmin, 5rem); }
         }
         
-        /* Adjust for shorter screens to maintain spacing */
+        /* Adjust for shorter screens */
         @media (max-height: 700px) {
             .avatar-section {
-                margin-top: -0.8rem;
+                margin-top: -1rem;
             }
             .waving-hand {
-                width: clamp(240px, 50vw, 340px);
+                width: clamp(320px, 55vw, 450px);
             }
             .hero-heading {
-                font-size: clamp(2rem, 6.5vmin, 3.8rem);
+                font-size: clamp(2.5rem, 8vmin, 4.5rem);
             }
             #typewriter {
-                font-size: clamp(1.8rem, 6.5vmin, 3.8rem);
+                font-size: clamp(2.5rem, 8vmin, 4.5rem);
             }
             .search-container {
                 margin-top: 16px;
-                max-width: 500px;
+                max-width: 550px;
             }
-            .content-group {
-                gap: 0.5rem;
+            .search-container input {
+                padding: 12px 16px;
+                font-size: 1.2rem;
+            }
+            .search-icon-btn {
+                width: 56px;
+                height: 56px;
+                font-size: 1.5rem;
             }
         }
         
-        /* For tall screens, ensure everything is well proportioned */
+        /* For tall screens, make everything even larger */
         @media (min-height: 800px) {
             .avatar-section {
-                margin-top: -1.8rem;
+                margin-top: -2.5rem;
             }
             .waving-hand {
-                width: clamp(320px, 60vw, 440px);
+                width: clamp(420px, 70vw, 580px);
             }
-            .content-group {
-                gap: 1rem;
+            .hero-heading {
+                font-size: clamp(3.5rem, 13vmin, 7rem);
+            }
+            #typewriter {
+                font-size: clamp(3.5rem, 13vmin, 7rem);
             }
             .search-container {
-                margin-top: 28px;
+                margin-top: 32px;
+                max-width: 700px;
+            }
+            .content-group {
+                gap: 1.5rem;
             }
         }
         
-        /* Force larger avatar and text on all devices */
-        .avatar-section {
-            transform: translateY(-4px);
+        /* Extra large desktop */
+        @media (min-width: 1200px) and (min-height: 800px) {
+            .waving-hand {
+                width: 520px;
+            }
+            .hero-heading {
+                font-size: 5.5rem;
+            }
+            #typewriter {
+                font-size: 5.5rem;
+            }
+            .search-container {
+                max-width: 700px;
+            }
+            .search-container input {
+                font-size: 1.6rem;
+                padding: 20px 24px;
+            }
+            .search-icon-btn {
+                width: 76px;
+                height: 76px;
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -416,26 +461,24 @@
     </div>
 
     <div id="category-layer">
-        <h2 id="cat-title" class="huge-text accent mb-6">Niche</h2>
+        <h2 id="cat-title" class="hero-heading accent mb-6">Niche</h2>
         <div id="cat-list" class="flex flex-col items-center w-full"></div>
         <div class="close-layer" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- Slide 1: Hero with LARGER avatar and LARGER text, well spaced -->
+        <!-- Slide 1: Hero with MASSIVE avatar and MASSIVE text -->
         <section class="active">
             <div class="text-wrap">
-                <!-- Avatar section: larger image moved up for breathing room -->
                 <div class="avatar-section">
                     <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
                 </div>
                 
                 <div class="content-group">
-                    <h1 class="huge-text hero-heading">I build websites for:</h1>
+                    <h1 class="hero-heading">I build websites for:</h1>
                     <div class="typewriter-container">
-                        <div class="huge-text accent" id="typewriter">&nbsp;</div>
+                        <div id="typewriter">&nbsp;</div>
                     </div>
-                    <!-- Larger search bar with centered alignment -->
                     <div class="search-container">
                         <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                         <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -444,7 +487,7 @@
             </div>
         </section>
 
-        <!-- Slide 2: Categories (tiles slightly smaller, border only, no shadows) -->
+        <!-- Slide 2: Categories (tiles slightly smaller, border only) -->
         <section>
             <div class="text-wrap">
                 <div class="flex flex-col items-center w-full">
@@ -476,7 +519,7 @@
         </section>
 
         <!-- Slide 3: Final CTA -->
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <section><div class="text-wrap"><h2 class="hero-heading uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
     </div>
 
     <div class="app-dock">
@@ -494,7 +537,7 @@
             "Retail & Creative": ["Boutiques", "Photographers", "Artists", "Florists"]
         };
 
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Artists"];
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Artists", "Cafes"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
@@ -507,7 +550,11 @@
             else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 400; }
             setTimeout(type, speed);
         }
-        window.onload = type;
+        
+        // Start typewriter after load
+        window.addEventListener('load', () => {
+            type();
+        });
 
         function toggleCategories() { 
             document.getElementById('category-layer').classList.toggle('active'); 
@@ -590,7 +637,7 @@
             });
         }
         
-        // Ensure all category tiles have no shadow
+        // Ensure all category tiles have absolutely no shadow
         document.querySelectorAll('.category-tile').forEach(tile => {
             tile.style.boxShadow = 'none';
         });
