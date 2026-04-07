@@ -40,13 +40,13 @@
 
         .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* GLASS HEADER FIX */
+        /* 1. TRANSPARENT GLASS HEADER */
         nav {
-            position: fixed; top: 0; w-full; z-index: 1500;
+            position: fixed; top: 0; width: 100%; z-index: 1500;
             padding: 1.5rem 2rem;
             display: flex; justify-content: space-between; align-items: center;
-            background: transparent; /* No background */
-            border: none; /* No physical border */
+            background: transparent;
+            border: none;
         }
 
         .huge-text {
@@ -71,29 +71,29 @@
             50% { transform: rotate(5deg); }
         }
 
-        /* SEARCH BAR FIX */
+        /* 2. FIXED SEARCH BAR (NO CUTS) */
         .search-container { 
             background: #fff; border-radius: 100px; padding: 4px; 
             display: flex; align-items: center; 
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15); 
             width: 95%; max-width: 500px; margin-top: 30px; 
-            border: 3px solid #000; overflow: hidden;
+            border: 3px solid #000; box-sizing: border-box;
         }
-        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; }
-        .search-icon-btn { flex-shrink: 0; width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; margin-right: 4px; }
+        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; width: 100%; }
+        .search-icon-btn { flex-shrink: 0; width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; margin-right: 4px; border: none; }
 
-        /* TILES SPACING - PREVENT HEADER TOUCHING */
+        /* 3. CATEGORY SPACING (NO OVERLAP) */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
             font-size: 0.85rem; letter-spacing: 0.05em;
-            margin-top: 120px; /* Stronger top clearance for portrait */
+            margin-top: 100px; /* Space from top clock/nav */
             margin-bottom: 1.5rem;
         }
 
         .category-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
             width: 100%; max-width: 550px;
-            margin-bottom: 140px; 
+            margin-bottom: 120px; /* Space from dock */
         }
 
         .category-tile {
@@ -102,28 +102,16 @@
             align-items: center; gap: 0.8rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .tile-icon { width: 55px; height: 55px; background: var(--brand-orange); color: white; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .tile-label { font-weight: 900; font-size: 0.9rem; line-height: 1.2; }
-
-        /* ICON ANIMATIONS */
-        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
-        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
-        .fa-briefcase { animation: bounce 2s infinite; }
-        .fa-utensils { animation: wobble 2s infinite; }
-        .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
-
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(25deg); } 40% { transform: rotate(-10deg); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
-        @keyframes swing { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(8deg); } 75% { transform: rotate(-8deg); } }
+        .tile-label { font-weight: 900; font-size: 0.9rem; line-height: 1.2; color: #000; }
 
         @media (orientation: landscape) {
-            .category-header { margin-top: 100px; } /* Clearance for landscape */
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 70px; }
-            .waving-hand { height: 45vh; width: auto; margin-top: 60px; }
+            .category-header { margin-top: 80px; }
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 60px; }
+            .waving-hand { height: 45vh; width: auto; margin-top: 40px; }
             .huge-text { font-size: clamp(1.5rem, 6vh, 2.8rem); }
         }
 
+        /* 4. DOCK INTEGRITY */
         .app-dock {
             position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
             left: 50%; transform: translateX(-50%);
@@ -143,7 +131,7 @@
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-6 flex justify-between items-center">
+    <nav>
         <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
         <button class="text-xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
@@ -168,7 +156,7 @@
         </section>
 
         <section>
-            <div class="text-wrap flex-col">
+            <div class="text-wrap">
                 <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
                 <div class="category-grid">
                     <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
