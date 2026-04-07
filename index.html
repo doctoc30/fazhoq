@@ -31,99 +31,106 @@
             padding: 2rem;
             background: var(--app-white);
             transform: translate3d(100%, 0, 0);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
         }
 
         section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
         section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
 
-        .text-wrap { 
-            width: 100%; max-width: 1200px; 
-            display: flex; flex-direction: column; 
-            align-items: center; text-align: center; 
-        }
+        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
         .huge-text {
-            font-size: clamp(2.8rem, 12vmin, 5.5rem);
+            font-size: clamp(2.2rem, 9vmin, 4.8rem);
             font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
         }
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* AVATAR - BOLDER SIZING */
+        /* HERO AVATAR - LARGE & RESPONSIVE */
         .waving-hand {
-            width: clamp(320px, 80vw, 550px);
+            width: clamp(280px, 75vw, 480px);
             height: auto;
-            margin-top: -30px;
-            margin-bottom: 20px;
+            margin-top: -60px;
+            margin-bottom: 10px;
             mix-blend-mode: multiply;
+            animation: wave 2.5s infinite ease-in-out;
         }
 
-        /* SEARCH BAR - BOLDER */
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* SEARCH BAR */
         .search-container { 
-            background: #fff; border-radius: 100px; padding: 12px; display: flex; align-items: center; 
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15); width: 98%; max-width: 600px; 
-            margin-top: 35px; border: 4px solid #000;
+            background: #fff; border-radius: 100px; padding: 8px; display: flex; align-items: center; 
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2); width: 95%; max-width: 550px; 
+            margin-top: 30px; border: 3px solid #000;
         }
-        .search-container input { flex: 1; border: none; outline: none; padding: 12px 24px; font-size: 1.4rem; font-weight: 800; }
-        .search-icon-btn { width: 60px; height: 60px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem; }
+        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.2rem; font-weight: 800; }
+        .search-icon-btn { width: 55px; height: 55px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; }
 
-        /* TILES - BOLDER */
-        .category-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem; width: 100%; max-width: 550px; margin-top: 2rem;
-        }
+        /* VIBZ-STYLE TILES & ANIMATIONS */
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; width: 100%; max-width: 550px; margin-top: 2rem; }
         .category-tile {
-            background: #fff; border: 2.5px solid #f2f2f2; border-radius: 30px;
-            padding: 2.2rem 1rem; display: flex; flex-direction: column;
-            align-items: center; gap: 1.2rem; box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            background: #fff; border: 2px solid #f0f0f0; border-radius: 25px;
+            padding: 2rem 1rem; display: flex; flex-direction: column;
+            align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-decoration: none; color: #000;
         }
         .tile-icon {
-            width: 70px; height: 70px; background: var(--brand-orange);
-            color: white; border-radius: 20px; display: flex;
-            align-items: center; justify-content: center; font-size: 2rem;
+            width: 65px; height: 65px; background: var(--brand-orange);
+            color: white; border-radius: 18px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.8rem;
+            box-shadow: 0 8px 15px rgba(255, 107, 44, 0.25);
         }
-        .tile-label { font-weight: 900; font-size: 1.1rem; line-height: 1.2; }
-        .full-tile { grid-column: span 2; flex-direction: row; padding: 1.5rem 2.5rem; justify-content: flex-start; }
+        .tile-label { font-weight: 900; font-size: 1.05rem; }
 
-        /* LANDSCAPE FIXES */
+        /* ICON ANIMATIONS */
+        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        
+        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
+        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(30deg); } 40% { transform: rotate(-15deg); } }
+        
+        .fa-briefcase { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        
+        .fa-utensils { animation: wobble 2s infinite; }
+        @keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+
+        .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
+        @keyframes swing { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(10deg); } 75% { transform: rotate(-10deg); } }
+
+        /* LANDSCAPE FIX: AVATAR SIZE */
         @media (orientation: landscape) {
-            section { padding: 0 5rem; }
-            .text-wrap { flex-direction: row; justify-content: center; gap: 5vw; text-align: left; align-items: center; }
-            
-            /* Avatar is now sized relative to height so it stays large but clears header/dock */
-            .waving-hand { 
-                width: auto; 
-                height: 55vh; 
-                margin: 0; 
-                max-width: 40vw;
-            }
-            
-            .hero-content-side { 
-                display: flex; flex-direction: column; 
-                align-items: flex-start; 
-                flex: 1;
-            }
-            
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; gap: 1rem; }
-            .full-tile { grid-column: span 1; flex-direction: column; justify-content: center; }
-            .search-container { margin-top: 20px; width: 100%; max-width: 450px; transform: scale(0.9); transform-origin: left; }
-            .huge-text { font-size: clamp(2rem, 7vh, 3.5rem); }
+            .text-wrap { flex-direction: row; justify-content: center; gap: 4vw; text-align: left; }
+            .waving-hand { width: auto; height: 55vh; margin: 0; max-width: 40vw; }
+            .hero-content-side { flex: 1; }
+            .huge-text { font-size: clamp(1.8rem, 8vh, 3.2rem); }
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 850px; }
+            .search-container { margin-top: 15px; transform: scale(0.9); transform-origin: left; }
         }
 
-        /* UI ELEMENTS */
-        .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.1); }
-        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
+        /* THE REQUESTED FLOATING DOCK */
         .app-dock {
-            position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95); border-radius: 5rem; padding: 0.8rem 2.5rem;
-            display: flex; gap: 2.5rem; z-index: 1000; box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
+            left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px); border-radius: 5rem;
+            padding: 0.8rem 2.5rem; display: flex; gap: 2.5rem;
+            align-items: center; z-index: 1000;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
+        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); transition: transform 0.2s; }
+        .dock-btn:active { transform: scale(0.9); }
+
+        .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); }
+        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
 </head>
 <body>
@@ -134,7 +141,7 @@
     </nav>
 
     <div class="nav-dots">
-        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
@@ -145,8 +152,8 @@
                     <h1 class="huge-text">I build websites for:</h1>
                     <div class="huge-text accent" id="typewriter">&nbsp;</div>
                     <div class="search-container">
-                        <input type="text" id="mainSearch" placeholder="Search industry...">
-                        <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                        <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
             </div>
@@ -154,21 +161,23 @@
 
         <section>
             <div class="text-wrap flex-col">
-                <h2 class="text-orange-600 font-black tracking-widest text-sm mb-6 uppercase">Popular Categories</h2>
+                <h2 class="text-orange-600 font-black tracking-widest text-sm mb-6 uppercase">Categories</h2>
                 <div class="category-grid">
-                    <a href="#" class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health & Wellness</span></a>
-                    <a href="#" class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home & Trades</span></a>
-                    <a href="#" class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional</span></a>
-                    <a href="#" class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food & Drink</span></a>
-                    <a href="#" class="category-tile full-tile"><div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div><span class="tile-label ml-4">Creative Retail</span></a>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Trades</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food</span></div>
+                    <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1.5rem;">
+                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="tile-label ml-4">Retail & Creative</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section><div class="text-wrap flex-col"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap flex-col"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
-        <section><div class="text-wrap flex-col"><h2 class="huge-text uppercase">CLEAN<br><span class="accent">CODE.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap flex-col"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
     </div>
 
     <div class="app-dock">
@@ -178,22 +187,26 @@
     </div>
 
     <script>
-        // TYPEWRITER
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms"];
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
+
         function type() {
             const currentWord = nicheWords[wordIndex];
-            if (isDeleting) charIndex--; else charIndex++;
+            charIndex += isDeleting ? -1 : 1;
             typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
-            let speed = isDeleting ? 40 : 80;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 1500; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 400; }
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
             setTimeout(type, speed);
         }
         window.onload = type;
 
-        // NAVIGATION
+        function triggerSearch() {
+            const val = document.getElementById('mainSearch').value;
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+        }
+
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
@@ -212,20 +225,16 @@
             const target = currentIdx + dir;
             if (target >= 0 && target < sections.length) {
                 isMoving = true; currentIdx = target; updateUI();
-                setTimeout(() => { isMoving = false; }, 600);
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
-            let dX = sX - e.changedTouches[0].clientX;
-            let dY = sY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 30 || Math.abs(dY) > 30) {
-                navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
-            }
+            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
+            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
-        window.addEventListener('wheel', e => { if(Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); });
         function goToSlide(i) { currentIdx = i; updateUI(); }
     </script>
 </body>
