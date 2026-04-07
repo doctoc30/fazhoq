@@ -40,13 +40,13 @@
 
         .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* GLASS HEADER FIX */
+        /* HEADER - TRANSPARENT GLASS */
         nav {
-            position: fixed; top: 0; w-full; z-index: 1500;
+            position: fixed; top: 0; width: 100%; z-index: 1500;
             padding: 1.5rem 2rem;
             display: flex; justify-content: space-between; align-items: center;
-            background: transparent; /* No background */
-            border: none; /* No physical border */
+            background: transparent;
+            border: none;
         }
 
         .huge-text {
@@ -71,29 +71,30 @@
             50% { transform: rotate(5deg); }
         }
 
-        /* SEARCH BAR FIX */
+        /* SEARCH BAR - CLEAN BORDER */
         .search-container { 
             background: #fff; border-radius: 100px; padding: 4px; 
             display: flex; align-items: center; 
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15); 
             width: 95%; max-width: 500px; margin-top: 30px; 
-            border: 3px solid #000; overflow: hidden;
+            border: 3px solid #000; box-sizing: border-box;
+            overflow: hidden;
         }
         .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; }
-        .search-icon-btn { flex-shrink: 0; width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; margin-right: 4px; }
+        .search-icon-btn { flex-shrink: 0; width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; margin-right: 4px; border: none; }
 
-        /* TILES SPACING - PREVENT HEADER TOUCHING */
+        /* CATEGORY SECTION SPACING */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
             font-size: 0.85rem; letter-spacing: 0.05em;
-            margin-top: 120px; /* Stronger top clearance for portrait */
+            margin-top: 110px; /* Space for the header */
             margin-bottom: 1.5rem;
         }
 
         .category-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
             width: 100%; max-width: 550px;
-            margin-bottom: 140px; 
+            margin-bottom: 130px; /* Space for the dock */
         }
 
         .category-tile {
@@ -102,7 +103,7 @@
             align-items: center; gap: 0.8rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .tile-icon { width: 55px; height: 55px; background: var(--brand-orange); color: white; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .tile-label { font-weight: 900; font-size: 0.9rem; line-height: 1.2; }
+        .tile-label { font-weight: 900; font-size: 0.9rem; line-height: 1.2; color: #000; }
 
         /* ICON ANIMATIONS */
         .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
@@ -118,12 +119,14 @@
         @keyframes swing { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(8deg); } 75% { transform: rotate(-8deg); } }
 
         @media (orientation: landscape) {
-            .category-header { margin-top: 100px; } /* Clearance for landscape */
+            .category-header { margin-top: 80px; }
             .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 70px; }
-            .waving-hand { height: 45vh; width: auto; margin-top: 60px; }
+            .text-wrap { flex-direction: row; justify-content: center; gap: 3vw; text-align: left; }
+            .waving-hand { height: 50vh; width: auto; margin-top: 50px; }
             .huge-text { font-size: clamp(1.5rem, 6vh, 2.8rem); }
         }
 
+        /* DOCK */
         .app-dock {
             position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
             left: 50%; transform: translateX(-50%);
@@ -143,7 +146,7 @@
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-6 flex justify-between items-center">
+    <nav>
         <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
         <button class="text-xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
@@ -168,13 +171,13 @@
         </section>
 
         <section>
-            <div class="text-wrap flex-col">
+            <div class="text-wrap">
                 <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
                 <div class="category-grid">
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home &<br>Trades</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional<br>Services</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food &<br>Drink</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health & Wellness</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home & Trades</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional Services</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food & Drink</span></div>
                     <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1.2rem; justify-content: center;">
                         <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                         <span class="tile-label ml-4">Retail & Creative Industries</span>
@@ -204,8 +207,8 @@
             charIndex += isDeleting ? -1 : 1;
             typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
             let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
+            if (!isDeleting && charIndex === currentWord.length) { speed = 1800; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 400; }
             setTimeout(type, speed);
         }
         window.onload = type;
@@ -243,6 +246,7 @@
             let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); });
         function goToSlide(i) { currentIdx = i; updateUI(); }
     </script>
 </body>
