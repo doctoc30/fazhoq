@@ -40,29 +40,42 @@
 
         .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
-        .huge-text {
-            font-size: clamp(2.5rem, 10vmin, 5rem);
+        /* Unified Font Size for Hero and Typewriter */
+        .hero-title {
+            font-size: clamp(2.5rem, 10vmin, 5.5rem);
             font-weight: 900;
-            line-height: 1;
+            line-height: 1.1;
             letter-spacing: -0.05em;
-            text-transform: uppercase;
+            text-transform: none; /* Allows manual sentence case */
         }
 
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
+        /* AVATAR POSITIONING */
         .waving-hand {
-            width: clamp(250px, 50vw, 400px);
+            width: clamp(250px, 45vh, 420px);
             height: auto;
-            margin-bottom: 10px;
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
             pointer-events: none;
             mix-blend-mode: multiply; 
+            margin-top: -60px; /* Pulls avatar up in portrait */
+            margin-bottom: 10px;
         }
 
-        /* SEARCH BAR INTEGRATION */
+        /* LANDSCAPE SPECIFIC: Center Avatar */
+        @media (orientation: landscape) {
+            .waving-hand { 
+                width: clamp(150px, 25vh, 280px); 
+                margin-top: 0; /* Centered vertically in the flex container */
+                margin-bottom: 15px;
+            }
+            .hero-title { font-size: clamp(2rem, 8vh, 4rem); }
+        }
+
+        /* SEARCH BAR */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
@@ -70,42 +83,23 @@
             display: flex; 
             align-items: center; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
-            width: 100%;
-            max-width: 450px; 
-            margin: 25px auto 0;
+            width: 90%;
+            max-width: 400px; 
+            margin: 30px auto 0;
             border: 1px solid rgba(0,0,0,0.05);
         }
 
         .search-container input { 
-            flex: 1; 
-            border: none; 
-            outline: none; 
-            padding: 12px 20px; 
-            font-size: 1rem; 
-            font-weight: 600; 
-            background: transparent;
-            color: #000;
+            flex: 1; border: none; outline: none; 
+            padding: 10px 15px; font-size: 1rem; 
+            font-weight: 600; background: transparent; color: #000;
         }
 
         .search-icon-btn { 
-            width: 45px; 
-            height: 45px; 
-            background: var(--brand-orange); 
-            border-radius: 50%;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #fff; 
-            cursor: pointer; 
-            border: none; 
-        }
-
-        .typewriter-sub {
-            font-size: clamp(1.8rem, 6vmin, 3.5rem);
-            font-weight: 900;
-            color: var(--brand-orange);
-            text-transform: capitalize;
-            min-height: 1.2em;
+            width: 40px; height: 40px; 
+            background: var(--brand-orange); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; 
+            color: #fff; cursor: pointer; border: none; 
         }
 
         @keyframes wave {
@@ -115,23 +109,20 @@
             50% { transform: rotate(4deg) scale(1); }
         }
 
+        /* DOCK */
         .app-dock {
-            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1.5rem);
+            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 1rem 2.5rem;
-            display: flex; gap: 3rem;
+            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem;
             align-items: center; z-index: 1000;
             box-shadow: 0 15px 45px rgba(0,0,0,0.12);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); transition: all 0.3s ease; }
-        
-        footer { position: fixed; bottom: 0.5rem; width: 100%; text-align: center; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.2; z-index: 900; pointer-events: none; }
-        
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
+        .dock-btn { font-size: 1.6rem; color: var(--brand-orange); }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); }
         .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
 </head>
@@ -139,15 +130,10 @@
 
     <nav class="fixed top-0 w-full z-[1500] p-8 md:p-12 flex justify-between items-center">
         <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <div class="hidden md:flex gap-10">
-            <a href="#" onclick="goToSlide(1)" class="nav-link hover:text-[#FF6B2C]">Strategy</a>
-            <a href="#" onclick="goToSlide(2)" class="nav-link hover:text-[#FF6B2C]">Design</a>
-            <a href="#" onclick="goToSlide(4)" class="nav-link hover:text-[#FF6B2C]">Contact</a>
-        </div>
         <button class="md:hidden text-2xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
-    <div class="nav-dots fixed right-5 top-1/2 -translate-y-1/2 z-[1000] flex flex-col gap-4" id="dotContainer">
+    <div class="nav-dots fixed right-5 top-1/2 -translate-y-1/2 z-[1000] flex flex-col gap-4">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
@@ -155,23 +141,21 @@
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <h1 class="huge-text">I BUILD WEBSITES FOR:</h1>
-                <div class="typewriter-sub" id="typewriter"></div>
+                <h1 class="hero-title">I build websites for:</h1>
+                <div class="hero-title accent" id="typewriter"></div>
                 
                 <div class="search-container">
-                    <input type="text" id="mainSearch" placeholder="Search your industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                     <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">I build tools that generate revenue through smart UX triggers.</p></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2><p class="mt-4 text-xs font-bold opacity-40 uppercase tracking-widest max-w-xs mx-auto">Engaging design that keeps your users hooked.</p></div></section>
-        <section><div class="text-wrap"><h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">Pixel-perfect development that loads at the speed of thought.</p></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-4xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">Fazhoq1977@gmail.com</a></div></div></section>
+        <section><div class="text-wrap"><h2 class="hero-title">Strategic<br><span class="accent">Partner.</span></h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title italic">Wow<span class="accent">!</span><br>Interaction.</h2></div></section>
+        <section><div class="text-wrap"><h2 class="hero-title">Clean<br><span class="accent">Code.</span></h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title">Let's<br><span class="accent">Build.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-2xl font-black border-b-2 border-[#FF6B2C] pb-2">Contact Me</a></div></div></section>
     </div>
-
-    <footer>&copy; 2026 | LONDON UK | PRIVACY POLICY</footer>
 
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
@@ -184,19 +168,18 @@
             "Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Restaurants", "Architects", 
             "Physios", "Roofers", "Cafes", "Bakeries", "Accountants", "Personal Trainers", "Painters", 
             "Locksmiths", "Florists", "Pet Shops", "Boutiques", "E-commerce", "Photographers", "Artists",
-            "Tutors", "Marketing Agencies", "Consultants", "Real Estate", "Car Detailers", "Mechanics",
-            "Yoga Studios", "Spas", "Beauticians", "Landscapers", "Cleaners", "Carpenters", "Handymen",
-            "Chauffeurs", "Security Firms", "IT Support", "Solar Installers", "Glaziers", "Scaffolders",
-            "Interior Designers", "Event Planners", "DJs", "Caterers", "Opticians", "Vets", "Dog Walkers",
-            "Daycares", "Driving Schools", "Recruitment", "Tattoo Artists", "Jewellers", "Tailors",
-            "Music Schools", "Dance Studios", "Coaches", "Therapists", "Chiropractors", "Plasterers",
-            "Paving Experts", "Pool Builders", "Garden Centers", "Wine Bars", "Steakhouses", "Sushi Bars",
-            "Pizza Shops", "Aestheticians", "Barber Shops", "Hair Salons", "Nail Bars", "Bridal Shops",
-            "Tech Startups", "SaaS Companies", "Crypto Projects", "Financial Advisors", "Mortgage Brokers",
-            "Estate Agents", "Charities", "Churches", "Private Chefs", "Language Schools", "Travel Agents",
-            "Car Rentals", "Moving Companies", "Self Storage", "Pest Control", "Ironing Services",
-            "Window Cleaners", "Gutter Cleaners", "Ironmongers", "Cycle Shops", "Vape Shops", "Gift Shops",
-            "Antique Dealers", "Home Cinemas", "Smart Home Pros", "Air Conditioning", "Surgeons"
+            "Tutors", "Marketing Agencies", "Consultants", "Real Estate", "Mechanics", "Yoga Studios",
+            "Spas", "Beauticians", "Landscapers", "Cleaners", "Carpenters", "Handymen", "Chauffeurs",
+            "IT Support", "Solar Installers", "Glaziers", "Scaffolders", "Interior Designers", "Event Planners",
+            "DJs", "Caterers", "Opticians", "Vets", "Dog Walkers", "Daycares", "Driving Schools", "Recruitment",
+            "Tattoo Artists", "Jewellers", "Tailors", "Music Schools", "Dance Studios", "Coaches", "Therapists",
+            "Chiropractors", "Plasterers", "Paving Experts", "Pool Builders", "Garden Centers", "Wine Bars",
+            "Steakhouses", "Sushi Bars", "Pizza Shops", "Aestheticians", "Barber Shops", "Hair Salons",
+            "Nail Bars", "Bridal Shops", "Tech Startups", "SaaS Companies", "Crypto Projects", "Estate Agents",
+            "Charities", "Churches", "Private Chefs", "Language Schools", "Travel Agents", "Car Rentals",
+            "Moving Companies", "Self Storage", "Pest Control", "Ironing Services", "Window Cleaners",
+            "Gutter Cleaners", "Ironmongers", "Cycle Shops", "Vape Shops", "Gift Shops", "Antique Dealers",
+            "Home Cinemas", "Smart Home Pros", "Air Conditioning", "Surgeons", "Dog Groomers", "Podiatrists"
         ];
 
         let wordIndex = 0;
@@ -214,17 +197,16 @@
                 charIndex++;
             }
 
-            let typeSpeed = isDeleting ? 50 : 100;
+            let typeSpeed = isDeleting ? 40 : 80;
 
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000;
+                typeSpeed = 1800;
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % nicheWords.length;
-                typeSpeed = 500;
+                typeSpeed = 400;
             }
-
             setTimeout(type, typeSpeed);
         }
 
@@ -235,6 +217,7 @@
             if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
 
+        // SLIDE ENGINE
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
