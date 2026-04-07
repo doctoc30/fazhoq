@@ -41,13 +41,12 @@
 
         .text-wrap { 
             width: 100%; 
-            max-width: 1200px; 
+            max-width: 1300px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             text-align: center;
-            /* Added top padding to push content up and create space */
-            padding-top: 1.5rem;
+            padding-top: 0.5rem;
         }
 
         /* ========== HEADER: LOGO + HAMBURGER BIGGER ========== */
@@ -58,7 +57,7 @@
             background: transparent;
         }
         .brand-logo {
-            font-size: 2rem;
+            font-size: 2.2rem;  /* Even larger logo */
             font-weight: 900;
             letter-spacing: -0.02em;
             cursor: pointer;
@@ -66,7 +65,7 @@
         }
         .brand-logo:active { transform: scale(0.97); }
         .menu-btn {
-            font-size: 2.2rem;
+            font-size: 2.4rem;  /* Larger hamburger */
             background: none;
             border: none;
             color: #000;
@@ -77,22 +76,68 @@
         .menu-btn:active { transform: scale(0.92); }
         .accent { color: var(--brand-orange); }
 
+        /* LARGER TEXT elements */
         .huge-text {
-            font-size: clamp(2rem, 8vmin, 4.5rem);
-            font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
+            font-size: clamp(2.5rem, 10vmin, 5.5rem);
+            font-weight: 900; 
+            line-height: 1.15; 
+            letter-spacing: -0.03em;
         }
 
-        /* ========== SEARCH BAR: CENTERED & PUSHED UP ========== */
+        /* ========== LARGER AVATAR with proper positioning ========== */
+        .avatar-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            margin-top: -1.5rem;  /* Moved up for spacing */
+        }
+        .waving-hand { 
+            width: clamp(280px, 65vw, 420px);  /* SIGNIFICANTLY LARGER avatar */
+            height: auto; 
+            mix-blend-mode: multiply; 
+            animation: wave 2.5s infinite ease-in-out;
+            display: block;
+            max-width: 90%;
+        }
+        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(6deg); } }
+
+        /* Content group with adequate spacing */
+        .content-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Larger typewriter text */
+        .typewriter-container {
+            margin: 0.5rem 0 0.25rem;
+        }
+        #typewriter {
+            min-height: 1.2em;
+            font-size: clamp(2.2rem, 9vmin, 5rem);
+            font-weight: 900;
+        }
+        
+        .hero-heading {
+            margin-bottom: 0.15rem;
+            font-size: clamp(2.2rem, 8.5vmin, 5rem);
+        }
+
+        /* ========== SEARCH BAR: LARGER & CENTERED ========== */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
-            padding: 6px 10px 6px 6px;
+            padding: 8px 12px 8px 8px;
             display: flex; 
             align-items: center; 
             box-shadow: none;
             width: 95%; 
-            max-width: 500px; 
-            margin-top: 20px;
+            max-width: 580px;  /* Wider search bar */
+            margin-top: 24px;
             border: 3px solid #000; 
             box-sizing: border-box;
             overflow: hidden;
@@ -103,16 +148,16 @@
             flex: 1; 
             border: none; 
             outline: none; 
-            padding: 12px 15px; 
-            font-size: 1.1rem; 
+            padding: 14px 18px;  /* Larger padding */
+            font-size: 1.25rem;  /* Larger input text */
             font-weight: 800; 
             background: transparent;
             min-width: 0;
         }
         .search-icon-btn { 
             flex-shrink: 0; 
-            width: 48px; 
-            height: 48px; 
+            width: 56px;   /* Larger button */
+            height: 56px; 
             background: #000; 
             border-radius: 50%; 
             display: flex; 
@@ -121,66 +166,30 @@
             color: #fff; 
             border: none; 
             cursor: pointer;
+            font-size: 1.4rem;
         }
 
-        /* ========== AVATAR (WAVING HAND) - MOVED UP WITH ADEQUATE SPACING ========== */
-        .avatar-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            /* Push avatar upward by adjusting margin */
-            margin-top: -2rem;
-        }
-        .waving-hand { 
-            width: clamp(220px, 55vw, 320px); 
-            height: auto; 
-            mix-blend-mode: multiply; 
-            animation: wave 2.5s infinite ease-in-out;
-            display: block;
-        }
-        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
-
-        /* Content group with proper spacing between avatar, text, and search */
-        .content-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            gap: 0.75rem;
-        }
-        
-        /* Typewriter container with proper margins */
-        .typewriter-container {
-            margin: 0.5rem 0 0.25rem;
-        }
-        
-        /* Heading spacing */
-        .hero-heading {
-            margin-bottom: 0.25rem;
-        }
-
-        /* ========== CATEGORY TILES: SLIGHTLY SMALLER + BORDER ONLY ========== */
+        /* ========== CATEGORY TILES: SLIGHTLY SMALLER (per task) + BORDER ONLY ========== */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 60px;
+            font-size: 0.9rem; letter-spacing: 0.05em; margin-top: 50px;
             margin-bottom: 1.2rem;
         }
 
         .category-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
-            width: 100%; max-width: 520px; margin-bottom: 100px; 
+            width: 100%; max-width: 540px; margin-bottom: 90px; 
         }
 
         .category-tile {
             background: #fff; 
             border: 3px solid #000; 
             border-radius: 20px;
-            padding: 1.2rem 0.8rem;
+            padding: 1rem 0.7rem;   /* Slightly smaller padding */
             display: flex; 
             flex-direction: column;
             align-items: center; 
-            gap: 0.6rem;
+            gap: 0.5rem;
             box-shadow: none;
             transition: transform 0.15s ease;
             cursor: pointer;
@@ -188,34 +197,37 @@
         .category-tile:active { transform: scale(0.96); }
         
         .tile-icon { 
-            width: 48px; 
-            height: 48px; 
+            width: 46px;   /* Slightly smaller icon */
+            height: 46px; 
             background: var(--brand-orange); 
             color: white; 
             border-radius: 12px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 1.3rem; 
+            font-size: 1.25rem; 
         }
         .tile-label { 
             font-weight: 900; 
-            font-size: 0.85rem;
+            font-size: 0.82rem;  /* Slightly smaller text */
             line-height: 1.2; 
             color: #000; 
             text-align: center;
         }
         .category-tile[style*="grid-column: span 2"] {
             flex-direction: row;
-            gap: 0.8rem;
-            padding: 1rem 1.2rem;
+            gap: 0.7rem;
+            padding: 0.9rem 1rem;
         }
         .category-tile[style*="grid-column: span 2"] .tile-icon {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
+        }
+        .category-tile[style*="grid-column: span 2"] .tile-label {
+            font-size: 0.85rem;
         }
 
-        /* VIBZ ANIMATIONS */
+        /* VIBZ ANIMATIONS (preserved) */
         .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -295,7 +307,7 @@
         }
         #category-layer.active { display: flex; }
         .cat-item { 
-            font-size: 1.5rem; font-weight: 900; color: #000; padding: 15px 40px; 
+            font-size: 1.6rem; font-weight: 900; color: #000; padding: 15px 40px; 
             background: #fff; border: 3px solid #000; border-radius: 50px; 
             margin: 8px; width: 100%; max-width: 400px; text-align: center;
             box-shadow: 0 10px 0 #000; transition: 0.1s;
@@ -311,17 +323,17 @@
             padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem; align-items: center; z-index: 2500;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
         }
-        .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
+        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
 
-        /* LANDSCAPE FIXES */
+        /* LANDSCAPE ADJUSTMENTS */
         @media (orientation: landscape) {
             .text-wrap { 
                 flex-direction: row; 
                 text-align: left; 
                 justify-content: center; 
-                gap: 2rem; 
-                max-width: 90%;
-                padding-top: 0.5rem;
+                gap: 2.5rem; 
+                max-width: 95%;
+                padding-top: 0;
             }
             .content-group { 
                 display: flex; 
@@ -329,53 +341,64 @@
                 align-items: flex-start; 
                 text-align: left;
             }
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 50px;}
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 800px; margin-bottom: 40px;}
             .avatar-section { 
                 margin-top: 0;
                 margin-bottom: 0;
             }
-            .waving-hand { height: 55vh; width: auto; max-width: 35vw; }
-            .search-container { margin-top: 16px; width: 100%; }
+            .waving-hand { 
+                height: 60vh; 
+                width: auto; 
+                max-width: 38vw;
+            }
+            .search-container { margin-top: 20px; width: 100%; max-width: 520px; }
             nav { padding: 1rem 2rem; }
+            .hero-heading { font-size: clamp(2rem, 7vmin, 4rem); }
+            #typewriter { font-size: clamp(2rem, 7vmin, 4.2rem); }
         }
         
-        /* Adjust for shorter screens to prevent congestion */
+        /* Adjust for shorter screens to maintain spacing */
         @media (max-height: 700px) {
             .avatar-section {
-                margin-top: -1rem;
+                margin-top: -0.8rem;
             }
             .waving-hand {
-                width: clamp(180px, 40vw, 260px);
+                width: clamp(240px, 50vw, 340px);
             }
             .hero-heading {
-                font-size: clamp(1.8rem, 6vmin, 3.5rem);
+                font-size: clamp(2rem, 6.5vmin, 3.8rem);
+            }
+            #typewriter {
+                font-size: clamp(1.8rem, 6.5vmin, 3.8rem);
             }
             .search-container {
-                margin-top: 12px;
+                margin-top: 16px;
+                max-width: 500px;
             }
             .content-group {
-                gap: 0.4rem;
+                gap: 0.5rem;
             }
         }
         
-        /* Fine tuning for very tall screens */
+        /* For tall screens, ensure everything is well proportioned */
         @media (min-height: 800px) {
             .avatar-section {
-                margin-top: -1rem;
+                margin-top: -1.8rem;
+            }
+            .waving-hand {
+                width: clamp(320px, 60vw, 440px);
             }
             .content-group {
                 gap: 1rem;
             }
+            .search-container {
+                margin-top: 28px;
+            }
         }
         
-        /* Force adequate spacing - avatar moved up, elements well separated */
-        section.active .text-wrap {
-            justify-content: center;
-        }
-        
-        /* Ensure no congestion between avatar and text */
-        .avatar-section + .content-group {
-            margin-top: 0;
+        /* Force larger avatar and text on all devices */
+        .avatar-section {
+            transform: translateY(-4px);
         }
     </style>
 </head>
@@ -399,10 +422,10 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- Slide 1: Hero with avatar moved up for adequate spacing -->
+        <!-- Slide 1: Hero with LARGER avatar and LARGER text, well spaced -->
         <section class="active">
             <div class="text-wrap">
-                <!-- Avatar section: positioned higher to create breathing room -->
+                <!-- Avatar section: larger image moved up for breathing room -->
                 <div class="avatar-section">
                     <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
                 </div>
@@ -412,7 +435,7 @@
                     <div class="typewriter-container">
                         <div class="huge-text accent" id="typewriter">&nbsp;</div>
                     </div>
-                    <!-- Search bar with appropriate top margin, not congested -->
+                    <!-- Larger search bar with centered alignment -->
                     <div class="search-container">
                         <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                         <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -421,7 +444,7 @@
             </div>
         </section>
 
-        <!-- Slide 2: Categories -->
+        <!-- Slide 2: Categories (tiles slightly smaller, border only, no shadows) -->
         <section>
             <div class="text-wrap">
                 <div class="flex flex-col items-center w-full">
@@ -471,7 +494,7 @@
             "Retail & Creative": ["Boutiques", "Photographers", "Artists", "Florists"]
         };
 
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms"];
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Artists"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
@@ -573,30 +596,7 @@
         });
         
         updateUI();
-        
-        // Extra adjustment to ensure avatar is truly moved up on all devices
-        // This creates adequate space between avatar, text, and search bar
-        const style = document.createElement('style');
-        style.textContent = `
-            /* Final spacing refinement - avatar up, everything breathable */
-            .avatar-section {
-                transform: translateY(-8px);
-            }
-            @media (max-height: 700px) {
-                .avatar-section {
-                    transform: translateY(-4px);
-                }
-                .content-group {
-                    margin-top: -6px;
-                }
-            }
-            @media (min-height: 800px) {
-                .avatar-section {
-                    transform: translateY(-12px);
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
+```
