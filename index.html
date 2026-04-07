@@ -12,6 +12,7 @@
         :root {
             --brand-orange: #FF6B2C;
             --app-white: #FFFFFF;
+            --deep-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         html, body {
@@ -40,13 +41,12 @@
 
         .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* 1. TRANSPARENT GLASS HEADER */
+        /* HEADER */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1500;
             padding: 1.5rem 2rem;
             display: flex; justify-content: space-between; align-items: center;
             background: transparent;
-            border: none;
         }
 
         .huge-text {
@@ -55,102 +55,110 @@
         }
 
         .accent { color: var(--brand-orange); }
-        .bg-dark { background-color: #050505; color: #fff; }
 
-        .waving-hand {
-            width: clamp(250px, 70vw, 420px);
-            height: auto;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            mix-blend-mode: multiply;
-            animation: wave 2.5s infinite ease-in-out;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        /* 2. FIXED SEARCH BAR (NO CUTS) */
+        /* SEARCH BAR - VIBZ STYLE (MAGNIFYING GLASS TOUCHING INSIDE) */
         .search-container { 
             background: #fff; border-radius: 100px; padding: 4px; 
             display: flex; align-items: center; 
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15); 
+            box-shadow: var(--deep-shadow); 
             width: 95%; max-width: 500px; margin-top: 30px; 
             border: 3px solid #000; box-sizing: border-box;
+            overflow: hidden; /* Ensures the button touches the border perfectly */
         }
-        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; width: 100%; }
-        .search-icon-btn { flex-shrink: 0; width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; margin-right: 4px; border: none; }
+        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; }
+        .search-icon-btn { 
+            flex-shrink: 0; width: 52px; height: 52px; 
+            background: #000; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            color: #fff; border: none; cursor: pointer;
+        }
 
-        /* 3. CATEGORY SPACING (NO OVERLAP) */
+        /* CATEGORY TILES - SHARP & SHADOWY */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 0.05em;
-            margin-top: 100px; /* Space from top clock/nav */
-            margin-bottom: 1.5rem;
+            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 110px; margin-bottom: 1.5rem;
         }
 
         .category-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
-            width: 100%; max-width: 550px;
-            margin-bottom: 120px; /* Space from dock */
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; 
+            width: 100%; max-width: 550px; margin-bottom: 130px; 
         }
 
         .category-tile {
-            background: #fff; border: 2px solid #f0f0f0; border-radius: 25px;
-            padding: 1.5rem 1rem; display: flex; flex-direction: column;
-            align-items: center; gap: 0.8rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background: #fff; border: 3px solid #000; border-radius: 20px; /* Sharper radius */
+            padding: 1.8rem 1rem; display: flex; flex-direction: column;
+            align-items: center; gap: 0.8rem; 
+            box-shadow: var(--deep-shadow);
+            transition: transform 0.2s;
+            cursor: pointer;
         }
-        .tile-icon { width: 55px; height: 55px; background: var(--brand-orange); color: white; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .tile-label { font-weight: 900; font-size: 0.9rem; line-height: 1.2; color: #000; }
+        .category-tile:active { transform: scale(0.95); }
+        .tile-icon { width: 55px; height: 55px; background: var(--brand-orange); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .tile-label { font-weight: 900; font-size: 0.95rem; line-height: 1.2; color: #000; }
 
-        @media (orientation: landscape) {
-            .category-header { margin-top: 80px; }
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; margin-bottom: 60px; }
-            .waving-hand { height: 45vh; width: auto; margin-top: 40px; }
-            .huge-text { font-size: clamp(1.5rem, 6vh, 2.8rem); }
+        /* CATEGORY OVERLAY LAYER (VIBZ STYLE) */
+        #category-layer {
+            position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px); z-index: 3000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px;
         }
+        #category-layer.active { display: flex; }
+        .cat-item { 
+            font-size: 1.5rem; font-weight: 900; color: #000; padding: 15px 40px; 
+            background: #fff; border: 3px solid #000; border-radius: 50px; 
+            margin: 8px; width: 100%; max-width: 400px; text-align: center;
+            box-shadow: 0 10px 0 #000; transition: 0.1s;
+        }
+        .cat-item:active { transform: translateY(4px); box-shadow: 0 4px 0 #000; }
+        .close-layer { margin-top: 30px; width: 60px; height: 60px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
 
-        /* 4. DOCK INTEGRITY */
+        /* AVATAR */
+        .waving-hand { width: clamp(250px, 70vw, 400px); height: auto; mix-blend-mode: multiply; animation: wave 2.5s infinite ease-in-out; }
+        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+
+        /* DOCK */
         .app-dock {
             position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
             left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem;
-            align-items: center; z-index: 2500;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 5rem;
+            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem; align-items: center; z-index: 2500;
+            box-shadow: var(--deep-shadow); border: 1px solid rgba(0,0,0,0.05);
         }
         .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
 
-        .nav-dots { position: fixed; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); }
-        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
+        /* ANIMATIONS */
+        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        @media (orientation: landscape) {
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; }
+            .waving-hand { height: 45vh; width: auto; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <button class="text-xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="text-xl font-black tracking-tighter uppercase" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+        <button class="text-xl"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
-    <div class="nav-dots">
-        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div id="category-layer">
+        <h2 id="cat-title" class="huge-text accent mb-6">Niche</h2>
+        <div id="cat-list" class="flex flex-col items-center w-full"></div>
+        <div class="close-layer" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <div class="hero-content-side">
-                    <h1 class="huge-text">I build websites for:</h1>
-                    <div class="huge-text accent" id="typewriter">&nbsp;</div>
-                    <div class="search-container">
-                        <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                        <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
+                <h1 class="huge-text">I build websites for:</h1>
+                <div class="huge-text accent" id="typewriter">&nbsp;</div>
+                <div class="search-container">
+                    <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
         </section>
@@ -159,11 +167,23 @@
             <div class="text-wrap">
                 <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
                 <div class="category-grid">
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home &<br>Trades</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional<br>Services</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food &<br>Drink</span></div>
-                    <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1.2rem; justify-content: center;">
+                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
+                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="tile-label">Health & Wellness</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Home & Trades')">
+                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
+                        <span class="tile-label">Home & Trades</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Professional')">
+                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <span class="tile-label">Professional Services</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Food & Drink')">
+                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="tile-label">Food & Drink</span>
+                    </div>
+                    <div class="category-tile" style="grid-column: span 2; flex-direction: row;" onclick="openNiche('Retail & Creative')">
                         <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                         <span class="tile-label ml-4">Retail & Creative Industries</span>
                     </div>
@@ -171,9 +191,7 @@
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <section class="bg-dark text-white"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
     </div>
 
     <div class="app-dock">
@@ -183,7 +201,15 @@
     </div>
 
     <script>
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians"];
+        const nicheData = {
+            "Health & Wellness": ["Barbers", "Dentists", "Gyms", "Spas", "Physios"],
+            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners"],
+            "Professional": ["Lawyers", "Accountants", "Real Estate", "Tutors"],
+            "Food & Drink": ["Restaurants", "Cafes", "Bakeries", "Bars"],
+            "Retail & Creative": ["Boutiques", "Photographers", "Artists", "Florists"]
+        };
+
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
@@ -192,11 +218,31 @@
             charIndex += isDeleting ? -1 : 1;
             typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
             let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
+            if (!isDeleting && charIndex === currentWord.length) { speed = 1800; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 400; }
             setTimeout(type, speed);
         }
         window.onload = type;
+
+        function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
+
+        function openNiche(sector) {
+            const list = document.getElementById('cat-list');
+            document.getElementById('cat-title').textContent = sector;
+            list.innerHTML = "";
+            nicheData[sector].forEach(niche => {
+                const div = document.createElement('div');
+                div.className = "cat-item";
+                div.textContent = niche;
+                div.onclick = () => {
+                    document.getElementById('mainSearch').value = niche;
+                    toggleCategories();
+                    triggerSearch();
+                };
+                list.appendChild(div);
+            });
+            toggleCategories();
+        }
 
         function triggerSearch() {
             const val = document.getElementById('mainSearch').value;
@@ -204,7 +250,6 @@
         }
 
         const sections = document.querySelectorAll('section');
-        const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
 
         function updateUI() {
@@ -213,7 +258,6 @@
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
         }
 
         function navigate(dir) {
