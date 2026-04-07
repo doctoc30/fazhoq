@@ -2,280 +2,183 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAZHOQ | Categories</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        
         :root {
-            --brand-orange: #FF6B2C;
-            --app-white: #FFFFFF;
-            --deep-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --orange: #FF6B00;
+            --bg-light: #FFF8F3;
+            --text-dark: #000000;
+            --border-width: 2px;
         }
 
-        html, body {
-            margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; font-family: 'Outfit', sans-serif;
-            background: #fff; touch-action: none;
-            -webkit-user-select: none;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
-        .slide-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
-
-        section {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            padding: 2rem;
-            background: var(--app-white);
-            transform: translate3d(100%, 0, 0);
-            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            visibility: hidden;
-        }
-
-        section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
-        section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
-
-        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-
-        /* HEADER */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1500;
-            padding: 1.5rem 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-            background: transparent;
-        }
-
-        .huge-text {
-            font-size: clamp(2.2rem, 9vmin, 4.8rem);
-            font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
-        }
-
-        .accent { color: var(--brand-orange); }
-
-        /* SEARCH BAR - VIBZ STYLE (MAGNIFYING GLASS TOUCHING INSIDE) */
-        .search-container { 
-            background: #fff; border-radius: 100px; padding: 4px; 
-            display: flex; align-items: center; 
-            box-shadow: var(--deep-shadow); 
-            width: 95%; max-width: 500px; margin-top: 30px; 
-            border: 3px solid #000; box-sizing: border-box;
-            overflow: hidden; /* Ensures the button touches the border perfectly */
-        }
-        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.1rem; font-weight: 800; background: transparent; }
-        .search-icon-btn { 
-            flex-shrink: 0; width: 52px; height: 52px; 
-            background: #000; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            color: #fff; border: none; cursor: pointer;
-        }
-
-        /* CATEGORY TILES - SHARP & SHADOWY */
-        .category-header {
-            color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 110px; margin-bottom: 1.5rem;
-        }
-
-        .category-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; 
-            width: 100%; max-width: 550px; margin-bottom: 130px; 
-        }
-
-        .category-tile {
-            background: #fff; border: 3px solid #000; border-radius: 20px; /* Sharper radius */
-            padding: 1.8rem 1rem; display: flex; flex-direction: column;
-            align-items: center; gap: 0.8rem; 
-            box-shadow: var(--deep-shadow);
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .category-tile:active { transform: scale(0.95); }
-        .tile-icon { width: 55px; height: 55px; background: var(--brand-orange); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .tile-label { font-weight: 900; font-size: 0.95rem; line-height: 1.2; color: #000; }
-
-        /* CATEGORY OVERLAY LAYER (VIBZ STYLE) */
-        #category-layer {
-            position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px); z-index: 3000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
-        #category-layer.active { display: flex; }
-        .cat-item { 
-            font-size: 1.5rem; font-weight: 900; color: #000; padding: 15px 40px; 
-            background: #fff; border: 3px solid #000; border-radius: 50px; 
-            margin: 8px; width: 100%; max-width: 400px; text-align: center;
-            box-shadow: 0 10px 0 #000; transition: 0.1s;
+
+        /* Header Navigation */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 40px 0;
         }
-        .cat-item:active { transform: translateY(4px); box-shadow: 0 4px 0 #000; }
-        .close-layer { margin-top: 30px; width: 60px; height: 60px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
 
-        /* AVATAR */
-        .waving-hand { width: clamp(250px, 70vw, 400px); height: auto; mix-blend-mode: multiply; animation: wave 2.5s infinite ease-in-out; }
-        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
-
-        /* DOCK */
-        .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
-            left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem; align-items: center; z-index: 2500;
-            box-shadow: var(--deep-shadow); border: 1px solid rgba(0,0,0,0.05);
+        .logo {
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: -1px;
         }
-        .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
 
-        /* ANIMATIONS */
-        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        @media (orientation: landscape) {
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 750px; }
-            .waving-hand { height: 45vh; width: auto; }
+        .logo span {
+            color: var(--orange);
         }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: black;
+            border-radius: 2px;
+        }
+
+        /* Progress Dots (Restored) */
+        .progress-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 50%;
+        }
+
+        .dot.active {
+            background: var(--orange);
+            transform: scale(1.2);
+        }
+
+        /* Title Area */
+        .category-title {
+            color: var(--orange);
+            font-size: 32px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* List Container */
+        .list-container {
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Refined List Item (Outlines Only) */
+        .list-item {
+            background: white;
+            border: var(--border-width) solid var(--text-dark); /* Outline only, no thick black shadow */
+            border-radius: 50px;
+            padding: 18px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Subtle soft shadow for depth */
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .list-item:active {
+            transform: scale(0.98);
+            background-color: #FAFAFA;
+        }
+
+        /* Close Button */
+        .close-btn {
+            margin-top: 40px;
+            width: 60px;
+            height: 60px;
+            background: black;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .close-btn::before, .close-btn::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .close-btn::before { transform: rotate(45deg); }
+        .close-btn::after { transform: rotate(-45deg); }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="text-xl font-black tracking-tighter uppercase" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <button class="text-xl"><i class="fa-solid fa-bars-staggered"></i></button>
-    </nav>
+    <header>
+        <div class="logo">FAZHOQ<span>.</span></div>
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
 
-    <div id="category-layer">
-        <h2 id="cat-title" class="huge-text accent mb-6">Niche</h2>
-        <div id="cat-list" class="flex flex-col items-center w-full"></div>
-        <div class="close-layer" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
+    <div class="progress-dots">
+        <div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 
-    <div class="slide-container" id="master-wrapper">
-        <section class="active">
-            <div class="text-wrap">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <h1 class="huge-text">I build websites for:</h1>
-                <div class="huge-text accent" id="typewriter">&nbsp;</div>
-                <div class="search-container">
-                    <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </div>
-        </section>
+    <h1 class="category-title">Health & Wellness</h1>
 
-        <section>
-            <div class="text-wrap">
-                <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
-                <div class="category-grid">
-                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
-                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <span class="tile-label">Health & Wellness</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Home & Trades')">
-                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
-                        <span class="tile-label">Home & Trades</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Professional')">
-                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <span class="tile-label">Professional Services</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Food & Drink')">
-                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
-                        <span class="tile-label">Food & Drink</span>
-                    </div>
-                    <div class="category-tile" style="grid-column: span 2; flex-direction: row;" onclick="openNiche('Retail & Creative')">
-                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4">Retail & Creative Industries</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-dark text-white"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+    <div class="list-container">
+        <div class="list-item">Barbers</div>
+        <div class="list-item">Dentists</div>
+        <div class="list-item">Gyms</div>
+        <div class="list-item">Spas</div>
+        <div class="list-item">Physios</div>
     </div>
 
-    <div class="app-dock">
-        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
-        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i></a>
-    </div>
+    <div class="close-btn"></div>
 
-    <script>
-        const nicheData = {
-            "Health & Wellness": ["Barbers", "Dentists", "Gyms", "Spas", "Physios"],
-            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners"],
-            "Professional": ["Lawyers", "Accountants", "Real Estate", "Tutors"],
-            "Food & Drink": ["Restaurants", "Cafes", "Bakeries", "Bars"],
-            "Retail & Creative": ["Boutiques", "Photographers", "Artists", "Florists"]
-        };
-
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms"];
-        let wordIndex = 0, charIndex = 0, isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function type() {
-            const currentWord = nicheWords[wordIndex];
-            charIndex += isDeleting ? -1 : 1;
-            typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
-            let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 1800; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 400; }
-            setTimeout(type, speed);
-        }
-        window.onload = type;
-
-        function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
-
-        function openNiche(sector) {
-            const list = document.getElementById('cat-list');
-            document.getElementById('cat-title').textContent = sector;
-            list.innerHTML = "";
-            nicheData[sector].forEach(niche => {
-                const div = document.createElement('div');
-                div.className = "cat-item";
-                div.textContent = niche;
-                div.onclick = () => {
-                    document.getElementById('mainSearch').value = niche;
-                    toggleCategories();
-                    triggerSearch();
-                };
-                list.appendChild(div);
-            });
-            toggleCategories();
-        }
-
-        function triggerSearch() {
-            const val = document.getElementById('mainSearch').value;
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
-        }
-
-        const sections = document.querySelectorAll('section');
-        let currentIdx = 0, isMoving = false;
-
-        function updateUI() {
-            sections.forEach((sec, i) => {
-                sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
-            });
-        }
-
-        function navigate(dir) {
-            if (isMoving) return;
-            const target = currentIdx + dir;
-            if (target >= 0 && target < sections.length) {
-                isMoving = true; currentIdx = target; updateUI();
-                setTimeout(() => { isMoving = false; }, 800);
-            }
-        }
-
-        let sX, sY;
-        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
-        window.addEventListener('touchend', e => {
-            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
-        });
-        function goToSlide(i) { currentIdx = i; updateUI(); }
-    </script>
 </body>
 </html>
