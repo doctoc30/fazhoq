@@ -41,9 +41,9 @@
         .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
         .huge-text {
-            font-size: clamp(3rem, 15vmin, 9rem);
+            font-size: clamp(2.5rem, 10vmin, 5rem);
             font-weight: 900;
-            line-height: 0.85;
+            line-height: 1;
             letter-spacing: -0.05em;
             text-transform: uppercase;
         }
@@ -51,11 +51,10 @@
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* HERO CHARACTER - ENHANCED SIZE FOR PORTRAIT */
         .waving-hand {
-            width: clamp(320px, 75vw, 600px); /* Increased width for portrait impact */
+            width: clamp(250px, 50vw, 400px);
             height: auto;
-            margin-bottom: -15px;
+            margin-bottom: 10px;
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
@@ -63,10 +62,50 @@
             mix-blend-mode: multiply; 
         }
 
-        /* LANDSCAPE FIX: Shrink avatar to fit header/content */
-        @media (orientation: landscape) {
-            .waving-hand { width: clamp(180px, 30vh, 300px); margin-top: 20px; }
-            .huge-text { font-size: clamp(2.5rem, 10vh, 5rem); }
+        /* SEARCH BAR INTEGRATION */
+        .search-container { 
+            background: #fff; 
+            border-radius: 100px; 
+            padding: 5px; 
+            display: flex; 
+            align-items: center; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+            width: 100%;
+            max-width: 450px; 
+            margin: 25px auto 0;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .search-container input { 
+            flex: 1; 
+            border: none; 
+            outline: none; 
+            padding: 12px 20px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            background: transparent;
+            color: #000;
+        }
+
+        .search-icon-btn { 
+            width: 45px; 
+            height: 45px; 
+            background: var(--brand-orange); 
+            border-radius: 50%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #fff; 
+            cursor: pointer; 
+            border: none; 
+        }
+
+        .typewriter-sub {
+            font-size: clamp(1.8rem, 6vmin, 3.5rem);
+            font-weight: 900;
+            color: var(--brand-orange);
+            text-transform: capitalize;
+            min-height: 1.2em;
         }
 
         @keyframes wave {
@@ -76,40 +115,22 @@
             50% { transform: rotate(4deg) scale(1); }
         }
 
-        /* NAVIGATION */
-        .nav-link { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; transition: color 0.3s; }
-        #mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-orange); z-index: 2000; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
-
-        /* WIDER & BIGGER DOCK DESIGN */
         .app-dock {
             position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1.5rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 1rem 2.5rem; /* Wider padding */
-            display: flex; gap: 3rem; /* Larger gap */
+            padding: 1rem 2.5rem;
+            display: flex; gap: 3rem;
             align-items: center; z-index: 1000;
             box-shadow: 0 15px 45px rgba(0,0,0,0.12);
             border: 1px solid rgba(0,0,0,0.05);
-            width: fit-content;
-            min-width: 280px; /* Ensures width presence */
         }
 
-        .dock-btn { 
-            font-size: 1.8rem; /* Bigger icons */
-            transition: all 0.3s ease; 
-            color: var(--brand-orange); /* All icons brand orange */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); transition: all 0.3s ease; }
         
-        .dock-btn:hover { transform: translateY(-5px); }
-        .dock-btn:active { transform: scale(0.9); }
-
         footer { position: fixed; bottom: 0.5rem; width: 100%; text-align: center; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.2; z-index: 900; pointer-events: none; }
         
-        .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
         .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
         .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
@@ -126,14 +147,7 @@
         <button class="md:hidden text-2xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
-    <div id="mobile-menu">
-        <button class="absolute top-10 right-10 text-3xl text-white" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
-        <a href="#" onclick="goToSlide(1); toggleMenu()" class="text-4xl font-black text-white italic">STRATEGY</a>
-        <a href="#" onclick="goToSlide(2); toggleMenu()" class="text-4xl font-black text-white italic">DESIGN</a>
-        <a href="#" onclick="goToSlide(4); toggleMenu()" class="text-4xl font-black text-white italic">CONTACT</a>
-    </div>
-
-    <div class="nav-dots" id="dotContainer">
+    <div class="nav-dots fixed right-5 top-1/2 -translate-y-1/2 z-[1000] flex flex-col gap-4" id="dotContainer">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
@@ -141,8 +155,13 @@
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <span class="accent font-black text-[10px] tracking-[0.4em] mb-3 block">LONDON UK</span>
-                <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
+                <h1 class="huge-text">I BUILD WEBSITES FOR:</h1>
+                <div class="typewriter-sub" id="typewriter"></div>
+                
+                <div class="search-container">
+                    <input type="text" id="mainSearch" placeholder="Search your industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
             </div>
         </section>
 
@@ -152,7 +171,7 @@
         <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-4xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">Fazhoq1977@gmail.com</a></div></div></section>
     </div>
 
-    <footer>&copy; 2024 | LONDON UK | PRIVACY POLICY</footer>
+    <footer>&copy; 2026 | LONDON UK | PRIVACY POLICY</footer>
 
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
@@ -161,6 +180,61 @@
     </div>
 
     <script>
+        const nicheWords = [
+            "Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Restaurants", "Architects", 
+            "Physios", "Roofers", "Cafes", "Bakeries", "Accountants", "Personal Trainers", "Painters", 
+            "Locksmiths", "Florists", "Pet Shops", "Boutiques", "E-commerce", "Photographers", "Artists",
+            "Tutors", "Marketing Agencies", "Consultants", "Real Estate", "Car Detailers", "Mechanics",
+            "Yoga Studios", "Spas", "Beauticians", "Landscapers", "Cleaners", "Carpenters", "Handymen",
+            "Chauffeurs", "Security Firms", "IT Support", "Solar Installers", "Glaziers", "Scaffolders",
+            "Interior Designers", "Event Planners", "DJs", "Caterers", "Opticians", "Vets", "Dog Walkers",
+            "Daycares", "Driving Schools", "Recruitment", "Tattoo Artists", "Jewellers", "Tailors",
+            "Music Schools", "Dance Studios", "Coaches", "Therapists", "Chiropractors", "Plasterers",
+            "Paving Experts", "Pool Builders", "Garden Centers", "Wine Bars", "Steakhouses", "Sushi Bars",
+            "Pizza Shops", "Aestheticians", "Barber Shops", "Hair Salons", "Nail Bars", "Bridal Shops",
+            "Tech Startups", "SaaS Companies", "Crypto Projects", "Financial Advisors", "Mortgage Brokers",
+            "Estate Agents", "Charities", "Churches", "Private Chefs", "Language Schools", "Travel Agents",
+            "Car Rentals", "Moving Companies", "Self Storage", "Pest Control", "Ironing Services",
+            "Window Cleaners", "Gutter Cleaners", "Ironmongers", "Cycle Shops", "Vape Shops", "Gift Shops",
+            "Antique Dealers", "Home Cinemas", "Smart Home Pros", "Air Conditioning", "Surgeons"
+        ];
+
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function type() {
+            const currentWord = nicheWords[wordIndex];
+            if (isDeleting) {
+                typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % nicheWords.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        window.onload = () => { type(); };
+
+        function triggerSearch() {
+            const val = document.getElementById('mainSearch').value.trim();
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+        }
+
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -188,10 +262,6 @@
         }
 
         function goToSlide(index) { currentIdx = index; updateUI(); }
-        const menuOverlay = document.getElementById('mobile-menu');
-        function toggleMenu() { menuOverlay.style.display = menuOverlay.style.display === 'flex' ? 'none' : 'flex'; }
-        document.getElementById('menu-btn').onclick = toggleMenu;
-        document.getElementById('close-btn').onclick = toggleMenu;
 
         let startX = 0, startY = 0;
         window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
@@ -204,9 +274,6 @@
             }
         }, { passive: false });
         window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
-        updateUI();
     </script>
 </body>
 </html>
-
-
