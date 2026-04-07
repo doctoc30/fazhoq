@@ -12,7 +12,6 @@
         :root {
             --brand-orange: #FF6B2C;
             --app-white: #FFFFFF;
-            --deep-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softened shadow */
         }
 
         html, body {
@@ -41,22 +40,15 @@
 
         .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* HEADER - TASK 2: Bigger Logo & Menu */
+        /* HEADER - TASK 2: Bigger Logo and Menu */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1500;
-            padding: 2rem 2.5rem; /* Increased padding */
+            padding: 1.5rem 2rem;
             display: flex; justify-content: space-between; align-items: center;
             background: transparent;
         }
-        .logo-text {
-            font-size: 1.75rem; /* Made bigger */
-            font-weight: 900; 
-            tracking-tighter;
-            text-transform: uppercase;
-        }
-        .hamburger-btn {
-            font-size: 2rem; /* Made bigger */
-        }
+        .nav-logo { font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; }
+        .nav-menu-btn { font-size: 2.2rem; }
 
         .huge-text {
             font-size: clamp(2.2rem, 9vmin, 4.8rem);
@@ -66,16 +58,21 @@
         .accent { color: var(--brand-orange); }
 
         /* SEARCH BAR - TASK 1: Centered and Pushed Up */
+        .content-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
-            padding: 6px 10px 6px 6px;
+            padding: 6px;
             display: flex; 
             align-items: center; 
-            box-shadow: var(--deep-shadow); 
-            width: 90%; 
-            max-width: 450px; 
-            margin: -20px auto 0 auto; /* Negative margin-top pushes it up, auto centers */
+            width: 95%; 
+            max-width: 500px; 
+            margin-top: -10px; /* Pushed up */
             border: 3px solid #000; 
             box-sizing: border-box;
             overflow: hidden;
@@ -90,11 +87,12 @@
             font-weight: 800; 
             background: transparent;
             min-width: 0;
+            text-align: center; /* Center placeholder/text */
         }
         .search-icon-btn { 
             flex-shrink: 0; 
-            width: 44px; 
-            height: 44px; 
+            width: 48px; 
+            height: 48px; 
             background: #000; 
             border-radius: 50%; 
             display: flex; 
@@ -102,31 +100,44 @@
             justify-content: center; 
             color: #fff; 
             border: none; 
+            cursor: pointer;
         }
 
-        /* CATEGORY TILES - TASK 3: Smaller Tiles */
+        /* CATEGORY TILES - TASK 3 & 4: Smaller and Flat Outline */
         .category-header {
             color: var(--brand-orange); font-weight: 900; text-transform: uppercase;
-            font-size: 0.8rem; letter-spacing: 0.05em; margin-top: 100px; margin-bottom: 1.2rem;
+            font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 80px; margin-bottom: 1.2rem;
         }
 
         .category-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; 
-            width: 100%; max-width: 500px; margin-bottom: 110px; 
+            width: 100%; max-width: 450px; margin-bottom: 100px; 
         }
 
         .category-tile {
-            background: #fff; border: 3px solid #000; border-radius: 18px;
-            padding: 1.2rem 0.8rem; /* Reduced padding */
+            background: #fff; 
+            border: 2px solid #000; /* Thin border outline */
+            border-radius: 15px;
+            padding: 1.2rem 0.8rem; /* Smaller padding */
             display: flex; flex-direction: column;
             align-items: center; gap: 0.6rem; 
+            box-shadow: none; /* Removed shades */
             transition: transform 0.2s;
             cursor: pointer;
         }
+        .category-tile:active { transform: scale(0.95); background: #f9f9f9; }
         .tile-icon { width: 45px; height: 45px; background: var(--brand-orange); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .tile-label { font-weight: 900; font-size: 0.85rem; line-height: 1.2; color: #000; }
 
-        /* LAYER TILES - TASK 4: Removed 3D shades, just border */
+        /* SWIPE COUNTER */
+        .swipe-counter {
+            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 12px; z-index: 2000;
+        }
+        .dot { width: 8px; height: 8px; background: #D1D1D1; border-radius: 50%; transition: all 0.4s; }
+        .dot.active { background: var(--brand-orange); height: 24px; border-radius: 10px; }
+
+        /* LAYER */
         #category-layer {
             position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px); z-index: 3000;
@@ -135,22 +146,12 @@
         }
         #category-layer.active { display: flex; }
         .cat-item { 
-            font-size: 1.4rem; font-weight: 900; color: #000; padding: 12px 30px; 
-            background: #fff; border: 4px solid #000; border-radius: 50px; /* Thicker border */
-            margin: 8px; width: 100%; max-width: 350px; text-align: center;
-            box-shadow: none; /* TASK 4: Removed 3D shadow */
-            transition: background 0.2s;
+            font-size: 1.5rem; font-weight: 900; color: #000; padding: 15px 40px; 
+            background: #fff; border: 3px solid #000; border-radius: 50px; 
+            margin: 8px; width: 100%; max-width: 400px; text-align: center;
+            box-shadow: 0 10px 0 #000; transition: 0.1s;
         }
-        .cat-item:active { background: #f0f0f0; transform: scale(0.98); }
-        .close-layer { margin-top: 30px; width: 65px; height: 65px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; }
-
-        /* SWIPE DOTS */
-        .swipe-counter {
-            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 12px; z-index: 2000;
-        }
-        .dot { width: 8px; height: 8px; background: #D1D1D1; border-radius: 50%; transition: all 0.4s; }
-        .dot.active { background: var(--brand-orange); height: 24px; border-radius: 10px; }
+        .cat-item:active { transform: translateY(4px); box-shadow: 0 4px 0 #000; }
 
         /* AVATAR */
         .waving-hand { width: clamp(220px, 60vw, 350px); height: auto; mix-blend-mode: multiply; margin-bottom: 10px; }
@@ -165,18 +166,20 @@
         }
         .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
 
+        /* LANDSCAPE FIXES */
         @media (orientation: landscape) {
-            .text-wrap { flex-direction: row; gap: 2rem; }
-            .category-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 40px;}
-            .search-container { margin-top: 10px; }
+            .text-wrap { flex-direction: row; text-align: left; justify-content: center; gap: 2rem; }
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 650px; }
+            .waving-hand { height: 50vh; width: auto; }
+            .search-container { margin-top: 5px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo-text" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <button class="hamburger-btn"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="nav-logo" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
+        <button class="nav-menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
     <div class="swipe-counter">
@@ -188,13 +191,14 @@
     <div id="category-layer">
         <h2 id="cat-title" class="huge-text accent mb-6">Niche</h2>
         <div id="cat-list" class="flex flex-col items-center w-full"></div>
-        <div class="close-layer" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="mt-8 text-3xl" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
+                
                 <div class="content-group">
                     <h1 class="huge-text">I build websites for:</h1>
                     <div class="huge-text accent" id="typewriter">&nbsp;</div>
@@ -208,33 +212,39 @@
 
         <section>
             <div class="text-wrap">
-                <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
-                <div class="category-grid">
-                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
-                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <span class="tile-label">Health & Wellness</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Home & Trades')">
-                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
-                        <span class="tile-label">Home & Trades</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Professional')">
-                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <span class="tile-label">Professional</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Food & Drink')">
-                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
-                        <span class="tile-label">Food & Drink</span>
-                    </div>
-                    <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1rem;" onclick="openNiche('Retail & Creative')">
-                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4">Retail & Creative Industries</span>
+                <div class="flex flex-col items-center w-full">
+                    <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
+                    <div class="category-grid">
+                        <div class="category-tile" onclick="openNiche('Health & Wellness')">
+                            <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <span class="tile-label">Health & Wellness</span>
+                        </div>
+                        <div class="category-tile" onclick="openNiche('Home & Trades')">
+                            <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
+                            <span class="tile-label">Home & Trades</span>
+                        </div>
+                        <div class="category-tile" onclick="openNiche('Professional')">
+                            <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <span class="tile-label">Professional</span>
+                        </div>
+                        <div class="category-tile" onclick="openNiche('Food & Drink')">
+                            <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
+                            <span class="tile-label">Food & Drink</span>
+                        </div>
+                        <div class="category-tile" style="grid-column: span 2; flex-direction: row; justify-content: center;" onclick="openNiche('Retail & Creative')">
+                            <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                            <span class="tile-label ml-4">Retail & Creative</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="bg-dark text-white"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <section class="bg-dark text-white">
+            <div class="text-wrap">
+                <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
+            </div>
+        </section>
     </div>
 
     <div class="app-dock">
@@ -302,7 +312,9 @@
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
-            dots.forEach((dot, i) => { dot.classList.toggle('active', i === currentIdx); });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIdx);
+            });
         }
 
         function navigate(dir) {
