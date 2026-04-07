@@ -41,22 +41,21 @@
         .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
         .huge-text {
-            font-size: clamp(2.2rem, 9vmin, 4.8rem);
+            font-size: clamp(3rem, 15vmin, 9rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 0.85;
             letter-spacing: -0.05em;
+            text-transform: uppercase;
         }
 
-        .typewriter-box { min-height: 1.2em; display: flex; align-items: center; justify-content: center; }
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
-        /* AVATAR POSITIONING & LANDSCAPE FIX */
+        /* HERO CHARACTER - ENHANCED SIZE FOR PORTRAIT */
         .waving-hand {
-            width: clamp(280px, 70vw, 450px);
+            width: clamp(320px, 75vw, 600px); /* Increased width for portrait impact */
             height: auto;
-            margin-top: -90px;
-            margin-bottom: 5px;
+            margin-bottom: -15px;
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
@@ -64,13 +63,10 @@
             mix-blend-mode: multiply; 
         }
 
+        /* LANDSCAPE FIX: Shrink avatar to fit header/content */
         @media (orientation: landscape) {
-            .waving-hand { 
-                width: clamp(140px, 22vh, 220px); 
-                margin-top: 40px; 
-                margin-bottom: 15px; 
-            }
-            .huge-text { font-size: clamp(1.8rem, 8vh, 3.5rem); }
+            .waving-hand { width: clamp(180px, 30vh, 300px); margin-top: 20px; }
+            .huge-text { font-size: clamp(2.5rem, 10vh, 5rem); }
         }
 
         @keyframes wave {
@@ -80,80 +76,39 @@
             50% { transform: rotate(4deg) scale(1); }
         }
 
-        /* CATEGORY TILES (New Slide) */
-        .tiles-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 480px;
-            margin-top: 2rem;
-        }
+        /* NAVIGATION */
+        .nav-link { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; transition: color 0.3s; }
+        #mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-orange); z-index: 2000; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
 
-        .tile {
-            background: #fff;
-            border: 2px solid #000;
-            border-radius: 28px;
-            padding: 2rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .tile:active { transform: scale(0.95); }
-        .tile i { font-size: 2.2rem; color: var(--brand-orange); }
-        .tile span { font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: #000; }
-
-        /* CATEGORY LIST (Clean Outlines) */
-        .list-container {
-            width: 95%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 2rem;
-        }
-
-        .list-item {
-            background: white;
-            border: 2px solid #000;
-            border-radius: 50px;
-            padding: 16px;
-            text-align: center;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: #000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            cursor: pointer;
-        }
-
-        /* SEARCH BAR */
-        .search-container { 
-            background: #fff; border-radius: 100px; 
-            padding: 8px; display: flex; align-items: center; 
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2); 
-            width: 95%; max-width: 550px; margin: 35px auto 0;
-            border: 3px solid #000; transform: scale(1.03);
-        }
-
-        .search-container input { flex: 1; border: none; outline: none; padding: 12px 20px; font-size: 1.2rem; font-weight: 800; background: transparent; color: #000; }
-        .search-icon-btn { width: 55px; height: 55px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; border: none; }
-
-        /* DOCK & PROGRESS DOTS */
+        /* WIDER & BIGGER DOCK DESIGN */
         .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
+            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1.5rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.5rem; display: flex; gap: 2.5rem;
+            padding: 1rem 2.5rem; /* Wider padding */
+            display: flex; gap: 3rem; /* Larger gap */
             align-items: center; z-index: 1000;
             box-shadow: 0 15px 45px rgba(0,0,0,0.12);
             border: 1px solid rgba(0,0,0,0.05);
+            width: fit-content;
+            min-width: 280px; /* Ensures width presence */
         }
 
-        .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
+        .dock-btn { 
+            font-size: 1.8rem; /* Bigger icons */
+            transition: all 0.3s ease; 
+            color: var(--brand-orange); /* All icons brand orange */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dock-btn:hover { transform: translateY(-5px); }
+        .dock-btn:active { transform: scale(0.9); }
+
+        footer { position: fixed; bottom: 0.5rem; width: 100%; text-align: center; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.2; z-index: 900; pointer-events: none; }
+        
         .nav-dots { position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
         .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.3s; }
         .dot.active { background: var(--brand-orange); transform: scale(2.5); }
@@ -164,72 +119,40 @@
     <nav class="fixed top-0 w-full z-[1500] p-8 md:p-12 flex justify-between items-center">
         <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
         <div class="hidden md:flex gap-10">
-            <a href="#" onclick="goToSlide(3)" class="nav-link hover:text-[#FF6B2C]">Strategy</a>
-            <a href="#" onclick="goToSlide(4)" class="nav-link hover:text-[#FF6B2C]">Design</a>
-            <a href="#" onclick="goToSlide(6)" class="nav-link hover:text-[#FF6B2C]">Contact</a>
+            <a href="#" onclick="goToSlide(1)" class="nav-link hover:text-[#FF6B2C]">Strategy</a>
+            <a href="#" onclick="goToSlide(2)" class="nav-link hover:text-[#FF6B2C]">Design</a>
+            <a href="#" onclick="goToSlide(4)" class="nav-link hover:text-[#FF6B2C]">Contact</a>
         </div>
         <button class="md:hidden text-2xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
-    <div class="nav-dots" id="dots-container"></div>
+    <div id="mobile-menu">
+        <button class="absolute top-10 right-10 text-3xl text-white" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#" onclick="goToSlide(1); toggleMenu()" class="text-4xl font-black text-white italic">STRATEGY</a>
+        <a href="#" onclick="goToSlide(2); toggleMenu()" class="text-4xl font-black text-white italic">DESIGN</a>
+        <a href="#" onclick="goToSlide(4); toggleMenu()" class="text-4xl font-black text-white italic">CONTACT</a>
+    </div>
+
+    <div class="nav-dots" id="dotContainer">
+        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
 
     <div class="slide-container" id="master-wrapper">
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <h1 class="huge-text">I build websites for:</h1>
-                <div class="typewriter-box">
-                    <div class="huge-text accent" id="typewriter">&nbsp;</div>
-                </div>
-                <div class="search-container">
-                    <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <span class="accent font-black text-[10px] tracking-[0.4em] mb-3 block">LONDON UK</span>
+                <h1 class="huge-text">I BUILD<br>FOR<br><span class="accent">VISIONARIES.</span></h1>
             </div>
         </section>
 
-        <section>
-            <div class="text-wrap">
-                <h2 class="text-orange-600 font-black uppercase tracking-widest text-sm mb-4">Industries</h2>
-                <div class="tiles-grid">
-                    <div class="tile" onclick="navigate(1)">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                        <span>Health</span>
-                    </div>
-                    <div class="tile">
-                        <i class="fa-solid fa-hammer"></i>
-                        <span>Trades</span>
-                    </div>
-                    <div class="tile">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span>Legal</span>
-                    </div>
-                    <div class="tile">
-                        <i class="fa-solid fa-utensils"></i>
-                        <span>Food</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="text-wrap">
-                <h2 class="huge-text accent mb-6">Health & Wellness</h2>
-                <div class="list-container">
-                    <div class="list-item">Barbers</div>
-                    <div class="list-item">Dentists</div>
-                    <div class="list-item">Gyms & Studios</div>
-                    <div class="list-item">Physiotherapists</div>
-                    <div class="list-item">Spas & Beauty</div>
-                </div>
-            </div>
-        </section>
-
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">CLEAN<br><span class="accent">CODE.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-3xl font-black border-b-4 border-[#FF6B2C] pb-2">Contact</a></div></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">I build tools that generate revenue through smart UX triggers.</p></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2><p class="mt-4 text-xs font-bold opacity-40 uppercase tracking-widest max-w-xs mx-auto">Engaging design that keeps your users hooked.</p></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2><p class="mt-4 text-xs font-bold opacity-30 uppercase tracking-widest max-w-xs mx-auto">Pixel-perfect development that loads at the speed of thought.</p></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-xl md:text-4xl font-black border-b-2 border-[#FF6B2C] pb-2 hover:text-[#FF6B2C] transition-colors">Fazhoq1977@gmail.com</a></div></div></section>
     </div>
+
+    <footer>&copy; 2024 | LONDON UK | PRIVACY POLICY</footer>
 
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
@@ -238,38 +161,10 @@
     </div>
 
     <script>
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Restaurants", "Architects", "Physios"];
-        let wordIndex = 0, charIndex = 0, isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function type() {
-            const currentWord = nicheWords[wordIndex];
-            if (isDeleting) charIndex--; else charIndex++;
-            const str = currentWord.substring(0, charIndex);
-            typewriterEl.innerHTML = str === "" ? "&nbsp;" : str;
-
-            let typeSpeed = isDeleting ? 40 : 80;
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1800; isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; typeSpeed = 400;
-            }
-            setTimeout(type, typeSpeed);
-        }
-        window.onload = type;
-
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
-        const dotsContainer = document.getElementById('dots-container');
-
-        // Render Dots based on number of sections
-        sections.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.className = `dot ${i === 0 ? 'active' : ''}`;
-            dotsContainer.appendChild(dot);
-        });
-
-        let currentIdx = 0, isMoving = false;
+        const dots = document.querySelectorAll('.dot');
+        let currentIdx = 0; let isMoving = false;
 
         function updateUI() {
             sections.forEach((sec, i) => {
@@ -277,7 +172,6 @@
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
-            const dots = document.querySelectorAll('.dot');
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
             const isDark = sections[currentIdx].classList.contains('bg-dark');
             document.body.style.backgroundColor = isDark ? "#050505" : "#fff";
@@ -292,20 +186,27 @@
                 setTimeout(() => { isMoving = false; }, 800);
             }
         }
+
         function goToSlide(index) { currentIdx = index; updateUI(); }
+        const menuOverlay = document.getElementById('mobile-menu');
+        function toggleMenu() { menuOverlay.style.display = menuOverlay.style.display === 'flex' ? 'none' : 'flex'; }
+        document.getElementById('menu-btn').onclick = toggleMenu;
+        document.getElementById('close-btn').onclick = toggleMenu;
 
-        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); });
-        let startY = 0;
-        window.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
+        let startX = 0, startY = 0;
+        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
         window.addEventListener('touchend', e => {
+            const dX = startX - e.changedTouches[0].clientX;
             const dY = startY - e.changedTouches[0].clientY;
-            if (Math.abs(dY) > 50) navigate(dY > 0 ? 1 : -1);
-        });
-
-        function triggerSearch() {
-            const val = document.getElementById('mainSearch').value.trim();
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
-        }
+            if (Math.abs(dX) > 40 || Math.abs(dY) > 40) {
+                if (Math.abs(dX) > Math.abs(dY)) navigate(dX > 0 ? 1 : -1);
+                else navigate(dY > 0 ? 1 : -1);
+            }
+        }, { passive: false });
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
+        updateUI();
     </script>
 </body>
 </html>
+
+
