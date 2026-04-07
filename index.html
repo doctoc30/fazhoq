@@ -40,14 +40,15 @@
 
         .text-wrap { width: 100%; max-width: 1200px; text-align: center; z-index: 20; display: flex; flex-direction: column; align-items: center; }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 9vmin, 5rem);
+        /* UNIFIED HERO & TYPEWRITER STYLE */
+        .huge-text {
+            font-size: clamp(2.5rem, 10vmin, 5rem);
             font-weight: 900;
             line-height: 1.1;
             letter-spacing: -0.05em;
         }
 
-        /* FIX: Stable Typewriter Height to prevent jumping */
+        /* STOPS JUMPING */
         .typewriter-box {
             min-height: 1.2em;
             display: flex;
@@ -58,28 +59,29 @@
         .accent { color: var(--brand-orange); }
         .bg-dark { background-color: #050505; color: #fff; }
 
+        /* AVATAR POSITIONING */
         .waving-hand {
-            width: clamp(240px, 42vh, 400px);
+            width: clamp(280px, 70vw, 500px);
             height: auto;
+            margin-top: -80px; /* Moves up in portrait */
+            margin-bottom: 5px;
             transform-origin: bottom center;
             animation: wave 2.5s infinite ease-in-out;
             display: block;
             pointer-events: none;
             mix-blend-mode: multiply; 
-            margin-top: -80px; 
-            margin-bottom: 5px;
         }
 
         @media (orientation: landscape) {
             .waving-hand { 
-                width: clamp(140px, 22vh, 260px); 
-                margin-top: 0; 
-                margin-bottom: 15px;
+                width: clamp(160px, 25vh, 280px); 
+                margin-top: 0; /* Centers in landscape */
+                margin-bottom: 15px; 
             }
-            .hero-title { font-size: clamp(1.8rem, 7vh, 3.5rem); }
+            .huge-text { font-size: clamp(2rem, 8vh, 4rem); }
         }
 
-        /* PROMINENT SEARCH BAR */
+        /* BOLDER, WIDER SEARCH BAR */
         .search-container { 
             background: #fff; 
             border-radius: 100px; 
@@ -88,30 +90,27 @@
             align-items: center; 
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); 
             width: 95%;
-            max-width: 480px; 
-            margin: 40px auto 0;
-            border: 3px solid #000; /* Bolder border */
-            transform: scale(1.05);
+            max-width: 500px; /* Wider */
+            margin: 35px auto 0;
+            border: 3px solid #000; /* Prominent border */
+            transform: scale(1.02);
         }
 
         .search-container input { 
             flex: 1; border: none; outline: none; 
-            padding: 12px 20px; font-size: 1.1rem; 
+            padding: 12px 20px; font-size: 1.2rem; 
             font-weight: 800; background: transparent; color: #000;
         }
 
-        .search-container input::placeholder { color: rgba(0,0,0,0.4); }
-
         .search-icon-btn { 
-            width: 52px; height: 52px; 
+            width: 55px; height: 55px; 
             background: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; 
             color: #fff; cursor: pointer; border: none; 
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
         
-        .search-icon-btn:hover { background: var(--brand-orange); }
-        .search-icon-btn i { font-size: 1.4rem; }
+        .search-icon-btn:hover { background: var(--brand-orange); transform: rotate(15deg); }
 
         @keyframes wave {
             0%, 100% { transform: rotate(0deg) scale(1); }
@@ -120,20 +119,21 @@
             50% { transform: rotate(4deg) scale(1); }
         }
 
+        /* DOCK */
         .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
+            position: fixed; bottom: max(2rem, env(safe-area-inset-bottom) + 1rem);
             left: 50%; transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.5rem; display: flex; gap: 3rem;
+            padding: 1rem 2.8rem; display: flex; gap: 3rem;
             align-items: center; z-index: 1000;
             box-shadow: 0 15px 45px rgba(0,0,0,0.12);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
         .dock-btn { font-size: 1.8rem; color: var(--brand-orange); }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.1); }
-        .dot.active { background: var(--brand-orange); transform: scale(2); }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); }
+        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
     </style>
 </head>
 <body>
@@ -142,7 +142,7 @@
         <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
     </nav>
 
-    <div class="nav-dots fixed right-5 top-1/2 -translate-y-1/2 z-[1000] flex flex-col gap-4">
+    <div class="nav-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
@@ -150,9 +150,9 @@
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <h1 class="hero-title">I build websites for:</h1>
+                <h1 class="huge-text">I build websites for:</h1>
                 <div class="typewriter-box">
-                    <div class="hero-title accent" id="typewriter">&nbsp;</div>
+                    <div class="huge-text accent" id="typewriter">&nbsp;</div>
                 </div>
                 
                 <div class="search-container">
@@ -162,10 +162,10 @@
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="hero-title">Strategic<br><span class="accent">Partner.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title italic">Wow<span class="accent">!</span><br>Interaction.</h2></div></section>
-        <section><div class="text-wrap"><h2 class="hero-title">Clean<br><span class="accent">Code.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="hero-title">Let's<br><span class="accent">Build.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-2xl font-black border-b-4 border-[#FF6B2C] pb-2">Get in touch</a></div></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
+        <section><div class="text-wrap"><h2 class="huge-text">CLEAN<br><span class="accent">CODE.</span></h2></div></section>
+        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text">LET'S<br><span class="accent">BUILD.</span></h2><div class="mt-8"><a href="mailto:Fazhoq1977@gmail.com" class="text-3xl font-black border-b-4 border-[#FF6B2C] pb-2">Hire Me</a></div></div></section>
     </div>
 
     <div class="app-dock">
@@ -175,63 +175,36 @@
     </div>
 
     <script>
-        const nicheWords = [
-            "Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Restaurants", "Architects", 
-            "Physios", "Roofers", "Cafes", "Bakeries", "Accountants", "Trainers", "Painters", 
-            "Locksmiths", "Florists", "Pet Shops", "Boutiques", "E-commerce", "Artists",
-            "Tutors", "Agencies", "Consultants", "Real Estate", "Mechanics", "Yoga Studios",
-            "Spas", "Beauticians", "Landscapers", "Cleaners", "Carpenters", "Handymen", "Chauffeurs",
-            "Solar Experts", "Glaziers", "Scaffolders", "Event Planners", "DJs", "Caterers", "Opticians", 
-            "Vets", "Daycares", "Recruitment", "Tattoo Artists", "Jewellers", "Tailors", "Music Schools",
-            "Coaches", "Therapists", "Plasterers", "Garden Centers", "Wine Bars", "Steakhouses", "Sushi Bars",
-            "Hair Salons", "Nail Bars", "Bridal Shops", "Startups", "Estate Agents", "Charities", "Churches", 
-            "Private Chefs", "Travel Agents", "Pest Control", "Ironing Pros", "Window Cleaners", "Cycle Shops", 
-            "Vape Shops", "Gift Shops", "Antique Dealers", "Surgeons", "Dog Groomers", "Podiatrists"
-        ];
-
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Gyms", "Restaurants", "Dentists", "Architects", "Physios", "Roofers"];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
         function type() {
             const currentWord = nicheWords[wordIndex];
-            
-            if (isDeleting) {
-                charIndex--;
-            } else {
-                charIndex++;
-            }
-
-            // Using &nbsp; if string is empty to keep height stable
+            if (isDeleting) charIndex--; else charIndex++;
             const str = currentWord.substring(0, charIndex);
             typewriterEl.innerHTML = str === "" ? "&nbsp;" : str;
 
-            let typeSpeed = isDeleting ? 40 : 80;
-
+            let typeSpeed = isDeleting ? 50 : 100;
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1800;
-                isDeleting = true;
+                typeSpeed = 2000; isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % nicheWords.length;
-                typeSpeed = 400;
+                isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; typeSpeed = 500;
             }
             setTimeout(type, typeSpeed);
         }
 
-        window.onload = () => { type(); };
+        window.onload = type;
 
         function triggerSearch() {
             const val = document.getElementById('mainSearch').value.trim();
             if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
 
-        // SLIDE ENGINE
         const wrapper = document.getElementById('master-wrapper');
         const sections = wrapper.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0; let isMoving = false;
+        let currentIdx = 0, isMoving = false;
 
         function updateUI() {
             sections.forEach((sec, i) => {
@@ -242,7 +215,6 @@
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
             const isDark = sections[currentIdx].classList.contains('bg-dark');
             document.body.style.backgroundColor = isDark ? "#050505" : "#fff";
-            document.body.style.color = isDark ? "#fff" : "#000";
         }
 
         function navigate(dir) {
@@ -254,19 +226,14 @@
             }
         }
 
-        function goToSlide(index) { currentIdx = index; updateUI(); }
-
         let startX = 0, startY = 0;
-        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: false });
+        window.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
             const dX = startX - e.changedTouches[0].clientX;
             const dY = startY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 40 || Math.abs(dY) > 40) {
-                if (Math.abs(dX) > Math.abs(dY)) navigate(dX > 0 ? 1 : -1);
-                else navigate(dY > 0 ? 1 : -1);
-            }
-        }, { passive: false });
-        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); }, { passive: true });
+            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
+        });
+        window.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > 10) navigate(e.deltaY > 0 ? 1 : -1); });
     </script>
 </body>
 </html>
