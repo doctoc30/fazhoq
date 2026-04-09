@@ -1,281 +1,622 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
+    <title>VIBZ | DIGITAL ARCHITECT</title>
+    <!-- Tailwind + Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit + Inter blend for premium vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,700;14..32,900&family=Outfit:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        
+        /* ===== VIBZ DARK-LUXE CORE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --brand-orange: #FF6B2C;
-            --app-white: #FFFFFF;
+            --vibz-accent: #FF6B00;    /* signature orange */
+            --vibz-dark: #0A0A0A;
+            --vibz-white: #FFFFFF;
+            --vibz-gray: #F5F5F7;
+            --vibz-muted: #6B6B76;
         }
 
-        html, body {
-            margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; font-family: 'Outfit', sans-serif;
-            background: #fff; touch-action: none;
-            -webkit-user-select: none;
+        body {
+            font-family: 'Inter', 'Outfit', sans-serif;
+            background: var(--vibz-white);
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
         }
 
-        .slide-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
+        /* SLIDE SYSTEM (FAZ HOQ core engine but fully VIBZ branded) */
+        .slide-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
 
         section {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 2rem;
-            background: var(--app-white);
+            background: var(--vibz-white);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
+            overflow-y: auto;
         }
 
-        section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
-        section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
+        section.active {
+            transform: translate3d(0, 0, 0);
+            visibility: visible;
+            z-index: 20;
+        }
 
-        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        section.prev {
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* dark slide variant */
+        .slide-dark {
+            background: #050505;
+            color: white;
+        }
+        .slide-dark .accent, .slide-dark .vibz-accent {
+            color: var(--vibz-accent);
+        }
+
+        /* content containers */
+        .text-wrap {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
         .huge-text {
-            font-size: clamp(2.2rem, 9vmin, 4.8rem);
-            font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
+            font-size: clamp(2.5rem, 10vmin, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-family: 'Outfit', 'Inter', sans-serif;
         }
 
-        .accent { color: var(--brand-orange); }
-        .bg-dark { background-color: #050505; color: #fff; }
+        .accent, .vibz-accent {
+            color: var(--vibz-accent);
+        }
 
-        .waving-hand {
-            width: clamp(250px, 70vw, 420px);
+        /* Waving avatar (VIBZ vibe) */
+        .vibz-avatar {
+            width: clamp(220px, 60vw, 380px);
             height: auto;
-            margin-top: -40px;
-            margin-bottom: 10px;
+            margin-top: -30px;
+            margin-bottom: 15px;
             mix-blend-mode: multiply;
-            animation: wave 2.5s infinite ease-in-out;
+            animation: softWave 2.8s infinite ease-in-out;
+            border-radius: 50%;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.1);
         }
 
-        @keyframes wave {
+        @keyframes softWave {
             0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(5deg); }
+            50% { transform: rotate(4deg); }
         }
 
-        /* FIXED SEARCH BAR - Removed "cuts" by simplifying border logic */
-        .search-container { 
-            background: #fff; 
-            border-radius: 100px; 
-            padding: 4px; /* Reduced to prevent inner overlap */
-            display: flex; 
-            align-items: center; 
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15); 
-            width: 95%; 
-            max-width: 500px; 
-            margin-top: 30px; 
-            border: 3px solid #000;
-            overflow: hidden; /* Clean edges */
+        /* SEARCH BAR — premium, clean */
+        .search-premium {
+            background: #fff;
+            border-radius: 100px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.2);
+            width: 95%;
+            max-width: 550px;
+            margin-top: 2rem;
+            border: 2px solid #000;
+            overflow: hidden;
+            transition: all 0.2s;
         }
-        .search-container input { 
-            flex: 1; 
-            border: none; 
-            outline: none; 
-            padding: 12px 20px; 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            min-width: 0; 
+        .search-premium input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 14px 22px;
+            font-size: 1rem;
+            font-weight: 600;
             background: transparent;
+            font-family: 'Inter', sans-serif;
         }
-        
-        .search-icon-btn { 
-            flex-shrink: 0; 
-            width: 48px; 
-            height: 48px; 
-            background: #000; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #fff; 
+        .search-premium button {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             border: none;
             margin-right: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .search-premium button:hover {
+            background: var(--vibz-accent);
+            transform: scale(0.96);
         }
 
-        /* TILES SPACING FIXED (Clear of Header and Dock) */
+        /* Category grid — VIBZ signature tiles */
         .category-header {
-            color: var(--brand-orange);
-            font-weight: 900;
+            color: var(--vibz-accent);
+            font-weight: 800;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            margin-top: 80px; /* Pushes it away from the top nav */
-            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            margin-top: 60px;
+            margin-bottom: 1.8rem;
         }
 
-        .category-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 1.2rem; 
-            width: 100%; 
-            max-width: 550px;
-            margin-bottom: 140px; /* Heavy bottom margin for dock clearance */
+        .vibz-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.3rem;
+            width: 100%;
+            max-width: 580px;
+            margin-bottom: 130px;
         }
 
-        .category-tile {
-            background: #fff; border: 2px solid #f0f0f0; border-radius: 25px;
-            padding: 1.8rem 1rem; display: flex; flex-direction: column;
-            align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-decoration: none; color: #000;
+        .vibz-tile {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 32px;
+            padding: 1.6rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.02);
+        }
+        .vibz-tile:hover {
+            transform: translateY(-6px);
+            border-color: var(--vibz-accent);
+            box-shadow: 0 20px 35px rgba(255,107,0,0.12);
         }
         .tile-icon {
-            width: 60px; height: 60px; background: var(--brand-orange);
-            color: white; border-radius: 18px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.6rem;
-            box-shadow: 0 8px 15px rgba(255, 107, 44, 0.25);
+            width: 64px;
+            height: 64px;
+            background: var(--vibz-accent);
+            color: white;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: 0.2s;
         }
-        .tile-label { font-weight: 900; font-size: 0.95rem; line-height: 1.2; }
+        .tile-label {
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: -0.2px;
+        }
 
-        /* ICON ANIMATIONS */
-        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
-        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(25deg); } 40% { transform: rotate(-10deg); } }
-        .fa-briefcase { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .fa-utensils { animation: wobble 2s infinite; }
-        @keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
-        .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
-        @keyframes swing { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(8deg); } 75% { transform: rotate(-8deg); } }
+        /* Animations on icons */
+        .fa-heart-pulse { animation: pulseAnim 1.6s infinite; }
+        @keyframes pulseAnim { 0%,100%{transform:scale(1);} 50%{transform:scale(1.12);} }
+        .fa-hammer { animation: hammerSwing 1.3s infinite; transform-origin: bottom; }
+        @keyframes hammerSwing { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(20deg);} 50%{transform:rotate(-8deg);} }
+        .fa-briefcase { animation: floatLight 2.2s infinite; }
+        @keyframes floatLight { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+        .fa-utensils { animation: wobbleX 2s infinite; }
+        @keyframes wobbleX { 0%,100%{transform:rotate(0deg);} 30%{transform:rotate(6deg);} 70%{transform:rotate(-6deg);} }
+        .fa-bag-shopping { animation: gentleSwing 2.8s infinite; transform-origin: top; }
+        @keyframes gentleSwing { 0%,100%{transform:rotate(0deg);} 30%{transform:rotate(6deg);} 70%{transform:rotate(-6deg);} }
 
+        /* Responsive */
         @media (orientation: landscape) {
-            .category-header { margin-top: 40px; }
-            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 800px; margin-bottom: 80px; }
+            .category-header { margin-top: 30px; }
+            .vibz-grid { grid-template-columns: repeat(3, 1fr); max-width: 850px; margin-bottom: 90px; }
             .text-wrap { flex-direction: row; justify-content: center; gap: 3vw; text-align: left; }
-            .waving-hand { width: auto; height: 50vh; margin: 0; }
-            .huge-text { font-size: clamp(1.8rem, 7vh, 3rem); }
+            .vibz-avatar { width: auto; height: 55vh; margin: 0; }
         }
 
-        /* DOCK */
-        .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
-            left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem;
-            align-items: center; z-index: 2500;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+        /* VIBZ DOCK (social / contact) */
+        .vibz-dock {
+            position: fixed;
+            bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.6rem);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(18px);
+            border-radius: 5rem;
+            padding: 0.7rem 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            z-index: 2500;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.05);
         }
-        .dock-btn { font-size: 1.7rem; color: var(--brand-orange); }
+        .dock-btn {
+            font-size: 1.6rem;
+            color: var(--vibz-accent);
+            transition: 0.2s;
+        }
+        .dock-btn:hover { transform: scale(1.15); color: #000; }
 
-        .nav-dots { position: fixed; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); }
-        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
+        /* Dot navigation */
+        .nav-dots {
+            position: fixed;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        .dot.active {
+            background: var(--vibz-accent);
+            transform: scale(2.6);
+        }
+
+        /* Header nav VIBZ style */
+        .vibz-navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1500;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .vibz-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            cursor: pointer;
+        }
+        .vibz-logo span { color: var(--vibz-accent); }
+        .menu-icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.7rem;
+            cursor: pointer;
+            color: #1a1a1a;
+        }
+
+        /* typewriter additional */
+        .typewriter-highlight {
+            border-right: 6px solid var(--vibz-accent);
+            padding-right: 8px;
+            animation: blinkCursor 0.8s infinite;
+        }
+        @keyframes blinkCursor { 50% { border-color: transparent; } }
+
+        /* custom scroll inside slides */
+        section::-webkit-scrollbar { width: 4px; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-6 flex justify-between items-center bg-white/80 backdrop-blur-sm">
-        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <button class="text-xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
-    </nav>
+    <!-- VIBZ Navigation (Full rebrand) -->
+    <div class="vibz-navbar">
+        <div class="vibz-logo" onclick="goToSlide(0)">VIBZ<span>.</span></div>
+        <button class="menu-icon-btn" id="vibzMenuBtn"><i class="fa-regular fa-compass"></i></button>
+    </div>
 
     <div class="nav-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
-    <div class="slide-container" id="master-wrapper">
+    <div class="slide-container" id="masterSlideContainer">
+        <!-- SLIDE 0 - Hero / search -->
         <section class="active">
             <div class="text-wrap">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
+                <!-- VIBZ avatar with custom vibe (same image, rebranded) -->
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Vibz Architect" class="vibz-avatar">
                 <div class="hero-content-side">
-                    <h1 class="huge-text">I build websites for:</h1>
-                    <div class="huge-text accent" id="typewriter">&nbsp;</div>
-                    <div class="search-container">
-                        <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                        <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <h1 class="huge-text">Websites that <br>ignite <span class="accent">dominance.</span></h1>
+                    <div class="huge-text" style="font-size: clamp(1.8rem, 7vmin, 3rem); margin: 0.5rem 0 0.5rem;">for <span id="vibzTypewriter" class="accent typewriter-highlight">&nbsp;</span></div>
+                    <div class="search-premium">
+                        <input type="text" id="vibzSearchInput" placeholder="Search your industry... e.g. Plumber, Agency, Salon" onkeypress="if(event.key==='Enter') triggerVibzSearch()">
+                        <button onclick="triggerVibzSearch()"><i class="fa-solid fa-arrow-right-long"></i></button>
                     </div>
+                    <p class="text-sm text-gray-500 mt-4 max-w-md mx-auto">⚡ Elite conversion designs, 100% custom</p>
                 </div>
             </div>
         </section>
 
+        <!-- SLIDE 1 - Categories (VIBZ signature industries) -->
         <section>
             <div class="text-wrap flex-col">
-                <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
-                <div class="category-grid">
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home &<br>Trades</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional<br>Services</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food &<br>Drink</span></div>
-                    <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1.5rem; justify-content: center;">
-                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4">Retail & Creative Industries</span>
+                <div class="category-header">✦ PRESTIGE CATEGORIES ✦</div>
+                <div class="vibz-grid">
+                    <div class="vibz-tile" data-niche="Health & Wellness"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
+                    <div class="vibz-tile" data-niche="Home & Trades"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home &<br>Trades</span></div>
+                    <div class="vibz-tile" data-niche="Professional Services"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional<br>Services</span></div>
+                    <div class="vibz-tile" data-niche="Food & Drink"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food &<br>Drink</span></div>
+                    <div class="vibz-tile" data-niche="Retail & Creative" style="grid-column: span 2; flex-direction: row; padding: 1.2rem; justify-content: center; gap: 1rem;">
+                        <div class="tile-icon" style="width: 50px; height: 50px;"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="tile-label">Retail & Creative Industries</span>
                     </div>
+                </div>
+                <p class="text-xs text-center text-gray-400 mt-2">Tap any tile — get your custom VIBZ website</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 - Strategic Partner -->
+        <section>
+            <div class="text-wrap">
+                <div class="space-y-4">
+                    <i class="fa-regular fa-star-of-life text-5xl accent mb-4 block"></i>
+                    <h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
+                    <p class="text-lg text-gray-600 max-w-lg mt-4">Beyond code — we become your digital growth engine.</p>
                 </div>
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <!-- SLIDE 3 - WOW Interaction (Dark) -->
+        <section class="slide-dark">
+            <div class="text-wrap">
+                <i class="fa-regular fa-hand-peace fa-4x accent mb-6"></i>
+                <h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2>
+                <p class="text-gray-300 mt-4 max-w-md">Micro-animations, smooth UX — visitors fall in love.</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 - Let's Build (Dark) -->
+        <section class="slide-dark">
+            <div class="text-wrap">
+                <i class="fa-solid fa-bolt fa-3x accent mb-5"></i>
+                <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
+                <div class="flex gap-4 mt-6">
+                    <span class="bg-white/10 backdrop-blur px-5 py-2 rounded-full text-sm font-bold">VIBZ Elite</span>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="app-dock">
-        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
+    <!-- VIBZ Dock : direct contact (sms, whatsapp, email) -->
+    <div class="vibz-dock">
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-regular fa-comment-dots"></i></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-regular fa-paper-plane"></i></a>
     </div>
 
     <script>
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians"];
-        let wordIndex = 0, charIndex = 0, isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
+        // ============= VIBZ FULL REBRAND =============
+        // 1) Typewriter for "Plumbers, Barbers, Dentists, Gyms, Lawyers, Electricians"
+        const vibzNiches = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Salons"];
+        let vWordIdx = 0, vCharIdx = 0, vDeleting = false;
+        const typewriterSpan = document.getElementById('vibzTypewriter');
 
-        function type() {
-            const currentWord = nicheWords[wordIndex];
-            charIndex += isDeleting ? -1 : 1;
-            typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
-            let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
-            setTimeout(type, speed);
+        function vibzType() {
+            if (!typewriterSpan) return;
+            const current = vibzNiches[vWordIdx];
+            vCharIdx += vDeleting ? -1 : 1;
+            typewriterSpan.innerHTML = current.substring(0, vCharIdx) || "&nbsp;";
+            let speed = vDeleting ? 45 : 100;
+            if (!vDeleting && vCharIdx === current.length) { speed = 1800; vDeleting = true; }
+            else if (vDeleting && vCharIdx === 0) { vDeleting = false; vWordIdx = (vWordIdx + 1) % vibzNiches.length; speed = 450; }
+            setTimeout(vibzType, speed);
         }
-        window.onload = type;
+        window.addEventListener('load', () => { vibzType(); });
 
-        function triggerSearch() {
-            const val = document.getElementById('mainSearch').value;
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+        // 2) Trigger Search: redirect to Vibz funnel (fully rebranded)
+        function triggerVibzSearch() {
+            const inputField = document.getElementById('vibzSearchInput');
+            let query = inputField.value.trim();
+            if (!query) {
+                query = "business";
+            }
+            // brand new VIBZ funnel experience
+            window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(query);
         }
 
+        // attach category tiles click to funnel with dynamic niche
+        document.querySelectorAll('.vibz-tile').forEach(tile => {
+            tile.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let niche = tile.getAttribute('data-niche') || tile.innerText.trim().split('\n')[0];
+                if (niche) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(niche);
+                else triggerVibzSearch();
+            });
+        });
+
+        // ============ SLIDE SWIPE / NAVIGATION (PRESERVING core but VIBZ) ============
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0, isMoving = false;
+        let currentSlide = 0;
+        let isAnimating = false;
+        const totalSlides = sections.length;
 
-        function updateUI() {
-            sections.forEach((sec, i) => {
+        function updateSlides() {
+            sections.forEach((sec, idx) => {
                 sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
+                if (idx === currentSlide) sec.classList.add('active');
+                else if (idx < currentSlide) sec.classList.add('prev');
             });
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
+            dots.forEach((dot, idx) => {
+                if (idx === currentSlide) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
         }
 
-        function navigate(dir) {
-            if (isMoving) return;
-            const target = currentIdx + dir;
-            if (target >= 0 && target < sections.length) {
-                isMoving = true; currentIdx = target; updateUI();
-                setTimeout(() => { isMoving = false; }, 800);
-            }
+        function goToSlide(index) {
+            if (isAnimating) return;
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            if (index === currentSlide) return;
+            isAnimating = true;
+            currentSlide = index;
+            updateSlides();
+            setTimeout(() => { isAnimating = false; }, 700);
         }
 
-        let sX, sY;
-        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
-        window.addEventListener('touchend', e => {
-            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        // Touch events
+        let touchStartX = 0, touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
         });
-        function goToSlide(i) { currentIdx = i; updateUI(); }
+        window.addEventListener('touchend', (e) => {
+            if (isAnimating) return;
+            const deltaX = touchStartX - e.changedTouches[0].clientX;
+            const deltaY = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(deltaX) > 40 || Math.abs(deltaY) > 40) {
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) nextSlide();
+                    else prevSlide();
+                } else {
+                    if (deltaY > 0) nextSlide();
+                    else prevSlide();
+                }
+            }
+        });
+
+        // Click on dot navigation
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => goToSlide(idx));
+        });
+
+        // expose globally for navbar click
+        window.goToSlide = goToSlide;
+
+        // Optional keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // ============ MENU OVERLAY (Premium interactive VIBZ menu, no real links just brand feel) ============
+        // create fullscreen menu with brand identity (no functional redirects, just style)
+        const menuBtn = document.getElementById('vibzMenuBtn');
+        let overlayMenu = null;
+
+        function createVibzMenu() {
+            const menuDiv = document.createElement('div');
+            menuDiv.id = 'vibzFullMenu';
+            menuDiv.style.position = 'fixed';
+            menuDiv.style.top = '0';
+            menuDiv.style.left = '0';
+            menuDiv.style.width = '100%';
+            menuDiv.style.height = '100%';
+            menuDiv.style.backgroundColor = '#FFFFFF';
+            menuDiv.style.zIndex = '3000';
+            menuDiv.style.padding = '5rem 2rem';
+            menuDiv.style.display = 'flex';
+            menuDiv.style.flexDirection = 'column';
+            menuDiv.style.justifyContent = 'center';
+            menuDiv.style.alignItems = 'center';
+            menuDiv.style.backdropFilter = 'blur(20px)';
+            menuDiv.style.background = 'rgba(255,255,255,0.98)';
+            menuDiv.style.transition = 'all 0.4s cubic-bezier(0.2,0.9,0.4,1.1)';
+            menuDiv.style.transform = 'translateY(100%)';
+            menuDiv.innerHTML = `
+                <button id="closeVibzMenu" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; font-size: 2.2rem; cursor: pointer;"><i class="fa-regular fa-circle-xmark"></i></button>
+                <div style="text-align: center;">
+                    <div class="vibz-logo text-5xl mb-12">VIBZ<span style="color:#FF6B00;">.</span></div>
+                    <div class="space-y-6 text-3xl font-black">
+                        <div class="menu-opt opacity-0 translate-y-4 transition-all duration-500">ELITE WEBSITES</div>
+                        <div class="menu-opt opacity-0 translate-y-4 transition-all duration-500 delay-75">CONVERSION SUITE</div>
+                        <div class="menu-opt opacity-0 translate-y-4 transition-all duration-500 delay-100">BRAND ACCELERATOR</div>
+                        <div class="menu-opt opacity-0 translate-y-4 transition-all duration-500 delay-150">CONTACT STUDIO</div>
+                    </div>
+                    <div class="mt-16 text-gray-500 text-sm max-w-sm mx-auto">⚡ High-performance websites engineered for ROI.</div>
+                    <div class="mt-8 flex gap-4 justify-center">
+                        <span class="px-6 py-2 bg-black text-white rounded-full text-sm font-bold">Let’s talk</span>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(menuDiv);
+            // animate in
+            setTimeout(() => { menuDiv.style.transform = 'translateY(0%)'; }, 20);
+            const menuOptions = menuDiv.querySelectorAll('.menu-opt');
+            menuOptions.forEach((opt, idx) => {
+                setTimeout(() => {
+                    opt.style.opacity = '1';
+                    opt.style.transform = 'translateY(0)';
+                }, idx * 80);
+            });
+            const closeBtn = menuDiv.querySelector('#closeVibzMenu');
+            closeBtn.addEventListener('click', () => {
+                menuDiv.style.transform = 'translateY(100%)';
+                setTimeout(() => { if(menuDiv && menuDiv.remove) menuDiv.remove(); }, 400);
+                document.body.style.overflow = '';
+            });
+            menuDiv.addEventListener('click', (e) => {
+                if(e.target === menuDiv) {
+                    menuDiv.style.transform = 'translateY(100%)';
+                    setTimeout(() => menuDiv.remove(), 400);
+                    document.body.style.overflow = '';
+                }
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (document.getElementById('vibzFullMenu')) return;
+                createVibzMenu();
+            });
+        }
+
+        // little extra: auto adjust tile hover text, and also attach any funnel actions 
+        // also for any residual link behavior on "Get a website" inside menu? we removed all external functional links.
+        // To fully brand: adjust logo click to slide 0
+        const logoDiv = document.querySelector('.vibz-logo');
+        if(logoDiv) logoDiv.addEventListener('click', () => goToSlide(0));
+
+        // add subtle animation on initial load, ensure all active slide content fits
+        window.dispatchEvent(new Event('resize'));
+        
+        // ensure that any potential legacy intercepts are removed: all links inside dock are real contacts. 
+        // For premium consistency, update titles
+        document.title = "VIBZ | Elite Digital Architect";
+        
+        // add extra fallback for "tile" categories that might not have niche data
+        const tilesAll = document.querySelectorAll('.vibz-tile');
+        tilesAll.forEach(t => {
+            if(!t.getAttribute('data-niche')) {
+                let text = t.innerText.replace(/\n/g, ' ').trim();
+                t.setAttribute('data-niche', text.split(' ')[0]);
+            }
+        });
     </script>
 </body>
 </html>
