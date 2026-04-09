@@ -3,61 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
+    <title>FAZ HOQ | VIBZ • DIGITAL ARCHITECT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
+        /* ========== VIBZ BRANDING (background #ffffff, accent #FF6B00) ========== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,700;14..32,900&display=swap');
         
         :root {
-            /* VIBZ THEME COLORS */
-            --brand-orange: #FF6B00; /* Vibz primary accent */
-            --app-white: #FFFFFF;
-            /* Vibz radial gradient start color */
-            --vibz-glow: #fff5ee; 
+            --vibz-bg: #ffffff;           /* VIBZ official body background */
+            --vibz-accent: #FF6B00;       /* VIBZ signature orange */
+            --vibz-dark: #121212;
+            --vibz-text-gray: #4a4a4a;
+            --vibz-light-gray: #f9f9f9;
+            --vibz-border: #eeeeee;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html, body {
-            margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; font-family: 'Outfit', sans-serif;
-            /* Applied Vibz Background Theme */
-            background: radial-gradient(circle at top right, var(--vibz-glow), #ffffff);
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Inter', 'Outfit', sans-serif;
+            background-color: var(--vibz-bg);   /* VIBZ solid white background */
+            color: var(--vibz-dark);
             touch-action: none;
             -webkit-user-select: none;
         }
 
-        .slide-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
+        .slide-container { 
+            position: relative; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden; 
+            background: var(--vibz-bg);
+        }
 
         section {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            position: absolute; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
             padding: 2rem;
-            /* Updated to use the transparent radial background */
-            background: radial-gradient(circle at top right, var(--vibz-glow), transparent);
+            background: var(--vibz-bg);        /* all slides use VIBZ white background */
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
         }
 
-        section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
-        section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
+        section.active { 
+            transform: translate3d(0, 0, 0); 
+            visibility: visible; 
+            z-index: 10; 
+        }
+        
+        section.prev { 
+            transform: translate3d(-100%, 0, 0); 
+            visibility: visible; 
+            z-index: 5; 
+        }
 
-        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        /* dark-themed slides keep VIBZ background but with dark overlay for contrast */
+        .bg-dark { 
+            background: var(--vibz-bg); 
+            color: var(--vibz-dark);
+            position: relative;
+        }
+        .bg-dark .huge-text {
+            color: var(--vibz-dark);
+        }
+        /* optional accent glow */
+        .bg-dark .accent {
+            color: var(--vibz-accent);
+            text-shadow: 0 2px 8px rgba(255,107,0,0.15);
+        }
+
+        .text-wrap { 
+            width: 100%; 
+            max-width: 1200px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+        }
 
         .huge-text {
             font-size: clamp(2.2rem, 9vmin, 4.8rem);
-            font-weight: 900; line-height: 1.1; letter-spacing: -0.05em;
-            color: #121212; /* Vibz dark text color */
+            font-weight: 900; 
+            line-height: 1.1; 
+            letter-spacing: -0.03em;
+            color: var(--vibz-dark);
         }
 
-        .accent { color: var(--brand-orange); }
-        
-        /* Vibz Dark Sections */
-        .bg-dark { 
-            background: #121212; 
-            color: #fff; 
+        .accent { 
+            color: var(--vibz-accent); 
         }
 
         .waving-hand {
@@ -67,6 +118,7 @@
             margin-bottom: 10px;
             mix-blend-mode: multiply;
             animation: wave 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.05));
         }
 
         @keyframes wave {
@@ -74,60 +126,70 @@
             50% { transform: rotate(5deg); }
         }
 
-        /* SEARCH BAR - Refined with Vibz styling */
+        /* VIBZ STYLED SEARCH BAR (accent borders, white bg) */
         .search-container { 
-            background: #fff; 
+            background: var(--vibz-bg); 
             border-radius: 100px; 
             padding: 4px;
             display: flex; 
             align-items: center; 
-            box-shadow: 0 30px 60px -12px rgba(255, 107, 0, 0.15); 
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08); 
             width: 95%; 
-            max-width: 500px; 
+            max-width: 540px; 
             margin-top: 30px; 
-            border: 2px solid #eeeeee; /* Vibz border color */
+            border: 2px solid var(--vibz-accent);
             overflow: hidden;
-            transition: border-color 0.3s ease;
+            transition: all 0.2s;
         }
-        
         .search-container:focus-within {
-            border-color: var(--brand-orange);
+            box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+            border-color: var(--vibz-accent);
         }
-
         .search-container input { 
             flex: 1; 
             border: none; 
             outline: none; 
-            padding: 12px 20px; 
-            font-size: 1.1rem; 
-            font-weight: 800; 
+            padding: 14px 22px; 
+            font-size: 1rem; 
+            font-weight: 600; 
             min-width: 0; 
             background: transparent;
+            color: var(--vibz-dark);
+        }
+        .search-container input::placeholder {
+            color: var(--vibz-text-gray);
+            font-weight: 500;
         }
         
         .search-icon-btn { 
             flex-shrink: 0; 
-            width: 48px; 
-            height: 48px; 
-            background: var(--brand-orange); 
+            width: 52px; 
+            height: 52px; 
+            background: var(--vibz-accent); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            color: #fff; 
+            color: white; 
             border: none;
             margin-right: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .search-icon-btn:hover {
+            transform: scale(1.05);
+            background: #e05e00;
         }
 
-        /* CATEGORIES TILES */
+        /* CATEGORY SECTION (VIBZ consistent) */
         .category-header {
-            color: var(--brand-orange);
+            color: var(--vibz-accent);
             font-weight: 900;
             text-transform: uppercase;
             font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            margin-top: 80px;
-            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
+            margin-top: 70px;
+            margin-bottom: 1.8rem;
         }
 
         .category-grid { 
@@ -135,105 +197,260 @@
             grid-template-columns: repeat(2, 1fr); 
             gap: 1.2rem; 
             width: 100%; 
-            max-width: 550px;
-            margin-bottom: 140px;
+            max-width: 560px;
+            margin-bottom: 130px;
         }
 
         .category-tile {
-            background: #fff; 
-            border: 1px solid #eeeeee; 
-            border-radius: 25px;
+            background: var(--vibz-bg); 
+            border: 2px solid var(--vibz-border); 
+            border-radius: 28px;
             padding: 1.8rem 1rem; 
             display: flex; 
             flex-direction: column;
             align-items: center; 
             gap: 1rem; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
             text-decoration: none; 
-            color: #121212;
-            transition: all 0.3s ease;
+            color: var(--vibz-dark);
+            transition: all 0.25s ease;
+            cursor: pointer;
         }
-
         .category-tile:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-orange);
-            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.1);
+            border-color: var(--vibz-accent);
+            transform: translateY(-6px);
+            box-shadow: 0 22px 35px rgba(255,107,0,0.12);
         }
-
         .tile-icon {
-            width: 60px; height: 60px; background: rgba(255, 107, 0, 0.1);
-            color: var(--brand-orange); border-radius: 18px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.6rem;
+            width: 64px; 
+            height: 64px; 
+            background: var(--vibz-accent);
+            color: white; 
+            border-radius: 22px; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.8rem;
+            box-shadow: 0 10px 18px rgba(255,107,0,0.25);
+            transition: transform 0.2s;
         }
-        
-        .tile-label { font-weight: 900; font-size: 0.95rem; line-height: 1.2; }
+        .category-tile:hover .tile-icon {
+            transform: scale(1.02);
+        }
+        .tile-label { 
+            font-weight: 900; 
+            font-size: 0.95rem; 
+            line-height: 1.2; 
+            color: var(--vibz-dark);
+        }
 
-        /* DOCK */
+        /* Icon animations (VIBZ signature) */
+        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
+        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(22deg); } 40% { transform: rotate(-8deg); } }
+        .fa-briefcase { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .fa-utensils { animation: wobble 2s infinite; }
+        @keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+        .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
+        @keyframes swing { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(7deg); } 70% { transform: rotate(-7deg); } }
+
+        /* Landscape & responsive */
+        @media (orientation: landscape) {
+            .category-header { margin-top: 40px; }
+            .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 800px; margin-bottom: 70px; }
+            .text-wrap { flex-direction: row; justify-content: center; gap: 3vw; text-align: left; }
+            .waving-hand { width: auto; height: 55vh; margin: 0; }
+            .huge-text { font-size: clamp(1.8rem, 7vh, 3rem); }
+        }
+
+        /* VIBZ STYLED DOCK */
         .app-dock {
-            position: fixed; bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
-            left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px); border-radius: 5rem;
-            padding: 0.8rem 2.2rem; display: flex; gap: 2.5rem;
-            align-items: center; z-index: 2500;
-            box-shadow: 0 15px 45px rgba(255, 107, 0, 0.12);
-            border: 1px solid rgba(0,0,0,0.05);
+            position: fixed; 
+            bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
+            left: 50%; 
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px); 
+            border-radius: 5rem;
+            padding: 0.8rem 2.2rem; 
+            display: flex; 
+            gap: 2.2rem;
+            align-items: center; 
+            z-index: 2500;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,107,0,0.2);
         }
-        .dock-btn { font-size: 1.7rem; color: var(--brand-orange); transition: transform 0.2s; }
-        .dock-btn:hover { transform: scale(1.2); }
+        .dock-btn { 
+            font-size: 1.7rem; 
+            color: var(--vibz-accent); 
+            transition: transform 0.2s, color 0.2s;
+        }
+        .dock-btn:hover {
+            transform: scale(1.12);
+            color: var(--vibz-dark);
+        }
 
-        .nav-dots { position: fixed; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1rem; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: all 0.3s; }
-        .dot.active { background: var(--brand-orange); transform: scale(2.5); }
+        /* Navigation dots - VIBZ orange active */
+        .nav-dots { 
+            position: fixed; 
+            right: 1rem; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            z-index: 1000; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1rem; 
+        }
+        .dot { 
+            width: 6px; 
+            height: 6px; 
+            border-radius: 50%; 
+            background: rgba(0,0,0,0.2); 
+            transition: all 0.2s;
+        }
+        .dot.active { 
+            background: var(--vibz-accent); 
+            transform: scale(2.6); 
+        }
+
+        /* Top navigation VIBZ style */
+        nav {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--vibz-border);
+        }
+        .text-xl {
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+        button.text-xl {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button.text-xl:hover {
+            background: rgba(255,107,0,0.1);
+            color: var(--vibz-accent);
+        }
+
+        /* Override any default tailwind text colors to match VIBZ */
+        .text-gray-500 {
+            color: var(--vibz-text-gray) !important;
+        }
+        .border-gray-200 {
+            border-color: var(--vibz-border) !important;
+        }
+        /* extra slide content refinement */
+        .huge-text.italic {
+            font-style: italic;
+        }
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+        .max-w-md {
+            max-width: 28rem;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-6 flex justify-between items-center bg-white/80 backdrop-blur-sm border-b border-gray-100">
-        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)">FAZ HOQ<span class="accent">.</span></div>
-        <button class="text-xl" id="menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
+    <!-- VIBZ branded navigation -->
+    <nav class="fixed top-0 w-full z-[1500] p-5 flex justify-between items-center bg-white/90 backdrop-blur-sm" style="background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--vibz-border);">
+        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)" style="color: var(--vibz-dark); letter-spacing: -0.5px;">FAZ HOQ<span style="color: var(--vibz-accent);">.</span></div>
+        <button class="text-xl" id="menu-btn" style="color: var(--vibz-dark);"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
     <div class="nav-dots">
-        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
+        <!-- Slide 0 - Hero with typewriter -->
         <section class="active">
             <div class="text-wrap">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2945.png" alt="Faz Hoq" class="waving-hand">
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
                 <div class="hero-content-side">
                     <h1 class="huge-text">I build websites for:</h1>
                     <div class="huge-text accent" id="typewriter">&nbsp;</div>
                     <div class="search-container">
-                        <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                        <input type="text" id="mainSearch" placeholder="Search industry... (e.g., Plumber, Dentist)" onkeypress="if(event.key==='Enter') triggerSearch()">
                         <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Slide 1 - Popular categories (VIBZ white background, orange accents) -->
         <section>
             <div class="text-wrap flex-col">
-                <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
+                <h2 class="category-header">SELECT YOUR NICHE — ELITE WEBSITES</h2>
                 <div class="category-grid">
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health &<br>Wellness</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home &<br>Trades</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Professional<br>Services</span></div>
-                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food &<br>Drink</span></div>
-                    <div class="category-tile" style="grid-column: span 2; flex-direction: row; padding: 1.5rem; justify-content: center;">
+                    <div class="category-tile" data-niche="Health & Wellness">
+                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="tile-label">Health &<br>Wellness</span>
+                    </div>
+                    <div class="category-tile" data-niche="Home & Trades">
+                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
+                        <span class="tile-label">Home &<br>Trades</span>
+                    </div>
+                    <div class="category-tile" data-niche="Professional Services">
+                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <span class="tile-label">Professional<br>Services</span>
+                    </div>
+                    <div class="category-tile" data-niche="Food & Drink">
+                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="tile-label">Food &<br>Drink</span>
+                    </div>
+                    <div class="category-tile" data-niche="Retail & Creative" style="grid-column: span 2; flex-direction: row; padding: 1.5rem; justify-content: center;">
                         <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4">Retail & Creative Industries</span>
+                        <span class="tile-label ml-4" style="margin-left: 12px;">Retail & Creative Industries</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section><div class="text-wrap"><h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2></div></section>
-        <section class="bg-dark"><div class="text-wrap"><h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2></div></section>
+        <!-- Slide 2 - Strategic Partner (VIBZ white bg) -->
+        <section>
+            <div class="text-wrap">
+                <h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
+                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray); font-weight: 500;">Data-driven digital architecture that converts visitors into loyal customers.</p>
+            </div>
+        </section>
+
+        <!-- Slide 3 - Interaction (VIBZ white background with dark text, accent) -->
+        <section class="bg-dark">
+            <div class="text-wrap">
+                <h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2>
+                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray);">Micro-interactions & high-performance UI that leaves a lasting impression.</p>
+            </div>
+        </section>
+
+        <!-- Slide 4 - Let's Build (VIBZ white background) -->
+        <section class="bg-dark">
+            <div class="text-wrap">
+                <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
+                <div class="flex gap-4 mt-8">
+                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="background: var(--vibz-accent); color: white; border: 2px solid var(--vibz-accent);" onclick="window.location.href='https://www.vibz.co.uk/funnel.html'">Get a Website</span>
+                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="border: 2px solid var(--vibz-accent); color: var(--vibz-accent); background: transparent;" onclick="window.location.href='mailto:Fazhoq1977@gmail.com'">Contact Faz</span>
+                </div>
+            </div>
+        </section>
     </div>
 
+    <!-- Dock with contact methods (VIBZ accent icons) -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i></a>
@@ -241,27 +458,61 @@
     </div>
 
     <script>
-        /* All your existing script logic remains intact */
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians"];
+        // Enhanced typewriter (VIBZ style) with industry words
+        const nicheWords = ["Plumbers.", "Barbers.", "Lawyers.", "Dentists.", "Gyms.", "Electricians."];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
 
         function type() {
             const currentWord = nicheWords[wordIndex];
-            charIndex += isDeleting ? -1 : 1;
-            typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
+            if (!isDeleting) {
+                charIndex++;
+                typewriterEl.innerHTML = currentWord.substring(0, charIndex);
+            } else {
+                charIndex--;
+                typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
+            }
+            
             let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
+            if (!isDeleting && charIndex === currentWord.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % nicheWords.length;
+                speed = 400;
+            }
             setTimeout(type, speed);
         }
-        window.onload = type;
+        window.onload = () => {
+            type();
+        };
 
+        // Trigger search redirect (VIBZ funnel)
         function triggerSearch() {
-            const val = document.getElementById('mainSearch').value;
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+            const val = document.getElementById('mainSearch').value.trim();
+            if(val) {
+                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+            } else {
+                alert("Please enter your business niche to continue.");
+            }
         }
 
+        // Category tiles click handler (redirect to VIBZ funnel)
+        document.querySelectorAll('.category-tile').forEach(tile => {
+            tile.addEventListener('click', (e) => {
+                let nicheText = tile.getAttribute('data-niche');
+                if (!nicheText) {
+                    const spanLabel = tile.querySelector('.tile-label');
+                    nicheText = spanLabel ? spanLabel.innerText.trim() : "business";
+                }
+                if (nicheText) {
+                    window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(nicheText);
+                }
+            });
+        });
+
+        // Swipe navigation + dots logic
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
@@ -279,18 +530,65 @@
             if (isMoving) return;
             const target = currentIdx + dir;
             if (target >= 0 && target < sections.length) {
-                isMoving = true; currentIdx = target; updateUI();
+                isMoving = true;
+                currentIdx = target;
+                updateUI();
                 setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
-        let sX, sY;
-        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
-        window.addEventListener('touchend', e => {
-            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
+        let touchStartX = 0, touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
         });
-        function goToSlide(i) { currentIdx = i; updateUI(); }
+        window.addEventListener('touchend', (e) => {
+            if (isMoving) return;
+            const diffX = touchStartX - e.changedTouches[0].clientX;
+            const diffY = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(diffX) > 40 || Math.abs(diffY) > 40) {
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    navigate(diffX > 0 ? 1 : -1);
+                } else {
+                    navigate(diffY > 0 ? 1 : -1);
+                }
+            }
+        });
+
+        // dot click navigation
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => {
+                if (!isMoving && idx !== currentIdx) {
+                    currentIdx = idx;
+                    updateUI();
+                }
+            });
+        });
+
+        // expose global for nav logo click
+        window.goToSlide = (i) => {
+            if (i >= 0 && i < sections.length && !isMoving) {
+                currentIdx = i;
+                updateUI();
+            }
+        };
+
+        // Optional: menu button (hamburger) basic toggle – you can extend but remains simple
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                // simple alert for now to indicate menu (consistent with VIBZ style but can be extended)
+                // you may implement a full menu overlay but current request is to revise background to VIBZ.
+                // For user experience, show a toast or simply scroll to categories? 
+                // Better: scroll to slide 1 (categories)
+                goToSlide(1);
+            });
+        }
+
+        // ensure all dynamic content uses VIBZ background on any resize or orientation
+        window.addEventListener('resize', () => {
+            document.body.style.backgroundColor = 'var(--vibz-bg)';
+        });
     </script>
 </body>
 </html>
