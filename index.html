@@ -7,16 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ========== VIBZ TRUE BRANDING ========== */
-        /* VIBZ uses: radial-gradient(circle at top right, #fff5ee, #ffffff) */
+        /* ========== VIBZ EXACT BRANDING (from original code) ========== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,700;14..32,900&display=swap');
         
         :root {
-            --vibz-accent: #FF6B00;
-            --vibz-dark: #121212;
-            --vibz-text-gray: #4a4a4a;
-            --vibz-light-gray: #f9f9f9;
-            --vibz-border: #eeeeee;
+            --bg: #ffffff;
+            --accent: #FF6B00;
+            --dark: #121212;
+            --navy: #0A192F;
+            --text-gray: #4a4a4a;
+            --light-gray: #f9f9f9;
+            --border: #eeeeee;
         }
 
         * {
@@ -32,9 +33,9 @@
             width: 100%;
             overflow: hidden;
             font-family: 'Inter', 'Outfit', sans-serif;
-            /* VIBZ ORIGINAL BACKGROUND: radial gradient from #fff5ee to #ffffff */
-            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
-            color: var(--vibz-dark);
+            /* VIBZ EXACT BACKGROUND: pure white */
+            background-color: var(--bg);
+            color: var(--dark);
             touch-action: none;
             -webkit-user-select: none;
         }
@@ -44,7 +45,7 @@
             height: 100%; 
             width: 100%; 
             overflow: hidden; 
-            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
+            background-color: var(--bg);
         }
 
         section {
@@ -58,11 +59,15 @@
             justify-content: center; 
             align-items: center;
             padding: 2rem;
-            /* VIBZ GRADIENT BACKGROUND for all slides */
-            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
+            background-color: var(--bg);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
+        }
+
+        /* VIBZ gradient for specific slides (like hero section in original) */
+        section.first-slide {
+            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
         }
 
         section.active { 
@@ -75,12 +80,6 @@
             transform: translate3d(-100%, 0, 0); 
             visibility: visible; 
             z-index: 5; 
-        }
-
-        /* Dark slides keep the same gradient but with overlay for depth */
-        .bg-dark { 
-            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
-            position: relative;
         }
 
         .text-wrap { 
@@ -97,11 +96,11 @@
             font-weight: 900; 
             line-height: 1.1; 
             letter-spacing: -0.03em;
-            color: var(--vibz-dark);
+            color: var(--dark);
         }
 
         .accent { 
-            color: var(--vibz-accent); 
+            color: var(--accent); 
         }
 
         .waving-hand {
@@ -118,9 +117,9 @@
             50% { transform: rotate(5deg); }
         }
 
-        /* VIBZ SEARCH BAR */
+        /* VIBZ SEARCH BAR (matches original styling) */
         .search-container { 
-            background: rgba(255, 255, 255, 0.9);
+            background: #fff; 
             border-radius: 100px; 
             padding: 4px;
             display: flex; 
@@ -129,9 +128,8 @@
             width: 95%; 
             max-width: 540px; 
             margin-top: 30px; 
-            border: 2px solid var(--vibz-accent);
+            border: 2px solid var(--accent);
             overflow: hidden;
-            backdrop-filter: blur(4px);
         }
         .search-container input { 
             flex: 1; 
@@ -142,17 +140,17 @@
             font-weight: 600; 
             min-width: 0; 
             background: transparent;
-            color: var(--vibz-dark);
+            color: var(--dark);
         }
         .search-container input::placeholder {
-            color: var(--vibz-text-gray);
+            color: var(--text-gray);
         }
         
         .search-icon-btn { 
             flex-shrink: 0; 
             width: 52px; 
             height: 52px; 
-            background: var(--vibz-accent); 
+            background: var(--accent); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
@@ -165,12 +163,11 @@
         }
         .search-icon-btn:hover {
             transform: scale(1.05);
-            background: #e05e00;
         }
 
         /* CATEGORY SECTION */
         .category-header {
-            color: var(--vibz-accent);
+            color: var(--accent);
             font-weight: 900;
             text-transform: uppercase;
             font-size: 0.85rem;
@@ -189,9 +186,8 @@
         }
 
         .category-tile {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            border: 2px solid var(--vibz-border); 
+            background: var(--bg); 
+            border: 2px solid var(--border); 
             border-radius: 28px;
             padding: 1.8rem 1rem; 
             display: flex; 
@@ -200,20 +196,19 @@
             gap: 1rem; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.02);
             text-decoration: none; 
-            color: var(--vibz-dark);
+            color: var(--dark);
             transition: all 0.25s ease;
             cursor: pointer;
         }
         .category-tile:hover {
-            border-color: var(--vibz-accent);
+            border-color: var(--accent);
             transform: translateY(-6px);
             box-shadow: 0 22px 35px rgba(255,107,0,0.12);
-            background: rgba(255, 255, 255, 0.95);
         }
         .tile-icon {
             width: 64px; 
             height: 64px; 
-            background: var(--vibz-accent);
+            background: var(--accent);
             color: white; 
             border-radius: 22px; 
             display: flex;
@@ -226,7 +221,7 @@
             font-weight: 900; 
             font-size: 0.95rem; 
             line-height: 1.2; 
-            color: var(--vibz-dark);
+            color: var(--dark);
         }
 
         /* Icon animations */
@@ -268,7 +263,7 @@
         }
         .dock-btn { 
             font-size: 1.7rem; 
-            color: var(--vibz-accent); 
+            color: var(--accent); 
             transition: transform 0.2s;
         }
         .dock-btn:hover {
@@ -294,15 +289,15 @@
             transition: all 0.2s;
         }
         .dot.active { 
-            background: var(--vibz-accent); 
+            background: var(--accent); 
             transform: scale(2.6); 
         }
 
-        /* Top navigation */
+        /* Top navigation - VIBZ style */
         nav {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--vibz-border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
         }
         button.text-xl {
             background: transparent;
@@ -318,15 +313,15 @@
         }
         button.text-xl:hover {
             background: rgba(255,107,0,0.1);
-            color: var(--vibz-accent);
+            color: var(--accent);
         }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1500] p-5 flex justify-between items-center bg-white/90 backdrop-blur-sm" style="background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--vibz-border);">
-        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)" style="color: var(--vibz-dark);">FAZ HOQ<span style="color: var(--vibz-accent);">.</span></div>
-        <button class="text-xl" id="menu-btn" style="color: var(--vibz-dark);"><i class="fa-solid fa-bars-staggered"></i></button>
+    <nav class="fixed top-0 w-full z-[1500] p-5 flex justify-between items-center" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);">
+        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)" style="color: var(--dark);">FAZ HOQ<span style="color: var(--accent);">.</span></div>
+        <button class="text-xl" id="menu-btn" style="color: var(--dark);"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
     <div class="nav-dots">
@@ -338,7 +333,8 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <section class="active">
+        <!-- Slide 0 - Hero with VIBZ gradient background -->
+        <section class="active first-slide">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
                 <div>
@@ -352,6 +348,7 @@
             </div>
         </section>
 
+        <!-- Slide 1 - Categories (pure white background) -->
         <section>
             <div class="text-wrap flex-col">
                 <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
@@ -380,26 +377,29 @@
             </div>
         </section>
 
+        <!-- Slide 2 - Strategic Partner -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
-                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray);">Data-driven digital architecture that converts visitors into loyal customers.</p>
+                <p class="mt-6 max-w-md" style="color: var(--text-gray);">Data-driven digital architecture that converts visitors into loyal customers.</p>
             </div>
         </section>
 
-        <section class="bg-dark">
+        <!-- Slide 3 - Interaction -->
+        <section>
             <div class="text-wrap">
                 <h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2>
-                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray);">Micro-interactions & high-performance UI that leaves a lasting impression.</p>
+                <p class="mt-6 max-w-md" style="color: var(--text-gray);">Micro-interactions & high-performance UI that leaves a lasting impression.</p>
             </div>
         </section>
 
-        <section class="bg-dark">
+        <!-- Slide 4 - Let's Build -->
+        <section>
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
                 <div class="flex gap-4 mt-8">
-                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="background: var(--vibz-accent); color: white; border: 2px solid var(--vibz-accent);" onclick="window.location.href='https://www.vibz.co.uk/funnel.html'">Get a Website</span>
-                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="border: 2px solid var(--vibz-accent); color: var(--vibz-accent); background: transparent;" onclick="window.location.href='mailto:Fazhoq1977@gmail.com'">Contact Faz</span>
+                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="background: var(--accent); color: white; border: 2px solid var(--accent);" onclick="window.location.href='https://www.vibz.co.uk/funnel.html'">Get a Website</span>
+                    <span class="cursor-pointer px-6 py-3 rounded-xl font-bold transition-all duration-200 inline-block" style="border: 2px solid var(--accent); color: var(--accent); background: transparent;" onclick="window.location.href='mailto:Fazhoq1977@gmail.com'">Contact Faz</span>
                 </div>
             </div>
         </section>
