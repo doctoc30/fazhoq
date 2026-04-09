@@ -7,12 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ========== VIBZ BRANDING (background #ffffff, accent #FF6B00) ========== */
+        /* ========== VIBZ TRUE BRANDING ========== */
+        /* VIBZ uses: radial-gradient(circle at top right, #fff5ee, #ffffff) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,700;14..32,900&display=swap');
         
         :root {
-            --vibz-bg: #ffffff;           /* VIBZ official body background */
-            --vibz-accent: #FF6B00;       /* VIBZ signature orange */
+            --vibz-accent: #FF6B00;
             --vibz-dark: #121212;
             --vibz-text-gray: #4a4a4a;
             --vibz-light-gray: #f9f9f9;
@@ -32,7 +32,8 @@
             width: 100%;
             overflow: hidden;
             font-family: 'Inter', 'Outfit', sans-serif;
-            background-color: var(--vibz-bg);   /* VIBZ solid white background */
+            /* VIBZ ORIGINAL BACKGROUND: radial gradient from #fff5ee to #ffffff */
+            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
             color: var(--vibz-dark);
             touch-action: none;
             -webkit-user-select: none;
@@ -43,7 +44,7 @@
             height: 100%; 
             width: 100%; 
             overflow: hidden; 
-            background: var(--vibz-bg);
+            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
         }
 
         section {
@@ -57,7 +58,8 @@
             justify-content: center; 
             align-items: center;
             padding: 2rem;
-            background: var(--vibz-bg);        /* all slides use VIBZ white background */
+            /* VIBZ GRADIENT BACKGROUND for all slides */
+            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
@@ -75,19 +77,10 @@
             z-index: 5; 
         }
 
-        /* dark-themed slides keep VIBZ background but with dark overlay for contrast */
+        /* Dark slides keep the same gradient but with overlay for depth */
         .bg-dark { 
-            background: var(--vibz-bg); 
-            color: var(--vibz-dark);
+            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
             position: relative;
-        }
-        .bg-dark .huge-text {
-            color: var(--vibz-dark);
-        }
-        /* optional accent glow */
-        .bg-dark .accent {
-            color: var(--vibz-accent);
-            text-shadow: 0 2px 8px rgba(255,107,0,0.15);
         }
 
         .text-wrap { 
@@ -116,9 +109,8 @@
             height: auto;
             margin-top: -40px;
             margin-bottom: 10px;
-            mix-blend-mode: multiply;
-            animation: wave 2.5s infinite ease-in-out;
             filter: drop-shadow(0 12px 18px rgba(0,0,0,0.05));
+            animation: wave 2.5s infinite ease-in-out;
         }
 
         @keyframes wave {
@@ -126,9 +118,9 @@
             50% { transform: rotate(5deg); }
         }
 
-        /* VIBZ STYLED SEARCH BAR (accent borders, white bg) */
+        /* VIBZ SEARCH BAR */
         .search-container { 
-            background: var(--vibz-bg); 
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 100px; 
             padding: 4px;
             display: flex; 
@@ -139,11 +131,7 @@
             margin-top: 30px; 
             border: 2px solid var(--vibz-accent);
             overflow: hidden;
-            transition: all 0.2s;
-        }
-        .search-container:focus-within {
-            box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
-            border-color: var(--vibz-accent);
+            backdrop-filter: blur(4px);
         }
         .search-container input { 
             flex: 1; 
@@ -158,7 +146,6 @@
         }
         .search-container input::placeholder {
             color: var(--vibz-text-gray);
-            font-weight: 500;
         }
         
         .search-icon-btn { 
@@ -174,14 +161,14 @@
             border: none;
             margin-right: 4px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: transform 0.2s;
         }
         .search-icon-btn:hover {
             transform: scale(1.05);
             background: #e05e00;
         }
 
-        /* CATEGORY SECTION (VIBZ consistent) */
+        /* CATEGORY SECTION */
         .category-header {
             color: var(--vibz-accent);
             font-weight: 900;
@@ -202,7 +189,8 @@
         }
 
         .category-tile {
-            background: var(--vibz-bg); 
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
             border: 2px solid var(--vibz-border); 
             border-radius: 28px;
             padding: 1.8rem 1rem; 
@@ -220,6 +208,7 @@
             border-color: var(--vibz-accent);
             transform: translateY(-6px);
             box-shadow: 0 22px 35px rgba(255,107,0,0.12);
+            background: rgba(255, 255, 255, 0.95);
         }
         .tile-icon {
             width: 64px; 
@@ -232,10 +221,6 @@
             justify-content: center; 
             font-size: 1.8rem;
             box-shadow: 0 10px 18px rgba(255,107,0,0.25);
-            transition: transform 0.2s;
-        }
-        .category-tile:hover .tile-icon {
-            transform: scale(1.02);
         }
         .tile-label { 
             font-weight: 900; 
@@ -244,7 +229,7 @@
             color: var(--vibz-dark);
         }
 
-        /* Icon animations (VIBZ signature) */
+        /* Icon animations */
         .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
         .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
@@ -256,7 +241,6 @@
         .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
         @keyframes swing { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(7deg); } 70% { transform: rotate(-7deg); } }
 
-        /* Landscape & responsive */
         @media (orientation: landscape) {
             .category-header { margin-top: 40px; }
             .category-grid { grid-template-columns: repeat(3, 1fr); max-width: 800px; margin-bottom: 70px; }
@@ -265,7 +249,7 @@
             .huge-text { font-size: clamp(1.8rem, 7vh, 3rem); }
         }
 
-        /* VIBZ STYLED DOCK */
+        /* VIBZ DOCK */
         .app-dock {
             position: fixed; 
             bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
@@ -285,14 +269,13 @@
         .dock-btn { 
             font-size: 1.7rem; 
             color: var(--vibz-accent); 
-            transition: transform 0.2s, color 0.2s;
+            transition: transform 0.2s;
         }
         .dock-btn:hover {
             transform: scale(1.12);
-            color: var(--vibz-dark);
         }
 
-        /* Navigation dots - VIBZ orange active */
+        /* Navigation dots */
         .nav-dots { 
             position: fixed; 
             right: 1rem; 
@@ -315,15 +298,11 @@
             transform: scale(2.6); 
         }
 
-        /* Top navigation VIBZ style */
+        /* Top navigation */
         nav {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--vibz-border);
-        }
-        .text-xl {
-            font-weight: 900;
-            letter-spacing: -0.02em;
         }
         button.text-xl {
             background: transparent;
@@ -341,31 +320,12 @@
             background: rgba(255,107,0,0.1);
             color: var(--vibz-accent);
         }
-
-        /* Override any default tailwind text colors to match VIBZ */
-        .text-gray-500 {
-            color: var(--vibz-text-gray) !important;
-        }
-        .border-gray-200 {
-            border-color: var(--vibz-border) !important;
-        }
-        /* extra slide content refinement */
-        .huge-text.italic {
-            font-style: italic;
-        }
-        .mt-6 {
-            margin-top: 1.5rem;
-        }
-        .max-w-md {
-            max-width: 28rem;
-        }
     </style>
 </head>
 <body>
 
-    <!-- VIBZ branded navigation -->
     <nav class="fixed top-0 w-full z-[1500] p-5 flex justify-between items-center bg-white/90 backdrop-blur-sm" style="background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--vibz-border);">
-        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)" style="color: var(--vibz-dark); letter-spacing: -0.5px;">FAZ HOQ<span style="color: var(--vibz-accent);">.</span></div>
+        <div class="text-xl font-black tracking-tighter uppercase cursor-pointer" onclick="goToSlide(0)" style="color: var(--vibz-dark);">FAZ HOQ<span style="color: var(--vibz-accent);">.</span></div>
         <button class="text-xl" id="menu-btn" style="color: var(--vibz-dark);"><i class="fa-solid fa-bars-staggered"></i></button>
     </nav>
 
@@ -378,25 +338,23 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- Slide 0 - Hero with typewriter -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <div class="hero-content-side">
+                <div>
                     <h1 class="huge-text">I build websites for:</h1>
                     <div class="huge-text accent" id="typewriter">&nbsp;</div>
                     <div class="search-container">
-                        <input type="text" id="mainSearch" placeholder="Search industry... (e.g., Plumber, Dentist)" onkeypress="if(event.key==='Enter') triggerSearch()">
+                        <input type="text" id="mainSearch" placeholder="Search industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
                         <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 1 - Popular categories (VIBZ white background, orange accents) -->
         <section>
             <div class="text-wrap flex-col">
-                <h2 class="category-header">SELECT YOUR NICHE — ELITE WEBSITES</h2>
+                <h2 class="category-header">OR SELECT FROM POPULAR CATEGORIES</h2>
                 <div class="category-grid">
                     <div class="category-tile" data-niche="Health & Wellness">
                         <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
@@ -416,21 +374,19 @@
                     </div>
                     <div class="category-tile" data-niche="Retail & Creative" style="grid-column: span 2; flex-direction: row; padding: 1.5rem; justify-content: center;">
                         <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4" style="margin-left: 12px;">Retail & Creative Industries</span>
+                        <span class="tile-label" style="margin-left: 12px;">Retail & Creative Industries</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2 - Strategic Partner (VIBZ white bg) -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
-                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray); font-weight: 500;">Data-driven digital architecture that converts visitors into loyal customers.</p>
+                <p class="mt-6 max-w-md" style="color: var(--vibz-text-gray);">Data-driven digital architecture that converts visitors into loyal customers.</p>
             </div>
         </section>
 
-        <!-- Slide 3 - Interaction (VIBZ white background with dark text, accent) -->
         <section class="bg-dark">
             <div class="text-wrap">
                 <h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2>
@@ -438,7 +394,6 @@
             </div>
         </section>
 
-        <!-- Slide 4 - Let's Build (VIBZ white background) -->
         <section class="bg-dark">
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
@@ -450,7 +405,6 @@
         </section>
     </div>
 
-    <!-- Dock with contact methods (VIBZ accent icons) -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i></a>
@@ -458,7 +412,6 @@
     </div>
 
     <script>
-        // Enhanced typewriter (VIBZ style) with industry words
         const nicheWords = ["Plumbers.", "Barbers.", "Lawyers.", "Dentists.", "Gyms.", "Electricians."];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
@@ -472,7 +425,6 @@
                 charIndex--;
                 typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
             }
-            
             let speed = isDeleting ? 50 : 100;
             if (!isDeleting && charIndex === currentWord.length) {
                 speed = 2000;
@@ -484,35 +436,21 @@
             }
             setTimeout(type, speed);
         }
-        window.onload = () => {
-            type();
-        };
+        window.onload = type;
 
-        // Trigger search redirect (VIBZ funnel)
         function triggerSearch() {
             const val = document.getElementById('mainSearch').value.trim();
-            if(val) {
-                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
-            } else {
-                alert("Please enter your business niche to continue.");
-            }
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+            else alert("Please enter your business niche.");
         }
 
-        // Category tiles click handler (redirect to VIBZ funnel)
         document.querySelectorAll('.category-tile').forEach(tile => {
-            tile.addEventListener('click', (e) => {
-                let nicheText = tile.getAttribute('data-niche');
-                if (!nicheText) {
-                    const spanLabel = tile.querySelector('.tile-label');
-                    nicheText = spanLabel ? spanLabel.innerText.trim() : "business";
-                }
-                if (nicheText) {
-                    window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(nicheText);
-                }
+            tile.addEventListener('click', () => {
+                let niche = tile.getAttribute('data-niche') || tile.innerText.trim();
+                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(niche);
             });
         });
 
-        // Swipe navigation + dots logic
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
@@ -538,57 +476,20 @@
         }
 
         let touchStartX = 0, touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
+        window.addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
         });
-        window.addEventListener('touchend', (e) => {
+        window.addEventListener('touchend', e => {
             if (isMoving) return;
             const diffX = touchStartX - e.changedTouches[0].clientX;
             const diffY = touchStartY - e.changedTouches[0].clientY;
             if (Math.abs(diffX) > 40 || Math.abs(diffY) > 40) {
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    navigate(diffX > 0 ? 1 : -1);
-                } else {
-                    navigate(diffY > 0 ? 1 : -1);
-                }
+                navigate(Math.abs(diffX) > Math.abs(diffY) ? (diffX > 0 ? 1 : -1) : (diffY > 0 ? 1 : -1));
             }
         });
 
-        // dot click navigation
-        dots.forEach((dot, idx) => {
-            dot.addEventListener('click', () => {
-                if (!isMoving && idx !== currentIdx) {
-                    currentIdx = idx;
-                    updateUI();
-                }
-            });
-        });
-
-        // expose global for nav logo click
-        window.goToSlide = (i) => {
-            if (i >= 0 && i < sections.length && !isMoving) {
-                currentIdx = i;
-                updateUI();
-            }
-        };
-
-        // Optional: menu button (hamburger) basic toggle – you can extend but remains simple
-        const menuBtn = document.getElementById('menu-btn');
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                // simple alert for now to indicate menu (consistent with VIBZ style but can be extended)
-                // you may implement a full menu overlay but current request is to revise background to VIBZ.
-                // For user experience, show a toast or simply scroll to categories? 
-                // Better: scroll to slide 1 (categories)
-                goToSlide(1);
-            });
-        }
-
-        // ensure all dynamic content uses VIBZ background on any resize or orientation
-        window.addEventListener('resize', () => {
-            document.body.style.backgroundColor = 'var(--vibz-bg)';
-        });
+        window.goToSlide = (i) => { currentIdx = i; updateUI(); };
     </script>
 </body>
 </html>
