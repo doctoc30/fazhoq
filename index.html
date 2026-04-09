@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>FAZ HOQ | VIBZ Branding • Digital Architect</title>
-    <!-- VIBZ Core Branding: Fonts, Icons, AOS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <!-- Tailwind for layout speed but override with VIBZ theme -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* ==== VIBZ CORE BRANDING THEME (colors, backgrounds, accents) ==== */
         :root {
-            --bg: #ffffff;
+            /* VIBZ PREMIUM COLOR PALETTE */
+            --bg: #FFF8F2;          /* The specific "Vibz" Creamy Background */
             --accent: #FF6B00;      /* VIBZ signature orange */
             --dark: #121212;
             --navy: #0A192F;
             --text-gray: #4a4a4a;
             --light-gray: #f9f9f9;
-            --border: #eeeeee;
+            --border: #f2e7dd;      /* Matched border color */
         }
 
         * {
@@ -34,14 +32,9 @@
             color: var(--dark);
             overflow-x: hidden;
             scroll-behavior: smooth;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        /* ===== VIBZ FULL-PAGE MENU (larger, opens on click) ===== */
+        /* VIBZ FULL-PAGE MENU (Background Matched) */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -75,7 +68,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 60px;
         }
 
         .menu-logo {
@@ -89,29 +81,24 @@
             content: ".";
             color: #000;
             margin-left: 2px;
-            font-weight: 900;
         }
 
         .close-menu {
-            background: none;
-            border: none;
             font-size: 2.5rem;
             color: var(--dark);
             cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0.5rem;
             width: 60px;
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: 0.3s;
         }
 
         .close-menu:hover {
             background: rgba(255, 107, 0, 0.1);
             color: var(--accent);
-            transform: rotate(90deg);
         }
 
         .menu-links {
@@ -129,15 +116,11 @@
             letter-spacing: -2px;
             color: var(--dark);
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             display: inline-block;
-            padding: 0.5rem 0;
             opacity: 0;
             transform: translateY(20px);
-            cursor: pointer;
-            pointer-events: auto;
-            transition-delay: 0s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .menu-overlay.active .menu-link {
@@ -145,65 +128,16 @@
             transform: translateY(0);
         }
 
-        .menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.05s; }
-        .menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.1s; }
-        .menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.15s; }
-        .menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.2s; }
-        .menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.25s; }
-
         .menu-link:hover {
             color: var(--accent);
             transform: translateX(20px);
         }
 
-        .menu-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 4px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .menu-link:hover::after {
-            width: 80px;
-        }
-
-        .menu-cta {
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease 0.35s;
-        }
-
-        .menu-overlay.active .menu-cta {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .menu-cta h3 {
-            font-size: 1.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .menu-cta-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
         .btn {
             padding: 1rem 2rem;
             border-radius: 12px;
-            text-decoration: none;
             font-weight: 700;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-size: 1rem;
+            transition: 0.4s;
             display: inline-block;
             cursor: pointer;
             text-align: center;
@@ -221,18 +155,14 @@
             background: transparent;
         }
 
-        .btn-fill:hover, .btn-outline:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.2);
-        }
-
-        /* Faz Hoq swipe navigation + VIBZ background refinement */
+        /* SWIPE NAVIGATION + VIBZ BACKGROUND BRANDING */
         .slide-container {
             position: relative;
             height: 100vh;
             width: 100%;
             overflow: hidden;
-            background: radial-gradient(circle at top right, #fff5ee, #ffffff);
+            /* VIBZ SPECIFIC BRANDING: WHITE TO CREAM RADIAL */
+            background: radial-gradient(circle at top right, #ffffff, #FFF8F2);
         }
 
         section {
@@ -284,13 +214,11 @@
             color: var(--accent);
         }
 
-        /* waving hand image (branded) */
         .waving-hand {
             width: clamp(240px, 60vw, 380px);
             height: auto;
-            margin-top: -20px;
             margin-bottom: 10px;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.08));
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
             animation: wave 2.5s infinite ease-in-out;
         }
 
@@ -306,11 +234,11 @@
             padding: 4px;
             display: flex;
             align-items: center;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
             width: 95%;
             max-width: 550px;
             margin-top: 30px;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--border);
             overflow: hidden;
         }
 
@@ -322,11 +250,9 @@
             font-size: 1rem;
             font-weight: 600;
             background: transparent;
-            color: var(--dark);
         }
 
         .search-icon-btn {
-            flex-shrink: 0;
             width: 52px;
             height: 52px;
             background: var(--accent);
@@ -336,16 +262,10 @@
             justify-content: center;
             color: white;
             border: none;
-            margin-right: 4px;
             cursor: pointer;
-            transition: transform 0.2s;
         }
 
-        .search-icon-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* category grid (VIBZ themed) */
+        /* CATEGORY GRID (VIBZ Tiles) */
         .category-header {
             color: var(--accent);
             font-weight: 900;
@@ -367,14 +287,13 @@
 
         .category-tile {
             background: white;
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
             border-radius: 28px;
             padding: 1.8rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.8rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
             transition: all 0.25s ease;
             cursor: pointer;
         }
@@ -395,29 +314,15 @@
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            box-shadow: 0 8px 18px rgba(255, 107, 0, 0.25);
         }
 
         .tile-label {
             font-weight: 900;
             font-size: 0.95rem;
-            line-height: 1.3;
             color: var(--dark);
         }
 
-        /* animated icons */
-        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
-        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(20deg); } 40% { transform: rotate(-8deg); } }
-        .fa-briefcase { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .fa-utensils { animation: wobble 2s infinite; }
-        @keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
-        .fa-bag-shopping { animation: swing 3s infinite; transform-origin: top center; }
-        @keyframes swing { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(6deg); } 70% { transform: rotate(-6deg); } }
-
-        /* navigation dots */
+        /* DOTS */
         .nav-dots {
             position: fixed;
             right: 1.2rem;
@@ -433,8 +338,8 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.2);
-            transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
         }
 
         .dot.active {
@@ -442,7 +347,7 @@
             transform: scale(2.5);
         }
 
-        /* Faz Hoq dock - VIBZ accent */
+        /* DOCK (VIBZ Theme) */
         .app-dock {
             position: fixed;
             bottom: max(1.5rem, env(safe-area-inset-bottom) + 0.5rem);
@@ -456,22 +361,16 @@
             gap: 2.2rem;
             align-items: center;
             z-index: 2500;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 107, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
         }
 
         .dock-btn {
             font-size: 1.7rem;
             color: var(--accent);
-            transition: transform 0.2s;
         }
 
-        .dock-btn:hover {
-            transform: scale(1.1);
-            color: var(--dark);
-        }
-
-        /* navbar VIBZ styling */
+        /* NAVBAR VIBZ */
         .navbar-vibz {
             position: fixed;
             top: 0;
@@ -491,106 +390,62 @@
             font-size: 1.8rem;
             color: var(--accent);
             letter-spacing: -1px;
-            cursor: pointer;
         }
 
         .logo-text::after {
             content: ".";
             color: #000;
             margin-left: 2px;
-            font-weight: 900;
         }
 
         .hamburger-menu {
-            background: none;
-            border: none;
             font-size: 1.8rem;
             color: var(--dark);
             cursor: pointer;
-            padding: 0.5rem;
-            transition: all 0.3s;
             width: 48px;
             height: 48px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .hamburger-menu:hover {
-            background: rgba(255, 107, 0, 0.1);
-            color: var(--accent);
-        }
+        /* ANIMATED ICONS */
+        .fa-heart-pulse { animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+        .fa-hammer { animation: hammerHit 1.2s infinite; transform-origin: bottom center; }
+        @keyframes hammerHit { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(20deg); } 40% { transform: rotate(-8deg); } }
 
         @media (max-width: 768px) {
-            .navbar-vibz {
-                padding: 0.8rem 5%;
-            }
-            .logo-text {
-                font-size: 1.6rem;
-            }
-            .category-grid {
-                margin-bottom: 100px;
-            }
-            .menu-content {
-                padding: 100px 5%;
-            }
-            .menu-link {
-                font-size: clamp(2rem, 10vw, 3.8rem);
-            }
-        }
-        @media (orientation: landscape) {
-            .category-header {
-                margin-top: 40px;
-            }
-            .category-grid {
-                grid-template-columns: repeat(3, 1fr);
-                max-width: 800px;
-                margin-bottom: 70px;
-            }
-        }
-        /* dark slides bg for later slides */
-        .bg-vibz-dark {
-            background: radial-gradient(circle at 30% 20%, #121212, #000000);
-            color: white;
-        }
-        .bg-vibz-dark .huge-text {
-            color: white;
-        }
-        .bg-vibz-dark .accent {
-            color: var(--accent);
+            .category-grid { grid-template-columns: repeat(2, 1fr); margin-bottom: 110px; }
         }
     </style>
 </head>
 <body>
-    <!-- VIBZ LARGE MENU OVERLAY (opens on click) -->
     <div class="menu-overlay" id="vibzMenuOverlay">
         <div class="menu-content">
             <div class="menu-header">
                 <div class="menu-logo">FAZ HOQ</div>
-                <button class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+                <div class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></div>
             </div>
             <div class="menu-links">
                 <span class="menu-link" data-slide="0">Home</span>
                 <span class="menu-link" data-slide="1">Industries</span>
                 <span class="menu-link" data-slide="2">Strategy</span>
-                <span class="menu-link" data-slide="3">Interaction</span>
                 <span class="menu-link" data-slide="4">Build</span>
             </div>
             <div class="menu-cta">
-                <h3>Ready to Scale Your Digital Presence?</h3>
+                <h3>Ready to Start Your Project?</h3>
                 <div class="menu-cta-buttons">
-                    <span class="btn btn-fill" id="menuCtaWebsite">Get a Website</span>
-                    <span class="btn btn-outline" id="menuCtaContact">Contact Faz</span>
+                    <span class="btn btn-fill">Get a Website</span>
+                    <span class="btn btn-outline">Contact Faz</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Navigation with VIBZ branding -->
     <div class="navbar-vibz">
-        <div class="logo-text" id="homeLogo">FAZ HOQ</div>
-        <button class="hamburger-menu" id="hamburgerMenuBtn"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="logo-text">FAZ HOQ</div>
+        <div class="hamburger-menu" id="hamburgerMenuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
     </div>
 
     <div class="nav-dots" id="navDots">
@@ -602,189 +457,76 @@
     </div>
 
     <div class="slide-container" id="masterWrapper">
-        <!-- Slide 0: Hero + typewriter, search -->
         <section class="active">
             <div class="text-wrap">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz Hoq" class="waving-hand">
-                <div>
-                    <h1 class="huge-text">I build websites for:</h1>
-                    <div class="huge-text accent" id="typewriterLine">&nbsp;</div>
-                    <div class="search-container">
-                        <input type="text" id="mainSearchInput" placeholder="e.g., Plumber, Dentist, Barber..." onkeypress="if(event.key==='Enter') triggerSearchRedirect()">
-                        <button class="search-icon-btn" onclick="triggerSearchRedirect()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2826.jpeg" alt="Faz" class="waving-hand">
+                <h1 class="huge-text">I build websites for:</h1>
+                <div class="huge-text accent" id="typewriterLine">&nbsp;</div>
+                <div class="search-container">
+                    <input type="text" id="mainSearchInput" placeholder="e.g., Plumber, Dentist, Barber...">
+                    <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 1: Category Grid (VIBZ style) -->
         <section>
-            <div class="text-wrap flex-col">
-                <h2 class="category-header">SELECT YOUR NICHE — ELITE WEBSITES</h2>
+            <div class="text-wrap">
+                <h2 class="category-header">SELECT YOUR NICHE</h2>
                 <div class="category-grid">
-                    <div class="category-tile" data-niche="Health & Wellness">
-                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <span class="tile-label">Health &<br>Wellness</span>
-                    </div>
-                    <div class="category-tile" data-niche="Home & Trades">
-                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
-                        <span class="tile-label">Home &<br>Trades</span>
-                    </div>
-                    <div class="category-tile" data-niche="Professional Services">
-                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <span class="tile-label">Professional<br>Services</span>
-                    </div>
-                    <div class="category-tile" data-niche="Food & Drink">
-                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
-                        <span class="tile-label">Food &<br>Drink</span>
-                    </div>
-                    <div class="category-tile" data-niche="Retail & Creative" style="grid-column: span 2; flex-direction: row; padding: 1.5rem; justify-content: center;">
-                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label ml-4">Retail & Creative Industries</span>
-                    </div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health & Wellness</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-hammer"></i></div><span class="tile-label">Home & Trades</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div><span class="tile-label">Pro Services</span></div>
+                    <div class="category-tile"><div class="tile-icon"><i class="fa-solid fa-utensils"></i></div><span class="tile-label">Food & Drink</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Strategy (VIBZ brand) -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">STRATEGIC<br><span class="accent">PARTNER.</span></h2>
-                <p class="mt-6 text-gray-500 max-w-md" style="color: var(--text-gray);">Data-driven digital architecture that converts visitors into loyal customers.</p>
+                <p class="mt-6 text-gray-500 max-w-md">Conversion-led digital architecture.</p>
             </div>
         </section>
 
-        <!-- Slide 3: Interaction -->
-        <section class="bg-vibz-dark">
-            <div class="text-wrap">
-                <h2 class="huge-text italic uppercase">WOW<span class="accent">!</span><br>INTERACTION.</h2>
-                <p class="mt-6 text-gray-300 max-w-md">Micro-interactions & high-performance UI that leaves a lasting impression.</p>
-            </div>
-        </section>
-
-        <!-- Slide 4: Build -->
-        <section class="bg-vibz-dark">
+        <section>
             <div class="text-wrap">
                 <h2 class="huge-text uppercase">LET'S<br><span class="accent">BUILD.</span></h2>
                 <div class="flex gap-4 mt-8">
-                    <span class="btn btn-fill" id="finalCTAWebsite">Get a Website</span>
-                    <span class="btn btn-outline" id="finalCTAContact">Contact Faz</span>
+                    <span class="btn btn-fill">Get a Website</span>
+                    <span class="btn btn-outline">Contact Faz</span>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Dock (WhatsApp, SMS, Email) -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 600, once: false });
-
-        // ---------- TYPEWRITER (VIBZ) ----------
-        const words = ["Plumbers.", "Barbers.", "Lawyers.", "Dentists.", "Gyms.", "Electricians."];
-        let wordIdx = 0, charIdx = 0, isDeletingFlag = false;
+        // TYPEWRITER
+        const words = ["Plumbers.", "Barbers.", "Lawyers.", "Dentists.", "Gyms."];
+        let wordIdx = 0, charIdx = 0, isDeleting = false;
         const typeEl = document.getElementById("typewriterLine");
+
         function typeEffect() {
             const current = words[wordIdx];
-            if (isDeletingFlag) {
-                charIdx--;
-                typeEl.innerHTML = current.substring(0, charIdx) || "&nbsp;";
-            } else {
-                charIdx++;
-                typeEl.innerHTML = current.substring(0, charIdx);
-            }
-            let speed = isDeletingFlag ? 60 : 120;
-            if (!isDeletingFlag && charIdx === current.length) {
-                speed = 1800;
-                isDeletingFlag = true;
-            } else if (isDeletingFlag && charIdx === 0) {
-                isDeletingFlag = false;
-                wordIdx = (wordIdx + 1) % words.length;
-                speed = 400;
-            }
+            typeEl.innerHTML = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+            let speed = isDeleting ? 60 : 120;
+            if (!isDeleting && charIdx === current.length) { speed = 1500; isDeleting = true; }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; wordIdx = (wordIdx + 1) % words.length; speed = 400; }
             setTimeout(typeEffect, speed);
         }
         typeEffect();
 
-        // ---------- SEARCH REDIRECT (VIBZ funnel) ----------
-        function triggerSearchRedirect() {
-            const val = document.getElementById('mainSearchInput').value.trim();
-            if (val) {
-                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
-            } else {
-                alert("Please enter your business niche to continue.");
-            }
-        }
-
-        // category tiles search redirect
-        document.querySelectorAll('.category-tile').forEach(tile => {
-            tile.addEventListener('click', (e) => {
-                let nicheText = tile.getAttribute('data-niche') || tile.innerText.trim();
-                if (nicheText) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(nicheText);
-            });
-        });
-
-        // ---------- FULL PAGE MENU LOGIC (larger, opens on click) ----------
-        const menuOverlay = document.getElementById('vibzMenuOverlay');
-        const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const bodyEl = document.body;
-
-        function openVibzMenu() {
-            menuOverlay.classList.add('active');
-            bodyEl.classList.add('menu-open');
-            bodyEl.style.overflow = 'hidden';
-        }
-        function closeVibzMenu() {
-            menuOverlay.classList.remove('active');
-            bodyEl.classList.remove('menu-open');
-            bodyEl.style.overflow = '';
-        }
-        hamburgerBtn.addEventListener('click', openVibzMenu);
-        closeMenuBtn.addEventListener('click', closeVibzMenu);
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVibzMenu(); });
-
-        // menu links navigation + close menu after click
-        const menuLinks = document.querySelectorAll('.menu-link');
-        menuLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const slideIdx = link.getAttribute('data-slide');
-                if (slideIdx !== null) {
-                    const idx = parseInt(slideIdx);
-                    if (!isNaN(idx) && idx >= 0 && idx < sections.length) {
-                        goToSlide(idx);
-                    }
-                }
-                closeVibzMenu();
-            });
-        });
-
-        // CTA buttons in menu (redirect to vibe / contact)
-        document.getElementById('menuCtaWebsite')?.addEventListener('click', () => {
-            window.location.href = "https://www.vibz.co.uk/funnel.html";
-        });
-        document.getElementById('menuCtaContact')?.addEventListener('click', () => {
-            window.location.href = "mailto:Fazhoq1977@gmail.com";
-        });
-        document.getElementById('finalCTAWebsite')?.addEventListener('click', () => {
-            window.location.href = "https://www.vibz.co.uk/funnel.html";
-        });
-        document.getElementById('finalCTAContact')?.addEventListener('click', () => {
-            window.location.href = "mailto:Fazhoq1977@gmail.com";
-        });
-
-        // ---------- SLIDE NAVIGATION (swipe + dots) ----------
+        // SLIDE ENGINE
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
-        let currentIdx = 0;
-        let isMoving = false;
+        let currentIdx = 0, isMoving = false;
 
-        function updateSlidesAndDots() {
+        function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
                 if (i === currentIdx) sec.classList.add('active');
@@ -793,50 +535,29 @@
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
         }
 
-        function goToSlide(index) {
-            if (isMoving) return;
-            if (index >= 0 && index < sections.length) {
-                isMoving = true;
-                currentIdx = index;
-                updateSlidesAndDots();
-                setTimeout(() => { isMoving = false; }, 700);
-            }
+        function goToSlide(idx) {
+            if (isMoving || idx < 0 || idx >= sections.length) return;
+            isMoving = true; currentIdx = idx; updateUI();
+            setTimeout(() => isMoving = false, 700);
         }
 
-        function navigate(direction) {
-            goToSlide(currentIdx + direction);
-        }
-
-        // touch swipe detection
-        let touchStartX = 0, touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
+        // SWIPE
+        let startY = 0;
+        window.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+        window.addEventListener('touchend', e => {
+            let diff = startY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) goToSlide(currentIdx + (diff > 0 ? 1 : -1));
         });
-        window.addEventListener('touchend', (e) => {
-            if (isMoving) return;
-            let diffX = touchStartX - e.changedTouches[0].clientX;
-            let diffY = touchStartY - e.changedTouches[0].clientY;
-            if (Math.abs(diffX) > 40 || Math.abs(diffY) > 40) {
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    navigate(diffX > 0 ? 1 : -1);
-                } else {
-                    navigate(diffY > 0 ? 1 : -1);
-                }
+
+        // MENU
+        const menu = document.getElementById('vibzMenuOverlay');
+        document.getElementById('hamburgerMenuBtn').onclick = () => menu.classList.add('active');
+        document.getElementById('closeMenuBtn').onclick = () => menu.classList.remove('active');
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.onclick = (e) => {
+                goToSlide(parseInt(e.target.dataset.slide));
+                menu.classList.remove('active');
             }
-        });
-
-        // click on dots
-        dots.forEach((dot, idx) => {
-            dot.addEventListener('click', () => goToSlide(idx));
-        });
-
-        // click on logo to go home (slide 0)
-        document.getElementById('homeLogo')?.addEventListener('click', () => goToSlide(0));
-
-        // extra: ensure body overflow when menu closed
-        window.addEventListener('resize', () => {
-            if (!menuOverlay.classList.contains('active')) bodyEl.style.overflow = '';
         });
     </script>
 </body>
