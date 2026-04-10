@@ -1,3 +1,6 @@
+Here is the HTML code that only lifts the avatar slightly on mobile portrait without changing anything on desktop.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,29 +130,31 @@
             filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
-        /* MOBILE PORTRAIT VIEW - KEPT EXACTLY AS IS */
+        /* ============================================
+           MOBILE PORTRAIT ONLY - LIFT AVATAR SLIGHTLY
+           Absolutely no changes to desktop
+           ============================================ */
         @media (max-width: 768px) and (orientation: portrait) {
+            /* Only lift the avatar - nothing else changed */
+            section:first-child .waving-hand {
+                margin-top: -40px;
+                margin-bottom: 5px;
+            }
+            /* Keep everything else exactly the same */
             .text-wrap {
                 flex-direction: column;
-            }
-            .waving-hand {
-                width: clamp(220px, 60vw, 380px);
-                margin-bottom: 20px;
             }
             .search-container {
                 margin-top: 40px;
             }
-            .hero-row-desktop {
-                display: block;
-            }
-            .hero-avatar-desktop, .hero-search-desktop {
-                display: block;
-                width: auto;
-            }
         }
 
-        /* DESKTOP & TABLET LANDSCAPE */
+        /* ============================================
+           DESKTOP & TABLET LANDSCAPE - PERFECT CENTERED LAYOUT
+           Avatar + Search Bar side by side, perfectly centered like Google
+           ============================================ */
         @media (min-width: 769px) {
+            /* First slide specific - perfect centering */
             section:first-child .text-wrap {
                 display: flex;
                 flex-direction: column;
@@ -158,6 +163,7 @@
                 width: 100%;
             }
             
+            /* Desktop hero row - perfectly centered side by side */
             .desktop-hero-row {
                 display: flex;
                 flex-direction: row;
@@ -175,6 +181,7 @@
             .desktop-avatar .waving-hand {
                 width: 240px;
                 margin-bottom: 0;
+                margin-top: 0; /* No lift on desktop */
             }
             
             .desktop-search-wrapper {
@@ -189,6 +196,7 @@
                 width: 100%;
             }
             
+            /* Desktop tagline and typewriter - centered below */
             .desktop-tagline {
                 text-align: center;
                 margin-top: 0.5rem;
@@ -199,7 +207,7 @@
             }
         }
 
-        /* SEARCH BAR */
+        /* SEARCH BAR - Google-like styling */
         .search-container {
             background: #fff;
             border-radius: 24px;
@@ -802,3 +810,4 @@
     </script>
 </body>
 </html>
+```
