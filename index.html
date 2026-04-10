@@ -120,52 +120,96 @@
         .huge-text.black { color: #000; }
 
         .waving-hand {
-            width: clamp(200px, 40vw, 280px);
+            width: clamp(220px, 60vw, 380px);
             height: auto;
-            margin-bottom: 0;
+            margin-bottom: 20px;
             mix-blend-mode: multiply;
             filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
-        /* ===== FIX: AVATAR + SEARCH BAR SIDE-BY-SIDE (ALL SCREENS) ===== */
-        /* This solves "search bar too low" and "avatar opposite search bar" */
-        .hero-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-            width: 100%;
-        }
-
-        .hero-avatar {
-            flex-shrink: 0;
-        }
-
-        .hero-search {
-            flex-shrink: 1;
-            min-width: 280px;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        /* For mobile portrait, keep side by side but adjust spacing */
-        @media (max-width: 640px) {
-            .hero-row {
-                gap: 1rem;
-                margin-bottom: 0.5rem;
+        /* ============================================
+           MOBILE PORTRAIT VIEW - KEPT EXACTLY AS IS
+           (No changes to original mobile layout)
+           ============================================ */
+        @media (max-width: 768px) and (orientation: portrait) {
+            /* Original mobile styles preserved exactly */
+            .text-wrap {
+                flex-direction: column;
             }
             .waving-hand {
-                width: 180px;
+                width: clamp(220px, 60vw, 380px);
+                margin-bottom: 20px;
             }
-            .hero-search {
-                min-width: 220px;
+            .search-container {
+                margin-top: 40px;
+            }
+            .hero-row-desktop {
+                display: block;
+            }
+            .hero-avatar-desktop, .hero-search-desktop {
+                display: block;
+                width: auto;
             }
         }
 
-        /* SEARCH BAR */
+        /* ============================================
+           DESKTOP & TABLET LANDSCAPE - PERFECT CENTERED LAYOUT
+           Avatar + Search Bar side by side, perfectly centered like Google
+           ============================================ */
+        @media (min-width: 769px) {
+            /* First slide specific - perfect centering */
+            section:first-child .text-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            /* Desktop hero row - perfectly centered side by side */
+            .desktop-hero-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .desktop-avatar {
+                flex-shrink: 0;
+            }
+            
+            .desktop-avatar .waving-hand {
+                width: 240px;
+                margin-bottom: 0;
+            }
+            
+            .desktop-search-wrapper {
+                flex-shrink: 1;
+                min-width: 400px;
+                max-width: 550px;
+                width: 100%;
+            }
+            
+            .desktop-search-wrapper .search-container {
+                margin-top: 0;
+                width: 100%;
+            }
+            
+            /* Desktop tagline and typewriter - centered below */
+            .desktop-tagline {
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+            
+            .desktop-tagline .huge-text {
+                display: inline-block;
+            }
+        }
+
+        /* SEARCH BAR - Google-like styling */
         .search-container {
             background: #fff;
             border-radius: 24px;
@@ -173,7 +217,9 @@
             display: flex;
             align-items: center;
             box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
-            width: 100%;
+            width: 95%;
+            max-width: 500px;
+            margin-top: 40px;
             border: 1px solid rgba(255, 107, 0, 0.1);
         }
         
@@ -201,25 +247,15 @@
             cursor: pointer;
         }
 
-        /* CATEGORIES - FIX: headline not sideways, proper stacking */
-        .category-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+        /* CATEGORIES */
         .category-header {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--primary);
             margin-bottom: 25px;
-            margin-top: 0;
-            text-align: center;
-            writing-mode: horizontal-tb !important;
-            transform: none !important;
+            margin-top: 40px;
         }
 
         .category-grid {
@@ -228,7 +264,7 @@
             gap: 15px;
             width: 100%;
             max-width: 600px;
-            margin-bottom: 60px;
+            margin-bottom: 100px;
         }
 
         .category-tile {
@@ -418,7 +454,7 @@
             transform: scale(2.5);
         }
 
-        /* DESKTOP NAVIGATION BUTTONS - closer together, better spacing */
+        /* DESKTOP NAVIGATION BUTTONS */
         .desktop-nav {
             display: none;
             position: fixed;
@@ -428,21 +464,21 @@
             width: 100%;
             pointer-events: none;
             justify-content: space-between;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         .nav-arrow {
             pointer-events: auto;
             background: var(--primary);
             color: white;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transition: 0.2s;
             opacity: 0.85;
         }
@@ -455,33 +491,6 @@
             .desktop-nav {
                 display: flex;
             }
-            /* Adjust arrow spacing to not be too far apart */
-            .desktop-nav {
-                padding: 0 20px;
-            }
-        }
-        /* Fix for very wide screens: keep arrows within reasonable distance */
-        @media (min-width: 1600px) {
-            .desktop-nav {
-                padding: 0 8%;
-            }
-        }
-
-        /* Additional fixes for first slide content positioning */
-        .first-slide-content {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tagline {
-            margin: 1rem 0 0.5rem;
-            width: 100%;
-        }
-        .typewriter-wrap {
-            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -510,7 +519,7 @@
         <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
 
-    <!-- DESKTOP NAVIGATION (closer together, not too far apart) -->
+    <!-- DESKTOP NAVIGATION -->
     <div class="desktop-nav">
         <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
         <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -521,33 +530,43 @@
     </div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: HOME with AVATAR + SEARCH side by side -->
+        <!-- SLIDE 0: HOME - Mobile uses original layout, Desktop uses centered side-by-side layout -->
         <section class="active">
-            <div class="text-wrap first-slide-content">
-                <!-- AVATAR + SEARCH BAR SIDE BY SIDE (fixes the low search bar issue) -->
-                <div class="hero-row">
-                    <div class="hero-avatar">
+            <!-- Mobile version (original layout, hidden on desktop) -->
+            <div class="text-wrap mobile-only-layout">
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
+                <h1 class="huge-text">I build websites for:</h1>
+                <div class="huge-text black" id="typewriter-mobile">&nbsp;</div>
+                <div class="search-container">
+                    <input type="text" id="mainSearch" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+            
+            <!-- Desktop version (centered side-by-side like Google, hidden on mobile) -->
+            <div class="text-wrap desktop-only-layout">
+                <div class="desktop-hero-row">
+                    <div class="desktop-avatar">
                         <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
                     </div>
-                    <div class="hero-search">
+                    <div class="desktop-search-wrapper">
                         <div class="search-container">
-                            <input type="text" id="mainSearch" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                            <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <input type="text" id="mainSearchDesktop" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearchDesktop()">
+                            <button class="search-icon-btn" onclick="triggerSearchDesktop()"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </div>
                 </div>
-                <div class="tagline">
+                <div class="desktop-tagline">
                     <h1 class="huge-text">I build websites for:</h1>
                 </div>
-                <div class="typewriter-wrap">
-                    <div class="huge-text black" id="typewriter">&nbsp;</div>
+                <div class="desktop-tagline">
+                    <div class="huge-text black" id="typewriter-desktop">&nbsp;</div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 1: CATEGORIES (headline now properly horizontal, not sideways) -->
         <section>
-            <div class="text-wrap category-section">
+            <div class="text-wrap flex-col">
                 <h2 class="category-header">Or Select From Popular Categories</h2>
                 <div class="category-grid">
                     <div class="category-tile" onclick="openNiche('Health & Wellness')"><div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="tile-label">Health & Wellness</span></div>
@@ -574,8 +593,40 @@
         <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
     </div>
 
+    <style>
+        /* Hide/show logic for mobile vs desktop layouts */
+        .mobile-only-layout {
+            display: flex;
+        }
+        .desktop-only-layout {
+            display: none;
+        }
+        
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex;
+            }
+            .desktop-only-layout {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+
     <script>
-        // Niche Data (Preserved)
+        // Niche Data
         const nicheData = {
             "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
             "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
@@ -585,23 +636,45 @@
         };
 
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
-        let wordIndex = 0, charIndex = 0, isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function type() {
-            const currentWord = nicheWords[wordIndex];
-            charIndex += isDeleting ? -1 : 1;
-            typewriterEl.innerHTML = currentWord.substring(0, charIndex) || "&nbsp;";
-            let speed = isDeleting ? 60 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % nicheWords.length; speed = 500; }
-            setTimeout(type, speed);
+        
+        // Mobile typewriter
+        let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
+        const typewriterElM = document.getElementById('typewriter-mobile');
+        
+        // Desktop typewriter
+        let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
+        const typewriterElD = document.getElementById('typewriter-desktop');
+        
+        function typeMobile() {
+            if (!typewriterElM) return;
+            const currentWord = nicheWords[wordIndexM];
+            charIndexM += isDeletingM ? -1 : 1;
+            typewriterElM.innerHTML = currentWord.substring(0, charIndexM) || "&nbsp;";
+            let speed = isDeletingM ? 60 : 100;
+            if (!isDeletingM && charIndexM === currentWord.length) { speed = 2000; isDeletingM = true; }
+            else if (isDeletingM && charIndexM === 0) { isDeletingM = false; wordIndexM = (wordIndexM + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeMobile, speed);
         }
-        window.onload = type;
-
+        
+        function typeDesktop() {
+            if (!typewriterElD) return;
+            const currentWord = nicheWords[wordIndexD];
+            charIndexD += isDeletingD ? -1 : 1;
+            typewriterElD.innerHTML = currentWord.substring(0, charIndexD) || "&nbsp;";
+            let speed = isDeletingD ? 60 : 100;
+            if (!isDeletingD && charIndexD === currentWord.length) { speed = 2000; isDeletingD = true; }
+            else if (isDeletingD && charIndexD === 0) { isDeletingD = false; wordIndexD = (wordIndexD + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeDesktop, speed);
+        }
+        
+        window.onload = function() {
+            typeMobile();
+            typeDesktop();
+        };
+        
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
-
+        
         function openNiche(sector) {
             const list = document.getElementById('cat-list');
             const title = document.getElementById('cat-title');
@@ -612,7 +685,10 @@
                 div.className = "cat-item";
                 div.textContent = niche;
                 div.onclick = () => {
-                    document.getElementById('mainSearch').value = niche;
+                    const mobileInput = document.getElementById('mainSearch');
+                    const desktopInput = document.getElementById('mainSearchDesktop');
+                    if (mobileInput) mobileInput.value = niche;
+                    if (desktopInput) desktopInput.value = niche;
                     toggleCategories();
                     triggerSearch();
                 };
@@ -620,16 +696,23 @@
             });
             toggleCategories();
         }
-
+        
         function triggerSearch() {
-            const val = document.getElementById('mainSearch').value;
+            const mobileVal = document.getElementById('mainSearch')?.value;
+            const desktopVal = document.getElementById('mainSearchDesktop')?.value;
+            const val = mobileVal || desktopVal;
             if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
-
+        
+        function triggerSearchDesktop() {
+            const val = document.getElementById('mainSearchDesktop')?.value;
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+        }
+        
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
-
+        
         function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
@@ -638,7 +721,7 @@
             });
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
         }
-
+        
         function navigate(dir) {
             if (isMoving) return;
             const target = currentIdx + dir;
@@ -649,8 +732,8 @@
                 setTimeout(() => { isMoving = false; }, 800);
             }
         }
-
-        // MOBILE SWIPE (fully preserved)
+        
+        // Mobile swipe preserved
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
@@ -659,29 +742,18 @@
         });
         
         function goToSlide(i) { currentIdx = i; updateUI(); }
-
-        // DESKTOP CLICK NAVIGATION (arrows only, no swipe on desktop)
+        
+        // Desktop navigation
         const prevBtn = document.getElementById('desktop-prev');
         const nextBtn = document.getElementById('desktop-next');
         if (prevBtn && nextBtn) {
-            prevBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                navigate(-1);
-            });
-            nextBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                navigate(1);
-            });
+            prevBtn.addEventListener('click', () => navigate(-1));
+            nextBtn.addEventListener('click', () => navigate(1));
         }
-
-        // Dot click navigation
+        
         dots.forEach((dot, idx) => {
             dot.addEventListener('click', () => goToSlide(idx));
         });
-
-        // Additional fix to ensure categories headline is never sideways (writing-mode override already in CSS)
-        // Also ensure any global text-wrap doesn't break the row layout
     </script>
 </body>
 </html>
-
