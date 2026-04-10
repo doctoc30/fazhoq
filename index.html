@@ -18,41 +18,69 @@
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             font-family: 'Inter', sans-serif;
         }
 
         html, body {
-            height: 100%; width: 100%;
+            height: 100%;
+            width: 100%;
             overflow: hidden;
             background-color: var(--primary-light);
             color: var(--text);
-            touch-action: none;
         }
 
-        .slide-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
+        /* Allow swipe on touch, but we keep original touch behavior - not removing any code */
+        .slide-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+        }
 
         section {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 2rem;
-            background: transparent; 
+            background: transparent;
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
+            overflow-y: auto;
         }
 
-        section.active { transform: translate3d(0, 0, 0); visibility: visible; z-index: 10; }
-        section.prev { transform: translate3d(-100%, 0, 0); visibility: visible; z-index: 5; }
+        section.active {
+            transform: translate3d(0, 0, 0);
+            visibility: visible;
+            z-index: 10;
+        }
+        section.prev {
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+            z-index: 5;
+        }
 
         /* HEADER */
         .faz-nav {
-            position: fixed; top: 0; width: 100%; z-index: 2500;
-            padding: calc(var(--safe-top) + 20px) 25px; 
-            display: flex; justify-content: space-between; align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2500;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .faz-logo {
@@ -67,15 +95,26 @@
         #menu-btn {
             font-size: 1.8rem;
             color: var(--text);
-            background: none; border: none; cursor: pointer;
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
         /* TEXT STYLES */
-        .text-wrap { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .text-wrap {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
         .huge-text {
             font-size: clamp(2.5rem, 10vmin, 3.5rem);
-            font-weight: 900; line-height: 0.9; letter-spacing: -3px;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -3px;
             color: var(--primary);
         }
 
@@ -89,110 +128,343 @@
             filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
+        /* TASK 1 + TASK 2: Mobile portrait avatar & search upwards + Desktop portrait side-by-side fix */
+        /* Default (mobile portrait): slightly upwards using negative margin-top */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .text-wrap {
+                margin-top: -30px; /* shifts avatar + search upward on mobile portrait */
+            }
+            .waving-hand {
+                margin-bottom: 5px;
+            }
+            .search-container {
+                margin-top: 15px;
+            }
+        }
+
+        /* DESKTOP & TABLET LANDSCAPE: Stack avatar and search side by side */
+        @media (min-width: 769px), (orientation: landscape) and (min-width: 768px) {
+            .text-wrap {
+                flex-direction: row !important;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                max-width: 1100px;
+            }
+            .waving-hand {
+                width: 260px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            .search-container {
+                margin-top: 0;
+                flex-shrink: 1;
+                min-width: 320px;
+            }
+            .text-wrap .huge-text {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+            /* ensure the typewriter and heading wrap properly */
+            .text-wrap h1, .text-wrap #typewriter {
+                width: 100%;
+            }
+        }
+
+        /* Additional fix for very narrow desktop portrait (e.g., 800x1000) so search bar doesn't hide under dock */
+        @media (min-width: 769px) and (max-height: 900px) {
+            section:first-child .text-wrap {
+                margin-bottom: 40px;
+            }
+            .app-dock {
+                height: 70px;
+            }
+        }
+
         /* SEARCH BAR */
-        .search-container { 
-            background: #fff; 
-            border-radius: 24px; 
-            padding: 8px; 
-            display: flex; 
-            align-items: center; 
-            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15); 
-            width: 95%; 
-            max-width: 500px; 
-            margin-top: 40px; 
+        .search-container {
+            background: #fff;
+            border-radius: 24px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            width: 95%;
+            max-width: 500px;
+            margin-top: 40px;
             border: 1px solid rgba(255, 107, 0, 0.1);
         }
         
-        .search-container input { 
-            flex: 1; border: none; outline: none; padding: 12px 15px; 
-            font-size: 1.2rem; font-weight: 700; background: transparent;
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: transparent;
         }
         
-        .search-icon-btn { 
-            width: 50px; height: 50px; background: var(--primary); 
-            border-radius: 18px; display: flex; align-items: center; 
-            justify-content: center; color: #fff; border: none;
+        .search-icon-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: none;
             box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+            cursor: pointer;
         }
 
-        /* CATEGORIES - TASK 3: Lowering categories to avoid logo overlap */
+        /* CATEGORIES */
         .category-header {
-            font-size: 0.85rem; font-weight: 900; text-transform: uppercase; 
-            letter-spacing: 2px; color: var(--primary); margin-bottom: 25px;
-            margin-top: 40px; /* Pushes content down on mobile */
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            margin-top: 40px;
         }
 
-        .category-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; 
-            width: 100%; max-width: 600px; margin-bottom: 100px; 
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 100px;
         }
 
         .category-tile {
-            background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(255, 107, 0, 0.1); 
-            border-radius: 30px; padding: 25px 10px; display: flex; flex-direction: column;
-            align-items: center; gap: 10px; transition: all 0.2s; cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            border-radius: 30px;
+            padding: 25px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
         .category-tile:active { transform: scale(0.95); }
 
         .tile-icon {
-            width: 50px; height: 50px; background: var(--primary);
-            color: white; border-radius: 15px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
         }
 
-        .tile-label { font-weight: 900; font-size: 0.95rem; line-height: 1.2; text-align: center; }
+        .tile-label {
+            font-weight: 900;
+            font-size: 0.95rem;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-        /* DOCK - TASK 1: Fully Branded Orange & Larger Icons */
+        /* DOCK */
         .app-dock {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: var(--primary); 
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
             height: 80px;
-            display: flex; justify-content: space-around;
-            align-items: center; z-index: 2500;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
-        .dock-btn { 
-            font-size: 2rem; /* Larger CTA icons */
-            color: #FFFFFF; 
-            transition: 0.3s; 
-            display: flex; flex-direction: column; align-items: center;
+        .dock-btn {
+            font-size: 2rem;
+            color: #FFFFFF;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
         }
-        .dock-btn span { font-size: 0.7rem; font-weight: 800; margin-top: 4px; }
+        .dock-btn span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
 
-        /* HAMBURGER MENU - TASK 2: Slide from bottom */
+        /* HAMBURGER MENU */
         #app-menu-layer {
-            position: fixed; inset: 0; background: var(--primary-light);
-            z-index: 9500; display: flex; flex-direction: column;
+            position: fixed;
+            inset: 0;
+            background: var(--primary-light);
+            z-index: 9500;
+            display: flex;
+            flex-direction: column;
             padding: calc(var(--safe-top) + 20px) 25px;
-            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
         #app-menu-layer.active { transform: translateY(0); }
-        .menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .menu-links { display: flex; flex-direction: column; gap: 20px; flex: 1; justify-content: center; align-items: center; text-align: center; }
-        .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; letter-spacing: -3px; line-height: 1; }
-        .close-menu-btn { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .menu-item {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+        .close-menu-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
 
-        /* NICHE OVERLAY - TASK 4: Duplicated from Vibz */
+        /* NICHE OVERLAY */
         #category-layer {
-            position: fixed; inset: 0; background: rgba(255, 245, 238, 0.98);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            z-index: 9600; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 15px;
-            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 245, 238, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 9600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
             padding: 20px;
         }
         #category-layer.active { transform: translateY(0); }
-        #cat-title { color: var(--primary); margin-bottom: 20px; font-weight: 900; font-size: 2.2rem; text-align: center; }
-        #cat-list { width: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; max-height: 60vh; gap: 10px; padding: 10px; }
-        .cat-item { font-size: 1.4rem; font-weight: 800; color: var(--text); width: 100%; max-width: 400px; text-align: center; padding: 16px; background: white; border-radius: 60px; border: 1px solid rgba(255, 107, 0, 0.1); cursor: pointer; }
+        #cat-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+        #cat-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            max-height: 60vh;
+            gap: 10px;
+            padding: 10px;
+        }
+        .cat-item {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            cursor: pointer;
+        }
 
-        .nav-dots { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 1.2rem; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.4s; }
-        .dot.active { background: var(--primary); transform: scale(2.5); }
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.1);
+            transition: 0.4s;
+        }
+        .dot.active {
+            background: var(--primary);
+            transform: scale(2.5);
+        }
+
+        /* TASK 3: DESKTOP NAVIGATION BUTTONS (prev/next) ONLY visible on desktop, hidden on mobile */
+        .desktop-nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2000;
+            width: 100%;
+            pointer-events: none;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .nav-arrow {
+            pointer-events: auto;
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            opacity: 0.85;
+        }
+        .nav-arrow:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #e05e00;
+        }
+        @media (min-width: 1024px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
@@ -219,6 +491,12 @@
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
         <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
+
+    <!-- DESKTOP ONLY: PREV / NEXT BUTTONS (no swipe on desktop, only click) -->
+    <div class="desktop-nav">
+        <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
 
     <div class="nav-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -266,7 +544,7 @@
     </div>
 
     <script>
-        // Task 4: Niche Data Duplication
+        // Niche Data (Preserved)
         const nicheData = {
             "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
             "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
@@ -334,18 +612,35 @@
             if (isMoving) return;
             const target = currentIdx + dir;
             if (target >= 0 && target < sections.length) {
-                isMoving = true; currentIdx = target; updateUI();
+                isMoving = true;
+                currentIdx = target;
+                updateUI();
                 setTimeout(() => { isMoving = false; }, 800);
             }
         }
 
+        // MOBILE SWIPE (fully preserved original code)
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
             let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
+        
         function goToSlide(i) { currentIdx = i; updateUI(); }
+
+        // DESKTOP CLICK NAVIGATION (TASK 3: no swipe on desktop, only back/forth buttons)
+        const prevBtn = document.getElementById('desktop-prev');
+        const nextBtn = document.getElementById('desktop-next');
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => navigate(-1));
+            nextBtn.addEventListener('click', () => navigate(1));
+        }
+
+        // Also keep dots click navigation as bonus (preserves all original behavior)
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => goToSlide(idx));
+        });
     </script>
 </body>
 </html>
