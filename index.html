@@ -127,12 +127,8 @@
             filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
-        /* ============================================
-           MOBILE PORTRAIT VIEW - KEPT EXACTLY AS IS
-           (No changes to original mobile layout)
-           ============================================ */
+        /* MOBILE PORTRAIT VIEW - KEPT EXACTLY AS IS */
         @media (max-width: 768px) and (orientation: portrait) {
-            /* Original mobile styles preserved exactly */
             .text-wrap {
                 flex-direction: column;
             }
@@ -152,12 +148,8 @@
             }
         }
 
-        /* ============================================
-           DESKTOP & TABLET LANDSCAPE - PERFECT CENTERED LAYOUT
-           Avatar + Search Bar side by side, perfectly centered like Google
-           ============================================ */
+        /* DESKTOP & TABLET LANDSCAPE */
         @media (min-width: 769px) {
-            /* First slide specific - perfect centering */
             section:first-child .text-wrap {
                 display: flex;
                 flex-direction: column;
@@ -166,7 +158,6 @@
                 width: 100%;
             }
             
-            /* Desktop hero row - perfectly centered side by side */
             .desktop-hero-row {
                 display: flex;
                 flex-direction: row;
@@ -198,7 +189,6 @@
                 width: 100%;
             }
             
-            /* Desktop tagline and typewriter - centered below */
             .desktop-tagline {
                 text-align: center;
                 margin-top: 0.5rem;
@@ -209,7 +199,7 @@
             }
         }
 
-        /* SEARCH BAR - Google-like styling */
+        /* SEARCH BAR */
         .search-container {
             background: #fff;
             border-radius: 24px;
@@ -334,6 +324,65 @@
             margin-top: 4px;
         }
 
+        /* SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK */
+        .swipe-counter {
+            position: fixed;
+            bottom: 90px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 2400;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+        
+        .counter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .counter-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 12px;
+        }
+        
+        /* Hide default side dots on mobile when counter is active */
+        .nav-dots {
+            display: none;
+        }
+        
+        /* For desktop, keep side dots visible as well (optional but not interfering) */
+        @media (min-width: 769px) {
+            .nav-dots {
+                display: flex;
+            }
+            .swipe-counter {
+                bottom: 100px;
+            }
+        }
+        
+        /* On mobile portrait, ensure counter is just above dock */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .swipe-counter {
+                bottom: 90px;
+            }
+        }
+
         /* HAMBURGER MENU */
         #app-menu-layer {
             position: fixed;
@@ -432,28 +481,6 @@
             cursor: pointer;
         }
 
-        .nav-dots {
-            position: fixed;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.1);
-            transition: 0.4s;
-        }
-        .dot.active {
-            background: var(--primary);
-            transform: scale(2.5);
-        }
-
         /* DESKTOP NAVIGATION BUTTONS */
         .desktop-nav {
             display: none;
@@ -525,14 +552,12 @@
         <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
     </div>
 
-    <div class="nav-dots">
-        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    </div>
+    <!-- SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK -->
+    <div class="swipe-counter" id="swipeCounter"></div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: HOME - Mobile uses original layout, Desktop uses centered side-by-side layout -->
+        <!-- SLIDE 0: HOME -->
         <section class="active">
-            <!-- Mobile version (original layout, hidden on desktop) -->
             <div class="text-wrap mobile-only-layout">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
                 <h1 class="huge-text">I build websites for:</h1>
@@ -543,7 +568,6 @@
                 </div>
             </div>
             
-            <!-- Desktop version (centered side-by-side like Google, hidden on mobile) -->
             <div class="text-wrap desktop-only-layout">
                 <div class="desktop-hero-row">
                     <div class="desktop-avatar">
@@ -594,7 +618,6 @@
     </div>
 
     <style>
-        /* Hide/show logic for mobile vs desktop layouts */
         .mobile-only-layout {
             display: flex;
         }
@@ -626,7 +649,6 @@
     </style>
 
     <script>
-        // Niche Data
         const nicheData = {
             "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
             "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
@@ -637,11 +659,9 @@
 
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         
-        // Mobile typewriter
         let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
         const typewriterElM = document.getElementById('typewriter-mobile');
         
-        // Desktop typewriter
         let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
         const typewriterElD = document.getElementById('typewriter-desktop');
         
@@ -670,7 +690,36 @@
         window.onload = function() {
             typeMobile();
             typeDesktop();
+            createSwipeCounter();
         };
+        
+        function createSwipeCounter() {
+            const sections = document.querySelectorAll('section');
+            const counterContainer = document.getElementById('swipeCounter');
+            if (!counterContainer) return;
+            
+            counterContainer.innerHTML = '';
+            for (let i = 0; i < sections.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'counter-dot';
+                if (i === currentIdx) dot.classList.add('active');
+                dot.addEventListener('click', (function(index) {
+                    return function() { goToSlide(index); };
+                })(i));
+                counterContainer.appendChild(dot);
+            }
+        }
+        
+        function updateSwipeCounter() {
+            const dots = document.querySelectorAll('.counter-dot');
+            dots.forEach((dot, i) => {
+                if (i === currentIdx) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
         
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
@@ -710,7 +759,6 @@
         }
         
         const sections = document.querySelectorAll('section');
-        const dots = document.querySelectorAll('.dot');
         let currentIdx = 0, isMoving = false;
         
         function updateUI() {
@@ -719,7 +767,7 @@
                 if (i === currentIdx) sec.classList.add('active');
                 else if (i < currentIdx) sec.classList.add('prev');
             });
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
+            updateSwipeCounter();
         }
         
         function navigate(dir) {
@@ -733,7 +781,6 @@
             }
         }
         
-        // Mobile swipe preserved
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
@@ -741,19 +788,17 @@
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
         
-        function goToSlide(i) { currentIdx = i; updateUI(); }
+        function goToSlide(i) { 
+            currentIdx = i; 
+            updateUI(); 
+        }
         
-        // Desktop navigation
         const prevBtn = document.getElementById('desktop-prev');
         const nextBtn = document.getElementById('desktop-next');
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => navigate(-1));
             nextBtn.addEventListener('click', () => navigate(1));
         }
-        
-        dots.forEach((dot, idx) => {
-            dot.addEventListener('click', () => goToSlide(idx));
-        });
     </script>
 </body>
 </html>
