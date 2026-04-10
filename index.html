@@ -566,6 +566,12 @@
             border-radius: 60px;
             border: 1px solid rgba(255, 107, 0, 0.1);
             cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.02);
         }
 
         /* DESKTOP NAVIGATION BUTTONS */
@@ -781,6 +787,9 @@
     </style>
 
     <script>
+        // ============================================
+        // NICHE DATA - Complete category structure
+        // ============================================
         const nicheData = {
             "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
             "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
@@ -789,8 +798,41 @@
             "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops"]
         };
 
+        // ============================================
+        // TYPEWRITER WORDS FOR ANIMATION
+        // ============================================
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         
+        // ============================================
+        // FUNNEL REDIRECT FUNCTION - Opens the funnel with the selected niche
+        // This is the key function that detects each niche and redirects to the funnel
+        // ============================================
+        function redirectToFunnel(nicheName) {
+            // Clean and format the niche name for URL
+            const formattedNiche = nicheName.toLowerCase().trim();
+            
+            // Show loading state on search button if available
+            const loaderIcon = document.querySelector('.search-icon-btn i');
+            if (loaderIcon) {
+                loaderIcon.className = 'fa-solid fa-spinner fa-spin';
+            }
+            
+            // Set the search input value for consistency
+            const mobileInput = document.getElementById('mainSearch');
+            const desktopInput = document.getElementById('mainSearchDesktop');
+            if (mobileInput) mobileInput.value = nicheName;
+            if (desktopInput) desktopInput.value = nicheName;
+            
+            // Redirect to the funnel page with the niche parameter
+            // Using the same funnel URL pattern as Vibz
+            setTimeout(function() {
+                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(nicheName);
+            }, 300);
+        }
+        
+        // ============================================
+        // TYPEWRITER FUNCTIONS (Mobile & Desktop)
+        // ============================================
         let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
         const typewriterElM = document.getElementById('typewriter-mobile');
         
@@ -819,12 +861,9 @@
             setTimeout(typeDesktop, speed);
         }
         
-        window.onload = function() {
-            typeMobile();
-            typeDesktop();
-            createSwipeCounter();
-        };
-        
+        // ============================================
+        // SWIPE COUNTER FUNCTIONS
+        // ============================================
         function createSwipeCounter() {
             const sections = document.querySelectorAll('section');
             const counterContainer = document.getElementById('swipeCounter');
@@ -853,9 +892,13 @@
             });
         }
         
+        // ============================================
+        // MENU & CATEGORY FUNCTIONS
+        // ============================================
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
         
+        // Open niche selection overlay for a sector
         function openNiche(sector) {
             const list = document.getElementById('cat-list');
             const title = document.getElementById('cat-title');
@@ -865,31 +908,38 @@
                 const div = document.createElement('div');
                 div.className = "cat-item";
                 div.textContent = niche;
+                // Each niche item redirects to the funnel when clicked
                 div.onclick = () => {
-                    const mobileInput = document.getElementById('mainSearch');
-                    const desktopInput = document.getElementById('mainSearchDesktop');
-                    if (mobileInput) mobileInput.value = niche;
-                    if (desktopInput) desktopInput.value = niche;
                     toggleCategories();
-                    triggerSearch();
+                    redirectToFunnel(niche);
                 };
                 list.appendChild(div);
             });
             toggleCategories();
         }
         
+        // ============================================
+        // SEARCH TRIGGER FUNCTIONS
+        // ============================================
         function triggerSearch() {
             const mobileVal = document.getElementById('mainSearch')?.value;
             const desktopVal = document.getElementById('mainSearchDesktop')?.value;
             const val = mobileVal || desktopVal;
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+            if(val) {
+                redirectToFunnel(val);
+            }
         }
         
         function triggerSearchDesktop() {
             const val = document.getElementById('mainSearchDesktop')?.value;
-            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
+            if(val) {
+                redirectToFunnel(val);
+            }
         }
         
+        // ============================================
+        // SLIDE NAVIGATION FUNCTIONS
+        // ============================================
         const sections = document.querySelectorAll('section');
         let currentIdx = 0, isMoving = false;
         
@@ -913,6 +963,7 @@
             }
         }
         
+        // Touch swipe for mobile
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
@@ -925,12 +976,24 @@
             updateUI(); 
         }
         
+        // ============================================
+        // DESKTOP NAVIGATION BUTTONS
+        // ============================================
         const prevBtn = document.getElementById('desktop-prev');
         const nextBtn = document.getElementById('desktop-next');
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => navigate(-1));
             nextBtn.addEventListener('click', () => navigate(1));
         }
+        
+        // ============================================
+        // WINDOW ONLOAD INITIALIZATION
+        // ============================================
+        window.onload = function() {
+            typeMobile();
+            typeDesktop();
+            createSwipeCounter();
+        };
     </script>
 </body>
 </html>
