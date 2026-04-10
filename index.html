@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -566,12 +566,6 @@
             border-radius: 60px;
             border: 1px solid rgba(255, 107, 0, 0.1);
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        .cat-item:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.02);
         }
 
         /* DESKTOP NAVIGATION BUTTONS */
@@ -862,82 +856,6 @@
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
         
-        // Navigate to category-specific page (dynamically generated)
-        function goToCategoryPage(category) {
-            // Create a clean filename from category name
-            const filename = category.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.html';
-            
-            // Generate the category page HTML
-            const pageHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | ${category} Web Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #FF6B00; --primary-light: #FFF5EE; --text: #121212; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--primary-light); min-height: 100vh; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 100px 25px 100px; text-align: center; }
-        h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; color: var(--primary); letter-spacing: -2px; margin-bottom: 20px; }
-        .subtitle { font-size: 1.2rem; color: #444; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
-        .cta-btn { background: var(--primary); color: white; border: none; padding: 16px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 800; cursor: pointer; transition: 0.2s; margin: 20px 0; display: inline-block; text-decoration: none; }
-        .cta-btn:hover { transform: scale(1.05); background: #e05e00; }
-        .back-link { display: inline-block; margin-top: 30px; color: var(--primary); text-decoration: none; font-weight: 700; }
-        .back-link:hover { text-decoration: underline; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 50px 0; }
-        .feature-card { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(255,107,0,0.1); transition: 0.2s; }
-        .feature-card:hover { transform: translateY(-5px); }
-        .feature-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .feature-card p { color: #666; }
-        .app-dock { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary); height: 70px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .dock-btn { font-size: 1.5rem; color: white; display: flex; flex-direction: column; align-items: center; text-decoration: none; }
-        .dock-btn span { font-size: 0.65rem; margin-top: 4px; }
-        @media (max-width: 768px) { h1 { font-size: 2rem; } .container { padding: 80px 20px 80px; } .feature-grid { gap: 15px; } .feature-card { padding: 20px; } }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>${category} Websites<br>Built For Success</h1>
-        <p class="subtitle">Professional, high-converting websites tailored specifically for ${category.toLowerCase()} businesses. Get more customers and grow your brand online.</p>
-        <div class="feature-grid">
-            <div class="feature-card"><i class="fa-solid fa-mobile-screen-button"></i><h3>Mobile Optimized</h3><p>Perfect on all devices</p></div>
-            <div class="feature-card"><i class="fa-solid fa-magnifying-glass-chart"></i><h3>SEO Ready</h3><p>Get found on Google</p></div>
-            <div class="feature-card"><i class="fa-solid fa-bolt"></i><h3>Lightning Fast</h3><p>Blazing speed</p></div>
-        </div>
-        <a href="https://wa.me/447706345874" class="cta-btn"><i class="fa-brands fa-whatsapp"></i> Get Your ${category} Website →</a>
-        <br>
-        <a href="javascript:history.back()" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to FAZ HOQ</a>
-    </div>
-    <div class="app-dock">
-        <a href="javascript:history.back()" class="dock-btn"><i class="fa-solid fa-house"></i><span>BACK</span></a>
-        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-envelope"></i><span>EMAIL</span></a>
-    </div>
-</body>
-</html>`;
-            
-            // Create a Blob and trigger download
-            const blob = new Blob([pageHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            // Also open in new window for immediate preview
-            const newWindow = window.open();
-            newWindow.document.write(pageHTML);
-            newWindow.document.close();
-        }
-        
         function openNiche(sector) {
             const list = document.getElementById('cat-list');
             const title = document.getElementById('cat-title');
@@ -948,8 +866,12 @@
                 div.className = "cat-item";
                 div.textContent = niche;
                 div.onclick = () => {
+                    const mobileInput = document.getElementById('mainSearch');
+                    const desktopInput = document.getElementById('mainSearchDesktop');
+                    if (mobileInput) mobileInput.value = niche;
+                    if (desktopInput) desktopInput.value = niche;
                     toggleCategories();
-                    goToCategoryPage(niche);
+                    triggerSearch();
                 };
                 list.appendChild(div);
             });
@@ -960,16 +882,12 @@
             const mobileVal = document.getElementById('mainSearch')?.value;
             const desktopVal = document.getElementById('mainSearchDesktop')?.value;
             const val = mobileVal || desktopVal;
-            if(val) {
-                goToCategoryPage(val);
-            }
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
         
         function triggerSearchDesktop() {
             const val = document.getElementById('mainSearchDesktop')?.value;
-            if(val) {
-                goToCategoryPage(val);
-            }
+            if(val) window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(val);
         }
         
         const sections = document.querySelectorAll('section');
