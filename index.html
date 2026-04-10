@@ -799,17 +799,64 @@
         };
 
         // ============================================
-        // TYPEWRITER WORDS FOR ANIMATION
+        // NICHE TO FOLDER PATH MAPPING
+        // Converts "Barbers" -> "barber", "Dentists" -> "dentist", etc.
         // ============================================
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
+        function getNicheFolderName(niche) {
+            const mapping = {
+                "Barbers": "barber",
+                "Dentists": "dentist",
+                "Gyms & Studios": "gym",
+                "Spas & Beauty": "spa",
+                "Physiotherapists": "physio",
+                "Yoga Instructors": "yoga",
+                "Therapists": "therapist",
+                "Plumbers": "plumber",
+                "Electricians": "electrician",
+                "Landscapers": "landscaper",
+                "Cleaners": "cleaner",
+                "Roofers": "roofer",
+                "Carpenters": "carpenter",
+                "Locksmiths": "locksmith",
+                "Lawyers": "lawyer",
+                "Accountants": "accountant",
+                "Real Estate": "realestate",
+                "Tutors": "tutor",
+                "Marketing Agencies": "marketing",
+                "Consultants": "consultant",
+                "Restaurants": "restaurant",
+                "Cafes & Coffee": "cafe",
+                "Bakeries": "bakery",
+                "Bars & Clubs": "bar",
+                "Catering": "catering",
+                "Takeaways": "takeaway",
+                "Boutiques": "boutique",
+                "E-commerce Stores": "ecommerce",
+                "Photographers": "photographer",
+                "Artists": "artist",
+                "Florists": "florist",
+                "Pet Shops": "petshop"
+            };
+            
+            if (mapping[niche]) {
+                return mapping[niche];
+            }
+            // Default: lowercase and remove spaces/special chars
+            return niche.toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
         
         // ============================================
-        // FUNNEL REDIRECT FUNCTION - Opens the funnel with the selected niche
-        // This is the key function that detects each niche and redirects to the funnel
+        // FUNNEL REDIRECT FUNCTION - Opens the correct FAZ HOQ niche page
+        // Redirects to: fazhoq/{folder}/index.html
+        // Example: "Barbers" -> "fazhoq/barber/index.html"
         // ============================================
-        function redirectToFunnel(nicheName) {
-            // Clean and format the niche name for URL
-            const formattedNiche = nicheName.toLowerCase().trim();
+        function redirectToNichePage(nicheName) {
+            // Get the folder name for this niche
+            const folderName = getNicheFolderName(nicheName);
+            
+            // Build the URL - using relative path to go to the niche subdirectory
+            // This will look for: barber/index.html, dentist/index.html, etc.
+            const targetUrl = folderName + "/index.html";
             
             // Show loading state on search button if available
             const loaderIcon = document.querySelector('.search-icon-btn i');
@@ -823,12 +870,16 @@
             if (mobileInput) mobileInput.value = nicheName;
             if (desktopInput) desktopInput.value = nicheName;
             
-            // Redirect to the funnel page with the niche parameter
-            // Using the same funnel URL pattern as Vibz
+            // Redirect to the niche page
             setTimeout(function() {
-                window.location.href = "https://www.vibz.co.uk/funnel.html?niche=" + encodeURIComponent(nicheName);
-            }, 300);
+                window.location.href = targetUrl;
+            }, 200);
         }
+        
+        // ============================================
+        // TYPEWRITER WORDS FOR ANIMATION
+        // ============================================
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         
         // ============================================
         // TYPEWRITER FUNCTIONS (Mobile & Desktop)
@@ -908,10 +959,10 @@
                 const div = document.createElement('div');
                 div.className = "cat-item";
                 div.textContent = niche;
-                // Each niche item redirects to the funnel when clicked
+                // Each niche item redirects to its dedicated page when clicked
                 div.onclick = () => {
                     toggleCategories();
-                    redirectToFunnel(niche);
+                    redirectToNichePage(niche);
                 };
                 list.appendChild(div);
             });
@@ -926,14 +977,14 @@
             const desktopVal = document.getElementById('mainSearchDesktop')?.value;
             const val = mobileVal || desktopVal;
             if(val) {
-                redirectToFunnel(val);
+                redirectToNichePage(val);
             }
         }
         
         function triggerSearchDesktop() {
             const val = document.getElementById('mainSearchDesktop')?.value;
             if(val) {
-                redirectToFunnel(val);
+                redirectToNichePage(val);
             }
         }
         
