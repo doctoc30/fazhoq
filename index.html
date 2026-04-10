@@ -128,30 +128,25 @@
         }
 
         /* ============================================
-           MOBILE PORTRAIT - KEPT EXACTLY AS IS
+           MOBILE PORTRAIT - LIFT AVATAR SLIGHTLY UP
            ============================================ */
         @media (max-width: 768px) and (orientation: portrait) {
-            .text-wrap {
-                flex-direction: column;
+            .mobile-only-layout {
+                margin-top: -30px;
             }
             .waving-hand {
-                width: clamp(220px, 60vw, 380px);
-                margin-bottom: 20px;
+                margin-top: -20px;
+                margin-bottom: 5px;
             }
             .search-container {
-                margin-top: 40px;
-            }
-            .desktop-hero-row {
-                display: none;
+                margin-top: 30px;
             }
         }
 
         /* ============================================
-           TABLET PORTRAIT - STACKED VERTICALLY (same as mobile)
-           Like the reference image: Avatar on top, search below
+           TABLET PORTRAIT - STACKED VERTICALLY (NO LIFT, NORMAL POSITION)
            ============================================ */
         @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            /* Tablet portrait - stack avatar above search bar (no side-by-side) */
             section:first-child .text-wrap {
                 display: flex;
                 flex-direction: column;
@@ -160,31 +155,27 @@
                 width: 100%;
             }
             
-            /* Hide desktop side-by-side layout on tablet portrait */
             .desktop-only-layout {
                 display: none !important;
             }
             
-            /* Show mobile stacked layout on tablet portrait */
             .mobile-only-layout {
                 display: flex !important;
                 flex-direction: column;
                 align-items: center;
+                margin-top: 0;
             }
             
             .waving-hand {
                 width: 280px;
                 margin-bottom: 20px;
+                margin-top: 0;
             }
             
             .search-container {
                 margin-top: 40px;
                 max-width: 500px;
                 width: 90%;
-            }
-            
-            .desktop-hero-row {
-                display: none;
             }
         }
 
@@ -658,25 +649,29 @@
         /* Default: show mobile layout, hide desktop layout */
         .mobile-only-layout {
             display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .desktop-only-layout {
             display: none;
         }
         
-        /* Mobile portrait: keep mobile layout */
+        /* Mobile portrait: keep mobile layout with lift */
         @media (max-width: 768px) and (orientation: portrait) {
             .mobile-only-layout {
                 display: flex;
+                margin-top: -25px;
             }
             .desktop-only-layout {
                 display: none;
             }
         }
         
-        /* Tablet portrait: show mobile stacked layout (like reference image) */
+        /* Tablet portrait: show mobile stacked layout (NO lift, normal position) */
         @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
             .mobile-only-layout {
                 display: flex !important;
+                margin-top: 0;
             }
             .desktop-only-layout {
                 display: none !important;
