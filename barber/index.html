@@ -2,373 +2,411 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fazhoq | Elite Design Agency</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | Barber Web Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #ffffff;
-            --accent: #FF6B00;
-            --dark: #121212;
-            --navy: #0A192F;
-            --text-gray: #4a4a4a;
-            --light-gray: #f9f9f9;
-            --border: #eeeeee;
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --bg: #FFFFFF;
+            --text: #121212;
+            --gray: #666;
+            --border: rgba(255, 107, 0, 0.1);
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+            --standard: #4CAF50;
+            --premium: #2196F3;
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--dark);
-            overflow-x: hidden;
-            /* Removed smooth scroll for a rigid feel */
-            scroll-behavior: auto; 
         }
 
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        /* ================= NAVIGATION (RIGID DOCK) ================= */
-        nav {
-            position: fixed;
-            top: 0;
+        body, html {
+            height: 100%;
             width: 100%;
-            padding: 1.2rem 6%;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
+            background-color: var(--primary-light);
+            color: var(--text);
+            overflow: hidden; 
+            position: fixed;
+        }
+
+        #app-container {
+            height: 100vh;
+            display: flex; 
+            flex-direction: column;
+            position: relative;
+        }
+
+        header {
+            padding: calc(var(--safe-top) + 20px) 25px 10px;
+            display: flex; 
+            justify-content: flex-start; /* LOGICAL LEFT ALIGNMENT RESTORED */
             align-items: center;
-            z-index: 1000;
-            background: #ffffff; /* Solid background for rigid feel */
-            border-bottom: 2px solid var(--border);
+            background: var(--primary-light);
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
         }
 
-        .logo {
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--dark);
-            letter-spacing: -1.5px;
-            text-transform: lowercase;
+        .header-logo { 
+            font-size: 2.2rem;
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            color: var(--primary); 
+        }
+        .header-logo span { color: #000000; }
+
+        .content-scroll {
+            flex: 1; 
+            overflow: hidden; 
+            position: relative;
+            display: flex; 
+            flex-direction: column;
+            height: 100vh;
         }
 
-        .logo span {
-            color: var(--accent);
-        }
-        
-        .nav-left {
-            justify-self: start;
-        }
-
-        .nav-center {
-            justify-self: center;
-        }
-
-        .nav-right {
-            justify-self: end;
-        }
-
-        .nav-btn {
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px; /* Sharper corners for rigid look */
-            border: 2px solid var(--dark);
-            color: var(--dark);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            cursor: default;
-            display: inline-block;
-            transition: 0.2s ease;
-        }
-
-        .hamburger-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
+        #main-content-wrapper {
+            width: 100%;
+            height: 100%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        /* ================= MENU OVERLAY ================= */
-        .menu-overlay {
-            position: fixed;
+        .form-screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 20px 25px calc(var(--safe-bottom) + 85px); /* Offset for Dock */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* VERTICAL CENTER FOR BUTTONS */
+            position: absolute;
             top: 0;
             left: 0;
+            background: var(--primary-light);
+        }
+
+        /* Scrolled view for long lists */
+        #step-7, #step-8 {
+            overflow-y: auto;
+            justify-content: flex-start;
+            padding-top: 130px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .form-screen.active {
+            display: flex;
+            animation: slideInRigid 0.35s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+            z-index: 5;
+        }
+
+        @keyframes slideInRigid {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .step-header {
             width: 100%;
-            height: 100%;
-            background: var(--bg);
-            z-index: 1001;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .menu-content {
-            height: 100%;
-            padding: 100px 6%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .menu-logo {
-            font-weight: 900;
-            font-size: 2rem;
-            letter-spacing: -1.5px;
-            text-transform: lowercase;
-        }
-
-        .menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .menu-link {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 900;
-            color: var(--dark);
-            text-decoration: none;
-            letter-spacing: -2px;
-            cursor: default;
-        }
-
-        /* ================= HERO SECTION ================= */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 6%;
-            background: #ffffff;
+            max-width: 800px;
+            margin-bottom: 35px; /* Spacing between title and buttons */
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 10vw, 7rem);
+        .step-header h1 {
+            font-size: 2.8rem;
             font-weight: 900;
             line-height: 0.95;
-            letter-spacing: -4px;
-            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            color: var(--primary);
         }
 
-        .typewriter-container {
-            color: var(--accent);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 1.2rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: default;
-        }
-
-        .btn-fill {
-            background: var(--dark);
-            color: white;
-        }
-
-        .btn-outline {
-            border: 2px solid var(--dark);
-            color: var(--dark);
-        }
-
-        /* ================= SECTIONS ================= */
-        section {
-            padding: 100px 6%;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-label {
-            color: var(--accent);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .stats-grid, .process-grid, .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .stat-item, .process-step, .feature-card {
-            padding: 3rem 2rem;
-            background: var(--light-gray);
-            border: 1px solid var(--border);
-        }
-
-        /* FAQ */
-        .faq-container { max-width: 800px; margin: 40px auto 0; }
-        .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-btn { 
-            width: 100%; padding: 1.5rem 0; background: none; border: none; 
-            display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .faq-content { max-height: 0; overflow: hidden; transition: 0.3s ease; }
-
-        footer {
-            padding: 80px 6%;
+        .vibz-input {
+            width: 100%; 
+            max-width: 450px;
+            padding: 20px; 
+            border-radius: 20px; 
+            border: 2px solid var(--border);
+            background: #fff; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            margin-bottom: 15px;
+            outline: none; 
+            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.1);
             text-align: center;
-            background: var(--dark);
-            color: white;
         }
 
-        @media (max-width: 768px) {
-            nav { padding: 1rem 5%; }
-            .nav-btn { display: none; }
-            .hero { padding-top: 120px; height: auto; min-height: 80vh; }
+        .vibz-btn {
+            width: 100%; 
+            max-width: 400px;
+            padding: 20px; 
+            border-radius: 20px; 
+            border: 1px solid var(--border);
+            background: #fff; 
+            color: var(--text); 
+            font-size: 1.15rem; 
+            font-weight: 800;
+            margin-bottom: 12px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.1);
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
         }
+
+        .vibz-btn.primary { background: var(--primary); color: #fff; border: none; }
+        .vibz-btn.back-btn { background: transparent; border: none; color: #999; margin-top: 10px; box-shadow: none; font-size: 0.9rem; }
+
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 12px; 
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); max-width: 800px; }
+        }
+
+        .service-card {
+            background: #fff; 
+            border: 2px solid var(--border); 
+            border-radius: 18px;
+            padding: 18px; 
+            cursor: pointer; 
+        }
+
+        .service-card.selected.standard { border-color: var(--standard); background: #f0fff0; }
+        .service-card.selected.premium { border-color: var(--premium); background: #f0f7ff; }
+
+        .app-dock {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--primary);
+            height: 75px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: var(--safe-bottom);
+        }
+        
+        .dock-btn {
+            font-size: 1.8rem;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+        }
+        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 3px; }
+
+        #app-menu-layer {
+            position: fixed; inset: 0; 
+            background: rgba(255, 245, 238, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9200;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            transform: translateY(100%); 
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active { transform: translateY(0); }
+
+        .pricing-cards-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; padding-bottom: 40px;}
     </style>
 </head>
 <body>
 
-    <div class="menu-overlay" id="menuOverlay">
-        <div class="menu-content">
-            <div class="menu-header">
-                <div class="menu-logo">fazhoq<span>.</span></div>
-                <button class="hamburger-btn" id="closeMenu" style="font-size: 2rem;">&times;</button>
-            </div>
-            <div class="menu-links">
-                <span class="menu-link">Home</span>
-                <span class="menu-link">Works</span>
-                <span class="menu-link">About</span>
-                <span class="menu-link">Contact</span>
-            </div>
+<div id="app-menu-layer">
+    <div style="position: absolute; top: 30px; right: 30px; font-size: 2.5rem;" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
+    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Home</a>
+    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Portfolio</a>
+    <a href="mailto:Fazhoq1977@gmail.com" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Contact</a>
+</div>
+
+<div id="app-container">
+    <header>
+        <div class="header-logo">FAZ HOQ<span>.</span></div>
+    </header>
+
+    <main class="content-scroll">
+        <div id="main-content-wrapper">
+            
+            <form id="funnelForm" onsubmit="return false;" style="width:100%; height:100%;">
+                
+                <div class="form-screen active" id="step-0">
+                    <div class="step-header"><h1>Build your barber brand.</h1></div>
+                    <button type="button" class="vibz-btn primary" onclick="startReady()">I'm Ready to Start</button>
+                    <a href="#" class="vibz-btn">Exploring Designs First</a>
+                </div>
+
+                <div class="form-screen" id="step-1">
+                    <div class="step-header"><h1>Shop Name?</h1></div>
+                    <input type="text" class="vibz-input" id="businessInput" placeholder="e.g. Fresh Cuts">
+                    <button type="button" class="vibz-btn primary" onclick="handleStep1()">Continue</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(0)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-1-5">
+                    <div class="step-header"><h1>Location</h1></div>
+                    <select class="vibz-input" id="countrySelect">
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="US">🇺🇸 United States</option>
+                    </select>
+                    <button type="button" class="vibz-btn primary" onclick="handleCountrySelect()">Continue</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(1)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-2">
+                    <div class="step-header"><h1>Project Status</h1></div>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('New')">New Website</button>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('Redesign')">Redesign Existing</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(1.5)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-3">
+                    <div class="step-header"><h1>Design Choice</h1></div>
+                    <button type="button" class="vibz-btn" onclick="goToStep(4)">I Have a Design Code</button>
+                    <button type="button" class="vibz-btn primary" onclick="setDesignType('Custom')">Request Custom Design</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(2)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-4">
+                    <div class="step-header"><h1>Enter Code</h1></div>
+                    <input type="text" class="vibz-input" id="designCode" placeholder="Code (e.g. Barber 101)">
+                    <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(3)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-5">
+                    <div class="step-header"><h1>Your Plan</h1></div>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Outright')">Buy Outright</button>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Monthly')">Monthly License</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(4)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-6">
+                    <div class="step-header"><h1>Urgency</h1></div>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('ASAP')">Start ASAP</button>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')">Flexible</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(5)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-7">
+                    <div class="step-header"><h1>Features</h1></div>
+                    <div class="services-grid" id="master-service-grid"></div>
+                    <button type="button" class="vibz-btn primary" onclick="next()">See Pricing</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(6)">Go Back</button>
+                </div>
+
+                <div class="form-screen" id="step-8">
+                    <div class="step-header"><h1>Pricing</h1></div>
+                    <div class="pricing-cards-container" id="pricing-cards-display"></div>
+                    <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(7)">Back to Features</button>
+                </div>
+
+                <div class="form-screen" id="step-9">
+                    <div class="step-header"><h1>Final Step</h1></div>
+                    <input type="text" class="vibz-input" id="fullName" placeholder="Your Name">
+                    <input type="email" class="vibz-input" id="emailAddress" placeholder="Email Address">
+                    <button type="button" class="vibz-btn primary" onclick="submitProject()">Submit Project</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(8)">Go Back</button>
+                </div>
+            </form>
         </div>
+    </main>
+
+    <div class="app-dock">
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
     </div>
+</div>
 
-    <nav>
-        <div class="nav-left logo">fazhoq<span>.</span></div>
-        <div class="nav-center">
-            <span class="nav-btn">Get Started</span>
-        </div>
-        <div class="nav-right">
-            <button class="hamburger-btn" id="hamburgerBtn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+<script>
+    const FEATURE_CONFIG = {
+        standard: ["Logo Design", "Services Grid", "WhatsApp Chat", "Contact Form", "Google Maps"],
+        premium: ["Staff Profiles", "Online Booking", "Stripe Payments", "Loyalty System", "VIP Portal"]
+    };
 
-    <section class="hero">
-        <h1 data-aos="fade-up">Digital Assets <br>Built For <br><span id="typewriter" class="typewriter-container"></span></h1>
-        <p style="max-width: 600px; margin: 0 auto; color: var(--text-gray);">
-            fazhoq engineers high-performance web experiences for brands that demand technical excellence and rigid aesthetics.
-        </p>
-        <div class="btn-group" data-aos="fade-up">
-            <span class="btn btn-fill">View Projects</span>
-            <span class="btn btn-outline">Start Building</span>
-        </div>
-    </section>
+    let currentStep = 0;
+    let selections = { businessName: '', services: [], planType: '', country: 'GB' };
 
-    <section id="stats">
-        <span class="section-label">Performance Metrics</span>
-        <h2 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px;">The fazhoq Standard</h2>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div style="font-size: 3rem; font-weight: 900; color: var(--accent);">99.9%</div>
-                <div style="font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Uptime reliability</div>
-            </div>
-            <div class="stat-item">
-                <div style="font-size: 3rem; font-weight: 900; color: var(--accent);">100</div>
-                <div style="font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">PageSpeed Score</div>
-            </div>
-            <div class="stat-item">
-                <div style="font-size: 3rem; font-weight: 900; color: var(--accent);">24/7</div>
-                <div style="font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Elite Support</div>
-            </div>
-        </div>
-    </section>
+    function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
+    function startReady() { currentStep = 1; updateUI(); }
+    function handleStep1() { 
+        const val = document.getElementById('businessInput').value;
+        if(val) { selections.businessName = val; currentStep = 1.5; updateUI(); }
+    }
+    function handleCountrySelect() { selections.country = document.getElementById('countrySelect').value; currentStep = 2; updateUI(); }
+    function setProjectType(v) { selections.projectType = v; next(); }
+    function setDesignType(v) { next(); }
+    function setPlanType(v) { selections.planType = v; next(); }
+    function setUrgency(v) { next(); }
+    function verifyDesign() { currentStep = 5; updateUI(); }
+    function next() { currentStep++; updateUI(); }
+    function goToStep(s) { currentStep = s; updateUI(); }
 
-    <section id="faq">
-        <span class="section-label">Information</span>
-        <h2 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px;">Common Queries</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFaq(this)">Development Timeline <i class="fa-solid fa-plus"></i></button>
-                <div class="faq-content"><p style="padding: 1rem 0;">Standard elite builds are delivered within 14-21 business days.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFaq(this)">Design Philosophy <i class="fa-solid fa-plus"></i></button>
-                <div class="faq-content"><p style="padding: 1rem 0;">We prioritize rigid structure, high speed, and conversion-centric UI.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="logo" style="color: white; font-size: 2.5rem; margin-bottom: 20px;">fazhoq<span>.</span></div>
-        <p style="opacity: 0.6; font-size: 0.9rem;">© 2026 FAZHOQ DIGITAL SYSTEMS. ALL RIGHTS RESERVED.</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({ duration: 600, once: true });
-
-        // Typewriter logic
-        const words = ["Scale.", "Speed.", "Elite Brands.", "Precision."];
-        let i = 0, j = 0, isDel = false;
-        function type() {
-            const current = words[i];
-            document.getElementById("typewriter").textContent = isDel ? current.substring(0, j--) : current.substring(0, j++);
-            if (!isDel && j > current.length) { isDel = true; setTimeout(type, 1500); }
-            else if (isDel && j === 0) { isDel = false; i = (i + 1) % words.length; setTimeout(type, 500); }
-            else { setTimeout(type, isDel ? 50 : 100); }
-        }
-        type();
-
-        // Menu Logic
-        const overlay = document.getElementById('menuOverlay');
-        document.getElementById('hamburgerBtn').addEventListener('click', () => {
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+    function initServiceList() {
+        const grid = document.getElementById('master-service-grid');
+        grid.innerHTML = '';
+        [...FEATURE_CONFIG.standard, ...FEATURE_CONFIG.premium].forEach(s => {
+            const tier = FEATURE_CONFIG.standard.includes(s) ? 'standard' : 'premium';
+            grid.innerHTML += `<div class="service-card" onclick="this.classList.toggle('selected'); this.classList.toggle('${tier}')"><strong>${s}</strong></div>`;
         });
-        document.getElementById('closeMenu').addEventListener('click', () => {
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    }
+
+    function renderPricing() {
+        const container = document.getElementById('pricing-cards-display');
+        container.innerHTML = `
+            <div class="service-card" style="text-align:center">
+                <h3 style="color:var(--standard)">STANDARD</h3>
+                <div style="font-size:1.8rem; font-weight:900;">£1500</div>
+                <button class="vibz-btn primary" style="margin-top:10px; width:100%;">Select</button>
+            </div>
+            <div class="service-card" style="text-align:center">
+                <h3 style="color:var(--premium)">PREMIUM</h3>
+                <div style="font-size:1.8rem; font-weight:900;">£3000</div>
+                <button class="vibz-btn primary" style="margin-top:10px; width:100%;">Select</button>
+            </div>`;
+    }
+
+    function updateUI() {
+        document.querySelectorAll('.form-screen').forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
         });
 
-        // FAQ Logic
-        function toggleFaq(btn) {
-            const content = btn.nextElementSibling;
-            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+        const stepId = currentStep === 1.5 ? '1-5' : currentStep;
+        const currentScreen = document.getElementById(`step-${stepId}`);
+        if(currentScreen) {
+            currentScreen.style.display = 'flex';
+            setTimeout(() => currentScreen.classList.add('active'), 10);
         }
-    </script>
+
+        if(currentStep === 7) initServiceList();
+        if(currentStep === 8) renderPricing();
+    }
+
+    function submitProject() { alert("Sent!"); window.location.reload(); }
+    window.onload = updateUI;
+</script>
+
 </body>
 </html>
