@@ -46,7 +46,7 @@
         header {
             padding: calc(var(--safe-top) + 20px) 25px 10px;
             display: flex; 
-            justify-content: center; /* Centered Logo since Portal is gone */
+            justify-content: flex-start; /* LOGICAL LEFT ALIGNMENT RESTORED */
             align-items: center;
             background: var(--primary-light);
             position: absolute;
@@ -85,22 +85,21 @@
             display: none;
             width: 100%;
             height: 100%;
-            /* Adjusted padding to push content into the optical center of mobile screens */
-            padding: 20px 25px 80px; 
+            padding: 20px 25px calc(var(--safe-bottom) + 85px); /* Offset for Dock */
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Keeps buttons in the middle of the view */
+            justify-content: center; /* VERTICAL CENTER FOR BUTTONS */
             position: absolute;
             top: 0;
             left: 0;
             background: var(--primary-light);
         }
 
-        /* Exceptions for screens with lists that MUST scroll */
+        /* Scrolled view for long lists */
         #step-7, #step-8 {
             overflow-y: auto;
             justify-content: flex-start;
-            padding-top: 120px;
+            padding-top: 130px;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -111,36 +110,29 @@
         }
 
         @keyframes slideInRigid {
-            from { opacity: 0; transform: scale(0.96); }
+            from { opacity: 0; transform: scale(0.98); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .step-header {
             width: 100%;
             max-width: 800px;
-            margin-bottom: 30px;
+            margin-bottom: 35px; /* Spacing between title and buttons */
             text-align: center;
         }
 
         .step-header h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            line-height: 0.9;
+            line-height: 0.95;
             letter-spacing: -2px;
             color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .step-header p { 
-            color: var(--gray); 
-            font-weight: 500; 
-            font-size: 1.1rem;
         }
 
         .vibz-input {
             width: 100%; 
-            max-width: 500px;
-            padding: 18px; 
+            max-width: 450px;
+            padding: 20px; 
             border-radius: 20px; 
             border: 2px solid var(--border);
             background: #fff; 
@@ -155,12 +147,12 @@
         .vibz-btn {
             width: 100%; 
             max-width: 400px;
-            padding: 18px; 
-            border-radius: 18px; 
+            padding: 20px; 
+            border-radius: 20px; 
             border: 1px solid var(--border);
             background: #fff; 
             color: var(--text); 
-            font-size: 1.1rem; 
+            font-size: 1.15rem; 
             font-weight: 800;
             margin-bottom: 12px; 
             cursor: pointer; 
@@ -171,19 +163,18 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            gap: 10px;
         }
 
         .vibz-btn.primary { background: var(--primary); color: #fff; border: none; }
-        .vibz-btn.back-btn { background: transparent; border: none; color: #999; margin-top: 5px; box-shadow: none; font-size: 0.9rem; }
+        .vibz-btn.back-btn { background: transparent; border: none; color: #999; margin-top: 10px; box-shadow: none; font-size: 0.9rem; }
 
         .services-grid { 
             display: grid; 
             grid-template-columns: 1fr; 
-            gap: 10px; 
+            gap: 12px; 
             width: 100%;
             max-width: 500px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         @media (min-width: 768px) {
@@ -193,8 +184,8 @@
         .service-card {
             background: #fff; 
             border: 2px solid var(--border); 
-            border-radius: 15px;
-            padding: 15px; 
+            border-radius: 18px;
+            padding: 18px; 
             cursor: pointer; 
         }
 
@@ -235,7 +226,7 @@
         }
         #app-menu-layer.active { transform: translateY(0); }
 
-        .pricing-cards-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
+        .pricing-cards-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; padding-bottom: 40px;}
     </style>
 </head>
 <body>
@@ -255,24 +246,23 @@
     <main class="content-scroll">
         <div id="main-content-wrapper">
             
-            <div class="step-header">
-                <h1 id="dynamic-title">Build your barber brand.</h1>
-            </div>
-
             <form id="funnelForm" onsubmit="return false;" style="width:100%; height:100%;">
                 
                 <div class="form-screen active" id="step-0">
+                    <div class="step-header"><h1>Build your barber brand.</h1></div>
                     <button type="button" class="vibz-btn primary" onclick="startReady()">I'm Ready to Start</button>
                     <a href="#" class="vibz-btn">Exploring Designs First</a>
                 </div>
 
                 <div class="form-screen" id="step-1">
-                    <input type="text" class="vibz-input" id="businessInput" placeholder="Shop Name?">
+                    <div class="step-header"><h1>Shop Name?</h1></div>
+                    <input type="text" class="vibz-input" id="businessInput" placeholder="e.g. Fresh Cuts">
                     <button type="button" class="vibz-btn primary" onclick="handleStep1()">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(0)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-1-5">
+                    <div class="step-header"><h1>Location</h1></div>
                     <select class="vibz-input" id="countrySelect">
                         <option value="GB">🇬🇧 United Kingdom</option>
                         <option value="US">🇺🇸 United States</option>
@@ -282,48 +272,56 @@
                 </div>
 
                 <div class="form-screen" id="step-2">
+                    <div class="step-header"><h1>Project Status</h1></div>
                     <button type="button" class="vibz-btn" onclick="setProjectType('New')">New Website</button>
                     <button type="button" class="vibz-btn" onclick="setProjectType('Redesign')">Redesign Existing</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(1.5)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-3">
+                    <div class="step-header"><h1>Design Choice</h1></div>
                     <button type="button" class="vibz-btn" onclick="goToStep(4)">I Have a Design Code</button>
                     <button type="button" class="vibz-btn primary" onclick="setDesignType('Custom')">Request Custom Design</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(2)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-4">
+                    <div class="step-header"><h1>Enter Code</h1></div>
                     <input type="text" class="vibz-input" id="designCode" placeholder="Code (e.g. Barber 101)">
                     <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(3)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-5">
+                    <div class="step-header"><h1>Your Plan</h1></div>
                     <button type="button" class="vibz-btn" onclick="setPlanType('Outright')">Buy Outright</button>
                     <button type="button" class="vibz-btn" onclick="setPlanType('Monthly')">Monthly License</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(4)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-6">
+                    <div class="step-header"><h1>Urgency</h1></div>
                     <button type="button" class="vibz-btn" onclick="setUrgency('ASAP')">Start ASAP</button>
                     <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')">Flexible</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(5)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-7">
+                    <div class="step-header"><h1>Features</h1></div>
                     <div class="services-grid" id="master-service-grid"></div>
                     <button type="button" class="vibz-btn primary" onclick="next()">See Pricing</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(6)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-8">
+                    <div class="step-header"><h1>Pricing</h1></div>
                     <div class="pricing-cards-container" id="pricing-cards-display"></div>
                     <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(7)">Back to Features</button>
                 </div>
 
                 <div class="form-screen" id="step-9">
+                    <div class="step-header"><h1>Final Step</h1></div>
                     <input type="text" class="vibz-input" id="fullName" placeholder="Your Name">
                     <input type="email" class="vibz-input" id="emailAddress" placeholder="Email Address">
                     <button type="button" class="vibz-btn primary" onclick="submitProject()">Submit Project</button>
@@ -342,7 +340,6 @@
 </div>
 
 <script>
-    // PRESERVED LOGIC
     const FEATURE_CONFIG = {
         standard: ["Logo Design", "Services Grid", "WhatsApp Chat", "Contact Form", "Google Maps"],
         premium: ["Staff Profiles", "Online Booking", "Stripe Payments", "Loyalty System", "VIP Portal"]
@@ -381,12 +378,12 @@
             <div class="service-card" style="text-align:center">
                 <h3 style="color:var(--standard)">STANDARD</h3>
                 <div style="font-size:1.8rem; font-weight:900;">£1500</div>
-                <button class="vibz-btn primary" style="margin-top:10px">Select</button>
+                <button class="vibz-btn primary" style="margin-top:10px; width:100%;">Select</button>
             </div>
             <div class="service-card" style="text-align:center">
                 <h3 style="color:var(--premium)">PREMIUM</h3>
                 <div style="font-size:1.8rem; font-weight:900;">£3000</div>
-                <button class="vibz-btn primary" style="margin-top:10px">Select</button>
+                <button class="vibz-btn primary" style="margin-top:10px; width:100%;">Select</button>
             </div>`;
     }
 
@@ -402,9 +399,6 @@
             currentScreen.style.display = 'flex';
             setTimeout(() => currentScreen.classList.add('active'), 10);
         }
-
-        const titles = { 0: "Build your barber brand.", 1: "Shop Name?", 1.5: "Location", 2: "Project Status", 3: "Design Choice", 4: "Enter Code", 5: "Your Plan", 6: "Urgency", 7: "Features", 8: "Pricing", 9: "Final Step" };
-        document.getElementById('dynamic-title').textContent = titles[currentStep] || "FAZ HOQ";
 
         if(currentStep === 7) initServiceList();
         if(currentStep === 8) renderPricing();
