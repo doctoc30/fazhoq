@@ -536,23 +536,23 @@
         
         .close-btn { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2); cursor: pointer; margin-top: 20px; }
 
-        /* ===== EXACT DOCK FROM REFERENCE - WITH CORRECT DIMENSIONS ===== */
+        /* ===== EXACT DOCK FROM FAZ HOQ REFERENCE - ORANGE BACKGROUND, 80px HEIGHT ===== */
         .app-dock {
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
+            position: fixed;
+            bottom: 0;
+            left: 0;
             right: 0;
             background: var(--primary);
             height: 80px;
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
-        .dock-btn { 
+        .dock-btn {
             font-size: 2rem;
             color: #FFFFFF;
             transition: 0.3s;
@@ -564,13 +564,13 @@
             background: none;
             border: none;
         }
-        .dock-btn span { 
+        .dock-btn span {
             font-size: 0.7rem;
             font-weight: 800;
             margin-top: 4px;
         }
 
-        /* ===== SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK ===== */
+        /* ===== EXACT SWIPE COUNTER FROM FAZ HOQ REFERENCE ===== */
         .swipe-counter {
             position: fixed;
             bottom: 90px;
@@ -1041,7 +1041,7 @@
                 <p id="dynamic-subtitle" style="color: var(--gray); font-size: 1rem; margin-top: -10px;"></p>
             </div>
 
-            <!-- SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK (EXACT COPY FROM REFERENCE) -->
+            <!-- EXACT SWIPE COUNTER FROM FAZ HOQ REFERENCE -->
             <div class="swipe-counter" id="swipeCounter"></div>
 
             <form id="funnelForm" onsubmit="return false;" style="width:100%; display:flex; flex-direction:column; align-items:center;">
@@ -1174,7 +1174,7 @@
         </div>
     </main>
 
-    <!-- EXACT DOCK FROM REFERENCE - ORANGE BACKGROUND, 80px HEIGHT -->
+    <!-- EXACT DOCK FROM FAZ HOQ REFERENCE - ORANGE BACKGROUND, 80px HEIGHT -->
     <nav class="app-dock">
         <a href="../index.html" class="dock-btn" onclick="event.preventDefault(); window.location.href='../index.html'"><i class="fa-solid fa-house-chimney"></i><span>HOME</span></a>
         <a href="javascript:void(0)" class="dock-btn" onclick="openServices()"><i class="fa-solid fa-bars-progress"></i><span>SERVICES</span></a>
