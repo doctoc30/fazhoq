@@ -536,7 +536,7 @@
         
         .close-btn { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2); cursor: pointer; margin-top: 20px; }
 
-        /* ===== EXACT DOCK FROM FAZ HOQ REFERENCE - ORANGE BACKGROUND, 80px HEIGHT ===== */
+        /* ===== RIGID DOCK - EXACT MATCH TO FAZ HOQ | DIGITAL ARCHITECT - NEVER SCROLLS ===== */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -550,6 +550,9 @@
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+            /* RIGID LOCK: no transform, no movement, stays fixed at bottom */
+            transform: translate3d(0, 0, 0);
+            will-change: auto;
         }
         
         .dock-btn {
@@ -570,49 +573,7 @@
             margin-top: 4px;
         }
 
-        /* ===== EXACT SWIPE COUNTER FROM FAZ HOQ REFERENCE ===== */
-        .swipe-counter {
-            position: fixed;
-            bottom: 90px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            z-index: 2400;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 40px;
-            width: fit-content;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            pointer-events: none;
-        }
-        
-        .counter-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-        
-        .counter-dot.active {
-            background: var(--primary);
-            width: 24px;
-            border-radius: 12px;
-        }
-        
-        @media (min-width: 768px) {
-            .swipe-counter {
-                bottom: 100px;
-            }
-        }
-
+        /* SWIPE COUNTER COMPLETELY REMOVED - NO TRACE */
         /* ===== FIXED: CONCEPT PREVIEW ===== */
         .concept-preview {
             background: #fff; 
@@ -1041,8 +1002,7 @@
                 <p id="dynamic-subtitle" style="color: var(--gray); font-size: 1rem; margin-top: -10px;"></p>
             </div>
 
-            <!-- EXACT SWIPE COUNTER FROM FAZ HOQ REFERENCE -->
-            <div class="swipe-counter" id="swipeCounter"></div>
+            <!-- SWIPE COUNTER REMOVED - DELETED -->
 
             <form id="funnelForm" onsubmit="return false;" style="width:100%; display:flex; flex-direction:column; align-items:center;">
                 
@@ -1174,11 +1134,11 @@
         </div>
     </main>
 
-    <!-- EXACT DOCK FROM FAZ HOQ REFERENCE - ORANGE BACKGROUND, 80px HEIGHT -->
+    <!-- RIGID DOCK - EXACT MATCH TO FAZ HOQ | DIGITAL ARCHITECT - NEVER SCROLLS -->
     <nav class="app-dock">
         <a href="../index.html" class="dock-btn" onclick="event.preventDefault(); window.location.href='../index.html'"><i class="fa-solid fa-house-chimney"></i><span>HOME</span></a>
         <a href="javascript:void(0)" class="dock-btn" onclick="openServices()"><i class="fa-solid fa-bars-progress"></i><span>SERVICES</span></a>
-        <div class="dock-center" onclick="next()"><i class="fa-solid fa-bolt"></i></div>
+        <div class="dock-btn" onclick="next()"><i class="fa-solid fa-bolt"></i><span>NEXT</span></div>
         <a href="#" class="dock-btn" onclick="event.preventDefault(); alert('Client Portal Coming Soon');"><i class="fa-solid fa-briefcase"></i><span>PORTAL</span></a>
         <button class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></button>
     </nav>
