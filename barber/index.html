@@ -536,7 +536,7 @@
         
         .close-btn { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2); cursor: pointer; margin-top: 20px; }
 
-        /* ===== RIGID DOCK - EXACT MATCH TO FAZ HOQ | DIGITAL ARCHITECT - NEVER SCROLLS ===== */
+        /* ===== EXACT DOCK FROM FAZ HOQ | DIGITAL ARCHITECT - RIGID, NO SCROLL ===== */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -550,7 +550,7 @@
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
-            /* RIGID LOCK: no transform, no movement, stays fixed at bottom */
+            /* RIGID LOCK - never moves */
             transform: translate3d(0, 0, 0);
             will-change: auto;
         }
@@ -573,7 +573,8 @@
             margin-top: 4px;
         }
 
-        /* SWIPE COUNTER COMPLETELY REMOVED - NO TRACE */
+        /* SWIPE COUNTER - COMPLETELY REMOVED - NO TRACE */
+
         /* ===== FIXED: CONCEPT PREVIEW ===== */
         .concept-preview {
             background: #fff; 
@@ -1002,7 +1003,7 @@
                 <p id="dynamic-subtitle" style="color: var(--gray); font-size: 1rem; margin-top: -10px;"></p>
             </div>
 
-            <!-- SWIPE COUNTER REMOVED - DELETED -->
+            <!-- SWIPE COUNTER REMOVED -->
 
             <form id="funnelForm" onsubmit="return false;" style="width:100%; display:flex; flex-direction:column; align-items:center;">
                 
@@ -1134,19 +1135,18 @@
         </div>
     </main>
 
-    <!-- RIGID DOCK - EXACT MATCH TO FAZ HOQ | DIGITAL ARCHITECT - NEVER SCROLLS -->
+    <!-- EXACT DOCK FROM FAZ HOQ | DIGITAL ARCHITECT - RIGID, NO SCROLL -->
     <nav class="app-dock">
-        <a href="../index.html" class="dock-btn" onclick="event.preventDefault(); window.location.href='../index.html'"><i class="fa-solid fa-house-chimney"></i><span>HOME</span></a>
-        <a href="javascript:void(0)" class="dock-btn" onclick="openServices()"><i class="fa-solid fa-bars-progress"></i><span>SERVICES</span></a>
-        <div class="dock-btn" onclick="next()"><i class="fa-solid fa-bolt"></i><span>NEXT</span></div>
-        <a href="#" class="dock-btn" onclick="event.preventDefault(); alert('Client Portal Coming Soon');"><i class="fa-solid fa-briefcase"></i><span>PORTAL</span></a>
-        <button class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></button>
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
     </nav>
 </div>
 
 <script>
     // =========================================================================
-    // CONFIGURATION - FULL ORIGINAL CONFIGURATION PRESERVED
+    // FULL ORIGINAL SCRIPT - PRESERVED
     // =========================================================================
     const FEATURE_CONFIG = {
         standard: ["Professional Logo / Text Logo", "Services & Pricing Section", "Gallery (Haircuts / Before & After)", "WhatsApp Chat Button", "Click-to-Call Button", "Contact Form", "Customer Reviews Section", "Google Maps Location", "Book Now CTA Buttons", "Promo Banner / First-Time Visitor Offer"],
