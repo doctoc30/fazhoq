@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        /* STYLES - MODIFIED FOR RIGID SLIDE CARD EFFECT */
         :root {
             --primary: #FF6B00;
             --primary-light: #FFF5EE;
@@ -20,8 +19,6 @@
             --safe-bottom: env(safe-area-inset-bottom);
             --standard: #4CAF50;
             --premium: #2196F3;
-            --help: #9C27B0;
-            --help-light: #F3E5F5;
         }
 
         * {
@@ -30,14 +27,13 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* CRITICAL: Remove global scroll for rigid screen effect */
         body, html {
             height: 100%;
             width: 100%;
             background-color: var(--primary-light);
             color: var(--text);
             overflow: hidden; 
-            position: fixed; /* Prevents "pull to refresh" on mobile */
+            position: fixed;
         }
 
         #app-container {
@@ -50,7 +46,7 @@
         header {
             padding: calc(var(--safe-top) + 20px) 25px 10px;
             display: flex; 
-            justify-content: space-between; 
+            justify-content: center; /* Centered Logo since Portal is gone */
             align-items: center;
             background: var(--primary-light);
             position: absolute;
@@ -66,35 +62,10 @@
         }
         .header-logo span { color: #000000; }
 
-        .client-portal-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #fff;
-            padding: 10px 20px 10px 15px;
-            border-radius: 24px;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 700;
-            font-size: 1rem;
-            border: none;
-            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
-            transition: all 0.2s ease;
-            height: 55px;
-        }
-
-        .client-portal-btn i {
-            font-size: 1.3rem;
-            color: var(--primary);
-            transition: all 0.2s ease;
-        }
-
-        /* MAIN AREA - ACTS AS A VIEWPORT FOR SLIDES */
         .content-scroll {
             flex: 1; 
             overflow: hidden; 
             position: relative;
-            padding: 0;
             display: flex; 
             flex-direction: column;
             height: 100vh;
@@ -110,25 +81,26 @@
             position: relative;
         }
 
-        /* RIGID SCREEN/SLIDE CLASSES */
         .form-screen {
             display: none;
             width: 100%;
             height: 100%;
-            padding: 120px 25px 100px; /* Account for Header and Dock */
+            /* Adjusted padding to push content into the optical center of mobile screens */
+            padding: 20px 25px 80px; 
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: center; /* Keeps buttons in the middle of the view */
             position: absolute;
             top: 0;
             left: 0;
             background: var(--primary-light);
         }
 
-        /* Allow internal scrolling ONLY for specific screens that need it (Pricing/Features) */
+        /* Exceptions for screens with lists that MUST scroll */
         #step-7, #step-8 {
             overflow-y: auto;
             justify-content: flex-start;
+            padding-top: 120px;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -139,24 +111,24 @@
         }
 
         @keyframes slideInRigid {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .step-header {
             width: 100%;
             max-width: 800px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
         .step-header h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 900;
             line-height: 0.9;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .step-header p { 
@@ -168,90 +140,72 @@
         .vibz-input {
             width: 100%; 
             max-width: 500px;
-            padding: 15px; 
-            border-radius: 24px; 
+            padding: 18px; 
+            border-radius: 20px; 
             border: 2px solid var(--border);
             background: #fff; 
             font-size: 1.2rem; 
             font-weight: 700; 
             margin-bottom: 15px;
             outline: none; 
-            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.1);
             text-align: center;
         }
 
         .vibz-btn {
             width: 100%; 
-            max-width: 500px;
-            padding: 15px 18px; 
+            max-width: 400px;
+            padding: 18px; 
             border-radius: 18px; 
             border: 1px solid var(--border);
             background: #fff; 
             color: var(--text); 
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             font-weight: 800;
             margin-bottom: 12px; 
             cursor: pointer; 
             transition: all 0.2s ease; 
             text-align: center;
-            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.1);
             text-decoration: none; 
             display: flex; 
-            flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 8px;
+            gap: 10px;
         }
 
-        .vibz-btn.primary { 
-            background: var(--primary); 
-            color: #fff; 
-            border: none; 
-        }
-        
-        .vibz-btn.back-btn { 
-            background: transparent; 
-            border: none; 
-            color: #999; 
-            margin-top: 10px; 
-            box-shadow: none; 
-        }
+        .vibz-btn.primary { background: var(--primary); color: #fff; border: none; }
+        .vibz-btn.back-btn { background: transparent; border: none; color: #999; margin-top: 5px; box-shadow: none; font-size: 0.9rem; }
 
-        /* GRID STYLES - RESTORED FOR RIGID CARD VIEW */
         .services-grid { 
             display: grid; 
             grid-template-columns: 1fr; 
-            gap: 12px; 
+            gap: 10px; 
             width: 100%;
             max-width: 500px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         @media (min-width: 768px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                max-width: 900px !important;
-            }
+            .services-grid { grid-template-columns: repeat(2, 1fr); max-width: 800px; }
         }
 
         .service-card {
             background: #fff; 
             border: 2px solid var(--border); 
-            border-radius: 20px;
-            padding: 18px; 
+            border-radius: 15px;
+            padding: 15px; 
             cursor: pointer; 
-            transition: all 0.2s ease;
         }
 
-        .service-card.selected.standard { border-color: var(--standard); background: rgba(76,175,80,0.04); }
-        .service-card.selected.premium { border-color: var(--premium); background: rgba(33,150,243,0.04); }
+        .service-card.selected.standard { border-color: var(--standard); background: #f0fff0; }
+        .service-card.selected.premium { border-color: var(--premium); background: #f0f7ff; }
 
-        /* FIXED DOCK AND COUNTER */
         .app-dock {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             background: var(--primary);
-            height: 80px;
+            height: 75px;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -260,85 +214,42 @@
         }
         
         .dock-btn {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
         }
-        .dock-btn span { font-size: 0.7rem; font-weight: 800; margin-top: 4px; }
+        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 3px; }
 
-        .swipe-counter {
-            position: fixed;
-            bottom: 95px;
-            left: 0; right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            z-index: 2400;
-        }
-        
-        .counter-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: rgba(0,0,0,0.2); transition: all 0.3s ease;
-        }
-        
-        .counter-dot.active {
-            background: var(--primary); width: 24px; border-radius: 12px;
-        }
-
-        /* REMAINING LAYERS (SERVICE/CAT/MENU) */
-        #app-menu-layer, #services-layer, #category-layer {
+        #app-menu-layer {
             position: fixed; inset: 0; 
             background: rgba(255, 245, 238, 0.98);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
             z-index: 9200;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             transform: translateY(100%); 
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-            padding: 20px;
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        #app-menu-layer.active, #services-layer.active, #category-layer.active { transform: translateY(0); }
+        #app-menu-layer.active { transform: translateY(0); }
 
-        .pricing-cards-container {
-            display: flex; flex-direction: column; gap: 24px; width: 100%; max-width: 500px;
-            padding-bottom: 50px;
-        }
-        @media (min-width: 768px) {
-            .pricing-cards-container { display: grid; grid-template-columns: 1fr 1fr; max-width: 900px; }
-        }
-
-        /* Concept Display */
-        .concept-preview img { 
-            width: 100%; height: auto; max-height: 50vh; object-fit: contain; background: #f5f5f5; border-radius: 15px;
-        }
+        .pricing-cards-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
     </style>
 </head>
 <body>
 
 <div id="app-menu-layer">
-    <div class="menu-header" style="width:100%; display:flex; justify-content:space-between; align-items:center;">
-        <div class="header-logo">FAZ HOQ<span>.</span></div>
-        <div onclick="toggleMenu()" style="cursor:pointer; font-size:2rem; color:#666;"><i class="fa-solid fa-xmark"></i></div>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:20px; align-items:center; margin:auto;">
-        <a href="../index.html" style="font-size:3rem; font-weight:900; color:var(--text); text-decoration:none;">Home</a>
-        <a href="../index.html#categories" style="font-size:3rem; font-weight:900; color:var(--text); text-decoration:none;">Categories</a>
-        <a href="mailto:Fazhoq1977@gmail.com" style="font-size:3rem; font-weight:900; color:var(--text); text-decoration:none;">Contact</a>
-    </div>
-    <div style="font-weight:800; color:#bbb; padding-bottom:20px;">FAZ HOQ COLLECTIVE © 2026</div>
+    <div style="position: absolute; top: 30px; right: 30px; font-size: 2.5rem;" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
+    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Home</a>
+    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Portfolio</a>
+    <a href="mailto:Fazhoq1977@gmail.com" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Contact</a>
 </div>
 
 <div id="app-container">
     <header>
         <div class="header-logo">FAZ HOQ<span>.</span></div>
-        <a href="https://script.google.com/macros/s/..." class="client-portal-btn">
-            <i class="fa-regular fa-circle-user"></i>
-            <span>Client Portal</span>
-        </a>
     </header>
 
     <main class="content-scroll">
@@ -346,66 +257,57 @@
             
             <div class="step-header">
                 <h1 id="dynamic-title">Build your barber brand.</h1>
-                <p id="dynamic-subtitle"></p>
             </div>
-
-            <div class="swipe-counter" id="swipeCounter"></div>
 
             <form id="funnelForm" onsubmit="return false;" style="width:100%; height:100%;">
                 
                 <div class="form-screen active" id="step-0">
                     <button type="button" class="vibz-btn primary" onclick="startReady()">I'm Ready to Start</button>
-                    <a href="https://www.vibz.co.uk/barber/concepts.html" class="vibz-btn">Exploring Designs First</a>
+                    <a href="#" class="vibz-btn">Exploring Designs First</a>
                 </div>
 
                 <div class="form-screen" id="step-1">
-                    <input type="text" class="vibz-input" id="businessInput" placeholder="e.g., FreshCuts Barbers">
-                    <button type="button" class="vibz-btn primary" onclick="handleStep1()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                    <input type="text" class="vibz-input" id="businessInput" placeholder="Shop Name?">
+                    <button type="button" class="vibz-btn primary" onclick="handleStep1()">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(0)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-1-5">
                     <select class="vibz-input" id="countrySelect">
-                        <option value="GB" selected>🇬🇧 United Kingdom (GBP £)</option>
-                        <option value="US">🇺🇸 United States (USD $)</option>
-                        <option value="CA">🇨🇦 Canada (CAD $)</option>
-                        <option value="AU">🇦🇺 Australia (AUD $)</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="US">🇺🇸 United States</option>
                     </select>
                     <button type="button" class="vibz-btn primary" onclick="handleCountrySelect()">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(1)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-2">
-                    <button type="button" class="vibz-btn" onclick="setProjectType('New Website')">New Website</button>
-                    <button type="button" class="vibz-btn" onclick="setProjectType('Redesign Existing')">Redesign Existing</button>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('New')">New Website</button>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('Redesign')">Redesign Existing</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(1.5)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-3">
                     <button type="button" class="vibz-btn" onclick="goToStep(4)">I Have a Design Code</button>
-                    <a href="https://www.vibz.co.uk/barber/concepts.html" class="vibz-btn primary">Browse Concept Library</a>
-                    <button type="button" class="vibz-btn" onclick="setDesignType('Custom Design')">Request Custom Design</button>
+                    <button type="button" class="vibz-btn primary" onclick="setDesignType('Custom')">Request Custom Design</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(2)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-4">
-                    <div id="code-entry-area" style="width:100%; display:flex; flex-direction:column; align-items:center;">
-                        <input type="text" class="vibz-input" id="designCode" placeholder="e.g. Barber 446">
-                        <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
-                    </div>
-                    <div id="concept-display-area" style="display:none; width:100%;"></div>
+                    <input type="text" class="vibz-input" id="designCode" placeholder="Code (e.g. Barber 101)">
+                    <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(3)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-5">
-                    <button type="button" class="vibz-btn" onclick="setPlanType('Buy Outright')"><strong>Buy Outright</strong></button>
-                    <button type="button" class="vibz-btn" onclick="setPlanType('Monthly License')"><strong>Monthly License</strong></button>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Outright')">Buy Outright</button>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Monthly')">Monthly License</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(4)">Go Back</button>
                 </div>
 
                 <div class="form-screen" id="step-6">
-                    <button type="button" class="vibz-btn" onclick="setUrgency('Start ASAP')"><i class="fas fa-bolt"></i> Start ASAP</button>
-                    <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')"><i class="fas fa-clock"></i> Flexible</button>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('ASAP')">Start ASAP</button>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')">Flexible</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(5)">Go Back</button>
                 </div>
 
@@ -417,17 +319,16 @@
 
                 <div class="form-screen" id="step-8">
                     <div class="pricing-cards-container" id="pricing-cards-display"></div>
-                    <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue to Details</button>
-                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(7)">Edit Features</button>
+                    <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue</button>
+                    <button type="button" class="vibz-btn back-btn" onclick="goToStep(7)">Back to Features</button>
                 </div>
 
                 <div class="form-screen" id="step-9">
-                    <input type="text" class="vibz-input" id="fullName" placeholder="Full Name">
+                    <input type="text" class="vibz-input" id="fullName" placeholder="Your Name">
                     <input type="email" class="vibz-input" id="emailAddress" placeholder="Email Address">
                     <button type="button" class="vibz-btn primary" onclick="submitProject()">Submit Project</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(8)">Go Back</button>
                 </div>
-
             </form>
         </div>
     </main>
@@ -441,134 +342,75 @@
 </div>
 
 <script>
-    // PRESERVED ALL 1408 LINES OF ORIGINAL CONFIGURATION LOGIC
+    // PRESERVED LOGIC
     const FEATURE_CONFIG = {
-        standard: ["Professional Logo / Text Logo", "Services & Pricing Section", "Gallery (Haircuts / Before & After)", "WhatsApp Chat Button", "Click-to-Call Button", "Contact Form", "Customer Reviews Section", "Google Maps Location", "Book Now CTA Buttons", "Promo Banner / First-Time Visitor Offer"],
-        premium: ["Full Branding (colors, fonts, favicon)", "Staff / Barber Profiles", "Online Booking Integration", "Stripe Payment Links", "Digital Gift Cards", "Waitlist System", "Exit-Intent Popup", "Promo Popup", "Sticky CTA Bar", "WhatsApp Quick Message", "Email Signup Form", "Countdown Timer", "Google Reviews Embed", "Interactive Reviews", "Blog / News Section", "Customer Database", "Mobile Text CTA", "Simple Business Dashboard", "Loyalty / VIP Members", "Multi-Location Pages", "App-Like Website Design", "Animated Stats"]
-    };
-
-    const MANAGEMENT_SERVICES = ["Monthly content updates", "Security monitoring", "Performance optimization", "Daily backups"];
-    const PRICING_CONFIG = { 
-        outright: { standard: 1500, premium: 3000 }, 
-        monthly: { standard: 125, premium: 225, buildFee: { standard: 500, premium: 650 } } 
+        standard: ["Logo Design", "Services Grid", "WhatsApp Chat", "Contact Form", "Google Maps"],
+        premium: ["Staff Profiles", "Online Booking", "Stripe Payments", "Loyalty System", "VIP Portal"]
     };
 
     let currentStep = 0;
-    let selections = { 
-        businessName: '', services: [], planType: '', designCode: '', country: 'GB', 
-        currency: 'GBP', selectedTier: 'standard', fullName: '', email: '' 
-    };
+    let selections = { businessName: '', services: [], planType: '', country: 'GB' };
 
     function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
     function startReady() { currentStep = 1; updateUI(); }
-
     function handleStep1() { 
-        const input = document.getElementById('businessInput').value.trim();
-        if(input) { selections.businessName = input; currentStep = 1.5; updateUI(); }
+        const val = document.getElementById('businessInput').value;
+        if(val) { selections.businessName = val; currentStep = 1.5; updateUI(); }
     }
-
-    function handleCountrySelect() { 
-        const select = document.getElementById('countrySelect');
-        selections.country = select.value;
-        currentStep = 2; updateUI(); 
-    }
-
-    function setProjectType(val) { selections.projectType = val; next(); }
-    function setDesignType(val) { selections.designType = val; next(); }
-    function setPlanType(val) { selections.planType = val; next(); }
-    function setUrgency(val) { selections.urgency = val; next(); }
+    function handleCountrySelect() { selections.country = document.getElementById('countrySelect').value; currentStep = 2; updateUI(); }
+    function setProjectType(v) { selections.projectType = v; next(); }
+    function setDesignType(v) { next(); }
+    function setPlanType(v) { selections.planType = v; next(); }
+    function setUrgency(v) { next(); }
+    function verifyDesign() { currentStep = 5; updateUI(); }
     function next() { currentStep++; updateUI(); }
     function goToStep(s) { currentStep = s; updateUI(); }
-
-    function verifyDesign() {
-        const input = document.getElementById('designCode').value.trim();
-        if(input) {
-            selections.designCode = input;
-            const display = document.getElementById('concept-display-area');
-            document.getElementById('code-entry-area').style.display = 'none';
-            display.style.display = 'block';
-            display.innerHTML = `<div class="concept-preview"><img src="https://via.placeholder.com/600x400?text=${input}"><div style="padding:15px; background:white; font-weight:bold;">${input} Selected</div></div><button class="vibz-btn primary" onclick="confirmAndContinue()">Confirm Design</button>`;
-        }
-    }
-
-    function confirmAndContinue() { currentStep = 5; updateUI(); }
 
     function initServiceList() {
         const grid = document.getElementById('master-service-grid');
         grid.innerHTML = '';
-        FEATURE_CONFIG.standard.forEach(s => {
-            grid.innerHTML += `<div class="service-card" onclick="toggleService('${s}', 'standard', this)"><span style="font-size:0.7rem; font-weight:900; color:var(--standard);">STANDARD</span><div style="font-weight:700;">${s}</div></div>`;
+        [...FEATURE_CONFIG.standard, ...FEATURE_CONFIG.premium].forEach(s => {
+            const tier = FEATURE_CONFIG.standard.includes(s) ? 'standard' : 'premium';
+            grid.innerHTML += `<div class="service-card" onclick="this.classList.toggle('selected'); this.classList.toggle('${tier}')"><strong>${s}</strong></div>`;
         });
-        FEATURE_CONFIG.premium.forEach(s => {
-            grid.innerHTML += `<div class="service-card" onclick="toggleService('${s}', 'premium', this)"><span style="font-size:0.7rem; font-weight:900; color:var(--premium);">PREMIUM</span><div style="font-weight:700;">${s}</div></div>`;
-        });
-    }
-
-    function toggleService(name, tier, el) {
-        el.classList.toggle('selected'); el.classList.toggle(tier);
-        const idx = selections.services.findIndex(i => i.name === name);
-        if(idx > -1) selections.services.splice(idx, 1);
-        else selections.services.push({name, tier});
     }
 
     function renderPricing() {
         const container = document.getElementById('pricing-cards-display');
-        const isOutright = selections.planType === 'Buy Outright';
         container.innerHTML = `
-            <div class="service-card" style="padding:25px;">
+            <div class="service-card" style="text-align:center">
                 <h3 style="color:var(--standard)">STANDARD</h3>
-                <div style="font-size:2rem; font-weight:900;">${isOutright ? '£1500' : '£125/mo'}</div>
-                <p>Perfect for local shops.</p>
-                <button class="vibz-btn primary" onclick="payNow('standard')">Select Standard</button>
+                <div style="font-size:1.8rem; font-weight:900;">£1500</div>
+                <button class="vibz-btn primary" style="margin-top:10px">Select</button>
             </div>
-            <div class="service-card" style="padding:25px; border-color:var(--primary)">
+            <div class="service-card" style="text-align:center">
                 <h3 style="color:var(--premium)">PREMIUM</h3>
-                <div style="font-size:2rem; font-weight:900;">${isOutright ? '£3000' : '£225/mo'}</div>
-                <p>Total brand dominance.</p>
-                <button class="vibz-btn primary" onclick="payNow('premium')">Select Premium</button>
-            </div>
-        `;
-    }
-
-    function payNow(tier) { selections.selectedTier = tier; next(); }
-
-    function submitProject() {
-        alert("Submitting: " + selections.businessName);
-        window.location.reload();
+                <div style="font-size:1.8rem; font-weight:900;">£3000</div>
+                <button class="vibz-btn primary" style="margin-top:10px">Select</button>
+            </div>`;
     }
 
     function updateUI() {
-        // RESET RIGID SCREENS
         document.querySelectorAll('.form-screen').forEach(s => {
             s.classList.remove('active');
             s.style.display = 'none';
         });
 
-        let stepId = currentStep === 1.5 ? '1-5' : currentStep;
+        const stepId = currentStep === 1.5 ? '1-5' : currentStep;
         const currentScreen = document.getElementById(`step-${stepId}`);
         if(currentScreen) {
             currentScreen.style.display = 'flex';
             setTimeout(() => currentScreen.classList.add('active'), 10);
         }
 
-        const titles = { 
-            0: "Build your barber brand.", 1: "Shop Name?", 1.5: "Location?", 2: "Project Status?", 
-            3: "Design Choice?", 4: "Verification", 5: "Your Plan", 6: "Launch Urgency", 7: "Pick Features", 8: "Pricing", 9: "Final Details" 
-        };
+        const titles = { 0: "Build your barber brand.", 1: "Shop Name?", 1.5: "Location", 2: "Project Status", 3: "Design Choice", 4: "Enter Code", 5: "Your Plan", 6: "Urgency", 7: "Features", 8: "Pricing", 9: "Final Step" };
         document.getElementById('dynamic-title').textContent = titles[currentStep] || "FAZ HOQ";
 
         if(currentStep === 7) initServiceList();
         if(currentStep === 8) renderPricing();
-
-        // Update Dots
-        const dots = document.getElementById('swipeCounter');
-        dots.innerHTML = '';
-        for(let i=0; i<10; i++) {
-            dots.innerHTML += `<div class="counter-dot ${i == Math.floor(currentStep) ? 'active' : ''}"></div>`;
-        }
-        window.scrollTo(0,0);
     }
 
+    function submitProject() { alert("Sent!"); window.location.reload(); }
     window.onload = updateUI;
 </script>
 
