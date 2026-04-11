@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>VIBZ | Barber Solutions</title>
+    <title>FAZ HOQ | Barber Web Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -839,6 +839,49 @@
             transform: scale(1.05); 
         }
 
+        /* ===== SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK ===== */
+        .swipe-counter {
+            position: fixed;
+            bottom: 75px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 2400;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+        
+        @media (min-width: 768px) {
+            .swipe-counter {
+                bottom: 70px;
+            }
+        }
+        
+        .counter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .counter-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 12px;
+        }
+
         /* ===== FIXED: CONCEPT PREVIEW - FULL PORTRAIT WIDTH ON MOBILE ===== */
         .concept-preview {
             background: #fff; 
@@ -1420,16 +1463,16 @@
 
 <div id="app-menu-layer">
     <div class="menu-header">
-        <div class="menu-logo">VIBZ<span>.</span></div>
+        <div class="menu-logo">FAZ HOQ<span>.</span></div>
         <div class="close-btn" style="margin-top:0; border:none; background:none; font-size:1.8rem; cursor:pointer; color:#666;" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
     </div>
     <div class="menu-links">
-        <a href="#" class="menu-item" onclick="toggleMenu(); goToStep(0)">Home</a>
-        <a href="https://www.vibz.co.uk/barber/concepts.html" class="menu-item" onclick="toggleMenu()">Explore</a>
+        <a href="../index.html" class="menu-item" onclick="toggleMenu()">Home</a>
+        <a href="../index.html#categories" class="menu-item" onclick="toggleMenu()">Categories</a>
         <a href="#" class="menu-item" onclick="toggleMenu(); alert('Portal coming soon')">Portal</a>
-        <a href="#" class="menu-item" onclick="toggleMenu(); alert('hello@vibz.co.uk')">Support</a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="menu-item" onclick="toggleMenu()">Contact</a>
     </div>
-    <div class="menu-footer">VIBZ COLLECTIVE © 2026</div>
+    <div class="menu-footer">FAZ HOQ COLLECTIVE © 2026</div>
 </div>
 
 <!-- ===== SERVICES LAYER - FIXED OVERLAY ===== -->
@@ -1452,7 +1495,7 @@
 
 <div id="app-container">
     <header>
-        <div class="header-logo">VIBZ<span>.</span></div>
+        <div class="header-logo">FAZ HOQ<span>.</span></div>
         <a href="https://script.google.com/macros/s/AKfycbxTTSlY-wGoshiTvh6sARaen8w1aEycyOSuJdjJFxDO1tyEnvslImdVetiL9MKoXBg/exec" class="client-portal-btn">
             <i class="fa-regular fa-circle-user"></i>
             <span>Client Portal</span>
@@ -1467,6 +1510,9 @@
                 <h1 id="dynamic-title">Build your barber brand.</h1>
                 <p id="dynamic-subtitle" style="color: var(--gray); font-size: 1rem; margin-top: -10px;"></p>
             </div>
+
+            <!-- SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK -->
+            <div class="swipe-counter" id="swipeCounter"></div>
 
             <form id="funnelForm" onsubmit="return false;" style="width:100%; display:flex; flex-direction:column; align-items:center;">
                 
@@ -1601,7 +1647,7 @@
 
     <!-- EXACT DOCK FROM REFERENCE - WITH CORRECT DIMENSIONS -->
     <nav class="app-dock">
-        <a href="#" class="dock-btn active" onclick="event.preventDefault(); goToStep(0);"><i class="fa-solid fa-house-chimney"></i><span>HOME</span></a>
+        <a href="../index.html" class="dock-btn" onclick="event.preventDefault(); window.location.href='../index.html'"><i class="fa-solid fa-house-chimney"></i><span>HOME</span></a>
         <a href="javascript:void(0)" class="dock-btn" onclick="openServices()"><i class="fa-solid fa-bars-progress"></i><span>SERVICES</span></a>
         <div class="dock-center" onclick="next()"><i class="fa-solid fa-bolt"></i></div>
         <a href="#" class="dock-btn" onclick="event.preventDefault(); alert('Client Portal Coming Soon');"><i class="fa-solid fa-briefcase"></i><span>PORTAL</span></a>
@@ -1685,7 +1731,7 @@
             premium: 'https://buy.stripe.com/test_4gM3cw0D42JTavs1vhgMw0c'
         },
         monthly: {
-            standard: 'https://buy.stripe.com/test_dRmdRa2Lcckt9ro2zlgMw0a',
+            standard: 'https://buy.stripe.com/test_dRkdRa2Lcckt9ro2zlgMw0a',
             premium: 'https://buy.stripe.com/test_3cI14odpQdox7jg7TFgMw09'
         }
     };
@@ -2550,7 +2596,7 @@
             console.log('Loaded saved design code:', savedCode);
         }
         
-        console.log('VIBZ Funnel Ready - Data persistence enabled for order.html and thankyou.html');
+        console.log('FAZ HOQ Funnel Ready - Data persistence enabled for order.html and thankyou.html');
     };
 </script>
 
