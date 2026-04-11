@@ -135,17 +135,17 @@
 
         .slider-track {
             display: flex;
-            width: calc(300px * 10); /* Adjust based on item count */
-            animation: scroll 25s linear infinite;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
         }
 
         .concept-card {
-            width: 260px;
-            height: 350px;
+            width: 280px;
+            height: 380px;
             background: white;
             margin: 0 20px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 107, 0, 0.08);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -156,25 +156,25 @@
         .concept-img {
             width: 100%;
             height: 70%;
-            background: #eee;
+            background: #f0f0f0;
             background-size: cover;
             background-position: center;
         }
 
         .concept-info {
-            padding: 15px;
+            padding: 20px;
             text-align: left;
         }
 
-        .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.1rem; }
-        .concept-info p { font-size: 0.8rem; opacity: 0.7; font-weight: 600; }
+        .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; margin-bottom: 4px; }
+        .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
 
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-300px * 5)); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* DOCK (EXACT SAME AS ORIGINAL) */
+        /* DOCK (EXACT RETAINED) */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -213,19 +213,23 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 12px;
             z-index: 2400;
+            background: rgba(255,255,255,0.8);
+            padding: 8px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(5px);
         }
         .dot {
             width: 8px;
             height: 8px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.15);
             border-radius: 50%;
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .dot.active {
             background: var(--primary);
-            width: 20px;
+            width: 24px;
             border-radius: 10px;
         }
 
@@ -253,6 +257,7 @@
             justify-content: center;
             align-self: flex-end;
             cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
         }
     </style>
 </head>
@@ -260,10 +265,10 @@
 
     <div id="app-menu-layer">
         <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
-        <div class="flex flex-col items-center justify-center flex-1 gap-8">
+        <div class="flex flex-col items-center justify-center flex-1 gap-10">
             <a href="#" class="huge-text" onclick="goToSlide(0); toggleMenu()">HOME</a>
             <a href="#" class="huge-text" onclick="goToSlide(1); toggleMenu()">CONCEPTS</a>
-            <a href="mailto:Fazhoq1977@gmail.com" class="huge-text">CONTACT</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="huge-text">HIRE ME</a>
         </div>
     </div>
 
@@ -272,59 +277,38 @@
         <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
 
-    <div class="swipe-counter" id="dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+    <div class="swipe-counter">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
-                <h1 class="huge-text">I build high-end<br><span class="black">Web Experiences.</span></h1>
-                <p class="mt-6 font-bold uppercase tracking-widest text-sm opacity-50">Solo Developer & Designer</p>
+                <h1 class="huge-text">I architect custom:</h1>
+                <div class="huge-text black" id="typewriter">&nbsp;</div>
+                <p class="mt-8 font-black uppercase tracking-[4px] text-xs opacity-40">Independent Digital Developer</p>
             </div>
         </section>
 
         <section>
             <div class="text-wrap">
-                <h2 class="huge-text mb-4">LATEST<br><span class="black">CONCEPTS.</span></h2>
+                <h2 class="huge-text mb-6">FRESH<br><span class="black">CONCEPTS.</span></h2>
                 <div class="slider-viewport">
-                    <div class="slider-track">
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>SaaS Dashboard</h4><p>UI/UX Concept</p></div>
+                    <div class="slider-track" id="slider-track">
                         </div>
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>Luxury E-com</h4><p>Web Experience</p></div>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>Fintech App</h4><p>Mobile First</p></div>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>Creative Agency</h4><p>Portfolio</p></div>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>Dental Clinic</h4><p>Booking System</p></div>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400')"></div>
-                            <div class="concept-info"><h4>SaaS Dashboard</h4><p>UI/UX Concept</p></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="text-wrap">
-                <h2 class="huge-text">READY TO<br><span class="black">LAUNCH?</span></h2>
-                <p class="mt-6 font-black text-xl italic text-orange-600">Hire me directly.</p>
+                <h2 class="huge-text">LET'S BUILD<br><span class="black">SOMETHING.</span></h2>
+                <div class="mt-10 p-6 bg-white rounded-[30px] border border-orange-100 shadow-xl inline-block">
+                    <p class="font-bold text-orange-600">Available for new projects</p>
+                </div>
             </div>
         </section>
     </div>
@@ -337,6 +321,57 @@
     </div>
 
     <script>
+        // --- TYPEWRITER CONFIG ---
+        const words = ["Web Apps", "Portfolios", "E-commerce", "SaaS Tools", "Dashboards", "UX Systems"];
+        let wordIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function typeEffect() {
+            const currentWord = words[wordIdx];
+            if (isDeleting) {
+                charIdx--;
+            } else {
+                charIdx++;
+            }
+
+            typewriterEl.innerHTML = currentWord.substring(0, charIdx) || "&nbsp;";
+
+            let speed = isDeleting ? 60 : 120;
+
+            if (!isDeleting && charIdx === currentWord.length) {
+                speed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                speed = 500; // Pause before next word
+            }
+
+            setTimeout(typeEffect, speed);
+        }
+
+        // --- SLIDER CONTENT ---
+        const concepts = [
+            { title: "Dark UI Kit", sub: "Web Concept", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400" },
+            { title: "Luxury Retail", sub: "E-Commerce", img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=400" },
+            { title: "Finance App", sub: "Digital Product", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400" },
+            { title: "Artist Space", sub: "Portfolio", img: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=400" }
+        ];
+
+        function initSlider() {
+            const track = document.getElementById('slider-track');
+            const items = [...concepts, ...concepts]; // Double for seamless loop
+            track.innerHTML = items.map(c => `
+                <div class="concept-card">
+                    <div class="concept-img" style="background-image: url('${c.img}')"></div>
+                    <div class="concept-info"><h4>${c.title}</h4><p>${c.sub}</p></div>
+                </div>
+            `).join('');
+        }
+
+        // --- NAVIGATION LOGIC ---
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -373,26 +408,25 @@
             document.getElementById('app-menu-layer').classList.toggle('active');
         }
 
-        // Swipe Detection
+        // --- EVENT LISTENERS ---
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
             let dX = sX - e.changedTouches[0].clientX;
             let dY = sY - e.changedTouches[0].clientY;
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) {
-                if (Math.abs(dX) > Math.abs(dY)) {
-                    navigate(dX > 0 ? 1 : -1);
-                } else {
-                    navigate(dY > 0 ? 1 : -1);
-                }
+                if (Math.abs(dY) > Math.abs(dX)) navigate(dY > 0 ? 1 : -1);
             }
         });
 
-        // Mouse Wheel for Desktop
         window.addEventListener('wheel', e => {
-            if(e.deltaY > 50) navigate(1);
-            else if(e.deltaY < -50) navigate(-1);
+            if (Math.abs(e.deltaY) > 50) navigate(e.deltaY > 0 ? 1 : -1);
         });
+
+        window.onload = () => {
+            typeEffect();
+            initSlider();
+        };
     </script>
 </body>
 </html>
