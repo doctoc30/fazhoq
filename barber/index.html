@@ -19,6 +19,8 @@
             --safe-bottom: env(safe-area-inset-bottom);
             --standard: #4CAF50;
             --premium: #2196F3;
+            --help: #9C27B0;
+            --help-light: #F3E5F5;
         }
 
         * {
@@ -29,15 +31,14 @@
 
         body, html {
             height: 100%;
-            width: 100%;
             background-color: var(--primary-light);
             color: var(--text);
-            overflow: hidden; 
-            position: fixed;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         #app-container {
-            height: 100vh;
+            min-height: 100vh; 
             display: flex; 
             flex-direction: column;
             position: relative;
@@ -46,12 +47,11 @@
         header {
             padding: calc(var(--safe-top) + 20px) 25px 10px;
             display: flex; 
-            justify-content: flex-start;
+            justify-content: space-between; 
             align-items: center;
             background: var(--primary-light);
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
+            position: relative;
+            z-index: 10;
         }
 
         .header-logo { 
@@ -62,111 +62,172 @@
         }
         .header-logo span { color: #000000; }
 
+        .client-portal-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 10px 20px 10px 15px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            transition: all 0.2s ease;
+            height: 55px;
+        }
+
+        .client-portal-btn i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .client-portal-btn span { display: none; }
+            .client-portal-btn { padding: 10px; width: 55px; justify-content: center; }
+            .client-portal-btn i { font-size: 1.5rem; }
+        }
+
+        #app-menu-layer {
+            position: fixed; inset: 0; background: var(--primary-light);
+            z-index: 3000; display: flex; flex-direction: column;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active { transform: translateY(0); }
+
+        .menu-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+        .menu-logo { font-size: 2.2rem; font-weight: 900; color: var(--primary); }
+        .menu-logo span { color: #000000; }
+        .menu-links {
+            display: flex; flex-direction: column; 
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu-item {
+            font-size: 4.5rem; font-weight: 900; color: var(--text);
+            text-decoration: none; letter-spacing: -3px;
+            opacity: 0; transform: translateY(30px);
+            transition: 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active .menu-item { opacity: 1; transform: translateY(0); }
+        #app-menu-layer.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
+        #app-menu-layer.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
+        #app-menu-layer.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
+
         .content-scroll {
             flex: 1; 
-            overflow: hidden; 
-            position: relative;
+            overflow-y: auto;
+            padding: 0 20px 100px;
+            scroll-behavior: smooth;
             display: flex; 
             flex-direction: column;
-            height: 100vh;
         }
 
-        #main-content-wrapper {
-            width: 100%;
-            height: 100%;
+        .hero-centered { 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .form-screen {
-            display: none;
+            min-height: 80vh;
             width: 100%;
-            height: 100%;
-            padding: 20px 25px calc(var(--safe-bottom) + 85px);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: var(--primary-light);
-        }
-
-        /* Scrolled view for long lists */
-        #step-7, #step-8 {
-            overflow-y: auto;
-            justify-content: flex-start;
-            padding-top: 130px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .form-screen.active {
-            display: flex;
-            animation: slideInRigid 0.35s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-            z-index: 5;
-        }
-
-        @keyframes slideInRigid {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+            text-align: center; 
         }
 
         .step-header {
             width: 100%;
             max-width: 800px;
-            margin-bottom: 35px;
+            margin: 0 auto 30px;
             text-align: center;
         }
 
         .step-header h1 {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             font-weight: 900;
-            line-height: 0.95;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             color: var(--primary);
+        }
+        
+        .step-header p { 
+            color: var(--gray); 
+            font-weight: 500; 
+            font-size: 1.2rem;
         }
 
         .vibz-input {
             width: 100%; 
-            max-width: 450px;
-            padding: 20px; 
-            border-radius: 20px; 
+            max-width: 500px;
+            margin: 0 auto 15px;
+            padding: 15px; 
+            border-radius: 24px; 
             border: 2px solid var(--border);
             background: #fff; 
             font-size: 1.2rem; 
             font-weight: 700; 
-            margin-bottom: 15px;
             outline: none; 
-            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
             text-align: center;
+            display: block;
         }
 
         .vibz-btn {
             width: 100%; 
-            max-width: 400px;
-            padding: 20px; 
-            border-radius: 20px; 
+            max-width: 500px;
+            margin: 0 auto 12px;
+            padding: 15px 18px; 
+            border-radius: 18px; 
             border: 1px solid var(--border);
             background: #fff; 
             color: var(--text); 
-            font-size: 1.15rem; 
+            font-size: 1.2rem; 
             font-weight: 800;
-            margin-bottom: 12px; 
             cursor: pointer; 
             transition: all 0.2s ease; 
             text-align: center;
-            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
             text-decoration: none; 
             display: flex; 
+            flex-direction: column; 
             align-items: center; 
             justify-content: center; 
         }
 
-        .vibz-btn.primary { background: var(--primary); color: #fff; border: none; }
-        .vibz-btn.back-btn { background: transparent; border: none; color: #999; margin-top: 10px; box-shadow: none; font-size: 0.9rem; }
+        .vibz-btn.primary { 
+            background: var(--primary); 
+            color: #fff; 
+            border: none; 
+        }
+        
+        .vibz-btn.back-btn { 
+            background: transparent; 
+            border: none; 
+            color: #999; 
+            margin-top: 10px; 
+            box-shadow: none; 
+        }
+
+        .form-screen {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+
+        .form-screen.active { display: flex; }
+
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .services-grid { 
             display: grid; 
@@ -174,7 +235,7 @@
             gap: 12px; 
             width: 100%;
             max-width: 500px;
-            margin-bottom: 25px;
+            margin: 0 auto 25px;
         }
 
         @media (min-width: 768px) {
@@ -184,20 +245,77 @@
         .service-card {
             background: #fff; 
             border: 2px solid var(--border); 
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 18px; 
             cursor: pointer; 
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
-        .service-card.selected { border-color: var(--primary); background: #fff0e6; }
         .service-card.selected.standard { border-color: var(--standard); background: #f0fff0; }
         .service-card.selected.premium { border-color: var(--premium); background: #f0f7ff; }
 
+        .pricing-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-cards-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+                gap: 25px;
+            }
+        }
+
+        .pricing-card {
+            background: #fff;
+            border-radius: 30px;
+            padding: 28px 24px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.1);
+        }
+        .pricing-card.recommended { border-color: var(--primary); }
+        .plan-recommended-badge {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .price-value { font-size: 2rem; font-weight: 900; margin: 10px 0; }
+        .feature-list { list-style: none; margin: 20px 0; }
+        .feature-list li { margin-bottom: 8px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+        .payment-button {
+            width: 100%;
+            border: none;
+            border-radius: 60px;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .payment-button.secondary { background: var(--standard); }
+        .payment-button.premium { background: var(--premium); }
+
         .app-dock {
             position: fixed;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: var(--primary);
-            height: 75px;
+            height: 80px;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -206,137 +324,173 @@
         }
         
         .dock-btn {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            background: transparent;
-            border: none;
             cursor: pointer;
         }
-        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 3px; }
+        .dock-btn span { font-size: 0.7rem; font-weight: 800; margin-top: 4px; }
 
-        #app-menu-layer {
-            position: fixed; inset: 0; 
-            background: rgba(255, 245, 238, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9200;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            transform: translateY(100%); 
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        .swipe-counter {
+            position: fixed;
+            bottom: 90px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 2400;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 40px;
+            width: fit-content;
+            margin: 0 auto;
+            pointer-events: none;
         }
-        #app-menu-layer.active { transform: translateY(0); }
+        .counter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+        }
+        .counter-dot.active { background: var(--primary); width: 24px; border-radius: 12px; }
 
-        .pricing-cards-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; padding-bottom: 40px;}
-        .pricing-card { background: #fff; border-radius: 24px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid var(--border); }
-        .pricing-card.selected { border-color: var(--primary); box-shadow: 0 10px 25px rgba(255,107,0,0.2); }
-        .pricing-card h3 { font-size: 1.6rem; margin-bottom: 10px; }
-        .pricing-card .price { font-size: 2rem; font-weight: 900; margin: 10px 0; }
-        .select-plan-btn { margin-top: 15px; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 40px; font-weight: bold; width: 100%; cursor: pointer; }
+        .concept-preview {
+            background: #fff; 
+            border-radius: 30px; 
+            overflow: hidden; 
+            margin-bottom: 20px;
+            border: 2px solid var(--border); 
+            width: 100%;
+            max-width: 500px;
+        }
+        .concept-preview img { width: 100%; height: auto; display: block; }
+        .concept-info { padding: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div id="app-menu-layer">
-    <div style="position: absolute; top: 30px; right: 30px; font-size: 2.5rem; cursor: pointer;" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
-    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Home</a>
-    <a href="#" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Portfolio</a>
-    <a href="mailto:Fazhoq1977@gmail.com" style="font-size:2.5rem; font-weight:900; color:var(--text); text-decoration:none; margin: 15px 0;">Contact</a>
+    <div class="menu-header">
+        <div class="menu-logo">FAZ HOQ<span>.</span></div>
+        <div style="font-size: 2rem; cursor: pointer;" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <div class="menu-links">
+        <a href="#" class="menu-item" onclick="toggleMenu()">Home</a>
+        <a href="#" class="menu-item" onclick="toggleMenu()">Portfolio</a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="menu-item" onclick="toggleMenu()">Contact</a>
+    </div>
 </div>
 
 <div id="app-container">
     <header>
         <div class="header-logo">FAZ HOQ<span>.</span></div>
+        <a href="#" class="client-portal-btn" onclick="alert('Portal coming soon'); return false;">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Client Portal</span>
+        </a>
     </header>
 
     <main class="content-scroll">
-        <div id="main-content-wrapper">
-            
-            <form id="funnelForm" onsubmit="return false;" style="width:100%; height:100%;">
+        <div id="main-content-wrapper" class="hero-centered">
+            <div class="step-header">
+                <h1 id="dynamic-title">Build your barber brand.</h1>
+                <p id="dynamic-subtitle"></p>
+            </div>
+
+            <div class="swipe-counter" id="swipeCounter"></div>
+
+            <form id="funnelForm" onsubmit="return false;" style="width:100%; display:flex; flex-direction:column; align-items:center;">
                 
-                <!-- STEP 0: WELCOME (Two Buttons: I'm Ready to Start / Exploring Designs First) -->
+                <!-- STEP 0: START -->
                 <div class="form-screen active" id="step-0">
-                    <div class="step-header"><h1>Build your barber brand.</h1></div>
                     <button type="button" class="vibz-btn primary" onclick="startReady()">I'm Ready to Start</button>
-                    <button type="button" class="vibz-btn" onclick="exploreDesignsFirst()">Exploring Designs First</button>
+                    <a href="#" class="vibz-btn" onclick="openConceptLibrary(); return false;">Exploring Designs First</a>
                 </div>
 
+                <!-- STEP 1: BUSINESS NAME -->
                 <div class="form-screen" id="step-1">
-                    <div class="step-header"><h1>Shop Name?</h1></div>
-                    <input type="text" class="vibz-input" id="businessInput" placeholder="e.g. Fresh Cuts">
+                    <input type="text" class="vibz-input" id="businessInput" placeholder="e.g., FreshCuts Barbers">
                     <button type="button" class="vibz-btn primary" onclick="handleStep1()">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(0)">Go Back</button>
                 </div>
 
+                <!-- STEP 1.5: LOCATION -->
                 <div class="form-screen" id="step-1-5">
-                    <div class="step-header"><h1>Location</h1></div>
                     <select class="vibz-input" id="countrySelect">
-                        <option value="GB">🇬🇧 United Kingdom</option>
-                        <option value="US">🇺🇸 United States</option>
+                        <option value="GB">🇬🇧 United Kingdom (GBP £)</option>
+                        <option value="US">🇺🇸 United States (USD $)</option>
+                        <option value="CA">🇨🇦 Canada (CAD $)</option>
+                        <option value="AU">🇦🇺 Australia (AUD $)</option>
                     </select>
                     <button type="button" class="vibz-btn primary" onclick="handleCountrySelect()">Continue</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(1)">Go Back</button>
                 </div>
 
+                <!-- STEP 2: PROJECT TYPE -->
                 <div class="form-screen" id="step-2">
-                    <div class="step-header"><h1>Project Status</h1></div>
-                    <button type="button" class="vibz-btn" onclick="setProjectType('New')">New Website</button>
-                    <button type="button" class="vibz-btn" onclick="setProjectType('Redesign')">Redesign Existing</button>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('New Website')">New Website</button>
+                    <button type="button" class="vibz-btn" onclick="setProjectType('Redesign Existing')">Redesign Existing</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(1.5)">Go Back</button>
                 </div>
 
+                <!-- STEP 3: DESIGN CHOICE -->
                 <div class="form-screen" id="step-3">
-                    <div class="step-header"><h1>Design Choice</h1></div>
                     <button type="button" class="vibz-btn" onclick="goToStep(4)">I Have a Design Code</button>
-                    <button type="button" class="vibz-btn primary" onclick="setDesignType('Custom')">Request Custom Design</button>
+                    <button type="button" class="vibz-btn primary" onclick="openConceptLibrary()">Browse Concept Library</button>
+                    <button type="button" class="vibz-btn" onclick="setDesignType('Custom')">Request Custom Design</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(2)">Go Back</button>
                 </div>
 
+                <!-- STEP 4: DESIGN CODE ENTRY -->
                 <div class="form-screen" id="step-4">
-                    <div class="step-header"><h1>Enter Code</h1></div>
-                    <input type="text" class="vibz-input" id="designCode" placeholder="Code (e.g. Barber 101)">
-                    <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
+                    <div id="code-entry-area" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+                        <input type="text" class="vibz-input" id="designCode" placeholder="e.g., Barber 101">
+                        <button type="button" class="vibz-btn primary" onclick="verifyDesign()">Verify Design</button>
+                    </div>
+                    <div id="concept-display-area" style="display:none; width:100%;"></div>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(3)">Go Back</button>
                 </div>
 
+                <!-- STEP 5: PLAN TYPE -->
                 <div class="form-screen" id="step-5">
-                    <div class="step-header"><h1>Your Plan</h1></div>
-                    <button type="button" class="vibz-btn" onclick="setPlanType('Outright')">Buy Outright</button>
-                    <button type="button" class="vibz-btn" onclick="setPlanType('Monthly')">Monthly License</button>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Buy Outright')">Buy Outright</button>
+                    <button type="button" class="vibz-btn" onclick="setPlanType('Monthly License')">Monthly License</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(4)">Go Back</button>
                 </div>
 
+                <!-- STEP 6: URGENCY -->
                 <div class="form-screen" id="step-6">
-                    <div class="step-header"><h1>Urgency</h1></div>
-                    <button type="button" class="vibz-btn" onclick="setUrgency('ASAP')">Start ASAP</button>
-                    <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')">Flexible</button>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('Start ASAP')">Start ASAP</button>
+                    <button type="button" class="vibz-btn" onclick="setUrgency('Flexible')">I'm flexible, no rush</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(5)">Go Back</button>
                 </div>
 
+                <!-- STEP 7: FEATURES -->
                 <div class="form-screen" id="step-7">
-                    <div class="step-header"><h1>Features</h1></div>
                     <div class="services-grid" id="master-service-grid"></div>
                     <button type="button" class="vibz-btn primary" onclick="next()">See Pricing</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(6)">Go Back</button>
                 </div>
 
+                <!-- STEP 8: PRICING -->
                 <div class="form-screen" id="step-8">
-                    <div class="step-header"><h1>Pricing</h1></div>
                     <div class="pricing-cards-container" id="pricing-cards-display"></div>
-                    <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue</button>
+                    <button type="button" class="vibz-btn primary" onclick="goToStep(9)">Continue to Details</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(7)">Back to Features</button>
                 </div>
 
+                <!-- STEP 9: DETAILS -->
                 <div class="form-screen" id="step-9">
-                    <div class="step-header"><h1>Final Step</h1></div>
-                    <input type="text" class="vibz-input" id="fullName" placeholder="Your Name">
+                    <input type="text" class="vibz-input" id="fullName" placeholder="Full Name">
                     <input type="email" class="vibz-input" id="emailAddress" placeholder="Email Address">
                     <button type="button" class="vibz-btn primary" onclick="submitProject()">Submit Project</button>
                     <button type="button" class="vibz-btn back-btn" onclick="goToStep(8)">Go Back</button>
                 </div>
+
             </form>
         </div>
     </main>
@@ -349,272 +503,292 @@
     </div>
 </div>
 
+<!-- Concept Library Modal (replicates the library experience) -->
+<div id="concept-library-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+    <div style="background: white; border-radius: 40px; max-width: 600px; width: 100%; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto;">
+        <div style="position: sticky; top: 0; background: white; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); margin-bottom: 20px;">
+            <h2 style="color: var(--primary);">Design Library</h2>
+            <div style="font-size: 2rem; cursor: pointer;" onclick="closeConceptLibrary()">&times;</div>
+        </div>
+        <p style="margin-bottom: 20px;">Browse our barber website concepts. Click "Select" to use a design.</p>
+        <div id="library-grid" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Dynamic library items will be injected -->
+        </div>
+    </div>
+</div>
+
 <script>
-    // Feature configurations (matches second HTML)
+    // ========== FEATURE CONFIGURATION ==========
     const FEATURE_CONFIG = {
-        standard: ["Logo Design", "Services Grid", "WhatsApp Chat", "Contact Form", "Google Maps"],
-        premium: ["Staff Profiles", "Online Booking", "Stripe Payments", "Loyalty System", "VIP Portal"]
+        standard: ["Logo Design", "Services Grid", "WhatsApp Chat", "Contact Form", "Google Maps", "Gallery Section", "Customer Reviews"],
+        premium: ["Staff Profiles", "Online Booking", "Stripe Payments", "Loyalty System", "VIP Portal", "Blog Section", "Email Marketing"]
     };
-    const ALL_FEATURES = [...FEATURE_CONFIG.standard, ...FEATURE_CONFIG.premium];
 
     let currentStep = 0;
     let selections = { 
         businessName: '', 
-        services: [],      // array of selected feature names
+        services: [], 
         planType: '', 
-        country: 'GB',
+        country: 'GB', 
         projectType: '',
-        designChoice: '',
+        designCode: '',
         urgency: '',
-        selectedPlan: null  // 'standard' or 'premium'
+        selectedTier: 'standard',
+        fullName: '',
+        email: ''
     };
 
-    // Helper to update UI based on currentStep
-    function updateUI() {
-        // Hide all screens first
-        document.querySelectorAll('.form-screen').forEach(s => {
-            s.classList.remove('active');
-            s.style.display = 'none';
-        });
-
-        // Map step numbers with potential decimals to string IDs (step-1-5 for 1.5)
-        let stepId = currentStep;
-        if (currentStep === 1.5) stepId = '1-5';
-        const currentScreen = document.getElementById(`step-${stepId}`);
-        if (currentScreen) {
-            currentScreen.style.display = 'flex';
-            setTimeout(() => currentScreen.classList.add('active'), 10);
-        }
-
-        // Initialize dynamic content if needed
-        if (currentStep === 7) {
-            initServiceList();
-        }
-        if (currentStep === 8) {
-            renderPricingCards();
-        }
-    }
-
-    // Navigation functions (identical to second html logic)
-    function toggleMenu() { 
-        document.getElementById('app-menu-layer').classList.toggle('active'); 
-    }
-    
-    // Replicated behavior for "I'm Ready to Start" button
-    function startReady() { 
-        currentStep = 1; 
-        updateUI(); 
-    }
-    
-    // NEW: handle "Exploring Designs First" button - exactly like second HTML's <a> but as button click
-    // In second HTML, the anchor just stays on same page or shows something? But to match expected flow,
-    // we treat it as a "browse designs" placeholder that goes to step 0? Actually second HTML has <a href="#">Exploring Designs First</a> 
-    // which does nothing (no onclick). But requirement: "When clicking either buttons on Faz barbers first html. Ensure it’s replicated from 2nd html"
-    // So we must replicate exactly that second HTML's behavior: the first button "I'm Ready to Start" goes to step1, the second button (anchor) does nothing but we implement consistent:
-    // In second HTML it's an anchor with href="#", so it just stays. To be fully functional and user-friendly, we make it simply stay on step0 or show a small message? But better replicate: does not navigate.
-    // However for UX, maybe they intend it to go to a gallery or stay? But original second HTML does NOT change step. We'll keep it as an action that just alerts or does nothing but preserve the design.
-    // To exactly replicate, it should just stay on same screen. But we can add a subtle feedback that it's for exploration. For professionalism, we keep same as second HTML: no navigation.
-    function exploreDesignsFirst() {
-        // In second html, this was an anchor with href="#", meaning it does nothing but might scroll to top.
-        // To exactly replicate, we do nothing (just prevent default and stay). But we add a small optional console or gentle reminder? But to match spec, no navigation.
-        // Keeping consistent with the fact it doesn't break. Also we could show a temporary message? but spec says don't change design or layout! So just do nothing.
-        // However clicking it should not cause errors. So simply do nothing. But we can also allow a lightweight alert? Not needed.
-        // We'll just keep it neutral: stays on step0.
-        // If we want to match exactly the second html, it has no JS attached. So we define function that does nothing.
-        return false;
-    }
-    
+    // ========== NAVIGATION ==========
+    function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
+    function startReady() { currentStep = 1; updateUI(); }
     function handleStep1() { 
         const val = document.getElementById('businessInput').value.trim();
-        if(val) { 
-            selections.businessName = val; 
-            currentStep = 1.5; 
-            updateUI(); 
-        } else {
-            alert("Please enter your shop name.");
-        }
+        if(val) { selections.businessName = val; currentStep = 1.5; updateUI(); }
+        else alert("Please enter your shop name");
     }
-    
     function handleCountrySelect() { 
         selections.country = document.getElementById('countrySelect').value; 
-        currentStep = 2; 
-        updateUI(); 
+        currentStep = 2; updateUI(); 
     }
-    
-    function setProjectType(v) { 
-        selections.projectType = v; 
-        next(); 
+    function setProjectType(v) { selections.projectType = v; next(); }
+    function setDesignType(v) { selections.designType = v; next(); }
+    function setPlanType(v) { selections.planType = v; next(); }
+    function setUrgency(v) { selections.urgency = v; next(); }
+    function next() { if(currentStep < 9) { currentStep++; updateUI(); } }
+    function goToStep(s) { currentStep = s; updateUI(); }
+
+    // ========== CONCEPT LIBRARY ==========
+    // Sample library of barber concepts (10 designs)
+    const conceptLibrary = [
+        { code: "Barber 101", name: "Classic Cuts", img: "https://placehold.co/600x400/FF6B00/white?text=Classic+Cuts" },
+        { code: "Barber 202", name: "Modern Fade", img: "https://placehold.co/600x400/2196F3/white?text=Modern+Fade" },
+        { code: "Barber 303", name: "Luxury Shave", img: "https://placehold.co/600x400/4CAF50/white?text=Luxury+Shave" },
+        { code: "Barber 404", name: "Urban Style", img: "https://placehold.co/600x400/FF9800/white?text=Urban+Style" },
+        { code: "Barber 505", name: "Vintage Barbershop", img: "https://placehold.co/600x400/795548/white?text=Vintage" },
+        { code: "Barber 606", name: "Gentleman's Club", img: "https://placehold.co/600x400/9C27B0/white?text=Gentleman" },
+        { code: "Barber 707", name: "Street Barber", img: "https://placehold.co/600x400/607D8B/white?text=Street" },
+        { code: "Barber 808", name: "Premium Lounge", img: "https://placehold.co/600x400/E91E63/white?text=Premium+Lounge" },
+        { code: "Barber 909", name: "Express Cuts", img: "https://placehold.co/600x400/00BCD4/white?text=Express+Cuts" },
+        { code: "Barber 100", name: "Signature Style", img: "https://placehold.co/600x400/FF5722/white?text=Signature" }
+    ];
+
+    function openConceptLibrary() {
+        const modal = document.getElementById('concept-library-modal');
+        const grid = document.getElementById('library-grid');
+        grid.innerHTML = '';
+        conceptLibrary.forEach(concept => {
+            const card = document.createElement('div');
+            card.style.cssText = 'border: 2px solid var(--border); border-radius: 20px; overflow: hidden; background: white;';
+            card.innerHTML = `
+                <img src="${concept.img}" style="width:100%; height:auto; display:block;" alt="${concept.name}">
+                <div style="padding: 15px;">
+                    <h3 style="color: var(--primary);">${concept.name}</h3>
+                    <p style="color: var(--gray); font-size: 0.8rem;">Code: ${concept.code}</p>
+                    <button class="vibz-btn primary" style="margin-top: 10px; padding: 10px;" onclick="selectConceptFromLibrary('${concept.code}')">Select This Design</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+        modal.style.display = 'flex';
     }
-    
-    function setDesignType(v) { 
-        selections.designChoice = v; 
-        next(); 
+
+    function closeConceptLibrary() {
+        document.getElementById('concept-library-modal').style.display = 'none';
     }
-    
-    function setPlanType(v) { 
-        selections.planType = v; 
-        next(); 
+
+    function selectConceptFromLibrary(code) {
+        selections.designCode = code;
+        closeConceptLibrary();
+        // Store that we came from library, then go to step 5 (plan selection) or verification
+        // According to the second HTML's behavior, after selecting a design, we should proceed to plan step
+        currentStep = 5;
+        updateUI();
+        alert(`Design "${code}" selected! Continue with your project.`);
     }
-    
-    function setUrgency(v) { 
-        selections.urgency = v; 
-        next(); 
-    }
-    
-    function verifyDesign() { 
-        const code = document.getElementById('designCode').value.trim();
-        if(code) {
-            // In second html, it just goes to step5 regardless of code.
-            currentStep = 5; 
-            updateUI();
+
+    // ========== DESIGN VERIFICATION ==========
+    function verifyDesign() {
+        const input = document.getElementById('designCode').value.trim();
+        const entryArea = document.getElementById('code-entry-area');
+        const displayArea = document.getElementById('concept-display-area');
+        
+        if(input) {
+            selections.designCode = input;
+            const found = conceptLibrary.find(c => c.code.toLowerCase() === input.toLowerCase());
+            const imgUrl = found ? found.img : "https://placehold.co/600x400/FF6B00/white?text=Design+Found";
+            const conceptName = found ? found.name : "Custom Design";
+            
+            entryArea.style.display = 'none';
+            displayArea.style.display = 'block';
+            displayArea.innerHTML = `
+                <div class="concept-preview">
+                    <img src="${imgUrl}" alt="${selections.designCode}">
+                    <div class="concept-info">
+                        <h3>${selections.designCode}</h3>
+                        <p>${conceptName} - Selected for ${selections.businessName || 'your shop'}</p>
+                    </div>
+                </div>
+                <button class="vibz-btn primary" onclick="confirmAndContinue()">Confirm & Continue</button>
+                <button class="vibz-btn back-btn" onclick="resetCodeEntry()">Enter Different Code</button>
+            `;
         } else {
-            alert("Please enter a design code.");
+            alert("Please enter a design code");
         }
     }
-    
-    function next() { 
-        currentStep++; 
-        updateUI(); 
+
+    function confirmAndContinue() {
+        currentStep = 5;
+        updateUI();
     }
-    
-    function goToStep(s) { 
-        currentStep = s; 
-        updateUI(); 
+
+    function resetCodeEntry() {
+        document.getElementById('code-entry-area').style.display = 'block';
+        document.getElementById('concept-display-area').style.display = 'none';
+        document.getElementById('designCode').value = '';
     }
-    
-    // Initialize features grid (step 7)
+
+    // ========== FEATURES GRID ==========
     function initServiceList() {
         const grid = document.getElementById('master-service-grid');
         if (!grid) return;
         grid.innerHTML = '';
-        ALL_FEATURES.forEach(feature => {
+        [...FEATURE_CONFIG.standard, ...FEATURE_CONFIG.premium].forEach(feature => {
             const tier = FEATURE_CONFIG.standard.includes(feature) ? 'standard' : 'premium';
             const isSelected = selections.services.includes(feature);
             const selectedClass = isSelected ? `selected ${tier}` : '';
-            const cardDiv = document.createElement('div');
-            cardDiv.className = `service-card ${selectedClass}`;
-            cardDiv.innerHTML = `<strong>${feature}</strong>`;
-            // Toggle selection on click
-            cardDiv.onclick = (e) => {
-                e.stopPropagation();
+            const card = document.createElement('div');
+            card.className = `service-card ${selectedClass}`;
+            card.innerHTML = `<strong>${feature}</strong>`;
+            card.onclick = () => {
+                card.classList.toggle('selected');
+                card.classList.toggle(tier);
                 if (selections.services.includes(feature)) {
                     selections.services = selections.services.filter(s => s !== feature);
-                    cardDiv.classList.remove('selected', tier);
                 } else {
                     selections.services.push(feature);
-                    cardDiv.classList.add('selected', tier);
                 }
-                // Optional: re-render pricing if needed, but pricing step updates later
+                // Auto-suggest tier based on premium selections
+                const premiumCount = selections.services.filter(s => FEATURE_CONFIG.premium.includes(s)).length;
+                if (premiumCount >= 3) selections.selectedTier = 'premium';
+                else selections.selectedTier = 'standard';
             };
-            grid.appendChild(cardDiv);
+            grid.appendChild(card);
         });
     }
-    
-    // Render interactive pricing cards (matching second html style but with selection)
+
+    // ========== PRICING CARDS ==========
     function renderPricingCards() {
         const container = document.getElementById('pricing-cards-display');
         if (!container) return;
-        
-        // Determine which features are selected to influence recommendation? Just show Standard and Premium.
-        // Count how many premium features selected to suggest? Not needed.
-        const standardPrice = selections.country === 'GB' ? '£1500' : '$1950';
-        const premiumPrice = selections.country === 'GB' ? '£3000' : '$3900';
+        const symbol = selections.country === 'GB' ? '£' : (selections.country === 'US' ? '$' : (selections.country === 'CA' ? 'C$' : 'A$'));
+        const outrightStd = selections.country === 'GB' ? 1500 : (selections.country === 'US' ? 1950 : (selections.country === 'CA' ? 2500 : 2800));
+        const outrightPrem = selections.country === 'GB' ? 3000 : (selections.country === 'US' ? 3900 : (selections.country === 'CA' ? 5000 : 5600));
         
         container.innerHTML = `
-            <div class="pricing-card" data-plan="standard" id="pricing-standard">
-                <h3 style="color:var(--standard)">✨ STANDARD PACKAGE</h3>
-                <div class="price">${standardPrice}</div>
-                <p style="margin-bottom:12px;">Includes: ${FEATURE_CONFIG.standard.join(', ')}</p>
-                <button class="select-plan-btn" data-plan="standard">Select Standard</button>
+            <div class="pricing-card ${selections.selectedTier === 'standard' ? 'recommended' : ''}" onclick="selectTier('standard')">
+                <div class="plan-recommended-badge" style="display: ${selections.selectedTier === 'standard' ? 'block' : 'none'}">RECOMMENDED</div>
+                <h3 style="color: var(--standard);">STANDARD PACKAGE</h3>
+                <div class="price-value">${symbol}${outrightStd}</div>
+                <p>One-time payment. Full ownership.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle" style="color: var(--standard);"></i> Up to 5 pages</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--standard);"></i> Mobile responsive</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--standard);"></i> 5 standard features</li>
+                </ul>
+                <button class="payment-button secondary" onclick="event.stopPropagation(); selectAndContinue('standard')">Select Standard</button>
             </div>
-            <div class="pricing-card" data-plan="premium" id="pricing-premium">
-                <h3 style="color:var(--premium)">⭐ PREMIUM PACKAGE</h3>
-                <div class="price">${premiumPrice}</div>
-                <p style="margin-bottom:12px;">Includes: ${FEATURE_CONFIG.premium.join(', ')}</p>
-                <button class="select-plan-btn" data-plan="premium">Select Premium</button>
+            <div class="pricing-card ${selections.selectedTier === 'premium' ? 'recommended' : ''}" onclick="selectTier('premium')">
+                <div class="plan-recommended-badge" style="display: ${selections.selectedTier === 'premium' ? 'block' : 'none'}">👍 MOST POPULAR</div>
+                <h3 style="color: var(--premium);">PREMIUM PACKAGE</h3>
+                <div class="price-value">${symbol}${outrightPrem}</div>
+                <p>One-time payment. Full ownership + extras.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-crown" style="color: var(--premium);"></i> Up to 15 pages</li>
+                    <li><i class="fas fa-crown" style="color: var(--premium);"></i> Online booking + payments</li>
+                    <li><i class="fas fa-crown" style="color: var(--premium);"></i> All premium features</li>
+                </ul>
+                <button class="payment-button premium" onclick="event.stopPropagation(); selectAndContinue('premium')">Select Premium</button>
             </div>
         `;
-        
-        // Highlight previously selected plan if any
-        if (selections.selectedPlan === 'standard') {
-            const stdCard = document.getElementById('pricing-standard');
-            if(stdCard) stdCard.classList.add('selected');
-        } else if (selections.selectedPlan === 'premium') {
-            const premCard = document.getElementById('pricing-premium');
-            if(premCard) premCard.classList.add('selected');
-        }
-        
-        // Add event listeners for plan selection
-        const standardBtn = document.querySelector('.select-plan-btn[data-plan="standard"]');
-        const premiumBtn = document.querySelector('.select-plan-btn[data-plan="premium"]');
-        const standardCard = document.getElementById('pricing-standard');
-        const premiumCard = document.getElementById('pricing-premium');
-        
-        const selectPlan = (plan) => {
-            selections.selectedPlan = plan;
-            // Update visual selection
-            document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
-            if (plan === 'standard') standardCard.classList.add('selected');
-            else premiumCard.classList.add('selected');
-            // Optionally store package details for submission
-        };
-        
-        if(standardBtn) standardBtn.onclick = (e) => { e.stopPropagation(); selectPlan('standard'); };
-        if(premiumBtn) premiumBtn.onclick = (e) => { e.stopPropagation(); selectPlan('premium'); };
-        if(standardCard) standardCard.onclick = () => selectPlan('standard');
-        if(premiumCard) premiumCard.onclick = () => selectPlan('premium');
     }
-    
-    // Final submission with validation (replicates second HTML behavior + gathers data)
+
+    function selectTier(tier) {
+        selections.selectedTier = tier;
+        renderPricingCards();
+    }
+
+    function selectAndContinue(tier) {
+        selections.selectedTier = tier;
+        goToStep(9);
+    }
+
+    // ========== SUBMIT PROJECT ==========
     function submitProject() {
-        const fullName = document.getElementById('fullName')?.value.trim();
-        const email = document.getElementById('emailAddress')?.value.trim();
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('emailAddress').value.trim();
         if (!fullName || !email) {
-            alert("Please enter your name and email address.");
+            alert("Please enter your name and email.");
             return;
         }
-        if (!selections.selectedPlan) {
-            alert("Please select a pricing plan (Standard or Premium) on the pricing step.");
-            return;
-        }
-        // Build summary message
-        let message = `🔹 FAZ HOQ PROJECT SUBMISSION 🔹\n`;
-        message += `Name: ${fullName}\nEmail: ${email}\nShop: ${selections.businessName || 'Not provided'}\nCountry: ${selections.country === 'GB' ? 'UK' : 'USA'}\n`;
-        message += `Project: ${selections.projectType || 'Not specified'}\nPlan: ${selections.selectedPlan.toUpperCase()}\n`;
-        message += `Urgency: ${selections.urgency || 'Not specified'}\nSelected Features: ${selections.services.length ? selections.services.join(', ') : 'None selected'}\n`;
-        alert(`✅ Project sent!\n\n${message}\n\nA barber web specialist will contact you shortly.`);
-        // Reset form and reload as per second HTML
+        selections.fullName = fullName;
+        selections.email = email;
+        
+        let message = `✅ Project Submitted!\n\n`;
+        message += `Shop: ${selections.businessName}\n`;
+        message += `Name: ${fullName}\n`;
+        message += `Email: ${email}\n`;
+        message += `Plan: ${selections.selectedTier.toUpperCase()}\n`;
+        message += `Features selected: ${selections.services.length}\n`;
+        message += `Design code: ${selections.designCode || 'Custom'}\n\n`;
+        message += `A barber specialist will contact you within 24 hours.`;
+        
+        alert(message);
+        // Reset form
         window.location.reload();
     }
-    
-    // Additional handler to maintain consistency: for setDesignType ensure navigation works
-    // All functions defined above exactly match second HTML behavior, plus the "Exploring Designs First" does not break anything.
-    // Ensure that the back navigation and steps are robust.
-    
-    // On window load, set up and ensure step-0 active
+
+    // ========== UPDATE UI ==========
+    function updateUI() {
+        document.querySelectorAll('.form-screen').forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
+        });
+        
+        let stepId = currentStep === 1.5 ? '1-5' : currentStep;
+        const currentScreen = document.getElementById(`step-${stepId}`);
+        if(currentScreen) {
+            currentScreen.style.display = 'flex';
+            setTimeout(() => currentScreen.classList.add('active'), 10);
+        }
+        
+        const titles = { 0: "Build your barber brand.", 1: "Shop Name?", 1.5: "Where are you located?", 2: "Project Status", 3: "Design Choice", 4: "Enter Code", 5: "Choose Your Plan", 6: "When do you want to start?", 7: "Select Features", 8: "Pricing", 9: "Final Step" };
+        document.getElementById('dynamic-title').textContent = titles[currentStep] || "Build your barber brand.";
+        
+        if(currentStep === 7) initServiceList();
+        if(currentStep === 8) renderPricingCards();
+        
+        // Update swipe counter dots
+        const counter = document.getElementById('swipeCounter');
+        if(counter) {
+            const totalSteps = 10;
+            counter.innerHTML = '';
+            for(let i = 0; i <= 9; i++) {
+                const dot = document.createElement('div');
+                dot.className = `counter-dot ${Math.floor(currentStep) === i ? 'active' : ''}`;
+                counter.appendChild(dot);
+            }
+        }
+    }
+
+    // ========== INIT ==========
     window.onload = () => {
         updateUI();
-        // Prefill any saved data if needed, but not required
-        // Also ensure all dynamic event handlers for steps are ready
-        // Attach additional listeners for direct input changes?
+        // Close modal on outside click
+        window.onclick = (e) => {
+            const modal = document.getElementById('concept-library-modal');
+            if(e.target === modal) closeConceptLibrary();
+        };
     };
-    
-    // Override any missing but ensure all global functions are defined
-    window.toggleMenu = toggleMenu;
-    window.startReady = startReady;
-    window.exploreDesignsFirst = exploreDesignsFirst;
-    window.handleStep1 = handleStep1;
-    window.handleCountrySelect = handleCountrySelect;
-    window.setProjectType = setProjectType;
-    window.setDesignType = setDesignType;
-    window.setPlanType = setPlanType;
-    window.setUrgency = setUrgency;
-    window.verifyDesign = verifyDesign;
-    window.next = next;
-    window.goToStep = goToStep;
-    window.submitProject = submitProject;
-    window.initServiceList = initServiceList;
-    window.renderPricingCards = renderPricingCards;
 </script>
 </body>
 </html>
