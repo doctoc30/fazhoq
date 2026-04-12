@@ -99,6 +99,61 @@
         .hover-glow:hover {
             filter: drop-shadow(0 0 12px rgba(255,107,0,0.4));
         }
+        /* DOCK STYLES - preserved exactly as original but without the MENU button */
+        .app-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FF6B00;
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: env(safe-area-inset-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .dock-btn {
+            font-size: 2rem;
+            color: #FFFFFF;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .dock-btn span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        .dock-btn:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+        
+        /* Adjust body padding for dock so content isn't hidden behind it */
+        body {
+            padding-bottom: 80px;
+        }
+        
+        /* Header menu link color - make them orange on hover and active state */
+        nav .hidden.md\\:flex a:not(.bg-brand-orange) {
+            color: #4a4a4a;
+            transition: color 0.2s;
+        }
+        nav .hidden.md\\:flex a:not(.bg-brand-orange):hover {
+            color: #FF6B00 !important;
+        }
+        /* Mobile menu button is already orange via text-brand-orange class */
+        
+        /* Ensure the "Hire me" button in nav stays white text with orange bg */
+        nav .bg-brand-orange {
+            color: white !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -141,7 +196,7 @@
                 I build <span class="gradient-text">high-performance</span> websites that <br class="hidden md:block"> turn visitors into <span class="brand-orange">clients</span>.
             </h1>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto mt-6 leading-relaxed">
-                Hi, I’m Faz Hoq — digital architect & web specialist. I help plumbers, lawyers, creatives, and local businesses dominate online with fast, modern, and conversion-driven websites.
+                Hi, I'm Faz Hoq — digital architect & web specialist. I help plumbers, lawyers, creatives, and local businesses dominate online with fast, modern, and conversion-driven websites.
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
                 <a href="#contact" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold text-lg btn-orange shadow-xl"><i class="fa-regular fa-calendar-check mr-2"></i> Hire me now</a>
@@ -200,7 +255,7 @@
             </div>
         </div>
         <div class="text-center mt-12" data-aos="fade-up">
-            <a href="#contact" class="inline-flex items-center gap-2 font-bold border-b-2 border-brand-orange pb-1 text-brand-orange hover:gap-3 transition-all">Let’s build your industry website →</a>
+            <a href="#contact" class="inline-flex items-center gap-2 font-bold border-b-2 border-brand-orange pb-1 text-brand-orange hover:gap-3 transition-all">Let's build your industry website →</a>
         </div>
     </section>
 
@@ -230,17 +285,17 @@
         <div class="grid md:grid-cols-3 gap-6 px-4">
             <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in">
                 <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">“Faz built my plumbing website and within 2 months my calls tripled. Professional, fast and actually cares about my business.”</p>
+                <p class="italic text-gray-700">"Faz built my plumbing website and within 2 months my calls tripled. Professional, fast and actually cares about my business."</p>
                 <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-user-tie text-gray-500"></i></div><div><b>Daniel Moore</b><p class="text-xs text-gray-400">D.M. Plumbing & Heating</p></div></div>
             </div>
             <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="100">
                 <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">“The e-commerce site Faz created for my boutique is beautiful and lightning fast. Sales increased 45% in 3 months. Highly recommend!”</p>
+                <p class="italic text-gray-700">"The e-commerce site Faz created for my boutique is beautiful and lightning fast. Sales increased 45% in 3 months. Highly recommend!"</p>
                 <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-store"></i></div><div><b>Sophia Chen</b><p class="text-xs text-gray-400">Loom & Lace</p></div></div>
             </div>
             <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="200">
                 <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">“After Faz redesigned my law firm website, I started getting 5x more consultation requests. He understands professional branding.”</p>
+                <p class="italic text-gray-700">"After Faz redesigned my law firm website, I started getting 5x more consultation requests. He understands professional branding."</p>
                 <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-gavel"></i></div><div><b>Rebecca Hart</b><p class="text-xs text-gray-400">Hart Legal Group</p></div></div>
             </div>
         </div>
@@ -249,8 +304,8 @@
     <!-- ***** CTA / CONTACT + HIRE SECTION (direct lead capture) ***** -->
     <section id="contact" class="bg-black text-white py-20 px-6 rounded-t-[3rem] mt-12">
         <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
-            <h2 class="text-4xl md:text-6xl font-black tracking-tight">Let’s build something <span class="brand-orange">unforgettable</span></h2>
-            <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-4">Ready to scale your business with a high-converting website? I’m one message away.</p>
+            <h2 class="text-4xl md:text-6xl font-black tracking-tight">Let's build something <span class="brand-orange">unforgettable</span></h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-4">Ready to scale your business with a high-converting website? I'm one message away.</p>
             <div class="flex flex-wrap justify-center gap-5 mt-10">
                 <a href="mailto:Fazhoq1977@gmail.com" class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 transition px-8 py-4 rounded-full font-bold text-lg shadow-xl"><i class="fa-regular fa-envelope"></i> Fazhoq1977@gmail.com</a>
                 <a href="https://wa.me/447706345874" class="inline-flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition px-8 py-4 rounded-full font-bold text-lg"><i class="fa-brands fa-whatsapp"></i> WhatsApp me</a>
@@ -267,7 +322,7 @@
     <section class="py-16 px-6 bg-white">
         <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
             <h3 class="text-2xl font-black">Tell me about your project</h3>
-            <p class="text-gray-500 mb-6">I’ll reach out within 12 hours with a game plan.</p>
+            <p class="text-gray-500 mb-6">I'll reach out within 12 hours with a game plan.</p>
             <form id="hireForm" class="space-y-4" action="https://formspree.io/f/xqapwnww" method="POST">
                 <div class="grid md:grid-cols-2 gap-4">
                     <input type="text" name="name" placeholder="Your name" required class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
@@ -294,6 +349,14 @@
             <p>© 2025 Faz Hoq — Websites that work for you.</p>
         </div>
     </footer>
+
+    <!-- DOCK MENU - ONLY 3 CTAs (TEXT, WHATSAPP, EMAIL) - NO MENU BUTTON -->
+    <div class="app-dock">
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <!-- MENU BUTTON REMOVED - only TEXT, WHATSAPP, EMAIL remain -->
+    </div>
 
     <!-- AOS + Mobile Drawer JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -322,7 +385,7 @@
                 try {
                     const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
                     if(response.ok) {
-                        alert('✨ Message sent! I’ll reply within 12 hours. Let’s build something great.');
+                        alert('✨ Message sent! I\'ll reply within 12 hours. Let\'s build something great.');
                         form.reset();
                     } else throw new Error();
                 } catch(err) { alert('Oops! Could you email me directly at Fazhoq1977@gmail.com? Thanks!'); }
