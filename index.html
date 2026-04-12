@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>FAZ HOQ | SOLO DIGITAL ARCHITECT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -13,6 +13,7 @@
             --primary-light: #FFF5EE;
             --bg: #FFFFFF;
             --text: #121212;
+            --card-bg: rgba(255, 255, 255, 0.9);
             --safe-top: env(safe-area-inset-top);
             --safe-bottom: env(safe-area-inset-bottom);
         }
@@ -33,12 +34,12 @@
             color: var(--text);
         }
 
-        /* MAIN SLIDE NAVIGATION */
         .slide-container {
             position: relative;
             height: 100%;
             width: 100%;
             overflow: hidden;
+            touch-action: pan-y pinch-zoom;
         }
 
         section {
@@ -52,9 +53,9 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            background: var(--primary-light);
+            background: transparent;
             transform: translate3d(100%, 0, 0);
-            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
             overflow-y: auto;
         }
@@ -93,15 +94,10 @@
 
         #menu-btn {
             font-size: 1.8rem;
-            color: var(--primary);
+            color: var(--text);
             background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        #menu-btn:hover {
-            transform: scale(1.05);
         }
 
         /* TEXT STYLES */
@@ -125,141 +121,273 @@
         .huge-text.black { color: #000; }
 
         .waving-hand {
-            width: clamp(220px, 60vw, 320px);
+            width: clamp(220px, 60vw, 380px);
             height: auto;
             margin-bottom: 20px;
             mix-blend-mode: multiply;
-            transform: translateY(-20px);
+            filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
-        /* CONCEPT CARDS - TOUCH FRIENDLY */
-        .concepts-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            position: relative;
+        /* ========== VIBZ CATEGORY TILE ANIMATIONS (EXACT COPY) ========== */
+        .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        .fa-hammer {
+            animation: hammerHit 1.2s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        @keyframes hammerHit {
+            0% { transform: rotate(0deg) translateY(0); }
+            10% { transform: rotate(30deg) translateY(-3px); }
+            20% { transform: rotate(-20deg) translateY(0); }
+            30% { transform: rotate(0deg) translateY(0); }
+            40% { transform: rotate(0deg) translateY(0); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+        
+        .fa-briefcase { animation: bounce 2s ease infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .fa-utensils {
+            animation: utensilsMove 2.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes utensilsMove {
+            0% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
+            25% { transform: rotate(-15deg) scale(1.1); letter-spacing: 5px; }
+            50% { transform: rotate(15deg) scale(0.9); letter-spacing: -2px; }
+            75% { transform: rotate(-5deg) scale(1.05); letter-spacing: 3px; }
+            100% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
+        }
+        
+        .fa-bag-shopping {
+            animation: swing 3s ease-in-out infinite;
+            transform-origin: top center;
+        }
+        @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
         }
 
-        .cards-container {
+        /* ============================================
+           MOBILE PORTRAIT - LIFT AVATAR SLIGHTLY UP
+           ============================================ */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                margin-top: -30px;
+            }
+            .waving-hand {
+                margin-top: -20px;
+                margin-bottom: 5px;
+            }
+            .search-container {
+                margin-top: 30px;
+            }
+        }
+
+        /* ============================================
+           TABLET PORTRAIT - STACKED VERTICALLY (NO LIFT, NORMAL POSITION)
+           ============================================ */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            section:first-child .text-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .desktop-only-layout {
+                display: none !important;
+            }
+            
+            .mobile-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 0;
+            }
+            
+            .waving-hand {
+                width: 280px;
+                margin-bottom: 20px;
+                margin-top: 0;
+            }
+            
+            .search-container {
+                margin-top: 40px;
+                max-width: 500px;
+                width: 90%;
+            }
+        }
+
+        /* ============================================
+           DESKTOP & TABLET LANDSCAPE - SIDE BY SIDE
+           ============================================ */
+        @media (min-width: 769px) and (orientation: landscape) {
+            section:first-child .text-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .desktop-hero-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .desktop-avatar {
+                flex-shrink: 0;
+            }
+            
+            .desktop-avatar .waving-hand {
+                width: 240px;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+            
+            .desktop-search-wrapper {
+                flex-shrink: 1;
+                min-width: 400px;
+                max-width: 550px;
+                width: 100%;
+            }
+            
+            .desktop-search-wrapper .search-container {
+                margin-top: 0;
+                width: 100%;
+            }
+            
+            .desktop-tagline {
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+            
+            .desktop-tagline .huge-text {
+                display: inline-block;
+            }
+        }
+
+        /* SEARCH BAR */
+        .search-container {
+            background: #fff;
+            border-radius: 24px;
+            padding: 8px;
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            gap: 20px;
-            padding: 40px 20px;
-            cursor: grab;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            width: 95%;
+            max-width: 500px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
         }
-
-        .cards-container:active {
-            cursor: grabbing;
+        
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: transparent;
         }
-
-        .cards-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .concept-card {
-            flex: 0 0 280px;
-            height: 380px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(255, 107, 0, 0.1);
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            scroll-snap-align: center;
-        }
-
-        .concept-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 40px rgba(255, 107, 0, 0.2);
-        }
-
-        .concept-img {
-            width: 100%;
-            height: 70%;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .concept-info {
-            padding: 20px;
-            text-align: left;
-        }
-
-        .concept-info h4 { 
-            font-weight: 900; 
-            color: var(--primary); 
-            font-size: 1.2rem; 
-        }
-        .concept-info p { 
-            font-size: 0.85rem; 
-            font-weight: 700; 
-            opacity: 0.5; 
-            text-transform: uppercase; 
-        }
-
-        /* CARD CONTROLS */
-        .card-controls {
+        
+        .search-icon-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
+            color: #fff;
+            border: none;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+            cursor: pointer;
         }
 
-        .card-nav {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: white;
-            border: 1px solid rgba(255, 107, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* CATEGORIES */
+        .category-header {
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             color: var(--primary);
+            margin-bottom: 25px;
+            margin-top: 40px;
         }
 
-        .card-nav:hover {
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 100px;
+        }
+
+        .category-tile {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            border-radius: 30px;
+            padding: 25px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .category-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,107,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .category-tile:active {
+            transform: scale(0.96);
+            background: #fff;
+        }
+
+        .tile-icon {
+            width: 55px;
+            height: 55px;
             background: var(--primary);
             color: white;
-        }
-
-        .card-counter {
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 700;
-            background: rgba(255,107,0,0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-
-        .card-dots {
+            border-radius: 15px;
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            max-width: 300px;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
         }
 
-        .card-dot {
-            width: 8px;
-            height: 8px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
+        .tile-label {
+            font-weight: 900;
+            font-size: 0.95rem;
+            line-height: 1.2;
+            text-align: center;
         }
 
-        .card-dot.active {
-            background: var(--primary);
-            width: 24px;
-            border-radius: 10px;
-        }
-
-        /* BOTTOM DOCK */
+        /* DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -290,43 +418,59 @@
             font-weight: 800;
             margin-top: 4px;
         }
-        
-        .dock-btn:hover {
-            transform: translateY(-3px);
-            opacity: 0.9;
-        }
 
-        /* SLIDE INDICATOR DOTS */
-        .slide-indicators {
+        /* SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK */
+        .swipe-counter {
             position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 90px;
+            left: 0;
+            right: 0;
             display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 12px;
             z-index: 2400;
-            background: rgba(255,255,255,0.9);
             padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
             border-radius: 40px;
-            backdrop-filter: blur(10px);
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
         }
         
-        .slide-dot {
+        .counter-dot {
             width: 8px;
             height: 8px;
-            background: rgba(0,0,0,0.2);
             border-radius: 50%;
-            transition: 0.4s;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            pointer-events: auto;
             cursor: pointer;
         }
         
-        .slide-dot.active {
+        .counter-dot.active {
             background: var(--primary);
             width: 24px;
-            border-radius: 10px;
+            border-radius: 12px;
+        }
+        
+        /* Hide default side dots */
+        .nav-dots {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .nav-dots {
+                display: flex;
+            }
+            .swipe-counter {
+                bottom: 100px;
+            }
         }
 
-        /* MENU */
+        /* HAMBURGER MENU */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -339,6 +483,29 @@
             transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
         #app-menu-layer.active { transform: translateY(0); }
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .menu-item {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
         .close-menu-btn {
             width: 60px;
             height: 60px;
@@ -348,390 +515,535 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            align-self: flex-end;
+            font-size: 1.5rem;
             cursor: pointer;
         }
 
-        .nav-hint {
-            font-size: 0.7rem;
-            opacity: 0.4;
-            margin-top: 15px;
+        /* NICHE OVERLAY */
+        #category-layer {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 245, 238, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 9600;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            gap: 15px;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            padding: 20px;
+        }
+        #category-layer.active { transform: translateY(0); }
+        #cat-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+        #cat-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            max-height: 60vh;
+            gap: 10px;
+            padding: 10px;
+        }
+        .cat-item {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* DESKTOP NAVIGATION BUTTONS */
+        .desktop-nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2000;
+            width: 100%;
+            pointer-events: none;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .nav-arrow {
+            pointer-events: auto;
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            opacity: 0.85;
+        }
+        .nav-arrow:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #e05e00;
+        }
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .desktop-nav {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
 
     <div id="app-menu-layer">
-        <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
-        <div class="flex flex-col items-center justify-center flex-1 gap-10">
-            <a href="#" class="huge-text" onclick="goToSlide(0); toggleMenu()">HOME</a>
-            <a href="#" class="huge-text" onclick="goToSlide(1); toggleMenu()">CONCEPTS</a>
-            <a href="mailto:Fazhoq1977@gmail.com" class="huge-text">HIRE ME</a>
+        <div class="menu-header">
+            <div class="faz-logo">FAZ HOQ<span>.</span></div>
+            <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
         </div>
+        <div class="menu-links">
+            <a href="#" class="menu-item" onclick="goToSlide(0); toggleMenu()">HOME</a>
+            <a href="#" class="menu-item" onclick="goToSlide(1); toggleMenu()">CATEGORIES</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
+        </div>
+    </div>
+
+    <div id="category-layer">
+        <h2 id="cat-title">Niche Selection</h2>
+        <div id="cat-list"></div>
+        <div class="close-menu-btn" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
     </div>
 
     <nav class="faz-nav">
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
-        <button id="menu-btn" onclick="toggleMenu()" aria-label="Menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
 
-    <div class="slide-indicators">
-        <div class="slide-dot active" onclick="goToSlide(0)"></div>
-        <div class="slide-dot" onclick="goToSlide(1)"></div>
-        <div class="slide-dot" onclick="goToSlide(2)"></div>
+    <!-- DESKTOP NAVIGATION -->
+    <div class="desktop-nav">
+        <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
     </div>
+
+    <!-- SWIPE COUNTER -->
+    <div class="swipe-counter" id="swipeCounter"></div>
 
     <div class="slide-container" id="master-wrapper">
         <!-- SLIDE 0: HOME -->
         <section class="active">
-            <div class="text-wrap">
+            <!-- Mobile & Tablet Portrait stacked layout -->
+            <div class="text-wrap mobile-only-layout">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
                 <h1 class="huge-text">I build websites for:</h1>
-                <div class="huge-text black" id="typewriter">&nbsp;</div>
-                <p class="mt-8 font-black uppercase tracking-[4px] text-xs opacity-40">Independent Web Developer</p>
-            </div>
-        </section>
-
-        <!-- SLIDE 1: CONCEPTS with HORIZONTAL CARDS -->
-        <section>
-            <div class="text-wrap">
-                <h2 class="huge-text mb-4">VISUAL<br><span class="black">CONCEPTS.</span></h2>
-                
-                <div class="concepts-wrapper">
-                    <div class="cards-container" id="cards-container">
-                        <!-- Cards injected by JS -->
-                    </div>
-                    
-                    <div class="card-controls">
-                        <div class="card-nav" id="prevCardBtn">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </div>
-                        <div class="card-counter" id="cardCounter">1 / 0</div>
-                        <div class="card-nav" id="nextCardBtn">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </div>
-                    <div class="card-dots" id="cardDots"></div>
+                <div class="huge-text black" id="typewriter-mobile">&nbsp;</div>
+                <div class="search-container">
+                    <input type="text" id="mainSearch" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-                
-                <div class="nav-hint">
-                    <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Swipe cards horizontally</span>
-                    <span><i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i> Swipe up/down for slides</span>
+            </div>
+            
+            <!-- Desktop & Tablet Landscape side-by-side layout -->
+            <div class="text-wrap desktop-only-layout">
+                <div class="desktop-hero-row">
+                    <div class="desktop-avatar">
+                        <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
+                    </div>
+                    <div class="desktop-search-wrapper">
+                        <div class="search-container">
+                            <input type="text" id="mainSearchDesktop" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearchDesktop()">
+                            <button class="search-icon-btn" onclick="triggerSearchDesktop()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="desktop-tagline">
+                    <h1 class="huge-text">I build websites for:</h1>
+                </div>
+                <div class="desktop-tagline">
+                    <div class="huge-text black" id="typewriter-desktop">&nbsp;</div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 2: COLLABORATE -->
         <section>
-            <div class="text-wrap">
-                <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
-                <div class="mt-10 p-6 bg-white rounded-[30px] border border-orange-100 shadow-xl inline-block">
-                    <p class="font-bold text-orange-600">Now taking bookings for 2026</p>
+            <div class="text-wrap flex-col">
+                <h2 class="category-header">Or Select From Popular Categories</h2>
+                <div class="category-grid">
+                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
+                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="tile-label">Health & Wellness</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Home & Trades')">
+                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
+                        <span class="tile-label">Home & Trades</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Professional')">
+                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <span class="tile-label">Professional Services</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Food & Drink')">
+                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="tile-label">Food & Drink</span>
+                    </div>
+                    <div class="category-tile" onclick="openNiche('Retail & Creative')" style="grid-column: span 2; flex-direction: row; padding: 20px; justify-content: center;">
+                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="tile-label" style="margin-left: 15px;">Retail & Creative Industries</span>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">STRATEGIC<br><span class="black">PARTNER.</span></h2></div></section>
+        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="font-style:italic; text-transform:uppercase">WOW<span>!</span><br><span class="black" style="color:#fff">INTERACTION.</span></h2></div></section>
+        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">LET'S<br><span class="black" style="color:#fff">BUILD.</span></h2></div></section>
     </div>
 
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
         <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
     </div>
 
+    <style>
+        /* Default: show mobile layout, hide desktop layout */
+        .mobile-only-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .desktop-only-layout {
+            display: none;
+        }
+        
+        /* Mobile portrait: keep mobile layout with lift */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex;
+                margin-top: -25px;
+            }
+            .desktop-only-layout {
+                display: none;
+            }
+        }
+        
+        /* Tablet portrait: show mobile stacked layout (NO lift, normal position) */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex !important;
+                margin-top: 0;
+            }
+            .desktop-only-layout {
+                display: none !important;
+            }
+        }
+        
+        /* Desktop & Tablet Landscape: show side-by-side layout */
+        @media (min-width: 769px) and (orientation: landscape) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+        
+        /* Large desktop landscape */
+        @media (min-width: 1025px) and (orientation: landscape) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+
     <script>
-        // Typewriter animation
+        // ============================================
+        // NICHE DATA - Complete category structure
+        // ============================================
+        const nicheData = {
+            "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
+            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
+            "Professional": ["Lawyers", "Accountants", "Real Estate", "Tutors", "Marketing Agencies", "Consultants"],
+            "Food & Drink": ["Restaurants", "Cafes & Coffee", "Bakeries", "Bars & Clubs", "Catering", "Takeaways"],
+            "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops"]
+        };
+
+        // ============================================
+        // NICHE TO FOLDER PATH MAPPING
+        // Converts "Barbers" -> "barber", "Dentists" -> "dentist", etc.
+        // ============================================
+        function getNicheFolderName(niche) {
+            const mapping = {
+                "Barbers": "barber",
+                "Dentists": "dentist",
+                "Gyms & Studios": "gym",
+                "Spas & Beauty": "spa",
+                "Physiotherapists": "physio",
+                "Yoga Instructors": "yoga",
+                "Therapists": "therapist",
+                "Plumbers": "plumber",
+                "Electricians": "electrician",
+                "Landscapers": "landscaper",
+                "Cleaners": "cleaner",
+                "Roofers": "roofer",
+                "Carpenters": "carpenter",
+                "Locksmiths": "locksmith",
+                "Lawyers": "lawyer",
+                "Accountants": "accountant",
+                "Real Estate": "realestate",
+                "Tutors": "tutor",
+                "Marketing Agencies": "marketing",
+                "Consultants": "consultant",
+                "Restaurants": "restaurant",
+                "Cafes & Coffee": "cafe",
+                "Bakeries": "bakery",
+                "Bars & Clubs": "bar",
+                "Catering": "catering",
+                "Takeaways": "takeaway",
+                "Boutiques": "boutique",
+                "E-commerce Stores": "ecommerce",
+                "Photographers": "photographer",
+                "Artists": "artist",
+                "Florists": "florist",
+                "Pet Shops": "petshop"
+            };
+            
+            if (mapping[niche]) {
+                return mapping[niche];
+            }
+            // Default: lowercase and remove spaces/special chars
+            return niche.toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+        
+        // ============================================
+        // FUNNEL REDIRECT FUNCTION - Opens the correct FAZ HOQ niche page
+        // Redirects to: fazhoq/{folder}/index.html
+        // Example: "Barbers" -> "fazhoq/barber/index.html"
+        // ============================================
+        function redirectToNichePage(nicheName) {
+            // Get the folder name for this niche
+            const folderName = getNicheFolderName(nicheName);
+            
+            // Build the URL - using relative path to go to the niche subdirectory
+            // This will look for: barber/index.html, dentist/index.html, etc.
+            const targetUrl = folderName + "/index.html";
+            
+            // Show loading state on search button if available
+            const loaderIcon = document.querySelector('.search-icon-btn i');
+            if (loaderIcon) {
+                loaderIcon.className = 'fa-solid fa-spinner fa-spin';
+            }
+            
+            // Set the search input value for consistency
+            const mobileInput = document.getElementById('mainSearch');
+            const desktopInput = document.getElementById('mainSearchDesktop');
+            if (mobileInput) mobileInput.value = nicheName;
+            if (desktopInput) desktopInput.value = nicheName;
+            
+            // Redirect to the niche page
+            setTimeout(function() {
+                window.location.href = targetUrl;
+            }, 200);
+        }
+        
+        // ============================================
+        // TYPEWRITER WORDS FOR ANIMATION
+        // ============================================
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
-        let wordIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function typeEffect() {
-            const currentWord = nicheWords[wordIdx];
-            charIdx += isDeleting ? -1 : 1;
-            typewriterEl.innerHTML = currentWord.substring(0, charIdx) || "&nbsp;";
-            let speed = isDeleting ? 60 : 120;
-            if (!isDeleting && charIdx === currentWord.length) {
-                speed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                wordIdx = (wordIdx + 1) % nicheWords.length;
-                speed = 500;
-            }
-            setTimeout(typeEffect, speed);
+        
+        // ============================================
+        // TYPEWRITER FUNCTIONS (Mobile & Desktop)
+        // ============================================
+        let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
+        const typewriterElM = document.getElementById('typewriter-mobile');
+        
+        let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
+        const typewriterElD = document.getElementById('typewriter-desktop');
+        
+        function typeMobile() {
+            if (!typewriterElM) return;
+            const currentWord = nicheWords[wordIndexM];
+            charIndexM += isDeletingM ? -1 : 1;
+            typewriterElM.innerHTML = currentWord.substring(0, charIndexM) || "&nbsp;";
+            let speed = isDeletingM ? 60 : 100;
+            if (!isDeletingM && charIndexM === currentWord.length) { speed = 2000; isDeletingM = true; }
+            else if (isDeletingM && charIndexM === 0) { isDeletingM = false; wordIndexM = (wordIndexM + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeMobile, speed);
         }
-
-        // Generate concept cards (20 cards for demo)
-        const concepts = [
-            { title: "Modern Barber", sub: "Branding & Identity", url: "https://doctoc30.github.io/fazhoq/concepts/barber", img: "https://doctoc30.github.io/fazhoq/images/IMG_3070.jpeg" },
-            { title: "Legal Suite", sub: "Interface Design", url: "https://doctoc30.github.io/fazhoq/concepts/legal", img: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=400" },
-            { title: "Fitness Pro", sub: "User Flow", url: "https://doctoc30.github.io/fazhoq/concepts/fitness", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400" },
-            { title: "Trade Flow", sub: "Concept Engineering", url: "https://doctoc30.github.io/fazhoq/concepts/trade", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400" },
-            { title: "Eco Beauty", sub: "Sustainable Design", url: "#", img: "https://images.unsplash.com/photo-1596462502278-27bfdc1f5295?auto=format&fit=crop&w=400" },
-            { title: "Tech Startup", sub: "Digital Identity", url: "#", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400" },
-            { title: "Luxury Hotel", sub: "Hospitality", url: "#", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400" },
-            { title: "Coffee Brand", sub: "Packaging", url: "#", img: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=400" },
-            { title: "Art Gallery", sub: "Exhibition", url: "#", img: "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?auto=format&fit=crop&w=400" },
-            { title: "Med Spa", sub: "Wellness", url: "#", img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400" }
-        ];
-
-        let currentCardIndex = 0;
-        let cardsContainer = null;
-        let isScrolling = false;
-
-        // Initialize cards
-        function initCards() {
-            cardsContainer = document.getElementById('cards-container');
-            if (!cardsContainer) return;
+        
+        function typeDesktop() {
+            if (!typewriterElD) return;
+            const currentWord = nicheWords[wordIndexD];
+            charIndexD += isDeletingD ? -1 : 1;
+            typewriterElD.innerHTML = currentWord.substring(0, charIndexD) || "&nbsp;";
+            let speed = isDeletingD ? 60 : 100;
+            if (!isDeletingD && charIndexD === currentWord.length) { speed = 2000; isDeletingD = true; }
+            else if (isDeletingD && charIndexD === 0) { isDeletingD = false; wordIndexD = (wordIndexD + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeDesktop, speed);
+        }
+        
+        // ============================================
+        // SWIPE COUNTER FUNCTIONS
+        // ============================================
+        function createSwipeCounter() {
+            const sections = document.querySelectorAll('section');
+            const counterContainer = document.getElementById('swipeCounter');
+            if (!counterContainer) return;
             
-            // Build cards
-            cardsContainer.innerHTML = concepts.map((c, i) => `
-                <div class="concept-card" data-url="${c.url}" data-index="${i}">
-                    <div class="concept-img" style="background-image: url('${c.img}')"></div>
-                    <div class="concept-info">
-                        <h4>${c.title}</h4>
-                        <p>${c.sub}</p>
-                    </div>
-                </div>
-            `).join('');
-            
-            // Add click handlers
-            document.querySelectorAll('.concept-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const url = card.getAttribute('data-url');
-                    if (url && url !== '#') {
-                        window.open(url, '_blank');
-                    }
-                });
-            });
-            
-            // Add scroll listener
-            cardsContainer.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    updateActiveCardFromScroll();
+            counterContainer.innerHTML = '';
+            for (let i = 0; i < sections.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'counter-dot';
+                if (i === currentIdx) dot.classList.add('active');
+                dot.addEventListener('click', (function(index) {
+                    return function() { goToSlide(index); };
+                })(i));
+                counterContainer.appendChild(dot);
+            }
+        }
+        
+        function updateSwipeCounter() {
+            const dots = document.querySelectorAll('.counter-dot');
+            dots.forEach((dot, i) => {
+                if (i === currentIdx) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
                 }
             });
-            
-            updateCardUI();
         }
         
-        function updateActiveCardFromScroll() {
-            if (!cardsContainer) return;
-            
-            const cards = document.querySelectorAll('.concept-card');
-            const containerCenter = cardsContainer.scrollLeft + cardsContainer.clientWidth / 2;
-            
-            let closestIndex = 0;
-            let closestDist = Infinity;
-            
-            cards.forEach((card, i) => {
-                const cardCenter = card.offsetLeft + card.clientWidth / 2;
-                const dist = Math.abs(containerCenter - cardCenter);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closestIndex = i;
-                }
+        // ============================================
+        // MENU & CATEGORY FUNCTIONS
+        // ============================================
+        function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
+        function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
+        
+        // Open niche selection overlay for a sector
+        function openNiche(sector) {
+            const list = document.getElementById('cat-list');
+            const title = document.getElementById('cat-title');
+            title.textContent = sector;
+            list.innerHTML = "";
+            nicheData[sector].forEach(niche => {
+                const div = document.createElement('div');
+                div.className = "cat-item";
+                div.textContent = niche;
+                // Each niche item redirects to its dedicated page when clicked
+                div.onclick = () => {
+                    toggleCategories();
+                    redirectToNichePage(niche);
+                };
+                list.appendChild(div);
             });
-            
-            if (closestIndex !== currentCardIndex) {
-                currentCardIndex = closestIndex;
-                updateCardUI();
+            toggleCategories();
+        }
+        
+        // ============================================
+        // SEARCH TRIGGER FUNCTIONS
+        // ============================================
+        function triggerSearch() {
+            const mobileVal = document.getElementById('mainSearch')?.value;
+            const desktopVal = document.getElementById('mainSearchDesktop')?.value;
+            const val = mobileVal || desktopVal;
+            if(val) {
+                redirectToNichePage(val);
             }
         }
         
-        function scrollToCard(index) {
-            if (!cardsContainer) return;
-            
-            const cards = document.querySelectorAll('.concept-card');
-            if (!cards[index]) return;
-            
-            isScrolling = true;
-            currentCardIndex = index;
-            
-            const scrollPos = cards[index].offsetLeft - (cardsContainer.clientWidth / 2) + (cards[index].clientWidth / 2);
-            
-            cardsContainer.scrollTo({
-                left: Math.max(0, scrollPos),
-                behavior: 'smooth'
-            });
-            
-            setTimeout(() => {
-                isScrolling = false;
-                updateCardUI();
-            }, 400);
-        }
-        
-        function nextCard() {
-            if (currentCardIndex + 1 < concepts.length) {
-                scrollToCard(currentCardIndex + 1);
+        function triggerSearchDesktop() {
+            const val = document.getElementById('mainSearchDesktop')?.value;
+            if(val) {
+                redirectToNichePage(val);
             }
         }
         
-        function prevCard() {
-            if (currentCardIndex - 1 >= 0) {
-                scrollToCard(currentCardIndex - 1);
-            }
-        }
-        
-        function updateCardUI() {
-            // Update counter
-            const counter = document.getElementById('cardCounter');
-            if (counter) {
-                counter.textContent = `${currentCardIndex + 1} / ${concepts.length}`;
-            }
-            
-            // Update dots
-            const dotsContainer = document.getElementById('cardDots');
-            if (dotsContainer) {
-                let dotsHtml = '';
-                for (let i = 0; i < concepts.length; i++) {
-                    const isActive = i === currentCardIndex;
-                    dotsHtml += `<div class="card-dot ${isActive ? 'active' : ''}" data-dot-index="${i}"></div>`;
-                }
-                dotsContainer.innerHTML = dotsHtml;
-                
-                // Add click handlers to dots
-                document.querySelectorAll('.card-dot').forEach(dot => {
-                    dot.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const idx = parseInt(dot.getAttribute('data-dot-index'));
-                        if (!isNaN(idx)) {
-                            scrollToCard(idx);
-                        }
-                    });
-                });
-            }
-        }
-
-        // Main slide navigation (VERTICAL)
-        let currentSlide = 0;
+        // ============================================
+        // SLIDE NAVIGATION FUNCTIONS
+        // ============================================
         const sections = document.querySelectorAll('section');
-        const slideDots = document.querySelectorAll('.slide-dot');
-        let isSlideMoving = false;
-        let touchStartY = 0;
-        let touchStartX = 0;
-
-        function updateSlides() {
+        let currentIdx = 0, isMoving = false;
+        
+        function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
-                if (i === currentSlide) {
-                    sec.classList.add('active');
-                } else if (i < currentSlide) {
-                    sec.classList.add('prev');
-                }
+                if (i === currentIdx) sec.classList.add('active');
+                else if (i < currentIdx) sec.classList.add('prev');
             });
-            slideDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
+            updateSwipeCounter();
         }
-
-        function navigateSlides(direction) {
-            if (isSlideMoving) return;
-            const target = currentSlide + direction;
+        
+        function navigate(dir) {
+            if (isMoving) return;
+            const target = currentIdx + dir;
             if (target >= 0 && target < sections.length) {
-                isSlideMoving = true;
-                currentSlide = target;
-                updateSlides();
-                setTimeout(() => { isSlideMoving = false; }, 600);
-            }
-        }
-
-        function goToSlide(index) {
-            if (index >= 0 && index < sections.length && !isSlideMoving) {
-                currentSlide = index;
-                updateSlides();
+                isMoving = true;
+                currentIdx = target;
+                updateUI();
+                setTimeout(() => { isMoving = false; }, 800);
             }
         }
         
-        function toggleMenu() {
-            document.getElementById('app-menu-layer').classList.toggle('active');
+        // Touch swipe for mobile
+        let sX, sY;
+        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
+        window.addEventListener('touchend', e => {
+            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
+            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
+        });
+        
+        function goToSlide(i) { 
+            currentIdx = i; 
+            updateUI(); 
         }
-
-        // TOUCH HANDLING - Clear separation between horizontal and vertical
-        let touchStart = null;
         
-        document.addEventListener('touchstart', (e) => {
-            touchStart = {
-                x: e.touches[0].clientX,
-                y: e.touches[0].clientY,
-                time: Date.now()
-            };
-        }, { passive: true });
+        // ============================================
+        // DESKTOP NAVIGATION BUTTONS
+        // ============================================
+        const prevBtn = document.getElementById('desktop-prev');
+        const nextBtn = document.getElementById('desktop-next');
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => navigate(-1));
+            nextBtn.addEventListener('click', () => navigate(1));
+        }
         
-        document.addEventListener('touchend', (e) => {
-            if (!touchStart) return;
-            
-            const deltaX = Math.abs(e.changedTouches[0].clientX - touchStart.x);
-            const deltaY = Math.abs(e.changedTouches[0].clientY - touchStart.y);
-            const isHorizontalSwipe = deltaX > deltaY && deltaX > 30;
-            const isVerticalSwipe = deltaY > deltaX && deltaY > 30;
-            
-            // Check if swipe started on cards container
-            const target = e.changedTouches[0].target;
-            const isOnCards = target.closest('.cards-container');
-            
-            if (isHorizontalSwipe && isOnCards) {
-                // Let the native horizontal scroll handle it
-                // Just prevent vertical navigation
-                e.preventDefault();
-            } 
-            else if (isVerticalSwipe && !isOnCards) {
-                // Vertical navigation for main slides
-                const direction = e.changedTouches[0].clientY - touchStart.y;
-                if (direction < 0) {
-                    navigateSlides(1); // Swipe up = next slide
-                } else if (direction > 0) {
-                    navigateSlides(-1); // Swipe down = previous slide
-                }
-            }
-            
-            touchStart = null;
-        });
-        
-        // Mouse wheel for desktop
-        window.addEventListener('wheel', (e) => {
-            const isOnCards = e.target.closest('.cards-container');
-            if (!isOnCards && Math.abs(e.deltaY) > 30) {
-                navigateSlides(e.deltaY > 0 ? 1 : -1);
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        // Keyboard navigation
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown') {
-                navigateSlides(1);
-                e.preventDefault();
-            } else if (e.key === 'ArrowUp') {
-                navigateSlides(-1);
-                e.preventDefault();
-            }
-        });
-        
-        // Button handlers
-        document.getElementById('prevCardBtn')?.addEventListener('click', prevCard);
-        document.getElementById('nextCardBtn')?.addEventListener('click', nextCard);
-        
-        // Logo click
-        document.querySelector('.faz-logo')?.addEventListener('click', () => goToSlide(0));
-        
-        // Slide dot clicks
-        slideDots.forEach((dot, i) => {
-            dot.addEventListener('click', () => goToSlide(i));
-        });
-
-        // Initialize
-        window.onload = () => {
-            typeEffect();
-            initCards();
-            updateSlides();
+        // ============================================
+        // WINDOW ONLOAD INITIALIZATION
+        // ============================================
+        window.onload = function() {
+            typeMobile();
+            typeDesktop();
+            createSwipeCounter();
         };
     </script>
 </body>
