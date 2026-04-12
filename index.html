@@ -92,7 +92,7 @@
         }
         .faz-logo span { color: #000; }
 
-        /* Top hamburger menu button brand orange */
+        /* Top hamburger menu button - ORANGE BRAND */
         #menu-btn {
             font-size: 1.8rem;
             color: var(--primary);
@@ -133,7 +133,7 @@
             filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
         }
 
-        /* ========== VIBZ CATEGORY TILE ANIMATIONS (EXACT COPY) ========== */
+        /* ========== VIBZ CATEGORY TILE ANIMATIONS ========== */
         .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -184,9 +184,7 @@
             75% { transform: rotate(-15deg); }
         }
 
-        /* ============================================
-           MOBILE PORTRAIT - LIFT AVATAR SLIGHTLY UP
-           ============================================ */
+        /* MOBILE PORTRAIT */
         @media (max-width: 768px) and (orientation: portrait) {
             .mobile-only-layout {
                 margin-top: -30px;
@@ -200,35 +198,22 @@
             }
         }
 
-        /* ============================================
-           TABLET PORTRAIT - STACKED VERTICALLY (NO LIFT, NORMAL POSITION)
-           ============================================ */
+        /* TABLET PORTRAIT */
         @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            section:first-child .text-wrap {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
-            
             .desktop-only-layout {
                 display: none !important;
             }
-            
             .mobile-only-layout {
                 display: flex !important;
                 flex-direction: column;
                 align-items: center;
                 margin-top: 0;
             }
-            
             .waving-hand {
                 width: 280px;
                 margin-bottom: 20px;
                 margin-top: 0;
             }
-            
             .search-container {
                 margin-top: 40px;
                 max-width: 500px;
@@ -236,18 +221,8 @@
             }
         }
 
-        /* ============================================
-           DESKTOP & TABLET LANDSCAPE - SIDE BY SIDE
-           ============================================ */
+        /* DESKTOP & TABLET LANDSCAPE */
         @media (min-width: 769px) and (orientation: landscape) {
-            section:first-child .text-wrap {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
-            
             .desktop-hero-row {
                 display: flex;
                 flex-direction: row;
@@ -257,36 +232,24 @@
                 width: 100%;
                 margin-bottom: 2rem;
             }
-            
-            .desktop-avatar {
-                flex-shrink: 0;
-            }
-            
             .desktop-avatar .waving-hand {
                 width: 240px;
                 margin-bottom: 0;
                 margin-top: 0;
             }
-            
             .desktop-search-wrapper {
                 flex-shrink: 1;
                 min-width: 400px;
                 max-width: 550px;
                 width: 100%;
             }
-            
             .desktop-search-wrapper .search-container {
                 margin-top: 0;
                 width: 100%;
             }
-            
             .desktop-tagline {
                 text-align: center;
                 margin-top: 0.5rem;
-            }
-            
-            .desktop-tagline .huge-text {
-                display: inline-block;
             }
         }
 
@@ -392,12 +355,42 @@
             text-align: center;
         }
 
-        /* DOCK MENU REMOVED - no app-dock styles needed, hidden completely */
+        /* DOCK - Keep it but remove the MENU button */
+        .app-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .dock-btn {
+            font-size: 2rem;
+            color: #FFFFFF;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .dock-btn span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
 
-        /* SWIPE COUNTER - POSITIONED AT BOTTOM WITH SAFE MARGIN (repositioned since dock is removed) */
+        /* SWIPE COUNTER */
         .swipe-counter {
             position: fixed;
-            bottom: 30px;
+            bottom: 90px;
             left: 0;
             right: 0;
             display: flex;
@@ -429,20 +422,6 @@
             background: var(--primary);
             width: 24px;
             border-radius: 12px;
-        }
-        
-        /* Hide default side dots */
-        .nav-dots {
-            display: none;
-        }
-        
-        @media (min-width: 1024px) and (orientation: landscape) {
-            .nav-dots {
-                display: flex;
-            }
-            .swipe-counter {
-                bottom: 40px;
-            }
         }
 
         /* HAMBURGER MENU */
@@ -500,7 +479,6 @@
             inset: 0;
             background: rgba(255, 245, 238, 0.98);
             backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
             z-index: 9600;
             display: flex;
             flex-direction: column;
@@ -549,7 +527,7 @@
             transform: scale(1.02);
         }
 
-        /* DESKTOP NAVIGATION BUTTONS */
+        /* DESKTOP NAVIGATION */
         .desktop-nav {
             display: none;
             position: fixed;
@@ -587,10 +565,48 @@
                 display: flex;
             }
         }
+
+        /* Layout visibility */
+        .mobile-only-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .desktop-only-layout {
+            display: none;
+        }
         
-        /* Additional utility to ensure no dock shows up */
-        .app-dock {
-            display: none !important;
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex;
+                margin-top: -25px;
+            }
+            .desktop-only-layout {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex !important;
+                margin-top: 0;
+            }
+            .desktop-only-layout {
+                display: none !important;
+            }
+        }
+        
+        @media (min-width: 769px) and (orientation: landscape) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -619,19 +635,15 @@
         <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
 
-    <!-- DESKTOP NAVIGATION -->
     <div class="desktop-nav">
         <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
         <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
     </div>
 
-    <!-- SWIPE COUNTER -->
     <div class="swipe-counter" id="swipeCounter"></div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: HOME -->
         <section class="active">
-            <!-- Mobile & Tablet Portrait stacked layout -->
             <div class="text-wrap mobile-only-layout">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
                 <h1 class="huge-text">I build websites for:</h1>
@@ -642,7 +654,6 @@
                 </div>
             </div>
             
-            <!-- Desktop & Tablet Landscape side-by-side layout -->
             <div class="text-wrap desktop-only-layout">
                 <div class="desktop-hero-row">
                     <div class="desktop-avatar">
@@ -697,74 +708,15 @@
         <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">LET'S<br><span class="black" style="color:#fff">BUILD.</span></h2></div></section>
     </div>
 
-    <!-- DOCK MENU HAS BEEN REMOVED (no .app-dock element present) -->
-
-    <style>
-        /* Default: show mobile layout, hide desktop layout */
-        .mobile-only-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .desktop-only-layout {
-            display: none;
-        }
-        
-        /* Mobile portrait: keep mobile layout with lift */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .mobile-only-layout {
-                display: flex;
-                margin-top: -25px;
-            }
-            .desktop-only-layout {
-                display: none;
-            }
-        }
-        
-        /* Tablet portrait: show mobile stacked layout (NO lift, normal position) */
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            .mobile-only-layout {
-                display: flex !important;
-                margin-top: 0;
-            }
-            .desktop-only-layout {
-                display: none !important;
-            }
-        }
-        
-        /* Desktop & Tablet Landscape: show side-by-side layout */
-        @media (min-width: 769px) and (orientation: landscape) {
-            .mobile-only-layout {
-                display: none !important;
-            }
-            .desktop-only-layout {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
-        }
-        
-        /* Large desktop landscape */
-        @media (min-width: 1025px) and (orientation: landscape) {
-            .mobile-only-layout {
-                display: none !important;
-            }
-            .desktop-only-layout {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
-        }
-    </style>
+    <!-- DOCK - Keep it, but NO MENU button inside -->
+    <div class="app-dock">
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <!-- MENU BUTTON REMOVED FROM DOCK -->
+    </div>
 
     <script>
-        // ============================================
-        // NICHE DATA - Complete category structure
-        // ============================================
         const nicheData = {
             "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
             "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
@@ -773,88 +725,34 @@
             "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops"]
         };
 
-        // ============================================
-        // NICHE TO FOLDER PATH MAPPING
-        // Converts "Barbers" -> "barber", "Dentists" -> "dentist", etc.
-        // ============================================
         function getNicheFolderName(niche) {
             const mapping = {
-                "Barbers": "barber",
-                "Dentists": "dentist",
-                "Gyms & Studios": "gym",
-                "Spas & Beauty": "spa",
-                "Physiotherapists": "physio",
-                "Yoga Instructors": "yoga",
-                "Therapists": "therapist",
-                "Plumbers": "plumber",
-                "Electricians": "electrician",
-                "Landscapers": "landscaper",
-                "Cleaners": "cleaner",
-                "Roofers": "roofer",
-                "Carpenters": "carpenter",
-                "Locksmiths": "locksmith",
-                "Lawyers": "lawyer",
-                "Accountants": "accountant",
-                "Real Estate": "realestate",
-                "Tutors": "tutor",
-                "Marketing Agencies": "marketing",
-                "Consultants": "consultant",
-                "Restaurants": "restaurant",
-                "Cafes & Coffee": "cafe",
-                "Bakeries": "bakery",
-                "Bars & Clubs": "bar",
-                "Catering": "catering",
-                "Takeaways": "takeaway",
-                "Boutiques": "boutique",
-                "E-commerce Stores": "ecommerce",
-                "Photographers": "photographer",
-                "Artists": "artist",
-                "Florists": "florist",
-                "Pet Shops": "petshop"
+                "Barbers": "barber", "Dentists": "dentist", "Gyms & Studios": "gym", "Spas & Beauty": "spa",
+                "Physiotherapists": "physio", "Yoga Instructors": "yoga", "Therapists": "therapist",
+                "Plumbers": "plumber", "Electricians": "electrician", "Landscapers": "landscaper",
+                "Cleaners": "cleaner", "Roofers": "roofer", "Carpenters": "carpenter", "Locksmiths": "locksmith",
+                "Lawyers": "lawyer", "Accountants": "accountant", "Real Estate": "realestate", "Tutors": "tutor",
+                "Marketing Agencies": "marketing", "Consultants": "consultant", "Restaurants": "restaurant",
+                "Cafes & Coffee": "cafe", "Bakeries": "bakery", "Bars & Clubs": "bar", "Catering": "catering",
+                "Takeaways": "takeaway", "Boutiques": "boutique", "E-commerce Stores": "ecommerce",
+                "Photographers": "photographer", "Artists": "artist", "Florists": "florist", "Pet Shops": "petshop"
             };
-            
-            if (mapping[niche]) {
-                return mapping[niche];
-            }
-            // Default: lowercase and remove spaces/special chars
-            return niche.toLowerCase().replace(/[^a-z0-9]/g, '');
+            return mapping[niche] || niche.toLowerCase().replace(/[^a-z0-9]/g, '');
         }
         
-        // ============================================
-        // FUNNEL REDIRECT FUNCTION - Opens the correct FAZ HOQ niche page
-        // Redirects to: fazhoq/{folder}/index.html
-        // Example: "Barbers" -> "fazhoq/barber/index.html"
-        // ============================================
         function redirectToNichePage(nicheName) {
-            const folderName = getNicheFolderName(nicheName);
-            const targetUrl = folderName + "/index.html";
-            
-            const loaderIcon = document.querySelector('.search-icon-btn i');
-            if (loaderIcon) {
-                loaderIcon.className = 'fa-solid fa-spinner fa-spin';
-            }
-            
+            const targetUrl = getNicheFolderName(nicheName) + "/index.html";
             const mobileInput = document.getElementById('mainSearch');
             const desktopInput = document.getElementById('mainSearchDesktop');
             if (mobileInput) mobileInput.value = nicheName;
             if (desktopInput) desktopInput.value = nicheName;
-            
-            setTimeout(function() {
-                window.location.href = targetUrl;
-            }, 200);
+            setTimeout(() => { window.location.href = targetUrl; }, 200);
         }
         
-        // ============================================
-        // TYPEWRITER WORDS FOR ANIMATION
-        // ============================================
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         
-        // ============================================
-        // TYPEWRITER FUNCTIONS (Mobile & Desktop)
-        // ============================================
         let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
         const typewriterElM = document.getElementById('typewriter-mobile');
-        
         let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
         const typewriterElD = document.getElementById('typewriter-desktop');
         
@@ -880,22 +778,16 @@
             setTimeout(typeDesktop, speed);
         }
         
-        // ============================================
-        // SWIPE COUNTER FUNCTIONS
-        // ============================================
         function createSwipeCounter() {
             const sections = document.querySelectorAll('section');
             const counterContainer = document.getElementById('swipeCounter');
             if (!counterContainer) return;
-            
             counterContainer.innerHTML = '';
             for (let i = 0; i < sections.length; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'counter-dot';
                 if (i === currentIdx) dot.classList.add('active');
-                dot.addEventListener('click', (function(index) {
-                    return function() { goToSlide(index); };
-                })(i));
+                dot.addEventListener('click', ((index) => () => goToSlide(index))(i));
                 counterContainer.appendChild(dot);
             }
         }
@@ -903,21 +795,14 @@
         function updateSwipeCounter() {
             const dots = document.querySelectorAll('.counter-dot');
             dots.forEach((dot, i) => {
-                if (i === currentIdx) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+                if (i === currentIdx) dot.classList.add('active');
+                else dot.classList.remove('active');
             });
         }
         
-        // ============================================
-        // MENU & CATEGORY FUNCTIONS
-        // ============================================
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
         
-        // Open niche selection overlay for a sector
         function openNiche(sector) {
             const list = document.getElementById('cat-list');
             const title = document.getElementById('cat-title');
@@ -927,37 +812,24 @@
                 const div = document.createElement('div');
                 div.className = "cat-item";
                 div.textContent = niche;
-                div.onclick = () => {
-                    toggleCategories();
-                    redirectToNichePage(niche);
-                };
+                div.onclick = () => { toggleCategories(); redirectToNichePage(niche); };
                 list.appendChild(div);
             });
             toggleCategories();
         }
         
-        // ============================================
-        // SEARCH TRIGGER FUNCTIONS
-        // ============================================
         function triggerSearch() {
             const mobileVal = document.getElementById('mainSearch')?.value;
             const desktopVal = document.getElementById('mainSearchDesktop')?.value;
             const val = mobileVal || desktopVal;
-            if(val) {
-                redirectToNichePage(val);
-            }
+            if(val) redirectToNichePage(val);
         }
         
         function triggerSearchDesktop() {
             const val = document.getElementById('mainSearchDesktop')?.value;
-            if(val) {
-                redirectToNichePage(val);
-            }
+            if(val) redirectToNichePage(val);
         }
         
-        // ============================================
-        // SLIDE NAVIGATION FUNCTIONS
-        // ============================================
         const sections = document.querySelectorAll('section');
         let currentIdx = 0, isMoving = false;
         
@@ -981,7 +853,6 @@
             }
         }
         
-        // Touch swipe for mobile
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
@@ -989,24 +860,11 @@
             if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
         
-        function goToSlide(i) { 
-            currentIdx = i; 
-            updateUI(); 
-        }
+        function goToSlide(i) { currentIdx = i; updateUI(); }
         
-        // ============================================
-        // DESKTOP NAVIGATION BUTTONS
-        // ============================================
-        const prevBtn = document.getElementById('desktop-prev');
-        const nextBtn = document.getElementById('desktop-next');
-        if (prevBtn && nextBtn) {
-            prevBtn.addEventListener('click', () => navigate(-1));
-            nextBtn.addEventListener('click', () => navigate(1));
-        }
+        document.getElementById('desktop-prev')?.addEventListener('click', () => navigate(-1));
+        document.getElementById('desktop-next')?.addEventListener('click', () => navigate(1));
         
-        // ============================================
-        // WINDOW ONLOAD INITIALIZATION
-        // ============================================
         window.onload = function() {
             typeMobile();
             typeDesktop();
