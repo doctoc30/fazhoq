@@ -93,10 +93,15 @@
 
         #menu-btn {
             font-size: 1.8rem;
-            color: var(--text);
+            color: var(--primary);  /* CHANGED: Hamburger icon now orange */
             background: none;
             border: none;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        #menu-btn:hover {
+            transform: scale(1.05);
         }
 
         /* TEXT STYLES */
@@ -188,7 +193,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* DOCK (EXACT RETAINED) */
+        /* DOCK - MENU BUTTON REMOVED */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -218,6 +223,11 @@
             font-size: 0.7rem;
             font-weight: 800;
             margin-top: 4px;
+        }
+        
+        .dock-btn:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
         }
 
         /* SWIPE COUNTER */
@@ -249,7 +259,7 @@
             border-radius: 10px;
         }
 
-        /* MENU */
+        /* MENU LAYER */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -273,11 +283,16 @@
             justify-content: center;
             align-self: flex-end;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .close-menu-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
+    <!-- MENU OVERLAY -->
     <div id="app-menu-layer">
         <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
         <div class="flex flex-col items-center justify-center flex-1 gap-10">
@@ -287,18 +302,24 @@
         </div>
     </div>
 
+    <!-- HEADER with ORANGE HAMBURGER MENU -->
     <nav class="faz-nav">
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
-        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        <button id="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </nav>
 
+    <!-- SLIDE INDICATOR DOTS -->
     <div class="swipe-counter">
         <div class="dot active" onclick="goToSlide(0)"></div>
         <div class="dot" onclick="goToSlide(1)"></div>
         <div class="dot" onclick="goToSlide(2)"></div>
     </div>
 
+    <!-- MAIN SLIDES CONTAINER -->
     <div class="slide-container" id="master-wrapper">
+        <!-- SLIDE 0: HOME -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
@@ -308,17 +329,19 @@
             </div>
         </section>
 
+        <!-- SLIDE 1: CONCEPTS with CLICKABLE SLIDER -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
                 <div class="slider-viewport">
                     <div class="slider-track" id="slider-track">
-                        <!-- Dynamic cards will be injected here by JavaScript -->
+                        <!-- Dynamic concept cards injected by JavaScript -->
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- SLIDE 2: COLLABORATE -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
@@ -329,15 +352,16 @@
         </section>
     </div>
 
+    <!-- BOTTOM DOCK - MENU BUTTON REMOVED (only TEXT, WHATSAPP, EMAIL remain) -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
         <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
-        <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
+        <!-- MENU BUTTON IS NOW REMOVED FROM DOCK -->
     </div>
 
     <script>
-        // --- TYPEWRITER NICHES RETAINED EXACTLY ---
+        // --- TYPEWRITER ANIMATION ---
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         let wordIdx = 0;
         let charIdx = 0;
@@ -362,55 +386,42 @@
             setTimeout(typeEffect, speed);
         }
 
-        // --- SLIDER CONCEPTS WITH CLICKABLE URLS ---
-        // Each concept now includes a 'url' field. 
-        // The "Modern Barber" card uses the specific link you provided.
-        // Other cards also have relevant placeholder links (they can be customized later).
+        // --- CONCEPTS DATA (with your Modern Barber URL) ---
         const concepts = [
             { 
                 title: "Modern Barber", 
                 sub: "Branding & Identity", 
                 img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/barber"  // YOUR LINK IS HERE
+                url: "https://doctoc30.github.io/fazhoq/concepts/barber"  // Your specific link
             },
             { 
                 title: "Legal Suite", 
                 sub: "Interface Design", 
                 img: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/legal"  // Example placeholder
+                url: "https://doctoc30.github.io/fazhoq/concepts/legal"
             },
             { 
                 title: "Fitness Pro", 
                 sub: "User Flow", 
                 img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/fitness" // Example placeholder
+                url: "https://doctoc30.github.io/fazhoq/concepts/fitness"
             },
             { 
                 title: "Trade Flow", 
                 sub: "Concept Engineering", 
                 img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/trade" // Example placeholder
+                url: "https://doctoc30.github.io/fazhoq/concepts/trade"
             }
         ];
 
-        // Function to handle card click and open URL in new tab
-        function onCardClick(url) {
-            if (url) {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            } else {
-                console.warn("No URL defined for this concept.");
-            }
-        }
-
+        // Initialize the infinite slider with clickable cards
         function initSlider() {
             const track = document.getElementById('slider-track');
-            // Duplicate array to create infinite loop effect
+            // Duplicate array for seamless infinite loop
             const items = [...concepts, ...concepts]; 
-            track.innerHTML = items.map((c, idx) => {
-                // Generate a unique click handler for each card
-                // Using data attribute to store URL, then attach event listener after creation is cleaner
+            track.innerHTML = items.map((c) => {
                 return `
-                    <div class="concept-card" data-url="${c.url}" data-title="${c.title}">
+                    <div class="concept-card" data-url="${c.url}">
                         <div class="concept-img" style="background-image: url('${c.img}')"></div>
                         <div class="concept-info">
                             <h4>${c.title}</h4>
@@ -420,20 +431,20 @@
                 `;
             }).join('');
 
-            // Attach click event listeners to all concept cards
+            // Attach click handlers to open URLs in new tab
             const cards = document.querySelectorAll('.concept-card');
             cards.forEach(card => {
                 const url = card.getAttribute('data-url');
-                if (url) {
+                if (url && url !== '#') {
                     card.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Prevent any unexpected bubbling
+                        e.stopPropagation();  // Prevent triggering slide navigation
                         window.open(url, '_blank', 'noopener,noreferrer');
                     });
                 }
             });
         }
 
-        // --- NAVIGATION ---
+        // --- SLIDE NAVIGATION LOGIC ---
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -442,8 +453,11 @@
         function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
+                if (i === currentIdx) {
+                    sec.classList.add('active');
+                } else if (i < currentIdx) {
+                    sec.classList.add('prev');
+                }
             });
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentIdx);
@@ -462,7 +476,7 @@
         }
 
         function goToSlide(i) { 
-            if (i >= 0 && i < sections.length) {
+            if (i >= 0 && i < sections.length && !isMoving) {
                 currentIdx = i; 
                 updateUI(); 
             }
@@ -472,63 +486,74 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // --- ENHANCED GESTURES (LEFT/RIGHT + UP/DOWN) ---
-        let sX, sY;
+        // --- TOUCH & GESTURE CONTROLS (Swipe horizontal/vertical) ---
+        let touchStartX = null;
+        let touchStartY = null;
+        
         window.addEventListener('touchstart', e => { 
-            sX = e.touches[0].clientX; 
-            sY = e.touches[0].clientY; 
-        });
+            touchStartX = e.touches[0].clientX; 
+            touchStartY = e.touches[0].clientY; 
+        }, { passive: true });
         
         window.addEventListener('touchend', e => {
-            // Only process if start positions exist
-            if (sX === undefined || sY === undefined) return;
-            let dX = sX - e.changedTouches[0].clientX;
-            let dY = sY - e.changedTouches[0].clientY;
+            if (touchStartX === null || touchStartY === null) return;
             
-            // Horizontal swipe has priority if movement is significant
-            if (Math.abs(dX) > Math.abs(dY) && Math.abs(dX) > 30) {
-                navigate(dX > 0 ? 1 : -1);
-            } else if (Math.abs(dY) > 30) {
-                navigate(dY > 0 ? 1 : -1);
+            const deltaX = touchStartX - e.changedTouches[0].clientX;
+            const deltaY = touchStartY - e.changedTouches[0].clientY;
+            const absDeltaX = Math.abs(deltaX);
+            const absDeltaY = Math.abs(deltaY);
+            
+            // Determine primary swipe direction (horizontal or vertical)
+            if (Math.max(absDeltaX, absDeltaY) > 40) { // Minimum swipe distance
+                if (absDeltaX > absDeltaY) {
+                    // Horizontal swipe
+                    navigate(deltaX > 0 ? 1 : -1);
+                } else {
+                    // Vertical swipe
+                    navigate(deltaY > 0 ? 1 : -1);
+                }
             }
-            // Reset values
-            sX = undefined;
-            sY = undefined;
+            
+            touchStartX = null;
+            touchStartY = null;
         });
-
+        
         // Mouse wheel support for desktop
         window.addEventListener('wheel', e => { 
             if (Math.abs(e.deltaY) > 30) {
                 navigate(e.deltaY > 0 ? 1 : -1);
-                e.preventDefault(); // Slightly prevent aggressive scroll but keep user experience
+                e.preventDefault();
             }
         }, { passive: false });
         
-        // Also add keyboard arrow keys support for accessibility
+        // Keyboard arrow keys support
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 navigate(1);
                 e.preventDefault();
-            } else if (e.key === 'ArrowLeft') {
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
                 navigate(-1);
-                e.preventDefault();
-            } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                navigate(e.key === 'ArrowDown' ? 1 : -1);
                 e.preventDefault();
             }
         });
-
-        // Ensure that clicking on dots stops propagation so it doesn't interfere
+        
+        // Prevent dot clicks from bubbling and causing issues
         dots.forEach(dot => {
             dot.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
         });
+        
+        // Logo click handler
+        const logo = document.querySelector('.faz-logo');
+        if (logo) {
+            logo.addEventListener('click', (e) => {
+                e.stopPropagation();
+                goToSlide(0);
+            });
+        }
 
-        // Also prevent accidental navigation when clicking inside cards (but we want card clicks to work)
-        // The card clicks are independent and won't trigger navigation because we stopPropagation on the card's click.
-        // Additionally, we ensure that the slider container doesn't absorb the click.
-
+        // --- INITIALIZE EVERYTHING ON LOAD ---
         window.onload = () => {
             typeEffect();
             initSlider();
