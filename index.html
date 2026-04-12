@@ -128,7 +128,7 @@
             transform: translateY(-20px);
         }
 
-        /* MANUAL HORIZONTAL SCROLL SLIDER - FIXED SNAPPING */
+        /* MANUAL HORIZONTAL SCROLL SLIDER - CLEAN, NO SWIPE HINT */
         .slider-viewport {
             width: 100vw;
             overflow-x: auto;
@@ -137,22 +137,13 @@
             position: relative;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) #FFD9B5;
+            /* HIDE SCROLLBAR COMPLETELY */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
         
         .slider-viewport::-webkit-scrollbar {
-            height: 6px;
-        }
-        
-        .slider-viewport::-webkit-scrollbar-track {
-            background: #FFD9B5;
-            border-radius: 10px;
-        }
-        
-        .slider-viewport::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
+            display: none;
         }
 
         .slider-track {
@@ -293,20 +284,6 @@
         .close-menu-btn:hover {
             transform: scale(1.05);
         }
-        
-        .swipe-hint {
-            margin-top: 20px;
-            font-size: 0.75rem;
-            opacity: 0.6;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-        }
-        .swipe-hint i {
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
@@ -349,11 +326,7 @@
                 <div class="slider-viewport" id="slider-viewport">
                     <div class="slider-track" id="slider-track"></div>
                 </div>
-                <div class="swipe-hint">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>SWIPE TO EXPLORE</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </div>
+                <!-- SWIPE HINT AND SCROLLBAR COMPLETELY REMOVED -->
             </div>
         </section>
 
