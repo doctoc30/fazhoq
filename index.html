@@ -32,7 +32,7 @@
             overflow: hidden;
             background-color: var(--primary-light);
             color: var(--text);
-            touch-action: none; /* Prevents default browser interference with custom swipes */
+            touch-action: pan-y pinch-zoom; /* Allow vertical scroll for slider, but we handle horizontal manually */
         }
 
         .slide-container {
@@ -93,7 +93,7 @@
 
         #menu-btn {
             font-size: 1.8rem;
-            color: var(--primary);  /* CHANGED: Hamburger icon now orange */
+            color: var(--primary);
             background: none;
             border: none;
             cursor: pointer;
@@ -132,23 +132,42 @@
             transform: translateY(-20px);
         }
 
-        /* CONSTANT CONCEPT SLIDER */
+        /* MANUAL CONCEPT SLIDER - NO AUTO ROTATION, PURE SWIPE/DRAG */
         .slider-viewport {
             width: 100vw;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             padding: 40px 0;
             position: relative;
+            cursor: grab;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) #FFD9B5;
+        }
+        
+        .slider-viewport:active {
+            cursor: grabbing;
+        }
+        
+        .slider-viewport::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .slider-viewport::-webkit-scrollbar-track {
+            background: #FFD9B5;
+            border-radius: 10px;
+        }
+        
+        .slider-viewport::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         .slider-track {
             display: flex;
             width: fit-content;
-            animation: scroll 30s linear infinite;
-        }
-
-        /* PAUSE animation on hover for better UX, especially on desktop */
-        .slider-viewport:hover .slider-track {
-            animation-play-state: paused;
+            gap: 0;
         }
 
         .concept-card {
@@ -165,6 +184,7 @@
             flex-shrink: 0;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            scroll-snap-align: start;
         }
 
         .concept-card:hover {
@@ -187,11 +207,6 @@
 
         .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; }
         .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
 
         /* DOCK - MENU BUTTON REMOVED */
         .app-dock {
@@ -288,6 +303,21 @@
         .close-menu-btn:hover {
             transform: scale(1.05);
         }
+        
+        /* Hint text for manual slider */
+        .swipe-hint {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        .swipe-hint i {
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -329,14 +359,19 @@
             </div>
         </section>
 
-        <!-- SLIDE 1: CONCEPTS with CLICKABLE SLIDER -->
+        <!-- SLIDE 1: CONCEPTS with MANUAL SWIPE SLIDER (NO AUTO ROTATION) -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
-                <div class="slider-viewport">
+                <div class="slider-viewport" id="slider-viewport">
                     <div class="slider-track" id="slider-track">
                         <!-- Dynamic concept cards injected by JavaScript -->
                     </div>
+                </div>
+                <div class="swipe-hint">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>SWIPE TO EXPLORE</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </div>
             </div>
         </section>
@@ -386,13 +421,13 @@
             setTimeout(typeEffect, speed);
         }
 
-        // --- CONCEPTS DATA (with your Modern Barber URL) ---
+        // --- CONCEPTS DATA (with your Modern Barber URL and local image) ---
         const concepts = [
             { 
                 title: "Modern Barber", 
                 sub: "Branding & Identity", 
                 img: "https://doctoc30.github.io/fazhoq/images/IMG_3070.jpeg",
-                url: "https://doctoc30.github.io/fazhoq/concepts/barber"  // Your specific link
+                url: "https://doctoc30.github.io/fazhoq/concepts/barber"
             },
             { 
                 title: "Legal Suite", 
@@ -414,12 +449,11 @@
             }
         ];
 
-        // Initialize the infinite slider with clickable cards
+        // Initialize the MANUAL slider (no auto animation, just pure swipe/drag)
         function initSlider() {
             const track = document.getElementById('slider-track');
-            // Duplicate array for seamless infinite loop
-            const items = [...concepts, ...concepts]; 
-            track.innerHTML = items.map((c) => {
+            // No duplication needed for manual scroll — we keep original set
+            track.innerHTML = concepts.map((c) => {
                 return `
                     <div class="concept-card" data-url="${c.url}">
                         <div class="concept-img" style="background-image: url('${c.img}')"></div>
@@ -442,9 +476,16 @@
                     });
                 }
             });
+            
+            // Optional: Add smooth scrolling behavior to viewport
+            const viewport = document.getElementById('slider-viewport');
+            if (viewport) {
+                // Ensure scroll snapping feels natural
+                viewport.style.scrollBehavior = 'smooth';
+            }
         }
 
-        // --- SLIDE NAVIGATION LOGIC ---
+        // --- SLIDE NAVIGATION LOGIC (for main sections: Home, Concepts, Collaborate) ---
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -486,7 +527,7 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // --- TOUCH & GESTURE CONTROLS (Swipe horizontal/vertical) ---
+        // --- TOUCH & GESTURE CONTROLS for main slides (horizontal/vertical) ---
         let touchStartX = null;
         let touchStartY = null;
         
@@ -503,13 +544,13 @@
             const absDeltaX = Math.abs(deltaX);
             const absDeltaY = Math.abs(deltaY);
             
-            // Determine primary swipe direction (horizontal or vertical)
-            if (Math.max(absDeltaX, absDeltaY) > 40) { // Minimum swipe distance
+            // Only trigger main slide navigation if swipe is significant and not over the concept slider area
+            const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
+            
+            if (!isOverSlider && Math.max(absDeltaX, absDeltaY) > 40) {
                 if (absDeltaX > absDeltaY) {
-                    // Horizontal swipe
                     navigate(deltaX > 0 ? 1 : -1);
                 } else {
-                    // Vertical swipe
                     navigate(deltaY > 0 ? 1 : -1);
                 }
             }
@@ -518,15 +559,17 @@
             touchStartY = null;
         });
         
-        // Mouse wheel support for desktop
+        // Mouse wheel support for desktop (main slides)
         window.addEventListener('wheel', e => { 
-            if (Math.abs(e.deltaY) > 30) {
+            // Only trigger if not hovering over the concept slider
+            const isOverSlider = e.target.closest('.slider-viewport');
+            if (!isOverSlider && Math.abs(e.deltaY) > 30) {
                 navigate(e.deltaY > 0 ? 1 : -1);
                 e.preventDefault();
             }
         }, { passive: false });
         
-        // Keyboard arrow keys support
+        // Keyboard arrow keys support for main slides
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 navigate(1);
@@ -537,7 +580,7 @@
             }
         });
         
-        // Prevent dot clicks from bubbling and causing issues
+        // Prevent dot clicks from bubbling
         dots.forEach(dot => {
             dot.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -552,6 +595,13 @@
                 goToSlide(0);
             });
         }
+        
+        // Ensure concept cards don't trigger main slide navigation when clicked
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.concept-card')) {
+                e.stopPropagation();
+            }
+        }, true);
 
         // --- INITIALIZE EVERYTHING ON LOAD ---
         window.onload = () => {
