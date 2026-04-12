@@ -128,29 +128,37 @@
             transform: translateY(-20px);
         }
 
-        /* MANUAL HORIZONTAL SCROLL SLIDER - CLEAN, NO SWIPE HINT */
+        /* HORIZONTAL SCROLL SLIDER - FULLY FUNCTIONAL */
         .slider-viewport {
-            width: 100vw;
+            width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
             padding: 40px 0;
             position: relative;
-            scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            /* HIDE SCROLLBAR COMPLETELY */
+            scroll-snap-type: x mandatory;
+            cursor: grab;
+        }
+        
+        .slider-viewport:active {
+            cursor: grabbing;
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        .slider-viewport {
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
-        
         .slider-viewport::-webkit-scrollbar {
             display: none;
         }
 
         .slider-track {
             display: flex;
-            width: fit-content;
+            width: max-content;
             gap: 0;
-            padding: 0 20px;
+            padding-left: calc(50vw - 140px);
+            padding-right: calc(50vw - 140px);
         }
 
         .concept-card {
@@ -167,7 +175,7 @@
             flex-shrink: 0;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
         }
 
         .concept-card:hover {
@@ -284,6 +292,20 @@
         .close-menu-btn:hover {
             transform: scale(1.05);
         }
+        
+        /* Small hint dot indicator for scrollable area */
+        .scroll-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .scroll-dot {
+            width: 4px;
+            height: 4px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -326,7 +348,6 @@
                 <div class="slider-viewport" id="slider-viewport">
                     <div class="slider-track" id="slider-track"></div>
                 </div>
-                <!-- SWIPE HINT AND SCROLLBAR COMPLETELY REMOVED -->
             </div>
         </section>
 
@@ -370,7 +391,7 @@
             setTimeout(typeEffect, speed);
         }
 
-        // Concept data with URLs
+        // Concept data with URLs - ADDED MORE CARDS FOR BETTER SCROLL EXPERIENCE
         const concepts = [
             { 
                 title: "Modern Barber", 
@@ -395,6 +416,18 @@
                 sub: "Concept Engineering", 
                 img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400",
                 url: "https://doctoc30.github.io/fazhoq/concepts/trade"
+            },
+            { 
+                title: "Eco Beauty", 
+                sub: "Sustainable Design", 
+                img: "https://images.unsplash.com/photo-1596462502278-27bfdc1f5295?auto=format&fit=crop&w=400",
+                url: "https://doctoc30.github.io/fazhoq/concepts/eco"
+            },
+            { 
+                title: "Tech Startup", 
+                sub: "Digital Identity", 
+                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400",
+                url: "https://doctoc30.github.io/fazhoq/concepts/tech"
             }
         ];
 
@@ -429,10 +462,19 @@
                 }
             });
             
-            // Ensure viewport starts at the first card
+            // Ensure viewport is scrollable by setting initial scroll position to center
             const viewport = document.getElementById('slider-viewport');
             if (viewport) {
-                viewport.scrollLeft = 0;
+                // Center the first card
+                setTimeout(() => {
+                    const firstCard = document.querySelector('.concept-card');
+                    if (firstCard) {
+                        const cardWidth = firstCard.offsetWidth;
+                        const viewportWidth = viewport.offsetWidth;
+                        const scrollPosition = (cardWidth / 2) + 15 - (viewportWidth / 2);
+                        viewport.scrollLeft = Math.max(0, scrollPosition);
+                    }
+                }, 100);
             }
         }
 
@@ -475,7 +517,7 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // Touch gestures for main slides
+        // Touch gestures for main slides - ONLY when not swiping the concept slider
         let touchStartX = null;
         let touchStartY = null;
         
@@ -492,7 +534,7 @@
             const absDeltaX = Math.abs(deltaX);
             const absDeltaY = Math.abs(deltaY);
             
-            // Check if swipe started on concept slider
+            // Check if swipe started on concept slider - if yes, don't navigate main slides
             const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
             
             if (!isOverSlider && Math.max(absDeltaX, absDeltaY) > 40) {
