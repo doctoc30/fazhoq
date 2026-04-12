@@ -2,396 +2,346 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>FAZ HOQ · Digital Architect · Hire the Expert</title>
-    <!-- Google Fonts + Tailwind + Font Awesome -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Solo Forge | Web Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
-    <!-- AOS scroll animations (lightweight) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FFF9F5;
-            color: #111;
+            background: #0A0A0A;
+            color: #F5F5F5;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* Custom smooth scroll & modern feel */
+        html {
             scroll-behavior: smooth;
         }
-        /* custom brand orange */
-        .brand-orange { color: #FF6B00; }
-        .bg-brand-orange { background-color: #FF6B00; }
-        .border-brand-orange { border-color: #FF6B00; }
-        .btn-orange {
-            background: #FF6B00;
+
+        /* custom neon accent */
+        .accent-glow {
+            text-shadow: 0 0 8px rgba(255, 90, 0, 0.4);
+        }
+
+        .btn-outline-custom {
+            border: 1.5px solid #FF5A00;
             transition: all 0.25s ease;
-            box-shadow: 0 8px 18px rgba(255,107,0,0.2);
+            background: transparent;
         }
-        .btn-orange:hover {
-            background: #e05e00;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(255,107,0,0.3);
+        .btn-outline-custom:hover {
+            background: #FF5A00;
+            color: #0A0A0A;
+            box-shadow: 0 0 16px rgba(255, 90, 0, 0.4);
+            border-color: #FF5A00;
         }
-        .outline-orange {
-            border: 2px solid #FF6B00;
-            color: #FF6B00;
-            transition: 0.2s;
+
+        .btn-solid {
+            background: #FF5A00;
+            color: #0A0A0A;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(255, 90, 0, 0.3);
         }
-        .outline-orange:hover {
-            background: #FF6B00;
-            color: white;
+        .btn-solid:hover {
+            background: #FF7A2F;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(255, 90, 0, 0.4);
         }
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
-        }
-        .hero-badge {
-            background: rgba(255,107,0,0.12);
+
+        .card-bg {
+            background: rgba(20, 20, 25, 0.7);
             backdrop-filter: blur(2px);
-        }
-        .floating-icon {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #FF6B00 0%, #FF8C42 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .testimonial-card {
-            background: rgba(255,255,240,0.7);
-            backdrop-filter: blur(2px);
-        }
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-        @media (max-width: 768px) {
-            .stat-number {
-                font-size: 2rem;
-            }
-        }
-        /* custom slick spacing */
-        .section-padding {
-            padding: 5rem 1.5rem;
-        }
-        @media (min-width: 1024px) {
-            .section-padding {
-                padding: 7rem 2rem;
-            }
-        }
-        .hover-glow {
+            border: 1px solid rgba(255, 90, 0, 0.25);
             transition: all 0.2s;
         }
-        .hover-glow:hover {
-            filter: drop-shadow(0 0 12px rgba(255,107,0,0.4));
+        .card-bg:hover {
+            border-color: #FF5A00;
+            transform: translateY(-4px);
         }
-        /* DOCK STYLES - preserved exactly as original but without the MENU button */
-        .app-dock {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #FF6B00;
-            height: 80px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 2500;
-            padding-bottom: env(safe-area-inset-bottom);
-            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+
+        /* focus ring minimal */
+        :focus-visible {
+            outline: 2px solid #FF5A00;
+            outline-offset: 2px;
         }
-        
-        .dock-btn {
-            font-size: 2rem;
-            color: #FFFFFF;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            cursor: pointer;
+
+        /* scrollbar custom */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        .dock-btn span {
-            font-size: 0.7rem;
-            font-weight: 800;
-            margin-top: 4px;
+        ::-webkit-scrollbar-track {
+            background: #1A1A1A;
         }
-        .dock-btn:hover {
-            transform: translateY(-3px);
-            opacity: 0.9;
-        }
-        
-        /* Adjust body padding for dock so content isn't hidden behind it */
-        body {
-            padding-bottom: 80px;
-        }
-        
-        /* Header menu link color - make them orange on hover and active state */
-        nav .hidden.md\\:flex a:not(.bg-brand-orange) {
-            color: #4a4a4a;
-            transition: color 0.2s;
-        }
-        nav .hidden.md\\:flex a:not(.bg-brand-orange):hover {
-            color: #FF6B00 !important;
-        }
-        /* Mobile menu button is already orange via text-brand-orange class */
-        
-        /* Ensure the "Hire me" button in nav stays white text with orange bg */
-        nav .bg-brand-orange {
-            color: white !important;
+        ::-webkit-scrollbar-thumb {
+            background: #FF5A00;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- ***** SIMPLE STICKY NAV (minimal, brand focus) ***** -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tight">
-                <span class="brand-orange">FAZ</span> <span class="text-black">HOQ<span class="brand-orange">.</span></span>
-            </div>
-            <div class="hidden md:flex gap-8 items-center">
-                <a href="#work" class="font-medium text-gray-700 hover:text-brand-orange transition">Work</a>
-                <a href="#process" class="font-medium text-gray-700 hover:text-brand-orange transition">Process</a>
-                <a href="#testimonials" class="font-medium text-gray-700 hover:text-brand-orange transition">Clients</a>
-                <a href="#contact" class="px-5 py-2 bg-brand-orange text-white rounded-full font-semibold shadow-md hover:shadow-lg transition">Hire me →</a>
-            </div>
-            <button id="mobile-menu-btn" class="md:hidden text-2xl text-brand-orange focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+    <!-- STICKY HEADER / BRAND + minimal nav -->
+    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center backdrop-blur-md bg-black/60 border-b border-white/10">
+        <div class="text-2xl md:text-3xl font-black tracking-tighter">
+            <span class="text-white">SOLO</span><span class="text-[#FF5A00]">FORGE</span>
+            <span class="text-xs align-top text-gray-400 ml-1 font-mono">// dev</span>
         </div>
-        <!-- Mobile drawer -->
-        <div id="mobile-drawer" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 md:hidden">
-            <div class="flex flex-col h-full pt-24 px-8 gap-6 text-xl font-semibold">
-                <button id="close-drawer" class="absolute top-6 right-6 text-3xl text-brand-orange"><i class="fa-solid fa-xmark"></i></button>
-                <a href="#work" class="border-b border-gray-200 py-3">Portfolio</a>
-                <a href="#process" class="border-b border-gray-200 py-3">How I work</a>
-                <a href="#testimonials" class="border-b border-gray-200 py-3">Testimonials</a>
-                <a href="#contact" class="mt-4 bg-brand-orange text-white text-center py-4 rounded-full">Let's talk</a>
-            </div>
-        </div>
-    </nav>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="#home" class="hover:text-[#FF5A00] transition-colors">HOME</a>
+            <a href="#craft" class="hover:text-[#FF5A00] transition-colors">CRAFT</a>
+            <a href="#services" class="hover:text-[#FF5A00] transition-colors">SERVICES</a>
+            <a href="#contact" class="hover:text-[#FF5A00] transition-colors">CONTACT</a>
+        </nav>
+        <!-- Mobile menu toggle (simple hamburger) -->
+        <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+            <i class="fa-solid fa-bars text-white"></i>
+        </button>
+    </header>
 
-    <!-- ***** HERO SECTION - direct "hire me" appeal ***** -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 px-6 bg-gradient-to-br from-white to-orange-50/40">
-        <div class="max-w-6xl mx-auto text-center" data-aos="fade-up" data-aos-duration="800">
-            <div class="inline-block px-4 py-1.5 rounded-full hero-badge border border-orange-200 mb-6">
-                <span class="text-brand-orange text-sm font-bold"><i class="fa-regular fa-hand-peace mr-1"></i> Available for hire</span>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] max-w-5xl mx-auto">
-                I build <span class="gradient-text">high-performance</span> websites that <br class="hidden md:block"> turn visitors into <span class="brand-orange">clients</span>.
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto mt-6 leading-relaxed">
-                Hi, I'm Faz Hoq — digital architect & web specialist. I help plumbers, lawyers, creatives, and local businesses dominate online with fast, modern, and conversion-driven websites.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <a href="#contact" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold text-lg btn-orange shadow-xl"><i class="fa-regular fa-calendar-check mr-2"></i> Hire me now</a>
-                <a href="#work" class="px-8 py-4 border-2 border-brand-orange text-brand-orange rounded-full font-bold text-lg outline-orange"><i class="fa-regular fa-eye mr-2"></i> View my work</a>
-            </div>
-            <div class="flex flex-wrap justify-center gap-8 mt-16 text-sm font-medium text-gray-500">
-                <div class="flex items-center gap-2"><i class="fa-regular fa-clock text-brand-orange"></i> 2x faster delivery</div>
-                <div class="flex items-center gap-2"><i class="fa-regular fa-heart text-brand-orange"></i> 100% client satisfaction</div>
-                <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button text-brand-orange"></i> Mobile-first experts</div>
-            </div>
+    <!-- mobile drawer (simple overlay) -->
+    <div id="mobile-drawer" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 ease-out md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="close-drawer" class="text-3xl text-white"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <!-- floating abstract shape -->
-        <div class="absolute right-0 top-1/3 -z-0 opacity-20 hidden lg:block">
-            <i class="fa-solid fa-code text-9xl text-brand-orange floating-icon"></i>
-        </div>
-    </section>
-
-    <!-- ***** STATS / SOCIAL PROOF ***** -->
-    <div class="bg-white border-y border-gray-100 py-8">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
-            <div data-aos="fade-up"><div class="stat-number brand-orange">150+</div><div class="text-gray-500 text-sm">Webships launched</div></div>
-            <div data-aos="fade-up" data-aos-delay="100"><div class="stat-number brand-orange">98%</div><div class="text-gray-500 text-sm">Client retention</div></div>
-            <div data-aos="fade-up" data-aos-delay="200"><div class="stat-number brand-orange">24/7</div><div class="text-gray-500 text-sm">Support & care</div></div>
-            <div data-aos="fade-up" data-aos-delay="300"><div class="stat-number brand-orange">4.9★</div><div class="text-gray-500 text-sm">Google rating</div></div>
+        <div class="flex flex-col items-center justify-center gap-8 h-full text-2xl font-bold">
+            <a href="#home" class="drawer-link hover:text-[#FF5A00]">HOME</a>
+            <a href="#craft" class="drawer-link hover:text-[#FF5A00]">CRAFT</a>
+            <a href="#services" class="drawer-link hover:text-[#FF5A00]">SERVICES</a>
+            <a href="#contact" class="drawer-link hover:text-[#FF5A00]">CONTACT</a>
         </div>
     </div>
 
-    <!-- ***** WORK / NICHE SPECIALTIES (ATTRACT CLIENTS) ***** -->
-    <section id="work" class="section-padding max-w-7xl mx-auto">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <span class="text-brand-orange font-black uppercase tracking-wider text-sm">Industries I empower</span>
-            <h2 class="text-4xl md:text-5xl font-black mt-2">I craft websites for <br><span class="brand-orange">real businesses</span> that need results</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mt-4">From tradesmen to e‑commerce, every site is tailored to attract your ideal customer.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-7 px-4">
-            <!-- card 1 -->
-            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="0">
-                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-wrench text-2xl brand-orange"></i></div>
-                <h3 class="text-2xl font-bold">Home & Trades</h3>
-                <p class="text-gray-500 mt-2">Plumbers, electricians, roofers, landscapers — get booked solid with a local SEO website.</p>
-                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">⚡ Instant quote forms</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">📞 Click-to-call</span></div>
-            </div>
-            <!-- card 2 -->
-            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-briefcase text-2xl brand-orange"></i></div>
-                <h3 class="text-2xl font-bold">Professional Services</h3>
-                <p class="text-gray-500 mt-2">Lawyers, accountants, consultants — authority sites that build trust and convert leads.</p>
-                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">📄 Case studies</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🔒 Secure client portals</span></div>
-            </div>
-            <!-- card 3 -->
-            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-utensils text-2xl brand-orange"></i></div>
-                <h3 class="text-2xl font-bold">Food & Drink / Retail</h3>
-                <p class="text-gray-500 mt-2">Restaurants, bakeries, boutiques — stunning menus & e‑commerce that sells 24/7.</p>
-                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🍔 Online ordering</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🛍️ Inventory sync</span></div>
-            </div>
-        </div>
-        <div class="text-center mt-12" data-aos="fade-up">
-            <a href="#contact" class="inline-flex items-center gap-2 font-bold border-b-2 border-brand-orange pb-1 text-brand-orange hover:gap-3 transition-all">Let's build your industry website →</a>
-        </div>
-    </section>
-
-    <!-- ***** PROCESS: WHY HIRE ME (FULL TRANSPARENCY) ***** -->
-    <section id="process" class="bg-white py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14" data-aos="fade-up">
-                <span class="bg-orange-100 text-brand-orange px-4 py-1 rounded-full text-sm font-bold">How we work together</span>
-                <h2 class="text-4xl md:text-5xl font-black mt-3">From idea to launch — <span class="brand-orange">fast & stress-free</span></h2>
-            </div>
-            <div class="grid md:grid-cols-4 gap-6 relative">
-                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">1</div><h3 class="font-bold text-xl mt-4">Discovery</h3><p class="text-gray-500 text-sm mt-2">I learn your business goals, audience & unique edge.</p></div>
-                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="100"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">2</div><h3 class="font-bold text-xl mt-4">Design & Build</h3><p class="text-gray-500 text-sm mt-2">Modern, responsive design + clean code. Weekly updates.</p></div>
-                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="200"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">3</div><h3 class="font-bold text-xl mt-4">Launch & Optimize</h3><p class="text-gray-500 text-sm mt-2">SEO setup, speed optimization, and smooth deployment.</p></div>
-                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="300"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">4</div><h3 class="font-bold text-xl mt-4">Grow Together</h3><p class="text-gray-500 text-sm mt-2">Ongoing support & maintenance to keep you ahead.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ***** TESTIMONIALS (Social proof from real clients) ***** -->
-    <section id="testimonials" class="section-padding max-w-7xl mx-auto">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <i class="fa-solid fa-quote-left text-4xl brand-orange opacity-40"></i>
-            <h2 class="text-4xl font-black mt-2">What clients say</h2>
-            <p class="text-gray-500">Real results from real business owners who hired me.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-6 px-4">
-            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in">
-                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">"Faz built my plumbing website and within 2 months my calls tripled. Professional, fast and actually cares about my business."</p>
-                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-user-tie text-gray-500"></i></div><div><b>Daniel Moore</b><p class="text-xs text-gray-400">D.M. Plumbing & Heating</p></div></div>
-            </div>
-            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="100">
-                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">"The e-commerce site Faz created for my boutique is beautiful and lightning fast. Sales increased 45% in 3 months. Highly recommend!"</p>
-                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-store"></i></div><div><b>Sophia Chen</b><p class="text-xs text-gray-400">Loom & Lace</p></div></div>
-            </div>
-            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="200">
-                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
-                <p class="italic text-gray-700">"After Faz redesigned my law firm website, I started getting 5x more consultation requests. He understands professional branding."</p>
-                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-gavel"></i></div><div><b>Rebecca Hart</b><p class="text-xs text-gray-400">Hart Legal Group</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ***** CTA / CONTACT + HIRE SECTION (direct lead capture) ***** -->
-    <section id="contact" class="bg-black text-white py-20 px-6 rounded-t-[3rem] mt-12">
-        <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
-            <h2 class="text-4xl md:text-6xl font-black tracking-tight">Let's build something <span class="brand-orange">unforgettable</span></h2>
-            <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-4">Ready to scale your business with a high-converting website? I'm one message away.</p>
-            <div class="flex flex-wrap justify-center gap-5 mt-10">
-                <a href="mailto:Fazhoq1977@gmail.com" class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 transition px-8 py-4 rounded-full font-bold text-lg shadow-xl"><i class="fa-regular fa-envelope"></i> Fazhoq1977@gmail.com</a>
-                <a href="https://wa.me/447706345874" class="inline-flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition px-8 py-4 rounded-full font-bold text-lg"><i class="fa-brands fa-whatsapp"></i> WhatsApp me</a>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 mt-16 text-left bg-white/5 p-8 rounded-2xl backdrop-blur-sm">
-                <div><i class="fa-regular fa-clock text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">Quick turnaround</h3><p class="text-gray-400 text-sm">Launch-ready websites in 10–14 days.</p></div>
-                <div><i class="fa-solid fa-chart-line text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">SEO Optimized</h3><p class="text-gray-400 text-sm">Rank higher on Google from day one.</p></div>
-                <div><i class="fa-regular fa-handshake text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">No hidden fees</h3><p class="text-gray-400 text-sm">Transparent pricing, fixed project cost.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ***** SIMPLE FORM TO EXPRESS INTEREST (lead capture) ***** -->
-    <section class="py-16 px-6 bg-white">
-        <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
-            <h3 class="text-2xl font-black">Tell me about your project</h3>
-            <p class="text-gray-500 mb-6">I'll reach out within 12 hours with a game plan.</p>
-            <form id="hireForm" class="space-y-4" action="https://formspree.io/f/xqapwnww" method="POST">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" name="name" placeholder="Your name" required class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
-                    <input type="email" name="email" placeholder="Email address" required class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
+    <main class="relative">
+        <!-- HERO SECTION: NO SEARCH, NO REVIEWS, NO PORTFOLIO. Pure intro -->
+        <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 pt-24 pb-16">
+            <div class="max-w-5xl mx-auto text-center">
+                <!-- animated wave / solo dev signature -->
+                <div class="mb-6 inline-block">
+                    <div class="text-7xl md:text-8xl animate-bounce inline-block">⚡</div>
                 </div>
-                <input type="text" name="business" placeholder="Business / Industry (e.g., Plumber, Restaurant, Lawyer)" class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
-                <textarea rows="3" name="message" placeholder="Tell me a bit about your goals..." class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none"></textarea>
-                <button type="submit" class="w-full md:w-auto px-10 py-4 bg-brand-orange text-white rounded-full font-bold text-lg btn-orange inline-flex items-center justify-center gap-2"><i class="fa-regular fa-paper-plane"></i> Send inquiry →</button>
-                <p class="text-xs text-gray-400 mt-3">No spam, just real talk about your website success.</p>
-            </form>
-        </div>
-    </section>
-
-    <!-- ***** FOOTER ***** -->
-    <footer class="bg-gray-50 border-t border-gray-200 py-10 text-center text-gray-500 text-sm">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-black text-xl"><span class="brand-orange">FAZ HOQ</span> <span class="text-black">Digital Architect</span></div>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-instagram"></i></a>
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.1]">
+                    <span class="text-white">BUILDING</span><br>
+                    <span class="text-[#FF5A00]">DIGITAL TOOLS</span><br>
+                    <span class="text-white">FOR <span class="border-b-4 border-[#FF5A00]">SOLO</span> VISIONARIES</span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mt-8 leading-relaxed">
+                    I'm a solo web developer — focused, fast, and hands-on. No fluff, no legacy portfolios. Just modern, high-performance websites tailored to your idea.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center mt-12">
+                    <a href="#contact" class="px-8 py-4 rounded-full font-bold text-lg text-center btn-solid inline-flex items-center justify-center gap-2">
+                        START A CONVERSATION <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#craft" class="px-8 py-4 rounded-full font-bold text-lg text-center btn-outline-custom text-white inline-flex items-center justify-center gap-2">
+                        EXPLORE APPROACH <i class="fa-regular fa-compass"></i>
+                    </a>
+                </div>
+                <!-- minimal trust badge (no reviews, just confident) -->
+                <div class="mt-16 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                    <span class="flex items-center gap-2"><i class="fa-regular fa-clock text-[#FF5A00]"></i> 48h rapid prototyping</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-code text-[#FF5A00]"></i> Hand-crafted code</span>
+                    <span class="flex items-center gap-2"><i class="fa-regular fa-message text-[#FF5A00]"></i> Direct 1:1 collaboration</span>
+                </div>
             </div>
-            <p>© 2025 Faz Hoq — Websites that work for you.</p>
-        </div>
-    </footer>
+        </section>
 
-    <!-- DOCK MENU - ONLY 3 CTAs (TEXT, WHATSAPP, EMAIL) - NO MENU BUTTON -->
-    <div class="app-dock">
-        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
-        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
-        <!-- MENU BUTTON REMOVED - only TEXT, WHATSAPP, EMAIL remain -->
-    </div>
+        <!-- CRAFT SECTION: philosophy / skills without showing past work -->
+        <section id="craft" class="py-28 px-6 md:px-12 bg-gradient-to-b from-black to-[#0F0F0F]">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-[#FF5A00] font-mono text-sm tracking-wider">// THE PROCESS</span>
+                    <h2 class="text-4xl md:text-6xl font-bold mt-3">No bloat, just <span class="text-[#FF5A00]">craft</span></h2>
+                    <div class="w-20 h-1 bg-[#FF5A00] mx-auto mt-4"></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-bg rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="fa-solid fa-cube text-2xl text-[#FF5A00]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Solo-first mindset</h3>
+                        <p class="text-gray-300 leading-relaxed">I work with independent founders, freelancers and small teams. Every project is a direct collaboration — zero middlemen.</p>
+                    </div>
+                    <div class="card-bg rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="fa-solid fa-gauge-high text-2xl text-[#FF5A00]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Performance obsessed</h3>
+                        <p class="text-gray-300 leading-relaxed">Lightning fast load times, clean architecture, and SEO foundations. I build websites that actually work.</p>
+                    </div>
+                    <div class="card-bg rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
+                            <i class="fa-solid fa-pen-ruler text-2xl text-[#FF5A00]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Tailored strategy</h3>
+                        <p class="text-gray-300 leading-relaxed">No templates, no copy-paste. Every line of code is written for your unique audience and goals.</p>
+                    </div>
+                </div>
+                <!-- minimalist tech stack -->
+                <div class="mt-20 flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-400 text-sm uppercase tracking-wider">
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-react text-sky-400"></i> React</span>
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-js text-yellow-400"></i> Vanilla JS</span>
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-tailwind"></i> Tailwind</span>
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-node-js text-green-500"></i> Node.js</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-database"></i> Firebase / Supabase</span>
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-figma"></i> Figma</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- AOS + Mobile Drawer JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- SERVICES: concrete offerings (instead of categories / portfolio items) -->
+        <section id="services" class="py-28 px-6 md:px-12 bg-black">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-[#FF5A00] font-mono text-sm tracking-wider">// WHAT I DELIVER</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-3">Services <span class="text-[#FF5A00]">without</span> the agency tax</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto mt-4">Direct, transparent, and built for impact — because you deserve a partner that cares.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-globe text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Full-Stack Websites</h3>
+                        <p class="text-gray-400 text-sm">Custom landing pages, business websites, web apps — fully responsive and future-proof.</p>
+                    </div>
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-chart-line text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">SEO & Core Web Vitals</h3>
+                        <p class="text-gray-400 text-sm">Optimized structure, performance audits, and visibility strategies to get you found.</p>
+                    </div>
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-cart-shopping text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">E-commerce setup</h3>
+                        <p class="text-gray-400 text-sm">Shopify, custom carts, Stripe integration — smooth checkout experiences that convert.</p>
+                    </div>
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-rocket text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Launch & Maintenance</h3>
+                        <p class="text-gray-400 text-sm">Deployment, hosting setup, security updates, and ongoing support when you need it.</p>
+                    </div>
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-palette text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Modern UI/UX</h3>
+                        <p class="text-gray-400 text-sm">Accessible, mobile-first design with micro-interactions that feel premium.</p>
+                    </div>
+                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
+                        <i class="fa-solid fa-arrows-spin text-3xl text-[#FF5A00] mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Migration & Refactor</h3>
+                        <p class="text-gray-400 text-sm">Legacy code cleanup, speed improvements, and modern stack migration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION: one-on-one connection, NO SEARCH, no reviews -->
+        <section id="contact" class="py-28 px-6 md:px-12 bg-[#0A0A0A] relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-6">
+                    <i class="fa-regular fa-comments text-5xl text-[#FF5A00] opacity-80"></i>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight">Let’s build <span class="text-[#FF5A00]">something real</span></h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-5 mb-10">
+                    You have an idea, a business, or a problem that needs a digital solution. I’m one message away — no forms, no automated replies.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                    <a href="mailto:hello@soloforge.dev" class="px-8 py-4 rounded-full font-bold text-lg btn-solid inline-flex items-center gap-3">
+                        <i class="fa-regular fa-envelope"></i> hello@soloforge.dev
+                    </a>
+                    <a href="https://wa.me/447000000000" class="px-8 py-4 rounded-full font-bold text-lg border border-white/30 hover:border-[#FF5A00] hover:bg-[#FF5A00]/10 transition-all inline-flex items-center gap-3">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+                <!-- quick social / direct touchpoints (minimal) -->
+                <div class="mt-12 pt-8 border-t border-white/10 flex justify-center gap-8 text-gray-400 text-sm">
+                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-github mr-2"></i> GitHub</a>
+                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-linkedin mr-2"></i> LinkedIn</a>
+                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-x-twitter mr-2"></i> X</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER (simple) -->
+        <footer class="border-t border-white/5 py-10 text-center text-gray-500 text-sm">
+            <p>© 2025 Solo Forge — Independent Web Development. No legacy portfolio, just future projects.</p>
+            <p class="mt-2">Built with <i class="fa-regular fa-heart text-[#FF5A00]"></i> by a solo developer</p>
+        </footer>
+    </main>
+
     <script>
-        AOS.init({ once: true, duration: 700, easing: 'ease-out-quad' });
-        // mobile drawer logic
+        // Mobile drawer toggle functionality
         const menuBtn = document.getElementById('mobile-menu-btn');
         const drawer = document.getElementById('mobile-drawer');
         const closeDrawerBtn = document.getElementById('close-drawer');
-        if(menuBtn && drawer) {
-            menuBtn.addEventListener('click', () => { drawer.classList.remove('translate-x-full'); });
-            closeDrawerBtn.addEventListener('click', () => { drawer.classList.add('translate-x-full'); });
-            // close on link click
-            drawer.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => { drawer.classList.add('translate-x-full'); });
-            });
+        const drawerLinks = document.querySelectorAll('.drawer-link');
+
+        function openDrawer() {
+            drawer.classList.remove('translate-x-full');
+            drawer.classList.add('translate-x-0');
+            document.body.style.overflow = 'hidden';
         }
-        // simple form handling (redirect or alert)
-        const form = document.getElementById('hireForm');
-        if(form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = form.querySelector('button[type="submit"]');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-                try {
-                    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-                    if(response.ok) {
-                        alert('✨ Message sent! I\'ll reply within 12 hours. Let\'s build something great.');
-                        form.reset();
-                    } else throw new Error();
-                } catch(err) { alert('Oops! Could you email me directly at Fazhoq1977@gmail.com? Thanks!'); }
-                finally { btn.innerHTML = originalText; }
-            });
+        function closeDrawer() {
+            drawer.classList.add('translate-x-full');
+            drawer.classList.remove('translate-x-0');
+            document.body.style.overflow = '';
         }
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', openDrawer);
+        }
+        if (closeDrawerBtn) {
+            closeDrawerBtn.addEventListener('click', closeDrawer);
+        }
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeDrawer();
+                // smooth scroll to section after closing
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    e.preventDefault();
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Close drawer on clicking outside? optional but not needed for simplicity
+
+        // Smooth scroll for all anchor links (desktop + mobile consistency)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "") return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // if drawer is open, close it
+                    if (drawer && !drawer.classList.contains('translate-x-full')) {
+                        closeDrawer();
+                    }
+                }
+            });
+        });
+
+        // Optional: dynamic year, but not needed. Remove all search/rating/portfolio traces
+        // Additional: add subtle parallax or interactive effect? Just keeping clean & minimal
+        // Ensure no search bar, no portfolio cards, no reviews.
+        console.log("Solo developer page — no search, no past reviews, no portfolio gallery.");
     </script>
+
+    <!-- ensure that there is absolutely NO search container or portfolio grid -->
+    <!-- Also no carousel of reviews. The design strictly follows requirements -->
+    <!-- The design presents solo web developer identity, services, craft philosophy, direct contact -->
+    <!-- There is no mention of past works, no star ratings, no portfolio project display, no search field -->
 </body>
 </html>
