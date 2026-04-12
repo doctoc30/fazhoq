@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>FAZ HOQ | SOLO DIGITAL ARCHITECT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,6 +33,7 @@
             color: var(--text);
         }
 
+        /* MAIN SLIDE NAVIGATION */
         .slide-container {
             position: relative;
             height: 100%;
@@ -51,10 +52,11 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            background: transparent;
+            background: var(--primary-light);
             transform: translate3d(100%, 0, 0);
-            transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
+            overflow-y: auto;
         }
 
         section.active {
@@ -68,6 +70,7 @@
             z-index: 5;
         }
 
+        /* HEADER */
         .faz-nav {
             position: fixed;
             top: 0;
@@ -101,6 +104,7 @@
             transform: scale(1.05);
         }
 
+        /* TEXT STYLES */
         .text-wrap {
             width: 100%;
             max-width: 1200px;
@@ -128,57 +132,39 @@
             transform: translateY(-20px);
         }
 
-        /* HORIZONTAL SCROLL SLIDER WITH PAGINATION */
-        .slider-container {
+        /* CONCEPT CARDS - TOUCH FRIENDLY */
+        .concepts-wrapper {
             width: 100%;
+            max-width: 1200px;
             position: relative;
         }
 
-        .slider-viewport {
-            width: 100%;
+        .cards-container {
+            display: flex;
             overflow-x: auto;
-            overflow-y: hidden;
-            padding: 40px 0;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
-            cursor: grab;
+            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
+            gap: 20px;
+            padding: 40px 20px;
+            cursor: grab;
         }
-        
-        .slider-viewport:active {
+
+        .cards-container:active {
             cursor: grabbing;
         }
-        
-        /* Hide scrollbar */
-        .slider-viewport {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .slider-viewport::-webkit-scrollbar {
+
+        .cards-container::-webkit-scrollbar {
             display: none;
         }
 
-        .slider-track {
-            display: flex;
-            width: max-content;
-            gap: 0;
-            padding-left: calc(50vw - 155px);
-            padding-right: calc(50vw - 155px);
-        }
-
         .concept-card {
-            width: 280px;
+            flex: 0 0 280px;
             height: 380px;
             background: white;
-            margin: 0 15px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(255, 107, 0, 0.1);
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
-            border: 1px solid rgba(255, 107, 0, 0.05);
-            flex-shrink: 0;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             scroll-snap-align: center;
@@ -192,7 +178,6 @@
         .concept-img {
             width: 100%;
             height: 70%;
-            background: #eee;
             background-size: cover;
             background-position: center;
         }
@@ -202,19 +187,28 @@
             text-align: left;
         }
 
-        .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; }
-        .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
+        .concept-info h4 { 
+            font-weight: 900; 
+            color: var(--primary); 
+            font-size: 1.2rem; 
+        }
+        .concept-info p { 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            opacity: 0.5; 
+            text-transform: uppercase; 
+        }
 
-        /* PAGINATION CONTROLS */
-        .slider-controls {
+        /* CARD CONTROLS */
+        .card-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin-top: 10px;
         }
-        
-        .nav-arrow {
+
+        .card-nav {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -224,54 +218,48 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
             color: var(--primary);
-            font-size: 1.2rem;
         }
-        
-        .nav-arrow:hover {
+
+        .card-nav:hover {
             background: var(--primary);
             color: white;
-            transform: scale(1.05);
         }
-        
-        .pagination-dots {
+
+        .card-counter {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: rgba(255,107,0,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .card-dots {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
             max-width: 300px;
         }
-        
-        .page-dot {
+
+        .card-dot {
             width: 8px;
             height: 8px;
             background: rgba(0,0,0,0.2);
             border-radius: 50%;
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        
-        .page-dot.active {
+
+        .card-dot.active {
             background: var(--primary);
             width: 24px;
             border-radius: 10px;
         }
-        
-        .page-dot:hover {
-            background: var(--primary);
-            transform: scale(1.2);
-        }
-        
-        .card-counter {
-            font-size: 0.75rem;
-            color: var(--primary);
-            font-weight: 700;
-            background: rgba(255,107,0,0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
 
+        /* BOTTOM DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -308,7 +296,8 @@
             opacity: 0.9;
         }
 
-        .swipe-counter {
+        /* SLIDE INDICATOR DOTS */
+        .slide-indicators {
             position: fixed;
             bottom: 100px;
             left: 50%;
@@ -322,21 +311,22 @@
             backdrop-filter: blur(10px);
         }
         
-        .dot {
+        .slide-dot {
             width: 8px;
             height: 8px;
             background: rgba(0,0,0,0.2);
             border-radius: 50%;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s;
             cursor: pointer;
         }
         
-        .dot.active {
+        .slide-dot.active {
             background: var(--primary);
             width: 24px;
             border-radius: 10px;
         }
 
+        /* MENU */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -360,16 +350,15 @@
             justify-content: center;
             align-self: flex-end;
             cursor: pointer;
-            transition: transform 0.2s ease;
         }
-        .close-menu-btn:hover {
-            transform: scale(1.05);
-        }
-        
+
         .nav-hint {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             opacity: 0.4;
             margin-top: 15px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
         }
     </style>
 </head>
@@ -391,13 +380,14 @@
         </button>
     </nav>
 
-    <div class="swipe-counter">
-        <div class="dot active" onclick="goToSlide(0)"></div>
-        <div class="dot" onclick="goToSlide(1)"></div>
-        <div class="dot" onclick="goToSlide(2)"></div>
+    <div class="slide-indicators">
+        <div class="slide-dot active" onclick="goToSlide(0)"></div>
+        <div class="slide-dot" onclick="goToSlide(1)"></div>
+        <div class="slide-dot" onclick="goToSlide(2)"></div>
     </div>
 
     <div class="slide-container" id="master-wrapper">
+        <!-- SLIDE 0: HOME -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
@@ -407,31 +397,36 @@
             </div>
         </section>
 
+        <!-- SLIDE 1: CONCEPTS with HORIZONTAL CARDS -->
         <section>
             <div class="text-wrap">
-                <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
+                <h2 class="huge-text mb-4">VISUAL<br><span class="black">CONCEPTS.</span></h2>
                 
-                <div class="slider-container">
-                    <div class="slider-viewport" id="slider-viewport">
-                        <div class="slider-track" id="slider-track"></div>
+                <div class="concepts-wrapper">
+                    <div class="cards-container" id="cards-container">
+                        <!-- Cards injected by JS -->
                     </div>
                     
-                    <!-- Pagination Controls -->
-                    <div class="slider-controls">
-                        <div class="nav-arrow" id="prev-card">
+                    <div class="card-controls">
+                        <div class="card-nav" id="prevCardBtn">
                             <i class="fa-solid fa-chevron-left"></i>
                         </div>
-                        <div class="pagination-dots" id="pagination-dots"></div>
-                        <div class="nav-arrow" id="next-card">
+                        <div class="card-counter" id="cardCounter">1 / 0</div>
+                        <div class="card-nav" id="nextCardBtn">
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
                     </div>
-                    <div class="card-counter" id="card-counter">1 / 0</div>
+                    <div class="card-dots" id="cardDots"></div>
                 </div>
-                <div class="nav-hint">← SWIPE CARDS OR USE ARROWS →</div>
+                
+                <div class="nav-hint">
+                    <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Swipe cards horizontally</span>
+                    <span><i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i> Swipe up/down for slides</span>
+                </div>
             </div>
         </section>
 
+        <!-- SLIDE 2: COLLABORATE -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
@@ -472,300 +467,271 @@
             setTimeout(typeEffect, speed);
         }
 
-        // Generate 25 concept cards (you can change to 100)
-        function generateConcepts() {
-            const baseConcepts = [
-                { title: "Modern Barber", sub: "Branding & Identity", url: "https://doctoc30.github.io/fazhoq/concepts/barber" },
-                { title: "Legal Suite", sub: "Interface Design", url: "https://doctoc30.github.io/fazhoq/concepts/legal" },
-                { title: "Fitness Pro", sub: "User Flow", url: "https://doctoc30.github.io/fazhoq/concepts/fitness" },
-                { title: "Trade Flow", sub: "Concept Engineering", url: "https://doctoc30.github.io/fazhoq/concepts/trade" },
-                { title: "Eco Beauty", sub: "Sustainable Design", url: "https://doctoc30.github.io/fazhoq/concepts/eco" },
-                { title: "Tech Startup", sub: "Digital Identity", url: "https://doctoc30.github.io/fazhoq/concepts/tech" }
-            ];
-            
-            // Generate 25 cards for demo (change to 100 by changing the loop count)
-            let allConcepts = [];
-            for (let i = 0; i < 25; i++) {
-                const base = baseConcepts[i % baseConcepts.length];
-                allConcepts.push({
-                    ...base,
-                    title: i < baseConcepts.length ? base.title : `${base.title} ${Math.floor(i / baseConcepts.length) + 1}`,
-                    img: `https://picsum.photos/id/${(i * 7 + 20)}/400/300`
-                });
-            }
-            return allConcepts;
-        }
-        
-        const concepts = generateConcepts();
-        let currentCardIndex = 0;
-        let isScrollingProgrammatically = false;
+        // Generate concept cards (20 cards for demo)
+        const concepts = [
+            { title: "Modern Barber", sub: "Branding & Identity", url: "https://doctoc30.github.io/fazhoq/concepts/barber", img: "https://doctoc30.github.io/fazhoq/images/IMG_3070.jpeg" },
+            { title: "Legal Suite", sub: "Interface Design", url: "https://doctoc30.github.io/fazhoq/concepts/legal", img: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=400" },
+            { title: "Fitness Pro", sub: "User Flow", url: "https://doctoc30.github.io/fazhoq/concepts/fitness", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400" },
+            { title: "Trade Flow", sub: "Concept Engineering", url: "https://doctoc30.github.io/fazhoq/concepts/trade", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400" },
+            { title: "Eco Beauty", sub: "Sustainable Design", url: "#", img: "https://images.unsplash.com/photo-1596462502278-27bfdc1f5295?auto=format&fit=crop&w=400" },
+            { title: "Tech Startup", sub: "Digital Identity", url: "#", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400" },
+            { title: "Luxury Hotel", sub: "Hospitality", url: "#", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400" },
+            { title: "Coffee Brand", sub: "Packaging", url: "#", img: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=400" },
+            { title: "Art Gallery", sub: "Exhibition", url: "#", img: "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?auto=format&fit=crop&w=400" },
+            { title: "Med Spa", sub: "Wellness", url: "#", img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400" }
+        ];
 
-        // Initialize slider with cards and pagination
-        function initSlider() {
-            const track = document.getElementById('slider-track');
-            if (!track) return;
+        let currentCardIndex = 0;
+        let cardsContainer = null;
+        let isScrolling = false;
+
+        // Initialize cards
+        function initCards() {
+            cardsContainer = document.getElementById('cards-container');
+            if (!cardsContainer) return;
             
             // Build cards
-            track.innerHTML = concepts.map((c, index) => {
-                const imgUrl = c.img || "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400";
-                return `
-                    <div class="concept-card" data-url="${c.url}" data-index="${index}">
-                        <div class="concept-img" style="background-image: url('${imgUrl}')"></div>
-                        <div class="concept-info">
-                            <h4>${c.title}</h4>
-                            <p>${c.sub}</p>
-                        </div>
+            cardsContainer.innerHTML = concepts.map((c, i) => `
+                <div class="concept-card" data-url="${c.url}" data-index="${i}">
+                    <div class="concept-img" style="background-image: url('${c.img}')"></div>
+                    <div class="concept-info">
+                        <h4>${c.title}</h4>
+                        <p>${c.sub}</p>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
             
-            // Add click handlers to all cards
-            const cards = document.querySelectorAll('.concept-card');
-            cards.forEach(card => {
-                const url = card.getAttribute('data-url');
-                if (url) {
-                    card.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        window.open(url, '_blank', 'noopener,noreferrer');
-                    });
-                }
-            });
-            
-            // Build pagination dots
-            updatePagination();
-            updateCardCounter();
-            
-            // Set up scroll listener to sync pagination
-            const viewport = document.getElementById('slider-viewport');
-            if (viewport) {
-                viewport.addEventListener('scroll', () => {
-                    if (!isScrollingProgrammatically) {
-                        updateActiveCardFromScroll();
-                    }
-                });
-            }
-        }
-        
-        function updatePagination() {
-            const container = document.getElementById('pagination-dots');
-            if (!container) return;
-            
-            // Show limited dots if too many (e.g., show every 5th dot for 100 cards)
-            const totalCards = concepts.length;
-            let dotsToShow = [];
-            
-            if (totalCards <= 20) {
-                // Show all dots
-                dotsToShow = Array.from({ length: totalCards }, (_, i) => i);
-            } else {
-                // Show first, last, and every ~5th dot in between
-                dotsToShow.push(0);
-                for (let i = 5; i < totalCards - 5; i += 5) {
-                    dotsToShow.push(i);
-                }
-                dotsToShow.push(totalCards - 1);
-                // Remove duplicates and sort
-                dotsToShow = [...new Set(dotsToShow)].sort((a, b) => a - b);
-            }
-            
-            container.innerHTML = dotsToShow.map(index => {
-                const isActive = currentCardIndex === index;
-                return `<div class="page-dot ${isActive ? 'active' : ''}" data-page-index="${index}"></div>`;
-            }).join('');
-            
-            // Add click handlers to dots
-            document.querySelectorAll('.page-dot').forEach(dot => {
-                dot.addEventListener('click', (e) => {
+            // Add click handlers
+            document.querySelectorAll('.concept-card').forEach(card => {
+                card.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const targetIndex = parseInt(dot.getAttribute('data-page-index'));
-                    if (!isNaN(targetIndex)) {
-                        jumpToCard(targetIndex);
+                    const url = card.getAttribute('data-url');
+                    if (url && url !== '#') {
+                        window.open(url, '_blank');
                     }
                 });
             });
-        }
-        
-        function updateCardCounter() {
-            const counter = document.getElementById('card-counter');
-            if (counter) {
-                counter.textContent = `${currentCardIndex + 1} / ${concepts.length}`;
-            }
+            
+            // Add scroll listener
+            cardsContainer.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    updateActiveCardFromScroll();
+                }
+            });
+            
+            updateCardUI();
         }
         
         function updateActiveCardFromScroll() {
-            const viewport = document.getElementById('slider-viewport');
-            if (!viewport) return;
+            if (!cardsContainer) return;
             
             const cards = document.querySelectorAll('.concept-card');
-            const viewportCenter = viewport.scrollLeft + viewport.offsetWidth / 2;
+            const containerCenter = cardsContainer.scrollLeft + cardsContainer.clientWidth / 2;
             
             let closestIndex = 0;
-            let closestDistance = Infinity;
+            let closestDist = Infinity;
             
-            cards.forEach((card, index) => {
-                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-                const distance = Math.abs(viewportCenter - cardCenter);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestIndex = index;
+            cards.forEach((card, i) => {
+                const cardCenter = card.offsetLeft + card.clientWidth / 2;
+                const dist = Math.abs(containerCenter - cardCenter);
+                if (dist < closestDist) {
+                    closestDist = dist;
+                    closestIndex = i;
                 }
             });
             
             if (closestIndex !== currentCardIndex) {
                 currentCardIndex = closestIndex;
-                updatePagination();
-                updateCardCounter();
+                updateCardUI();
             }
         }
         
-        function jumpToCard(index) {
-            if (index < 0 || index >= concepts.length) return;
+        function scrollToCard(index) {
+            if (!cardsContainer) return;
             
             const cards = document.querySelectorAll('.concept-card');
             if (!cards[index]) return;
             
+            isScrolling = true;
             currentCardIndex = index;
-            isScrollingProgrammatically = true;
             
-            const viewport = document.getElementById('slider-viewport');
-            const targetCard = cards[index];
-            const scrollPosition = targetCard.offsetLeft - (viewport.offsetWidth / 2) + (targetCard.offsetWidth / 2);
+            const scrollPos = cards[index].offsetLeft - (cardsContainer.clientWidth / 2) + (cards[index].clientWidth / 2);
             
-            viewport.scrollTo({
-                left: scrollPosition,
+            cardsContainer.scrollTo({
+                left: Math.max(0, scrollPos),
                 behavior: 'smooth'
             });
             
             setTimeout(() => {
-                isScrollingProgrammatically = false;
-            }, 500);
-            
-            updatePagination();
-            updateCardCounter();
+                isScrolling = false;
+                updateCardUI();
+            }, 400);
         }
         
         function nextCard() {
             if (currentCardIndex + 1 < concepts.length) {
-                jumpToCard(currentCardIndex + 1);
+                scrollToCard(currentCardIndex + 1);
             }
         }
         
         function prevCard() {
             if (currentCardIndex - 1 >= 0) {
-                jumpToCard(currentCardIndex - 1);
+                scrollToCard(currentCardIndex - 1);
+            }
+        }
+        
+        function updateCardUI() {
+            // Update counter
+            const counter = document.getElementById('cardCounter');
+            if (counter) {
+                counter.textContent = `${currentCardIndex + 1} / ${concepts.length}`;
+            }
+            
+            // Update dots
+            const dotsContainer = document.getElementById('cardDots');
+            if (dotsContainer) {
+                let dotsHtml = '';
+                for (let i = 0; i < concepts.length; i++) {
+                    const isActive = i === currentCardIndex;
+                    dotsHtml += `<div class="card-dot ${isActive ? 'active' : ''}" data-dot-index="${i}"></div>`;
+                }
+                dotsContainer.innerHTML = dotsHtml;
+                
+                // Add click handlers to dots
+                document.querySelectorAll('.card-dot').forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(dot.getAttribute('data-dot-index'));
+                        if (!isNaN(idx)) {
+                            scrollToCard(idx);
+                        }
+                    });
+                });
             }
         }
 
         // Main slide navigation (VERTICAL)
-        let currentIdx = 0;
+        let currentSlide = 0;
         const sections = document.querySelectorAll('section');
-        const dots = document.querySelectorAll('.dot');
-        let isMoving = false;
+        const slideDots = document.querySelectorAll('.slide-dot');
+        let isSlideMoving = false;
+        let touchStartY = 0;
+        let touchStartX = 0;
 
-        function updateUI() {
+        function updateSlides() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
+                if (i === currentSlide) {
+                    sec.classList.add('active');
+                } else if (i < currentSlide) {
+                    sec.classList.add('prev');
+                }
             });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIdx);
+            slideDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
             });
         }
 
-        function navigate(dir) {
-            if (isMoving) return;
-            const target = currentIdx + dir;
+        function navigateSlides(direction) {
+            if (isSlideMoving) return;
+            const target = currentSlide + direction;
             if (target >= 0 && target < sections.length) {
-                isMoving = true;
-                currentIdx = target;
-                updateUI();
-                setTimeout(() => { isMoving = false; }, 800);
+                isSlideMoving = true;
+                currentSlide = target;
+                updateSlides();
+                setTimeout(() => { isSlideMoving = false; }, 600);
             }
         }
 
-        function goToSlide(i) { 
-            if (i >= 0 && i < sections.length && !isMoving) {
-                currentIdx = i; 
-                updateUI(); 
+        function goToSlide(index) {
+            if (index >= 0 && index < sections.length && !isSlideMoving) {
+                currentSlide = index;
+                updateSlides();
             }
         }
         
-        function toggleMenu() { 
-            document.getElementById('app-menu-layer').classList.toggle('active'); 
+        function toggleMenu() {
+            document.getElementById('app-menu-layer').classList.toggle('active');
         }
 
-        // Vertical swipe for main slides (only when NOT swiping horizontally)
-        let touchStartX = null;
-        let touchStartY = null;
+        // TOUCH HANDLING - Clear separation between horizontal and vertical
+        let touchStart = null;
         
-        window.addEventListener('touchstart', e => { 
-            touchStartX = e.touches[0].clientX; 
-            touchStartY = e.touches[0].clientY; 
+        document.addEventListener('touchstart', (e) => {
+            touchStart = {
+                x: e.touches[0].clientX,
+                y: e.touches[0].clientY,
+                time: Date.now()
+            };
         }, { passive: true });
         
-        window.addEventListener('touchend', e => {
-            if (touchStartX === null || touchStartY === null) return;
+        document.addEventListener('touchend', (e) => {
+            if (!touchStart) return;
             
-            const deltaX = Math.abs(touchStartX - e.changedTouches[0].clientX);
-            const deltaY = Math.abs(touchStartY - e.changedTouches[0].clientY);
+            const deltaX = Math.abs(e.changedTouches[0].clientX - touchStart.x);
+            const deltaY = Math.abs(e.changedTouches[0].clientY - touchStart.y);
+            const isHorizontalSwipe = deltaX > deltaY && deltaX > 30;
+            const isVerticalSwipe = deltaY > deltaX && deltaY > 30;
             
-            // If horizontal movement is significant, don't trigger vertical navigation
-            const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
+            // Check if swipe started on cards container
+            const target = e.changedTouches[0].target;
+            const isOnCards = target.closest('.cards-container');
             
-            if (!isOverSlider && deltaY > 40 && deltaY > deltaX) {
-                const direction = touchStartY - e.changedTouches[0].clientY;
-                navigate(direction > 0 ? 1 : -1);
+            if (isHorizontalSwipe && isOnCards) {
+                // Let the native horizontal scroll handle it
+                // Just prevent vertical navigation
+                e.preventDefault();
+            } 
+            else if (isVerticalSwipe && !isOnCards) {
+                // Vertical navigation for main slides
+                const direction = e.changedTouches[0].clientY - touchStart.y;
+                if (direction < 0) {
+                    navigateSlides(1); // Swipe up = next slide
+                } else if (direction > 0) {
+                    navigateSlides(-1); // Swipe down = previous slide
+                }
             }
             
-            touchStartX = null;
-            touchStartY = null;
+            touchStart = null;
         });
         
-        // Mouse wheel support
-        window.addEventListener('wheel', e => { 
-            const isOverSlider = e.target.closest('.slider-viewport');
-            if (!isOverSlider && Math.abs(e.deltaY) > 30) {
-                navigate(e.deltaY > 0 ? 1 : -1);
+        // Mouse wheel for desktop
+        window.addEventListener('wheel', (e) => {
+            const isOnCards = e.target.closest('.cards-container');
+            if (!isOnCards && Math.abs(e.deltaY) > 30) {
+                navigateSlides(e.deltaY > 0 ? 1 : -1);
                 e.preventDefault();
             }
         }, { passive: false });
         
-        // Keyboard support
+        // Keyboard navigation
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowDown') {
-                navigate(1);
+                navigateSlides(1);
                 e.preventDefault();
             } else if (e.key === 'ArrowUp') {
-                navigate(-1);
+                navigateSlides(-1);
                 e.preventDefault();
             }
         });
         
+        // Button handlers
+        document.getElementById('prevCardBtn')?.addEventListener('click', prevCard);
+        document.getElementById('nextCardBtn')?.addEventListener('click', nextCard);
+        
         // Logo click
-        const logo = document.querySelector('.faz-logo');
-        if (logo) {
-            logo.addEventListener('click', (e) => {
-                e.stopPropagation();
-                goToSlide(0);
-            });
-        }
+        document.querySelector('.faz-logo')?.addEventListener('click', () => goToSlide(0));
         
-        // Arrow button handlers
-        document.getElementById('prev-card')?.addEventListener('click', prevCard);
-        document.getElementById('next-card')?.addEventListener('click', nextCard);
-        
-        // Dot clicks for main slides
-        dots.forEach((dot, i) => {
+        // Slide dot clicks
+        slideDots.forEach((dot, i) => {
             dot.addEventListener('click', () => goToSlide(i));
         });
 
-        // Initialize everything
+        // Initialize
         window.onload = () => {
             typeEffect();
-            initSlider();
-            updateUI();
+            initCards();
+            updateSlides();
         };
     </script>
 </body>
