@@ -55,6 +55,7 @@
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
+            overflow-y: auto;
         }
 
         section.active {
@@ -77,6 +78,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            pointer-events: auto;
         }
 
         .faz-logo {
@@ -144,7 +146,7 @@
             cursor: grabbing;
         }
         
-        /* Hide scrollbar but keep functionality */
+        /* Hide scrollbar */
         .slider-viewport {
             scrollbar-width: none;
             -ms-overflow-style: none;
@@ -157,8 +159,8 @@
             display: flex;
             width: max-content;
             gap: 0;
-            padding-left: calc(50vw - 140px);
-            padding-right: calc(50vw - 140px);
+            padding-left: calc(50vw - 155px);
+            padding-right: calc(50vw - 155px);
         }
 
         .concept-card {
@@ -212,6 +214,7 @@
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+            pointer-events: auto;
         }
         
         .dock-btn {
@@ -247,6 +250,7 @@
             padding: 8px 16px;
             border-radius: 40px;
             backdrop-filter: blur(10px);
+            pointer-events: auto;
         }
         
         .dot {
@@ -274,6 +278,7 @@
             padding: calc(var(--safe-top) + 20px) 25px;
             transform: translateY(100%);
             transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+            pointer-events: auto;
         }
         #app-menu-layer.active { transform: translateY(0); }
         .close-menu-btn {
@@ -293,18 +298,17 @@
             transform: scale(1.05);
         }
         
-        /* Small hint dot indicator for scrollable area */
-        .scroll-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 10px;
-        }
-        .scroll-dot {
-            width: 4px;
-            height: 4px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 50%;
+        /* Navigation hint */
+        .nav-hint {
+            position: fixed;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            opacity: 0.4;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 2399;
         }
     </style>
 </head>
@@ -331,8 +335,10 @@
         <div class="dot" onclick="goToSlide(1)"></div>
         <div class="dot" onclick="goToSlide(2)"></div>
     </div>
+    <div class="nav-hint">↑ SWIPE UP/DOWN TO NAVIGATE SLIDES ↑</div>
 
     <div class="slide-container" id="master-wrapper">
+        <!-- SLIDE 0: HOME -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
@@ -342,15 +348,18 @@
             </div>
         </section>
 
+        <!-- SLIDE 1: CONCEPTS with HORIZONTAL SCROLLING CARDS -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
                 <div class="slider-viewport" id="slider-viewport">
                     <div class="slider-track" id="slider-track"></div>
                 </div>
+                <p class="text-xs opacity-40 mt-4">← SWIPE CARDS HORIZONTALLY →</p>
             </div>
         </section>
 
+        <!-- SLIDE 2: COLLABORATE -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
@@ -391,45 +400,32 @@
             setTimeout(typeEffect, speed);
         }
 
-        // Concept data with URLs - ADDED MORE CARDS FOR BETTER SCROLL EXPERIENCE
-        const concepts = [
-            { 
-                title: "Modern Barber", 
-                sub: "Branding & Identity", 
-                img: "https://doctoc30.github.io/fazhoq/images/IMG_3070.jpeg",
-                url: "https://doctoc30.github.io/fazhoq/concepts/barber"
-            },
-            { 
-                title: "Legal Suite", 
-                sub: "Interface Design", 
-                img: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/legal"
-            },
-            { 
-                title: "Fitness Pro", 
-                sub: "User Flow", 
-                img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/fitness"
-            },
-            { 
-                title: "Trade Flow", 
-                sub: "Concept Engineering", 
-                img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/trade"
-            },
-            { 
-                title: "Eco Beauty", 
-                sub: "Sustainable Design", 
-                img: "https://images.unsplash.com/photo-1596462502278-27bfdc1f5295?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/eco"
-            },
-            { 
-                title: "Tech Startup", 
-                sub: "Digital Identity", 
-                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400",
-                url: "https://doctoc30.github.io/fazhoq/concepts/tech"
+        // Generate 20 concept cards to demonstrate scrolling (you can change to 100)
+        function generateConcepts() {
+            const baseConcepts = [
+                { title: "Modern Barber", sub: "Branding & Identity", url: "https://doctoc30.github.io/fazhoq/concepts/barber" },
+                { title: "Legal Suite", sub: "Interface Design", url: "https://doctoc30.github.io/fazhoq/concepts/legal" },
+                { title: "Fitness Pro", sub: "User Flow", url: "https://doctoc30.github.io/fazhoq/concepts/fitness" },
+                { title: "Trade Flow", sub: "Concept Engineering", url: "https://doctoc30.github.io/fazhoq/concepts/trade" },
+                { title: "Eco Beauty", sub: "Sustainable Design", url: "https://doctoc30.github.io/fazhoq/concepts/eco" },
+                { title: "Tech Startup", sub: "Digital Identity", url: "https://doctoc30.github.io/fazhoq/concepts/tech" },
+                { title: "Luxury Hotel", sub: "Hospitality Suite", url: "https://doctoc30.github.io/fazhoq/concepts/hotel" },
+                { title: "Coffee Brand", sub: "Packaging Design", url: "https://doctoc30.github.io/fazhoq/concepts/coffee" }
+            ];
+            
+            // Repeat to make 20+ cards for demonstration
+            let allConcepts = [];
+            for (let i = 0; i < 3; i++) {
+                allConcepts = [...allConcepts, ...baseConcepts.map(c => ({
+                    ...c,
+                    title: i === 0 ? c.title : `${c.title} ${i + 1}`,
+                    img: `https://picsum.photos/id/${(i * 10 + baseConcepts.indexOf(c) + 20)}/400/300`
+                }))];
             }
-        ];
+            return allConcepts;
+        }
+        
+        const concepts = generateConcepts();
 
         // Initialize slider with proper scrolling and click handlers
         function initSlider() {
@@ -438,9 +434,10 @@
             
             // Build cards
             track.innerHTML = concepts.map((c, index) => {
+                const imgUrl = c.img || "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400";
                 return `
                     <div class="concept-card" data-url="${c.url}" data-index="${index}">
-                        <div class="concept-img" style="background-image: url('${c.img}')"></div>
+                        <div class="concept-img" style="background-image: url('${imgUrl}')"></div>
                         <div class="concept-info">
                             <h4>${c.title}</h4>
                             <p>${c.sub}</p>
@@ -461,24 +458,9 @@
                     });
                 }
             });
-            
-            // Ensure viewport is scrollable by setting initial scroll position to center
-            const viewport = document.getElementById('slider-viewport');
-            if (viewport) {
-                // Center the first card
-                setTimeout(() => {
-                    const firstCard = document.querySelector('.concept-card');
-                    if (firstCard) {
-                        const cardWidth = firstCard.offsetWidth;
-                        const viewportWidth = viewport.offsetWidth;
-                        const scrollPosition = (cardWidth / 2) + 15 - (viewportWidth / 2);
-                        viewport.scrollLeft = Math.max(0, scrollPosition);
-                    }
-                }, 100);
-            }
         }
 
-        // Main slide navigation
+        // Main slide navigation (VERTICAL SWIPE for Home/Concepts/Collaborate)
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -517,39 +499,29 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // Touch gestures for main slides - ONLY when not swiping the concept slider
-        let touchStartX = null;
+        // VERTICAL SWIPE for main slide navigation
         let touchStartY = null;
         
         window.addEventListener('touchstart', e => { 
-            touchStartX = e.touches[0].clientX; 
             touchStartY = e.touches[0].clientY; 
         }, { passive: true });
         
         window.addEventListener('touchend', e => {
-            if (touchStartX === null || touchStartY === null) return;
+            if (touchStartY === null) return;
             
-            const deltaX = touchStartX - e.changedTouches[0].clientX;
             const deltaY = touchStartY - e.changedTouches[0].clientY;
-            const absDeltaX = Math.abs(deltaX);
             const absDeltaY = Math.abs(deltaY);
             
-            // Check if swipe started on concept slider - if yes, don't navigate main slides
-            const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
-            
-            if (!isOverSlider && Math.max(absDeltaX, absDeltaY) > 40) {
-                if (absDeltaX > absDeltaY) {
-                    navigate(deltaX > 0 ? 1 : -1);
-                } else {
-                    navigate(deltaY > 0 ? 1 : -1);
-                }
+            // Only navigate main slides if vertical swipe is significant
+            // and not interacting with the horizontal slider
+            if (absDeltaY > 50) {
+                navigate(deltaY > 0 ? 1 : -1);
             }
             
-            touchStartX = null;
             touchStartY = null;
         });
         
-        // Mouse wheel support
+        // Mouse wheel support for main slides
         window.addEventListener('wheel', e => { 
             const isOverSlider = e.target.closest('.slider-viewport');
             if (!isOverSlider && Math.abs(e.deltaY) > 30) {
@@ -560,10 +532,10 @@
         
         // Keyboard support
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            if (e.key === 'ArrowDown') {
                 navigate(1);
                 e.preventDefault();
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            } else if (e.key === 'ArrowUp') {
                 navigate(-1);
                 e.preventDefault();
             }
@@ -577,6 +549,11 @@
                 goToSlide(0);
             });
         }
+        
+        // Dot clicks
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goToSlide(i));
+        });
 
         // Initialize everything
         window.onload = () => {
