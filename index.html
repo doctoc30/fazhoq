@@ -32,7 +32,6 @@
             overflow: hidden;
             background-color: var(--primary-light);
             color: var(--text);
-            touch-action: pan-y pinch-zoom; /* Allow vertical scroll for slider, but we handle horizontal manually */
         }
 
         .slide-container {
@@ -132,7 +131,7 @@
             transform: translateY(-20px);
         }
 
-        /* MANUAL CONCEPT SLIDER - NO AUTO ROTATION, PURE SWIPE/DRAG */
+        /* MANUAL CONCEPT SLIDER - NO AUTO ROTATION */
         .slider-viewport {
             width: 100vw;
             overflow-x: auto;
@@ -208,7 +207,7 @@
         .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; }
         .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
 
-        /* DOCK - MENU BUTTON REMOVED */
+        /* DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -304,7 +303,6 @@
             transform: scale(1.05);
         }
         
-        /* Hint text for manual slider */
         .swipe-hint {
             margin-top: 20px;
             font-size: 0.75rem;
@@ -332,7 +330,7 @@
         </div>
     </div>
 
-    <!-- HEADER with ORANGE HAMBURGER MENU -->
+    <!-- HEADER -->
     <nav class="faz-nav">
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
         <button id="menu-btn" onclick="toggleMenu()" aria-label="Menu">
@@ -359,7 +357,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 1: CONCEPTS with MANUAL SWIPE SLIDER (NO AUTO ROTATION) -->
+        <!-- SLIDE 1: CONCEPTS with CLICKABLE CARDS -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
@@ -387,12 +385,11 @@
         </section>
     </div>
 
-    <!-- BOTTOM DOCK - MENU BUTTON REMOVED (only TEXT, WHATSAPP, EMAIL remain) -->
+    <!-- BOTTOM DOCK -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
         <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
-        <!-- MENU BUTTON IS NOW REMOVED FROM DOCK -->
     </div>
 
     <script>
@@ -421,7 +418,7 @@
             setTimeout(typeEffect, speed);
         }
 
-        // --- CONCEPTS DATA (with your Modern Barber URL and local image) ---
+        // --- CONCEPTS DATA WITH CORRECT URLS ---
         const concepts = [
             { 
                 title: "Modern Barber", 
@@ -449,13 +446,14 @@
             }
         ];
 
-        // Initialize the MANUAL slider (no auto animation, just pure swipe/drag)
+        // Initialize the manual slider with FULLY CLICKABLE cards
         function initSlider() {
             const track = document.getElementById('slider-track');
-            // No duplication needed for manual scroll — we keep original set
-            track.innerHTML = concepts.map((c) => {
+            
+            // Build cards (no duplication needed for manual scroll)
+            track.innerHTML = concepts.map((c, index) => {
                 return `
-                    <div class="concept-card" data-url="${c.url}">
+                    <div class="concept-card" data-url="${c.url}" data-index="${index}">
                         <div class="concept-img" style="background-image: url('${c.img}')"></div>
                         <div class="concept-info">
                             <h4>${c.title}</h4>
@@ -465,27 +463,36 @@
                 `;
             }).join('');
 
-            // Attach click handlers to open URLs in new tab
+            // Attach click handlers to ALL concept cards
             const cards = document.querySelectorAll('.concept-card');
+            console.log('Found cards:', cards.length); // Debug: should show 4 cards
+            
             cards.forEach(card => {
                 const url = card.getAttribute('data-url');
+                console.log('Card URL:', url); // Debug: verify URL is present
+                
                 if (url && url !== '#') {
-                    card.addEventListener('click', (e) => {
-                        e.stopPropagation();  // Prevent triggering slide navigation
+                    // Remove any existing listeners to avoid duplicates
+                    card.removeEventListener('click', card.clickHandler);
+                    
+                    // Create and store the handler
+                    card.clickHandler = (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        console.log('Opening URL:', url); // Debug: confirm click works
                         window.open(url, '_blank', 'noopener,noreferrer');
-                    });
+                        return false;
+                    };
+                    
+                    card.addEventListener('click', card.clickHandler);
+                    
+                    // Also add cursor pointer style to ensure it's obvious
+                    card.style.cursor = 'pointer';
                 }
             });
-            
-            // Optional: Add smooth scrolling behavior to viewport
-            const viewport = document.getElementById('slider-viewport');
-            if (viewport) {
-                // Ensure scroll snapping feels natural
-                viewport.style.scrollBehavior = 'smooth';
-            }
         }
 
-        // --- SLIDE NAVIGATION LOGIC (for main sections: Home, Concepts, Collaborate) ---
+        // --- SLIDE NAVIGATION LOGIC ---
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -527,7 +534,7 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // --- TOUCH & GESTURE CONTROLS for main slides (horizontal/vertical) ---
+        // --- TOUCH GESTURES for main slides ---
         let touchStartX = null;
         let touchStartY = null;
         
@@ -544,7 +551,7 @@
             const absDeltaX = Math.abs(deltaX);
             const absDeltaY = Math.abs(deltaY);
             
-            // Only trigger main slide navigation if swipe is significant and not over the concept slider area
+            // Only trigger main slide navigation if swipe is NOT over the concept slider
             const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
             
             if (!isOverSlider && Math.max(absDeltaX, absDeltaY) > 40) {
@@ -559,9 +566,8 @@
             touchStartY = null;
         });
         
-        // Mouse wheel support for desktop (main slides)
+        // Mouse wheel support
         window.addEventListener('wheel', e => { 
-            // Only trigger if not hovering over the concept slider
             const isOverSlider = e.target.closest('.slider-viewport');
             if (!isOverSlider && Math.abs(e.deltaY) > 30) {
                 navigate(e.deltaY > 0 ? 1 : -1);
@@ -569,7 +575,7 @@
             }
         }, { passive: false });
         
-        // Keyboard arrow keys support for main slides
+        // Keyboard support
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 navigate(1);
@@ -580,14 +586,14 @@
             }
         });
         
-        // Prevent dot clicks from bubbling
+        // Dot click handlers
         dots.forEach(dot => {
             dot.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
         });
         
-        // Logo click handler
+        // Logo click
         const logo = document.querySelector('.faz-logo');
         if (logo) {
             logo.addEventListener('click', (e) => {
@@ -595,15 +601,8 @@
                 goToSlide(0);
             });
         }
-        
-        // Ensure concept cards don't trigger main slide navigation when clicked
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.concept-card')) {
-                e.stopPropagation();
-            }
-        }, true);
 
-        // --- INITIALIZE EVERYTHING ON LOAD ---
+        // --- INITIALIZE ---
         window.onload = () => {
             typeEffect();
             initSlider();
