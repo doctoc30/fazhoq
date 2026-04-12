@@ -55,7 +55,6 @@
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
-            overflow-y: auto;
         }
 
         section.active {
@@ -78,7 +77,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            pointer-events: auto;
         }
 
         .faz-logo {
@@ -130,7 +128,12 @@
             transform: translateY(-20px);
         }
 
-        /* HORIZONTAL SCROLL SLIDER - FULLY FUNCTIONAL */
+        /* HORIZONTAL SCROLL SLIDER WITH PAGINATION */
+        .slider-container {
+            width: 100%;
+            position: relative;
+        }
+
         .slider-viewport {
             width: 100%;
             overflow-x: auto;
@@ -140,6 +143,7 @@
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
             cursor: grab;
+            scroll-behavior: smooth;
         }
         
         .slider-viewport:active {
@@ -201,6 +205,73 @@
         .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; }
         .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
 
+        /* PAGINATION CONTROLS */
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .nav-arrow:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .pagination-dots {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 300px;
+        }
+        
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .page-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 10px;
+        }
+        
+        .page-dot:hover {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        .card-counter {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: rgba(255,107,0,0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -214,7 +285,6 @@
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
-            pointer-events: auto;
         }
         
         .dock-btn {
@@ -250,7 +320,6 @@
             padding: 8px 16px;
             border-radius: 40px;
             backdrop-filter: blur(10px);
-            pointer-events: auto;
         }
         
         .dot {
@@ -278,7 +347,6 @@
             padding: calc(var(--safe-top) + 20px) 25px;
             transform: translateY(100%);
             transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
-            pointer-events: auto;
         }
         #app-menu-layer.active { transform: translateY(0); }
         .close-menu-btn {
@@ -298,17 +366,10 @@
             transform: scale(1.05);
         }
         
-        /* Navigation hint */
         .nav-hint {
-            position: fixed;
-            bottom: 95px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             opacity: 0.4;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 2399;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -335,10 +396,8 @@
         <div class="dot" onclick="goToSlide(1)"></div>
         <div class="dot" onclick="goToSlide(2)"></div>
     </div>
-    <div class="nav-hint">↑ SWIPE UP/DOWN TO NAVIGATE SLIDES ↑</div>
 
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: HOME -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
@@ -348,18 +407,31 @@
             </div>
         </section>
 
-        <!-- SLIDE 1: CONCEPTS with HORIZONTAL SCROLLING CARDS -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
-                <div class="slider-viewport" id="slider-viewport">
-                    <div class="slider-track" id="slider-track"></div>
+                
+                <div class="slider-container">
+                    <div class="slider-viewport" id="slider-viewport">
+                        <div class="slider-track" id="slider-track"></div>
+                    </div>
+                    
+                    <!-- Pagination Controls -->
+                    <div class="slider-controls">
+                        <div class="nav-arrow" id="prev-card">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </div>
+                        <div class="pagination-dots" id="pagination-dots"></div>
+                        <div class="nav-arrow" id="next-card">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-counter" id="card-counter">1 / 0</div>
                 </div>
-                <p class="text-xs opacity-40 mt-4">← SWIPE CARDS HORIZONTALLY →</p>
+                <div class="nav-hint">← SWIPE CARDS OR USE ARROWS →</div>
             </div>
         </section>
 
-        <!-- SLIDE 2: COLLABORATE -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
@@ -400,7 +472,7 @@
             setTimeout(typeEffect, speed);
         }
 
-        // Generate 20 concept cards to demonstrate scrolling (you can change to 100)
+        // Generate 25 concept cards (you can change to 100)
         function generateConcepts() {
             const baseConcepts = [
                 { title: "Modern Barber", sub: "Branding & Identity", url: "https://doctoc30.github.io/fazhoq/concepts/barber" },
@@ -408,26 +480,27 @@
                 { title: "Fitness Pro", sub: "User Flow", url: "https://doctoc30.github.io/fazhoq/concepts/fitness" },
                 { title: "Trade Flow", sub: "Concept Engineering", url: "https://doctoc30.github.io/fazhoq/concepts/trade" },
                 { title: "Eco Beauty", sub: "Sustainable Design", url: "https://doctoc30.github.io/fazhoq/concepts/eco" },
-                { title: "Tech Startup", sub: "Digital Identity", url: "https://doctoc30.github.io/fazhoq/concepts/tech" },
-                { title: "Luxury Hotel", sub: "Hospitality Suite", url: "https://doctoc30.github.io/fazhoq/concepts/hotel" },
-                { title: "Coffee Brand", sub: "Packaging Design", url: "https://doctoc30.github.io/fazhoq/concepts/coffee" }
+                { title: "Tech Startup", sub: "Digital Identity", url: "https://doctoc30.github.io/fazhoq/concepts/tech" }
             ];
             
-            // Repeat to make 20+ cards for demonstration
+            // Generate 25 cards for demo (change to 100 by changing the loop count)
             let allConcepts = [];
-            for (let i = 0; i < 3; i++) {
-                allConcepts = [...allConcepts, ...baseConcepts.map(c => ({
-                    ...c,
-                    title: i === 0 ? c.title : `${c.title} ${i + 1}`,
-                    img: `https://picsum.photos/id/${(i * 10 + baseConcepts.indexOf(c) + 20)}/400/300`
-                }))];
+            for (let i = 0; i < 25; i++) {
+                const base = baseConcepts[i % baseConcepts.length];
+                allConcepts.push({
+                    ...base,
+                    title: i < baseConcepts.length ? base.title : `${base.title} ${Math.floor(i / baseConcepts.length) + 1}`,
+                    img: `https://picsum.photos/id/${(i * 7 + 20)}/400/300`
+                });
             }
             return allConcepts;
         }
         
         const concepts = generateConcepts();
+        let currentCardIndex = 0;
+        let isScrollingProgrammatically = false;
 
-        // Initialize slider with proper scrolling and click handlers
+        // Initialize slider with cards and pagination
         function initSlider() {
             const track = document.getElementById('slider-track');
             if (!track) return;
@@ -458,9 +531,133 @@
                     });
                 }
             });
+            
+            // Build pagination dots
+            updatePagination();
+            updateCardCounter();
+            
+            // Set up scroll listener to sync pagination
+            const viewport = document.getElementById('slider-viewport');
+            if (viewport) {
+                viewport.addEventListener('scroll', () => {
+                    if (!isScrollingProgrammatically) {
+                        updateActiveCardFromScroll();
+                    }
+                });
+            }
+        }
+        
+        function updatePagination() {
+            const container = document.getElementById('pagination-dots');
+            if (!container) return;
+            
+            // Show limited dots if too many (e.g., show every 5th dot for 100 cards)
+            const totalCards = concepts.length;
+            let dotsToShow = [];
+            
+            if (totalCards <= 20) {
+                // Show all dots
+                dotsToShow = Array.from({ length: totalCards }, (_, i) => i);
+            } else {
+                // Show first, last, and every ~5th dot in between
+                dotsToShow.push(0);
+                for (let i = 5; i < totalCards - 5; i += 5) {
+                    dotsToShow.push(i);
+                }
+                dotsToShow.push(totalCards - 1);
+                // Remove duplicates and sort
+                dotsToShow = [...new Set(dotsToShow)].sort((a, b) => a - b);
+            }
+            
+            container.innerHTML = dotsToShow.map(index => {
+                const isActive = currentCardIndex === index;
+                return `<div class="page-dot ${isActive ? 'active' : ''}" data-page-index="${index}"></div>`;
+            }).join('');
+            
+            // Add click handlers to dots
+            document.querySelectorAll('.page-dot').forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetIndex = parseInt(dot.getAttribute('data-page-index'));
+                    if (!isNaN(targetIndex)) {
+                        jumpToCard(targetIndex);
+                    }
+                });
+            });
+        }
+        
+        function updateCardCounter() {
+            const counter = document.getElementById('card-counter');
+            if (counter) {
+                counter.textContent = `${currentCardIndex + 1} / ${concepts.length}`;
+            }
+        }
+        
+        function updateActiveCardFromScroll() {
+            const viewport = document.getElementById('slider-viewport');
+            if (!viewport) return;
+            
+            const cards = document.querySelectorAll('.concept-card');
+            const viewportCenter = viewport.scrollLeft + viewport.offsetWidth / 2;
+            
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+            
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                const distance = Math.abs(viewportCenter - cardCenter);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            
+            if (closestIndex !== currentCardIndex) {
+                currentCardIndex = closestIndex;
+                updatePagination();
+                updateCardCounter();
+            }
+        }
+        
+        function jumpToCard(index) {
+            if (index < 0 || index >= concepts.length) return;
+            
+            const cards = document.querySelectorAll('.concept-card');
+            if (!cards[index]) return;
+            
+            currentCardIndex = index;
+            isScrollingProgrammatically = true;
+            
+            const viewport = document.getElementById('slider-viewport');
+            const targetCard = cards[index];
+            const scrollPosition = targetCard.offsetLeft - (viewport.offsetWidth / 2) + (targetCard.offsetWidth / 2);
+            
+            viewport.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+            
+            setTimeout(() => {
+                isScrollingProgrammatically = false;
+            }, 500);
+            
+            updatePagination();
+            updateCardCounter();
+        }
+        
+        function nextCard() {
+            if (currentCardIndex + 1 < concepts.length) {
+                jumpToCard(currentCardIndex + 1);
+            }
+        }
+        
+        function prevCard() {
+            if (currentCardIndex - 1 >= 0) {
+                jumpToCard(currentCardIndex - 1);
+            }
         }
 
-        // Main slide navigation (VERTICAL SWIPE for Home/Concepts/Collaborate)
+        // Main slide navigation (VERTICAL)
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -499,29 +696,34 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // VERTICAL SWIPE for main slide navigation
+        // Vertical swipe for main slides (only when NOT swiping horizontally)
+        let touchStartX = null;
         let touchStartY = null;
         
         window.addEventListener('touchstart', e => { 
+            touchStartX = e.touches[0].clientX; 
             touchStartY = e.touches[0].clientY; 
         }, { passive: true });
         
         window.addEventListener('touchend', e => {
-            if (touchStartY === null) return;
+            if (touchStartX === null || touchStartY === null) return;
             
-            const deltaY = touchStartY - e.changedTouches[0].clientY;
-            const absDeltaY = Math.abs(deltaY);
+            const deltaX = Math.abs(touchStartX - e.changedTouches[0].clientX);
+            const deltaY = Math.abs(touchStartY - e.changedTouches[0].clientY);
             
-            // Only navigate main slides if vertical swipe is significant
-            // and not interacting with the horizontal slider
-            if (absDeltaY > 50) {
-                navigate(deltaY > 0 ? 1 : -1);
+            // If horizontal movement is significant, don't trigger vertical navigation
+            const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
+            
+            if (!isOverSlider && deltaY > 40 && deltaY > deltaX) {
+                const direction = touchStartY - e.changedTouches[0].clientY;
+                navigate(direction > 0 ? 1 : -1);
             }
             
+            touchStartX = null;
             touchStartY = null;
         });
         
-        // Mouse wheel support for main slides
+        // Mouse wheel support
         window.addEventListener('wheel', e => { 
             const isOverSlider = e.target.closest('.slider-viewport');
             if (!isOverSlider && Math.abs(e.deltaY) > 30) {
@@ -550,7 +752,11 @@
             });
         }
         
-        // Dot clicks
+        // Arrow button handlers
+        document.getElementById('prev-card')?.addEventListener('click', prevCard);
+        document.getElementById('next-card')?.addEventListener('click', nextCard);
+        
+        // Dot clicks for main slides
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => goToSlide(i));
         });
