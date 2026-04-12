@@ -2,874 +2,333 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FAZ HOQ · Digital Architect · Hire the Expert</title>
+    <!-- Google Fonts + Tailwind + Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <!-- AOS scroll animations (lightweight) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        :root {
-            --primary: #FF6B00;
-            --primary-light: #FFF5EE;
-            --bg: #FFFFFF;
-            --text: #121212;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+        }
+        body {
             font-family: 'Inter', sans-serif;
+            background-color: #FFF9F5;
+            color: #111;
+            scroll-behavior: smooth;
         }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            background-color: var(--primary-light);
-            color: var(--text);
+        /* custom brand orange */
+        .brand-orange { color: #FF6B00; }
+        .bg-brand-orange { background-color: #FF6B00; }
+        .border-brand-orange { border-color: #FF6B00; }
+        .btn-orange {
+            background: #FF6B00;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 18px rgba(255,107,0,0.2);
         }
-
-        .slide-container {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            touch-action: pan-y pinch-zoom;
-        }
-
-        section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            background: transparent;
-            transform: translate3d(100%, 0, 0);
-            transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
-            visibility: hidden;
-            overflow-y: auto;
-        }
-
-        section.active {
-            transform: translate3d(0, 0, 0);
-            visibility: visible;
-            z-index: 10;
-        }
-        section.prev {
-            transform: translate3d(-100%, 0, 0);
-            visibility: visible;
-            z-index: 5;
-        }
-
-        /* HEADER */
-        .faz-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 2500;
-            padding: calc(var(--safe-top) + 20px) 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faz-logo {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            color: var(--primary);
-            cursor: pointer;
-        }
-        .faz-logo span { color: #000; }
-
-        /* Top hamburger menu button - ORANGE BRAND */
-        #menu-btn {
-            font-size: 1.8rem;
-            color: var(--primary);
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        #menu-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* TEXT STYLES */
-        .text-wrap {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .huge-text {
-            font-size: clamp(2.5rem, 10vmin, 3.5rem);
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -3px;
-            color: var(--primary);
-        }
-
-        .huge-text.black { color: #000; }
-
-        .waving-hand {
-            width: clamp(220px, 60vw, 380px);
-            height: auto;
-            margin-bottom: 20px;
-            mix-blend-mode: multiply;
-            filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
-        }
-
-        /* ========== VIBZ CATEGORY TILE ANIMATIONS ========== */
-        .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-        
-        .fa-hammer {
-            animation: hammerHit 1.2s ease-in-out infinite;
-            transform-origin: bottom center;
-        }
-        @keyframes hammerHit {
-            0% { transform: rotate(0deg) translateY(0); }
-            10% { transform: rotate(30deg) translateY(-3px); }
-            20% { transform: rotate(-20deg) translateY(0); }
-            30% { transform: rotate(0deg) translateY(0); }
-            40% { transform: rotate(0deg) translateY(0); }
-            100% { transform: rotate(0deg) translateY(0); }
-        }
-        
-        .fa-briefcase { animation: bounce 2s ease infinite; }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        
-        .fa-utensils {
-            animation: utensilsMove 2.5s ease-in-out infinite;
-            display: inline-block;
-        }
-        @keyframes utensilsMove {
-            0% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
-            25% { transform: rotate(-15deg) scale(1.1); letter-spacing: 5px; }
-            50% { transform: rotate(15deg) scale(0.9); letter-spacing: -2px; }
-            75% { transform: rotate(-5deg) scale(1.05); letter-spacing: 3px; }
-            100% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
-        }
-        
-        .fa-bag-shopping {
-            animation: swing 3s ease-in-out infinite;
-            transform-origin: top center;
-        }
-        @keyframes swing {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(15deg); }
-            75% { transform: rotate(-15deg); }
-        }
-
-        /* MOBILE PORTRAIT */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .mobile-only-layout {
-                margin-top: -30px;
-            }
-            .waving-hand {
-                margin-top: -20px;
-                margin-bottom: 5px;
-            }
-            .search-container {
-                margin-top: 30px;
-            }
-        }
-
-        /* TABLET PORTRAIT */
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            .desktop-only-layout {
-                display: none !important;
-            }
-            .mobile-only-layout {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                margin-top: 0;
-            }
-            .waving-hand {
-                width: 280px;
-                margin-bottom: 20px;
-                margin-top: 0;
-            }
-            .search-container {
-                margin-top: 40px;
-                max-width: 500px;
-                width: 90%;
-            }
-        }
-
-        /* DESKTOP & TABLET LANDSCAPE */
-        @media (min-width: 769px) and (orientation: landscape) {
-            .desktop-hero-row {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                gap: 2.5rem;
-                width: 100%;
-                margin-bottom: 2rem;
-            }
-            .desktop-avatar .waving-hand {
-                width: 240px;
-                margin-bottom: 0;
-                margin-top: 0;
-            }
-            .desktop-search-wrapper {
-                flex-shrink: 1;
-                min-width: 400px;
-                max-width: 550px;
-                width: 100%;
-            }
-            .desktop-search-wrapper .search-container {
-                margin-top: 0;
-                width: 100%;
-            }
-            .desktop-tagline {
-                text-align: center;
-                margin-top: 0.5rem;
-            }
-        }
-
-        /* SEARCH BAR */
-        .search-container {
-            background: #fff;
-            border-radius: 24px;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
-            width: 95%;
-            max-width: 500px;
-            margin-top: 40px;
-            border: 1px solid rgba(255, 107, 0, 0.1);
-        }
-        
-        .search-container input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 12px 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: transparent;
-        }
-        
-        .search-icon-btn {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            border: none;
-            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
-            cursor: pointer;
-        }
-
-        /* CATEGORIES */
-        .category-header {
-            font-size: 0.85rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--primary);
-            margin-bottom: 25px;
-            margin-top: 40px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 100px;
-        }
-
-        .category-tile {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 107, 0, 0.1);
-            border-radius: 30px;
-            padding: 25px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .category-tile:hover {
+        .btn-orange:hover {
+            background: #e05e00;
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255,107,0,0.1);
-            border-color: var(--primary);
+            box-shadow: 0 15px 25px rgba(255,107,0,0.3);
         }
-
-        .category-tile:active {
-            transform: scale(0.96);
-            background: #fff;
+        .outline-orange {
+            border: 2px solid #FF6B00;
+            color: #FF6B00;
+            transition: 0.2s;
         }
-
-        .tile-icon {
-            width: 55px;
-            height: 55px;
-            background: var(--primary);
+        .outline-orange:hover {
+            background: #FF6B00;
             color: white;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
         }
-
-        .tile-label {
-            font-weight: 900;
-            font-size: 0.95rem;
-            line-height: 1.2;
-            text-align: center;
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
-        /* DOCK - Keep it but remove the MENU button */
-        .app-dock {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--primary);
-            height: 80px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 2500;
-            padding-bottom: var(--safe-bottom);
-            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
         }
-        
-        .dock-btn {
-            font-size: 2rem;
-            color: #FFFFFF;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            cursor: pointer;
+        .hero-badge {
+            background: rgba(255,107,0,0.12);
+            backdrop-filter: blur(2px);
         }
-        .dock-btn span {
-            font-size: 0.7rem;
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B00 0%, #FF8C42 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .testimonial-card {
+            background: rgba(255,255,240,0.7);
+            backdrop-filter: blur(2px);
+        }
+        .stat-number {
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-top: 4px;
-        }
-
-        /* SWIPE COUNTER */
-        .swipe-counter {
-            position: fixed;
-            bottom: 90px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            z-index: 2400;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 40px;
-            width: fit-content;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            pointer-events: none;
-        }
-        
-        .counter-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-        
-        .counter-dot.active {
-            background: var(--primary);
-            width: 24px;
-            border-radius: 12px;
-        }
-
-        /* HAMBURGER MENU */
-        #app-menu-layer {
-            position: fixed;
-            inset: 0;
-            background: var(--primary-light);
-            z-index: 9500;
-            display: flex;
-            flex-direction: column;
-            padding: calc(var(--safe-top) + 20px) 25px;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        #app-menu-layer.active { transform: translateY(0); }
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex: 1;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .menu-item {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -3px;
             line-height: 1;
         }
-        .close-menu-btn {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
         }
-
-        /* NICHE OVERLAY */
-        #category-layer {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 245, 238, 0.98);
-            backdrop-filter: blur(25px);
-            z-index: 9600;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-            padding: 20px;
+        /* custom slick spacing */
+        .section-padding {
+            padding: 5rem 1.5rem;
         }
-        #category-layer.active { transform: translateY(0); }
-        #cat-title {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-weight: 900;
-            font-size: 2.2rem;
-            text-align: center;
+        @media (min-width: 1024px) {
+            .section-padding {
+                padding: 7rem 2rem;
+            }
         }
-        #cat-list {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-y: auto;
-            max-height: 60vh;
-            gap: 10px;
-            padding: 10px;
-        }
-        .cat-item {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            padding: 16px;
-            background: white;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 107, 0, 0.1);
-            cursor: pointer;
+        .hover-glow {
             transition: all 0.2s;
         }
-        .cat-item:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.02);
-        }
-
-        /* DESKTOP NAVIGATION */
-        .desktop-nav {
-            display: none;
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2000;
-            width: 100%;
-            pointer-events: none;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-        .nav-arrow {
-            pointer-events: auto;
-            background: var(--primary);
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: 0.2s;
-            opacity: 0.85;
-        }
-        .nav-arrow:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: #e05e00;
-        }
-        @media (min-width: 1024px) and (orientation: landscape) {
-            .desktop-nav {
-                display: flex;
-            }
-        }
-
-        /* Layout visibility */
-        .mobile-only-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .desktop-only-layout {
-            display: none;
-        }
-        
-        @media (max-width: 768px) and (orientation: portrait) {
-            .mobile-only-layout {
-                display: flex;
-                margin-top: -25px;
-            }
-            .desktop-only-layout {
-                display: none;
-            }
-        }
-        
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            .mobile-only-layout {
-                display: flex !important;
-                margin-top: 0;
-            }
-            .desktop-only-layout {
-                display: none !important;
-            }
-        }
-        
-        @media (min-width: 769px) and (orientation: landscape) {
-            .mobile-only-layout {
-                display: none !important;
-            }
-            .desktop-only-layout {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-            }
+        .hover-glow:hover {
+            filter: drop-shadow(0 0 12px rgba(255,107,0,0.4));
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <div id="app-menu-layer">
-        <div class="menu-header">
-            <div class="faz-logo">FAZ HOQ<span>.</span></div>
-            <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
+    <!-- ***** SIMPLE STICKY NAV (minimal, brand focus) ***** -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tight">
+                <span class="brand-orange">FAZ</span> <span class="text-black">HOQ<span class="brand-orange">.</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="#work" class="font-medium text-gray-700 hover:text-brand-orange transition">Work</a>
+                <a href="#process" class="font-medium text-gray-700 hover:text-brand-orange transition">Process</a>
+                <a href="#testimonials" class="font-medium text-gray-700 hover:text-brand-orange transition">Clients</a>
+                <a href="#contact" class="px-5 py-2 bg-brand-orange text-white rounded-full font-semibold shadow-md hover:shadow-lg transition">Hire me →</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-brand-orange focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
-        <div class="menu-links">
-            <a href="#" class="menu-item" onclick="goToSlide(0); toggleMenu()">HOME</a>
-            <a href="#" class="menu-item" onclick="goToSlide(1); toggleMenu()">CATEGORIES</a>
-            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
+        <!-- Mobile drawer -->
+        <div id="mobile-drawer" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+            <div class="flex flex-col h-full pt-24 px-8 gap-6 text-xl font-semibold">
+                <button id="close-drawer" class="absolute top-6 right-6 text-3xl text-brand-orange"><i class="fa-solid fa-xmark"></i></button>
+                <a href="#work" class="border-b border-gray-200 py-3">Portfolio</a>
+                <a href="#process" class="border-b border-gray-200 py-3">How I work</a>
+                <a href="#testimonials" class="border-b border-gray-200 py-3">Testimonials</a>
+                <a href="#contact" class="mt-4 bg-brand-orange text-white text-center py-4 rounded-full">Let's talk</a>
+            </div>
         </div>
-    </div>
-
-    <div id="category-layer">
-        <h2 id="cat-title">Niche Selection</h2>
-        <div id="cat-list"></div>
-        <div class="close-menu-btn" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
-    </div>
-
-    <nav class="faz-nav">
-        <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
-        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
 
-    <div class="desktop-nav">
-        <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
-        <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
+    <!-- ***** HERO SECTION - direct "hire me" appeal ***** -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 px-6 bg-gradient-to-br from-white to-orange-50/40">
+        <div class="max-w-6xl mx-auto text-center" data-aos="fade-up" data-aos-duration="800">
+            <div class="inline-block px-4 py-1.5 rounded-full hero-badge border border-orange-200 mb-6">
+                <span class="text-brand-orange text-sm font-bold"><i class="fa-regular fa-hand-peace mr-1"></i> Available for hire</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] max-w-5xl mx-auto">
+                I build <span class="gradient-text">high-performance</span> websites that <br class="hidden md:block"> turn visitors into <span class="brand-orange">clients</span>.
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mt-6 leading-relaxed">
+                Hi, I’m Faz Hoq — digital architect & web specialist. I help plumbers, lawyers, creatives, and local businesses dominate online with fast, modern, and conversion-driven websites.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mt-10">
+                <a href="#contact" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold text-lg btn-orange shadow-xl"><i class="fa-regular fa-calendar-check mr-2"></i> Hire me now</a>
+                <a href="#work" class="px-8 py-4 border-2 border-brand-orange text-brand-orange rounded-full font-bold text-lg outline-orange"><i class="fa-regular fa-eye mr-2"></i> View my work</a>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8 mt-16 text-sm font-medium text-gray-500">
+                <div class="flex items-center gap-2"><i class="fa-regular fa-clock text-brand-orange"></i> 2x faster delivery</div>
+                <div class="flex items-center gap-2"><i class="fa-regular fa-heart text-brand-orange"></i> 100% client satisfaction</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button text-brand-orange"></i> Mobile-first experts</div>
+            </div>
+        </div>
+        <!-- floating abstract shape -->
+        <div class="absolute right-0 top-1/3 -z-0 opacity-20 hidden lg:block">
+            <i class="fa-solid fa-code text-9xl text-brand-orange floating-icon"></i>
+        </div>
+    </section>
+
+    <!-- ***** STATS / SOCIAL PROOF ***** -->
+    <div class="bg-white border-y border-gray-100 py-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
+            <div data-aos="fade-up"><div class="stat-number brand-orange">150+</div><div class="text-gray-500 text-sm">Webships launched</div></div>
+            <div data-aos="fade-up" data-aos-delay="100"><div class="stat-number brand-orange">98%</div><div class="text-gray-500 text-sm">Client retention</div></div>
+            <div data-aos="fade-up" data-aos-delay="200"><div class="stat-number brand-orange">24/7</div><div class="text-gray-500 text-sm">Support & care</div></div>
+            <div data-aos="fade-up" data-aos-delay="300"><div class="stat-number brand-orange">4.9★</div><div class="text-gray-500 text-sm">Google rating</div></div>
+        </div>
     </div>
 
-    <div class="swipe-counter" id="swipeCounter"></div>
-
-    <div class="slide-container" id="master-wrapper">
-        <section class="active">
-            <div class="text-wrap mobile-only-layout">
-                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
-                <h1 class="huge-text">I build websites for:</h1>
-                <div class="huge-text black" id="typewriter-mobile">&nbsp;</div>
-                <div class="search-container">
-                    <input type="text" id="mainSearch" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
-                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+    <!-- ***** WORK / NICHE SPECIALTIES (ATTRACT CLIENTS) ***** -->
+    <section id="work" class="section-padding max-w-7xl mx-auto">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <span class="text-brand-orange font-black uppercase tracking-wider text-sm">Industries I empower</span>
+            <h2 class="text-4xl md:text-5xl font-black mt-2">I craft websites for <br><span class="brand-orange">real businesses</span> that need results</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-4">From tradesmen to e‑commerce, every site is tailored to attract your ideal customer.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-7 px-4">
+            <!-- card 1 -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="0">
+                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-wrench text-2xl brand-orange"></i></div>
+                <h3 class="text-2xl font-bold">Home & Trades</h3>
+                <p class="text-gray-500 mt-2">Plumbers, electricians, roofers, landscapers — get booked solid with a local SEO website.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">⚡ Instant quote forms</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">📞 Click-to-call</span></div>
             </div>
-            
-            <div class="text-wrap desktop-only-layout">
-                <div class="desktop-hero-row">
-                    <div class="desktop-avatar">
-                        <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
-                    </div>
-                    <div class="desktop-search-wrapper">
-                        <div class="search-container">
-                            <input type="text" id="mainSearchDesktop" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearchDesktop()">
-                            <button class="search-icon-btn" onclick="triggerSearchDesktop()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="desktop-tagline">
-                    <h1 class="huge-text">I build websites for:</h1>
-                </div>
-                <div class="desktop-tagline">
-                    <div class="huge-text black" id="typewriter-desktop">&nbsp;</div>
-                </div>
+            <!-- card 2 -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-briefcase text-2xl brand-orange"></i></div>
+                <h3 class="text-2xl font-bold">Professional Services</h3>
+                <p class="text-gray-500 mt-2">Lawyers, accountants, consultants — authority sites that build trust and convert leads.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">📄 Case studies</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🔒 Secure client portals</span></div>
             </div>
-        </section>
-
-        <section>
-            <div class="text-wrap flex-col">
-                <h2 class="category-header">Or Select From Popular Categories</h2>
-                <div class="category-grid">
-                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
-                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <span class="tile-label">Health & Wellness</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Home & Trades')">
-                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
-                        <span class="tile-label">Home & Trades</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Professional')">
-                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <span class="tile-label">Professional Services</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Food & Drink')">
-                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
-                        <span class="tile-label">Food & Drink</span>
-                    </div>
-                    <div class="category-tile" onclick="openNiche('Retail & Creative')" style="grid-column: span 2; flex-direction: row; padding: 20px; justify-content: center;">
-                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="tile-label" style="margin-left: 15px;">Retail & Creative Industries</span>
-                    </div>
-                </div>
+            <!-- card 3 -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 card-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5"><i class="fa-solid fa-utensils text-2xl brand-orange"></i></div>
+                <h3 class="text-2xl font-bold">Food & Drink / Retail</h3>
+                <p class="text-gray-500 mt-2">Restaurants, bakeries, boutiques — stunning menus & e‑commerce that sells 24/7.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🍔 Online ordering</span><span class="text-xs bg-gray-100 px-2 py-1 rounded-full">🛍️ Inventory sync</span></div>
             </div>
-        </section>
+        </div>
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="#contact" class="inline-flex items-center gap-2 font-bold border-b-2 border-brand-orange pb-1 text-brand-orange hover:gap-3 transition-all">Let’s build your industry website →</a>
+        </div>
+    </section>
 
-        <section><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">STRATEGIC<br><span class="black">PARTNER.</span></h2></div></section>
-        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="font-style:italic; text-transform:uppercase">WOW<span>!</span><br><span class="black" style="color:#fff">INTERACTION.</span></h2></div></section>
-        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">LET'S<br><span class="black" style="color:#fff">BUILD.</span></h2></div></section>
-    </div>
+    <!-- ***** PROCESS: WHY HIRE ME (FULL TRANSPARENCY) ***** -->
+    <section id="process" class="bg-white py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <span class="bg-orange-100 text-brand-orange px-4 py-1 rounded-full text-sm font-bold">How we work together</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-3">From idea to launch — <span class="brand-orange">fast & stress-free</span></h2>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6 relative">
+                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">1</div><h3 class="font-bold text-xl mt-4">Discovery</h3><p class="text-gray-500 text-sm mt-2">I learn your business goals, audience & unique edge.</p></div>
+                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="100"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">2</div><h3 class="font-bold text-xl mt-4">Design & Build</h3><p class="text-gray-500 text-sm mt-2">Modern, responsive design + clean code. Weekly updates.</p></div>
+                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="200"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">3</div><h3 class="font-bold text-xl mt-4">Launch & Optimize</h3><p class="text-gray-500 text-sm mt-2">SEO setup, speed optimization, and smooth deployment.</p></div>
+                <div class="bg-orange-50/40 rounded-2xl p-6 text-center relative z-10" data-aos="fade-right" data-aos-delay="300"><div class="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center text-xl font-black mx-auto">4</div><h3 class="font-bold text-xl mt-4">Grow Together</h3><p class="text-gray-500 text-sm mt-2">Ongoing support & maintenance to keep you ahead.</p></div>
+            </div>
+        </div>
+    </section>
 
-    <!-- DOCK - Keep it, but NO MENU button inside -->
-    <div class="app-dock">
-        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
-        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
-        <!-- MENU BUTTON REMOVED FROM DOCK -->
-    </div>
+    <!-- ***** TESTIMONIALS (Social proof from real clients) ***** -->
+    <section id="testimonials" class="section-padding max-w-7xl mx-auto">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <i class="fa-solid fa-quote-left text-4xl brand-orange opacity-40"></i>
+            <h2 class="text-4xl font-black mt-2">What clients say</h2>
+            <p class="text-gray-500">Real results from real business owners who hired me.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 px-4">
+            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in">
+                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
+                <p class="italic text-gray-700">“Faz built my plumbing website and within 2 months my calls tripled. Professional, fast and actually cares about my business.”</p>
+                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-user-tie text-gray-500"></i></div><div><b>Daniel Moore</b><p class="text-xs text-gray-400">D.M. Plumbing & Heating</p></div></div>
+            </div>
+            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="100">
+                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
+                <p class="italic text-gray-700">“The e-commerce site Faz created for my boutique is beautiful and lightning fast. Sales increased 45% in 3 months. Highly recommend!”</p>
+                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-store"></i></div><div><b>Sophia Chen</b><p class="text-xs text-gray-400">Loom & Lace</p></div></div>
+            </div>
+            <div class="bg-white p-7 rounded-2xl shadow-sm border-l-4 border-brand-orange" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flex gap-1 text-brand-orange mb-3">★★★★★</div>
+                <p class="italic text-gray-700">“After Faz redesigned my law firm website, I started getting 5x more consultation requests. He understands professional branding.”</p>
+                <div class="flex items-center gap-3 mt-5"><div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-gavel"></i></div><div><b>Rebecca Hart</b><p class="text-xs text-gray-400">Hart Legal Group</p></div></div>
+            </div>
+        </div>
+    </section>
 
+    <!-- ***** CTA / CONTACT + HIRE SECTION (direct lead capture) ***** -->
+    <section id="contact" class="bg-black text-white py-20 px-6 rounded-t-[3rem] mt-12">
+        <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
+            <h2 class="text-4xl md:text-6xl font-black tracking-tight">Let’s build something <span class="brand-orange">unforgettable</span></h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-4">Ready to scale your business with a high-converting website? I’m one message away.</p>
+            <div class="flex flex-wrap justify-center gap-5 mt-10">
+                <a href="mailto:Fazhoq1977@gmail.com" class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 transition px-8 py-4 rounded-full font-bold text-lg shadow-xl"><i class="fa-regular fa-envelope"></i> Fazhoq1977@gmail.com</a>
+                <a href="https://wa.me/447706345874" class="inline-flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition px-8 py-4 rounded-full font-bold text-lg"><i class="fa-brands fa-whatsapp"></i> WhatsApp me</a>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mt-16 text-left bg-white/5 p-8 rounded-2xl backdrop-blur-sm">
+                <div><i class="fa-regular fa-clock text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">Quick turnaround</h3><p class="text-gray-400 text-sm">Launch-ready websites in 10–14 days.</p></div>
+                <div><i class="fa-solid fa-chart-line text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">SEO Optimized</h3><p class="text-gray-400 text-sm">Rank higher on Google from day one.</p></div>
+                <div><i class="fa-regular fa-handshake text-brand-orange text-2xl mb-2"></i><h3 class="font-bold">No hidden fees</h3><p class="text-gray-400 text-sm">Transparent pricing, fixed project cost.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** SIMPLE FORM TO EXPRESS INTEREST (lead capture) ***** -->
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+            <h3 class="text-2xl font-black">Tell me about your project</h3>
+            <p class="text-gray-500 mb-6">I’ll reach out within 12 hours with a game plan.</p>
+            <form id="hireForm" class="space-y-4" action="https://formspree.io/f/xqapwnww" method="POST">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" name="name" placeholder="Your name" required class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
+                    <input type="email" name="email" placeholder="Email address" required class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
+                </div>
+                <input type="text" name="business" placeholder="Business / Industry (e.g., Plumber, Restaurant, Lawyer)" class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none">
+                <textarea rows="3" name="message" placeholder="Tell me a bit about your goals..." class="w-full p-4 border border-gray-200 rounded-xl focus:border-brand-orange outline-none"></textarea>
+                <button type="submit" class="w-full md:w-auto px-10 py-4 bg-brand-orange text-white rounded-full font-bold text-lg btn-orange inline-flex items-center justify-center gap-2"><i class="fa-regular fa-paper-plane"></i> Send inquiry →</button>
+                <p class="text-xs text-gray-400 mt-3">No spam, just real talk about your website success.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ***** FOOTER ***** -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-10 text-center text-gray-500 text-sm">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-black text-xl"><span class="brand-orange">FAZ HOQ</span> <span class="text-black">Digital Architect</span></div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p>© 2025 Faz Hoq — Websites that work for you.</p>
+        </div>
+    </footer>
+
+    <!-- AOS + Mobile Drawer JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        const nicheData = {
-            "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
-            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
-            "Professional": ["Lawyers", "Accountants", "Real Estate", "Tutors", "Marketing Agencies", "Consultants"],
-            "Food & Drink": ["Restaurants", "Cafes & Coffee", "Bakeries", "Bars & Clubs", "Catering", "Takeaways"],
-            "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops"]
-        };
-
-        function getNicheFolderName(niche) {
-            const mapping = {
-                "Barbers": "barber", "Dentists": "dentist", "Gyms & Studios": "gym", "Spas & Beauty": "spa",
-                "Physiotherapists": "physio", "Yoga Instructors": "yoga", "Therapists": "therapist",
-                "Plumbers": "plumber", "Electricians": "electrician", "Landscapers": "landscaper",
-                "Cleaners": "cleaner", "Roofers": "roofer", "Carpenters": "carpenter", "Locksmiths": "locksmith",
-                "Lawyers": "lawyer", "Accountants": "accountant", "Real Estate": "realestate", "Tutors": "tutor",
-                "Marketing Agencies": "marketing", "Consultants": "consultant", "Restaurants": "restaurant",
-                "Cafes & Coffee": "cafe", "Bakeries": "bakery", "Bars & Clubs": "bar", "Catering": "catering",
-                "Takeaways": "takeaway", "Boutiques": "boutique", "E-commerce Stores": "ecommerce",
-                "Photographers": "photographer", "Artists": "artist", "Florists": "florist", "Pet Shops": "petshop"
-            };
-            return mapping[niche] || niche.toLowerCase().replace(/[^a-z0-9]/g, '');
-        }
-        
-        function redirectToNichePage(nicheName) {
-            const targetUrl = getNicheFolderName(nicheName) + "/index.html";
-            const mobileInput = document.getElementById('mainSearch');
-            const desktopInput = document.getElementById('mainSearchDesktop');
-            if (mobileInput) mobileInput.value = nicheName;
-            if (desktopInput) desktopInput.value = nicheName;
-            setTimeout(() => { window.location.href = targetUrl; }, 200);
-        }
-        
-        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
-        
-        let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
-        const typewriterElM = document.getElementById('typewriter-mobile');
-        let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
-        const typewriterElD = document.getElementById('typewriter-desktop');
-        
-        function typeMobile() {
-            if (!typewriterElM) return;
-            const currentWord = nicheWords[wordIndexM];
-            charIndexM += isDeletingM ? -1 : 1;
-            typewriterElM.innerHTML = currentWord.substring(0, charIndexM) || "&nbsp;";
-            let speed = isDeletingM ? 60 : 100;
-            if (!isDeletingM && charIndexM === currentWord.length) { speed = 2000; isDeletingM = true; }
-            else if (isDeletingM && charIndexM === 0) { isDeletingM = false; wordIndexM = (wordIndexM + 1) % nicheWords.length; speed = 500; }
-            setTimeout(typeMobile, speed);
-        }
-        
-        function typeDesktop() {
-            if (!typewriterElD) return;
-            const currentWord = nicheWords[wordIndexD];
-            charIndexD += isDeletingD ? -1 : 1;
-            typewriterElD.innerHTML = currentWord.substring(0, charIndexD) || "&nbsp;";
-            let speed = isDeletingD ? 60 : 100;
-            if (!isDeletingD && charIndexD === currentWord.length) { speed = 2000; isDeletingD = true; }
-            else if (isDeletingD && charIndexD === 0) { isDeletingD = false; wordIndexD = (wordIndexD + 1) % nicheWords.length; speed = 500; }
-            setTimeout(typeDesktop, speed);
-        }
-        
-        function createSwipeCounter() {
-            const sections = document.querySelectorAll('section');
-            const counterContainer = document.getElementById('swipeCounter');
-            if (!counterContainer) return;
-            counterContainer.innerHTML = '';
-            for (let i = 0; i < sections.length; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'counter-dot';
-                if (i === currentIdx) dot.classList.add('active');
-                dot.addEventListener('click', ((index) => () => goToSlide(index))(i));
-                counterContainer.appendChild(dot);
-            }
-        }
-        
-        function updateSwipeCounter() {
-            const dots = document.querySelectorAll('.counter-dot');
-            dots.forEach((dot, i) => {
-                if (i === currentIdx) dot.classList.add('active');
-                else dot.classList.remove('active');
+        AOS.init({ once: true, duration: 700, easing: 'ease-out-quad' });
+        // mobile drawer logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const drawer = document.getElementById('mobile-drawer');
+        const closeDrawerBtn = document.getElementById('close-drawer');
+        if(menuBtn && drawer) {
+            menuBtn.addEventListener('click', () => { drawer.classList.remove('translate-x-full'); });
+            closeDrawerBtn.addEventListener('click', () => { drawer.classList.add('translate-x-full'); });
+            // close on link click
+            drawer.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => { drawer.classList.add('translate-x-full'); });
             });
         }
-        
-        function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
-        function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
-        
-        function openNiche(sector) {
-            const list = document.getElementById('cat-list');
-            const title = document.getElementById('cat-title');
-            title.textContent = sector;
-            list.innerHTML = "";
-            nicheData[sector].forEach(niche => {
-                const div = document.createElement('div');
-                div.className = "cat-item";
-                div.textContent = niche;
-                div.onclick = () => { toggleCategories(); redirectToNichePage(niche); };
-                list.appendChild(div);
+        // simple form handling (redirect or alert)
+        const form = document.getElementById('hireForm');
+        if(form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                try {
+                    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+                    if(response.ok) {
+                        alert('✨ Message sent! I’ll reply within 12 hours. Let’s build something great.');
+                        form.reset();
+                    } else throw new Error();
+                } catch(err) { alert('Oops! Could you email me directly at Fazhoq1977@gmail.com? Thanks!'); }
+                finally { btn.innerHTML = originalText; }
             });
-            toggleCategories();
         }
-        
-        function triggerSearch() {
-            const mobileVal = document.getElementById('mainSearch')?.value;
-            const desktopVal = document.getElementById('mainSearchDesktop')?.value;
-            const val = mobileVal || desktopVal;
-            if(val) redirectToNichePage(val);
-        }
-        
-        function triggerSearchDesktop() {
-            const val = document.getElementById('mainSearchDesktop')?.value;
-            if(val) redirectToNichePage(val);
-        }
-        
-        const sections = document.querySelectorAll('section');
-        let currentIdx = 0, isMoving = false;
-        
-        function updateUI() {
-            sections.forEach((sec, i) => {
-                sec.classList.remove('active', 'prev');
-                if (i === currentIdx) sec.classList.add('active');
-                else if (i < currentIdx) sec.classList.add('prev');
-            });
-            updateSwipeCounter();
-        }
-        
-        function navigate(dir) {
-            if (isMoving) return;
-            const target = currentIdx + dir;
-            if (target >= 0 && target < sections.length) {
-                isMoving = true;
-                currentIdx = target;
-                updateUI();
-                setTimeout(() => { isMoving = false; }, 800);
-            }
-        }
-        
-        let sX, sY;
-        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
-        window.addEventListener('touchend', e => {
-            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
-            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
-        });
-        
-        function goToSlide(i) { currentIdx = i; updateUI(); }
-        
-        document.getElementById('desktop-prev')?.addEventListener('click', () => navigate(-1));
-        document.getElementById('desktop-next')?.addEventListener('click', () => navigate(1));
-        
-        window.onload = function() {
-            typeMobile();
-            typeDesktop();
-            createSwipeCounter();
-        };
     </script>
 </body>
 </html>
