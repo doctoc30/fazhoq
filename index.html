@@ -13,7 +13,6 @@
             --primary-light: #FFF5EE;
             --bg: #FFFFFF;
             --text: #121212;
-            --card-bg: rgba(255, 255, 255, 0.9);
             --safe-top: env(safe-area-inset-top);
             --safe-bottom: env(safe-area-inset-bottom);
         }
@@ -69,7 +68,6 @@
             z-index: 5;
         }
 
-        /* HEADER */
         .faz-nav {
             position: fixed;
             top: 0;
@@ -103,7 +101,6 @@
             transform: scale(1.05);
         }
 
-        /* TEXT STYLES */
         .text-wrap {
             width: 100%;
             max-width: 1200px;
@@ -131,22 +128,17 @@
             transform: translateY(-20px);
         }
 
-        /* MANUAL CONCEPT SLIDER - NO AUTO ROTATION */
+        /* MANUAL HORIZONTAL SCROLL SLIDER - FIXED SNAPPING */
         .slider-viewport {
             width: 100vw;
             overflow-x: auto;
             overflow-y: hidden;
             padding: 40px 0;
             position: relative;
-            cursor: grab;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: var(--primary) #FFD9B5;
-        }
-        
-        .slider-viewport:active {
-            cursor: grabbing;
         }
         
         .slider-viewport::-webkit-scrollbar {
@@ -167,13 +159,14 @@
             display: flex;
             width: fit-content;
             gap: 0;
+            padding: 0 20px;
         }
 
         .concept-card {
             width: 280px;
             height: 380px;
             background: white;
-            margin: 0 20px;
+            margin: 0 15px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(255, 107, 0, 0.1);
             display: flex;
@@ -207,7 +200,6 @@
         .concept-info h4 { font-weight: 900; color: var(--primary); font-size: 1.2rem; }
         .concept-info p { font-size: 0.85rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
 
-        /* DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -244,7 +236,6 @@
             opacity: 0.9;
         }
 
-        /* SWIPE COUNTER */
         .swipe-counter {
             position: fixed;
             bottom: 100px;
@@ -265,6 +256,7 @@
             background: rgba(0,0,0,0.2);
             border-radius: 50%;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
         
         .dot.active {
@@ -273,7 +265,6 @@
             border-radius: 10px;
         }
 
-        /* MENU LAYER */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -320,7 +311,6 @@
 </head>
 <body>
 
-    <!-- MENU OVERLAY -->
     <div id="app-menu-layer">
         <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
         <div class="flex flex-col items-center justify-center flex-1 gap-10">
@@ -330,7 +320,6 @@
         </div>
     </div>
 
-    <!-- HEADER -->
     <nav class="faz-nav">
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
         <button id="menu-btn" onclick="toggleMenu()" aria-label="Menu">
@@ -338,16 +327,13 @@
         </button>
     </nav>
 
-    <!-- SLIDE INDICATOR DOTS -->
     <div class="swipe-counter">
         <div class="dot active" onclick="goToSlide(0)"></div>
         <div class="dot" onclick="goToSlide(1)"></div>
         <div class="dot" onclick="goToSlide(2)"></div>
     </div>
 
-    <!-- MAIN SLIDES CONTAINER -->
     <div class="slide-container" id="master-wrapper">
-        <!-- SLIDE 0: HOME -->
         <section class="active">
             <div class="text-wrap">
                 <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
@@ -357,14 +343,11 @@
             </div>
         </section>
 
-        <!-- SLIDE 1: CONCEPTS with CLICKABLE CARDS -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text mb-6">VISUAL<br><span class="black">CONCEPTS.</span></h2>
                 <div class="slider-viewport" id="slider-viewport">
-                    <div class="slider-track" id="slider-track">
-                        <!-- Dynamic concept cards injected by JavaScript -->
-                    </div>
+                    <div class="slider-track" id="slider-track"></div>
                 </div>
                 <div class="swipe-hint">
                     <i class="fa-solid fa-arrow-left"></i>
@@ -374,7 +357,6 @@
             </div>
         </section>
 
-        <!-- SLIDE 2: COLLABORATE -->
         <section>
             <div class="text-wrap">
                 <h2 class="huge-text">READY TO<br><span class="black">COLLABORATE?</span></h2>
@@ -385,7 +367,6 @@
         </section>
     </div>
 
-    <!-- BOTTOM DOCK -->
     <div class="app-dock">
         <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
@@ -393,7 +374,7 @@
     </div>
 
     <script>
-        // --- TYPEWRITER ANIMATION ---
+        // Typewriter animation
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         let wordIdx = 0;
         let charIdx = 0;
@@ -404,9 +385,7 @@
             const currentWord = nicheWords[wordIdx];
             charIdx += isDeleting ? -1 : 1;
             typewriterEl.innerHTML = currentWord.substring(0, charIdx) || "&nbsp;";
-
             let speed = isDeleting ? 60 : 120;
-
             if (!isDeleting && charIdx === currentWord.length) {
                 speed = 2000;
                 isDeleting = true;
@@ -418,7 +397,7 @@
             setTimeout(typeEffect, speed);
         }
 
-        // --- CONCEPTS DATA WITH CORRECT URLS ---
+        // Concept data with URLs
         const concepts = [
             { 
                 title: "Modern Barber", 
@@ -446,11 +425,12 @@
             }
         ];
 
-        // Initialize the manual slider with FULLY CLICKABLE cards
+        // Initialize slider with proper scrolling and click handlers
         function initSlider() {
             const track = document.getElementById('slider-track');
+            if (!track) return;
             
-            // Build cards (no duplication needed for manual scroll)
+            // Build cards
             track.innerHTML = concepts.map((c, index) => {
                 return `
                     <div class="concept-card" data-url="${c.url}" data-index="${index}">
@@ -462,37 +442,28 @@
                     </div>
                 `;
             }).join('');
-
-            // Attach click handlers to ALL concept cards
-            const cards = document.querySelectorAll('.concept-card');
-            console.log('Found cards:', cards.length); // Debug: should show 4 cards
             
+            // Add click handlers to all cards
+            const cards = document.querySelectorAll('.concept-card');
             cards.forEach(card => {
                 const url = card.getAttribute('data-url');
-                console.log('Card URL:', url); // Debug: verify URL is present
-                
-                if (url && url !== '#') {
-                    // Remove any existing listeners to avoid duplicates
-                    card.removeEventListener('click', card.clickHandler);
-                    
-                    // Create and store the handler
-                    card.clickHandler = (e) => {
+                if (url) {
+                    card.addEventListener('click', (e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        console.log('Opening URL:', url); // Debug: confirm click works
                         window.open(url, '_blank', 'noopener,noreferrer');
-                        return false;
-                    };
-                    
-                    card.addEventListener('click', card.clickHandler);
-                    
-                    // Also add cursor pointer style to ensure it's obvious
-                    card.style.cursor = 'pointer';
+                    });
                 }
             });
+            
+            // Ensure viewport starts at the first card
+            const viewport = document.getElementById('slider-viewport');
+            if (viewport) {
+                viewport.scrollLeft = 0;
+            }
         }
 
-        // --- SLIDE NAVIGATION LOGIC ---
+        // Main slide navigation
         let currentIdx = 0;
         const sections = document.querySelectorAll('section');
         const dots = document.querySelectorAll('.dot');
@@ -501,11 +472,8 @@
         function updateUI() {
             sections.forEach((sec, i) => {
                 sec.classList.remove('active', 'prev');
-                if (i === currentIdx) {
-                    sec.classList.add('active');
-                } else if (i < currentIdx) {
-                    sec.classList.add('prev');
-                }
+                if (i === currentIdx) sec.classList.add('active');
+                else if (i < currentIdx) sec.classList.add('prev');
             });
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentIdx);
@@ -534,7 +502,7 @@
             document.getElementById('app-menu-layer').classList.toggle('active'); 
         }
 
-        // --- TOUCH GESTURES for main slides ---
+        // Touch gestures for main slides
         let touchStartX = null;
         let touchStartY = null;
         
@@ -551,7 +519,7 @@
             const absDeltaX = Math.abs(deltaX);
             const absDeltaY = Math.abs(deltaY);
             
-            // Only trigger main slide navigation if swipe is NOT over the concept slider
+            // Check if swipe started on concept slider
             const isOverSlider = e.changedTouches[0].target.closest('.slider-viewport');
             
             if (!isOverSlider && Math.max(absDeltaX, absDeltaY) > 40) {
@@ -586,13 +554,6 @@
             }
         });
         
-        // Dot click handlers
-        dots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        });
-        
         // Logo click
         const logo = document.querySelector('.faz-logo');
         if (logo) {
@@ -602,7 +563,7 @@
             });
         }
 
-        // --- INITIALIZE ---
+        // Initialize everything
         window.onload = () => {
             typeEffect();
             initSlider();
