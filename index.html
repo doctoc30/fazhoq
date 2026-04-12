@@ -71,7 +71,7 @@
             z-index: 5;
         }
 
-        /* HEADER - BRAND ORANGE (hamburger menu brand is orange) */
+        /* HEADER */
         .faz-nav {
             position: fixed;
             top: 0;
@@ -83,7 +83,6 @@
             align-items: center;
         }
 
-        /* Main logo brand color orange (FAZ HOQ) */
         .faz-logo {
             font-size: 2.2rem;
             font-weight: 900;
@@ -91,17 +90,19 @@
             color: var(--primary);
             cursor: pointer;
         }
-        /* The dot after logo also orange */
-        .faz-logo span { 
-            color: var(--primary); 
-        }
+        .faz-logo span { color: #000; }
 
+        /* Top hamburger menu button brand orange */
         #menu-btn {
             font-size: 1.8rem;
-            color: var(--text);
+            color: var(--primary);
             background: none;
             border: none;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        #menu-btn:hover {
+            transform: scale(1.05);
         }
 
         /* TEXT STYLES */
@@ -391,15 +392,12 @@
             text-align: center;
         }
 
-        /* DOCK MENU - COMPLETELY REMOVED */
-        .app-dock {
-            display: none;
-        }
+        /* DOCK MENU REMOVED - no app-dock styles needed, hidden completely */
 
-        /* SWIPE COUNTER - REPOSITIONED (now without dock, bottom spacing adjusted) */
+        /* SWIPE COUNTER - POSITIONED AT BOTTOM WITH SAFE MARGIN (repositioned since dock is removed) */
         .swipe-counter {
             position: fixed;
-            bottom: 25px;
+            bottom: 30px;
             left: 0;
             right: 0;
             display: flex;
@@ -439,12 +437,15 @@
         }
         
         @media (min-width: 1024px) and (orientation: landscape) {
+            .nav-dots {
+                display: flex;
+            }
             .swipe-counter {
-                bottom: 35px;
+                bottom: 40px;
             }
         }
 
-        /* HAMBURGER MENU - brand color orange inside as well */
+        /* HAMBURGER MENU */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -463,13 +464,6 @@
             align-items: center;
             margin-bottom: 20px;
         }
-        /* Inside hamburger menu, logo brand orange */
-        .menu-header .faz-logo {
-            color: var(--primary);
-        }
-        .menu-header .faz-logo span {
-            color: var(--primary);
-        }
         .menu-links {
             display: flex;
             flex-direction: column;
@@ -486,10 +480,6 @@
             text-decoration: none;
             letter-spacing: -3px;
             line-height: 1;
-            transition: color 0.2s;
-        }
-        .menu-item:hover {
-            color: var(--primary);
         }
         .close-menu-btn {
             width: 60px;
@@ -597,18 +587,10 @@
                 display: flex;
             }
         }
-
-        /* Additional safety for bottom padding - no dock conflicts */
-        body {
-            padding-bottom: 0;
-        }
-        section {
-            padding-bottom: 80px;
-        }
-        @media (max-width: 768px) {
-            section {
-                padding-bottom: 90px;
-            }
+        
+        /* Additional utility to ensure no dock shows up */
+        .app-dock {
+            display: none !important;
         }
     </style>
 </head>
@@ -616,7 +598,6 @@
 
     <div id="app-menu-layer">
         <div class="menu-header">
-            <!-- Brand orange inside hamburger menu -->
             <div class="faz-logo">FAZ HOQ<span>.</span></div>
             <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
         </div>
@@ -634,7 +615,6 @@
     </div>
 
     <nav class="faz-nav">
-        <!-- Brand orange on main header -->
         <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
         <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
@@ -645,7 +625,7 @@
         <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
     </div>
 
-    <!-- SWIPE COUNTER (no dock, repositioned) -->
+    <!-- SWIPE COUNTER -->
     <div class="swipe-counter" id="swipeCounter"></div>
 
     <div class="slide-container" id="master-wrapper">
@@ -717,7 +697,7 @@
         <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">LET'S<br><span class="black" style="color:#fff">BUILD.</span></h2></div></section>
     </div>
 
-    <!-- DOCK MENU REMOVED - no element present -->
+    <!-- DOCK MENU HAS BEEN REMOVED (no .app-dock element present) -->
 
     <style>
         /* Default: show mobile layout, hide desktop layout */
@@ -836,23 +816,29 @@
             if (mapping[niche]) {
                 return mapping[niche];
             }
+            // Default: lowercase and remove spaces/special chars
             return niche.toLowerCase().replace(/[^a-z0-9]/g, '');
         }
         
         // ============================================
         // FUNNEL REDIRECT FUNCTION - Opens the correct FAZ HOQ niche page
+        // Redirects to: fazhoq/{folder}/index.html
+        // Example: "Barbers" -> "fazhoq/barber/index.html"
         // ============================================
         function redirectToNichePage(nicheName) {
             const folderName = getNicheFolderName(nicheName);
             const targetUrl = folderName + "/index.html";
+            
             const loaderIcon = document.querySelector('.search-icon-btn i');
             if (loaderIcon) {
                 loaderIcon.className = 'fa-solid fa-spinner fa-spin';
             }
+            
             const mobileInput = document.getElementById('mainSearch');
             const desktopInput = document.getElementById('mainSearchDesktop');
             if (mobileInput) mobileInput.value = nicheName;
             if (desktopInput) desktopInput.value = nicheName;
+            
             setTimeout(function() {
                 window.location.href = targetUrl;
             }, 200);
@@ -863,8 +849,12 @@
         // ============================================
         const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
         
+        // ============================================
+        // TYPEWRITER FUNCTIONS (Mobile & Desktop)
+        // ============================================
         let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
         const typewriterElM = document.getElementById('typewriter-mobile');
+        
         let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
         const typewriterElD = document.getElementById('typewriter-desktop');
         
@@ -897,6 +887,7 @@
             const sections = document.querySelectorAll('section');
             const counterContainer = document.getElementById('swipeCounter');
             if (!counterContainer) return;
+            
             counterContainer.innerHTML = '';
             for (let i = 0; i < sections.length; i++) {
                 const dot = document.createElement('div');
@@ -912,8 +903,11 @@
         function updateSwipeCounter() {
             const dots = document.querySelectorAll('.counter-dot');
             dots.forEach((dot, i) => {
-                if (i === currentIdx) dot.classList.add('active');
-                else dot.classList.remove('active');
+                if (i === currentIdx) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         }
         
@@ -923,6 +917,7 @@
         function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
         function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
         
+        // Open niche selection overlay for a sector
         function openNiche(sector) {
             const list = document.getElementById('cat-list');
             const title = document.getElementById('cat-title');
@@ -941,20 +936,27 @@
             toggleCategories();
         }
         
+        // ============================================
+        // SEARCH TRIGGER FUNCTIONS
+        // ============================================
         function triggerSearch() {
             const mobileVal = document.getElementById('mainSearch')?.value;
             const desktopVal = document.getElementById('mainSearchDesktop')?.value;
             const val = mobileVal || desktopVal;
-            if(val) redirectToNichePage(val);
+            if(val) {
+                redirectToNichePage(val);
+            }
         }
         
         function triggerSearchDesktop() {
             const val = document.getElementById('mainSearchDesktop')?.value;
-            if(val) redirectToNichePage(val);
+            if(val) {
+                redirectToNichePage(val);
+            }
         }
         
         // ============================================
-        // SLIDE NAVIGATION
+        // SLIDE NAVIGATION FUNCTIONS
         // ============================================
         const sections = document.querySelectorAll('section');
         let currentIdx = 0, isMoving = false;
@@ -979,6 +981,7 @@
             }
         }
         
+        // Touch swipe for mobile
         let sX, sY;
         window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
         window.addEventListener('touchend', e => {
@@ -991,6 +994,9 @@
             updateUI(); 
         }
         
+        // ============================================
+        // DESKTOP NAVIGATION BUTTONS
+        // ============================================
         const prevBtn = document.getElementById('desktop-prev');
         const nextBtn = document.getElementById('desktop-next');
         if (prevBtn && nextBtn) {
@@ -998,6 +1004,9 @@
             nextBtn.addEventListener('click', () => navigate(1));
         }
         
+        // ============================================
+        // WINDOW ONLOAD INITIALIZATION
+        // ============================================
         window.onload = function() {
             typeMobile();
             typeDesktop();
