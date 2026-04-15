@@ -2,346 +2,1049 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Solo Forge | Web Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | DIGITAL ARCHITECT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --bg: #FFFFFF;
+            --text: #121212;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
+            -webkit-tap-highlight-color: transparent;
             font-family: 'Inter', sans-serif;
-            background: #0A0A0A;
-            color: #F5F5F5;
-            line-height: 1.4;
-            overflow-x: hidden;
         }
 
-        /* Custom smooth scroll & modern feel */
-        html {
-            scroll-behavior: smooth;
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--primary-light);
+            color: var(--text);
         }
 
-        /* custom neon accent */
-        .accent-glow {
-            text-shadow: 0 0 8px rgba(255, 90, 0, 0.4);
+        .slide-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
         }
 
-        .btn-outline-custom {
-            border: 1.5px solid #FF5A00;
-            transition: all 0.25s ease;
+        section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: transparent;
+            transform: translate3d(100%, 0, 0);
+            transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+            visibility: hidden;
+            overflow-y: auto;
+        }
+
+        section.active {
+            transform: translate3d(0, 0, 0);
+            visibility: visible;
+            z-index: 10;
+        }
+        section.prev {
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+            z-index: 5;
+        }
+
+        /* HEADER */
+        .faz-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2500;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faz-logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        .faz-logo span { color: #000; }
+
+        #menu-btn {
+            font-size: 1.8rem;
+            color: var(--text);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* TEXT STYLES */
+        .text-wrap {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .huge-text {
+            font-size: clamp(2.5rem, 10vmin, 3.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -3px;
+            color: var(--primary);
+        }
+
+        .huge-text.black { color: #000; }
+
+        .waving-hand {
+            width: clamp(220px, 60vw, 380px);
+            height: auto;
+            margin-bottom: 20px;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 10px 20px rgba(255,107,0,0.1));
+        }
+
+        /* ========== VIBZ CATEGORY TILE ANIMATIONS (EXACT COPY) ========== */
+        .fa-heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        .fa-hammer {
+            animation: hammerHit 1.2s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        @keyframes hammerHit {
+            0% { transform: rotate(0deg) translateY(0); }
+            10% { transform: rotate(30deg) translateY(-3px); }
+            20% { transform: rotate(-20deg) translateY(0); }
+            30% { transform: rotate(0deg) translateY(0); }
+            40% { transform: rotate(0deg) translateY(0); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+        
+        .fa-briefcase { animation: bounce 2s ease infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .fa-utensils {
+            animation: utensilsMove 2.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes utensilsMove {
+            0% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
+            25% { transform: rotate(-15deg) scale(1.1); letter-spacing: 5px; }
+            50% { transform: rotate(15deg) scale(0.9); letter-spacing: -2px; }
+            75% { transform: rotate(-5deg) scale(1.05); letter-spacing: 3px; }
+            100% { transform: rotate(0deg) scale(1); letter-spacing: normal; }
+        }
+        
+        .fa-bag-shopping {
+            animation: swing 3s ease-in-out infinite;
+            transform-origin: top center;
+        }
+        @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        /* ============================================
+           MOBILE PORTRAIT - LIFT AVATAR SLIGHTLY UP
+           ============================================ */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                margin-top: -30px;
+            }
+            .waving-hand {
+                margin-top: -20px;
+                margin-bottom: 5px;
+            }
+            .search-container {
+                margin-top: 30px;
+            }
+        }
+
+        /* ============================================
+           TABLET PORTRAIT - STACKED VERTICALLY (NO LIFT, NORMAL POSITION)
+           ============================================ */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            section:first-child .text-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .desktop-only-layout {
+                display: none !important;
+            }
+            
+            .mobile-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 0;
+            }
+            
+            .waving-hand {
+                width: 280px;
+                margin-bottom: 20px;
+                margin-top: 0;
+            }
+            
+            .search-container {
+                margin-top: 40px;
+                max-width: 500px;
+                width: 90%;
+            }
+        }
+
+        /* ============================================
+           DESKTOP & TABLET LANDSCAPE - SIDE BY SIDE
+           ============================================ */
+        @media (min-width: 769px) and (orientation: landscape) {
+            section:first-child .text-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .desktop-hero-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .desktop-avatar {
+                flex-shrink: 0;
+            }
+            
+            .desktop-avatar .waving-hand {
+                width: 240px;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+            
+            .desktop-search-wrapper {
+                flex-shrink: 1;
+                min-width: 400px;
+                max-width: 550px;
+                width: 100%;
+            }
+            
+            .desktop-search-wrapper .search-container {
+                margin-top: 0;
+                width: 100%;
+            }
+            
+            .desktop-tagline {
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+            
+            .desktop-tagline .huge-text {
+                display: inline-block;
+            }
+        }
+
+        /* SEARCH BAR */
+        .search-container {
+            background: #fff;
+            border-radius: 24px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+            width: 95%;
+            max-width: 500px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+        }
+        
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
             background: transparent;
         }
-        .btn-outline-custom:hover {
-            background: #FF5A00;
-            color: #0A0A0A;
-            box-shadow: 0 0 16px rgba(255, 90, 0, 0.4);
-            border-color: #FF5A00;
+        
+        .search-icon-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: none;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+            cursor: pointer;
         }
 
-        .btn-solid {
-            background: #FF5A00;
-            color: #0A0A0A;
+        /* CATEGORIES */
+        .category-header {
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            margin-top: 40px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 100px;
+        }
+
+        .category-tile {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            border-radius: 30px;
+            padding: 25px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255, 90, 0, 0.3);
-        }
-        .btn-solid:hover {
-            background: #FF7A2F;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(255, 90, 0, 0.4);
+            cursor: pointer;
         }
 
-        .card-bg {
-            background: rgba(20, 20, 25, 0.7);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 90, 0, 0.25);
+        .category-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,107,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .category-tile:active {
+            transform: scale(0.96);
+            background: #fff;
+        }
+
+        .tile-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+        }
+
+        .tile-label {
+            font-weight: 900;
+            font-size: 0.95rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* DOCK */
+        .app-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .dock-btn {
+            font-size: 2rem;
+            color: #FFFFFF;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .dock-btn span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        /* SWIPE COUNTER - POSITIONED JUST ABOVE THE DOCK */
+        .swipe-counter {
+            position: fixed;
+            bottom: 90px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 2400;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+        
+        .counter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .counter-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 12px;
+        }
+        
+        /* Hide default side dots */
+        .nav-dots {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .nav-dots {
+                display: flex;
+            }
+            .swipe-counter {
+                bottom: 100px;
+            }
+        }
+
+        /* HAMBURGER MENU */
+        #app-menu-layer {
+            position: fixed;
+            inset: 0;
+            background: var(--primary-light);
+            z-index: 9500;
+            display: flex;
+            flex-direction: column;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active { transform: translateY(0); }
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .menu-item {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+        .close-menu-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* NICHE OVERLAY */
+        #category-layer {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 245, 238, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 9600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            padding: 20px;
+        }
+        #category-layer.active { transform: translateY(0); }
+        #cat-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+        #cat-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            max-height: 60vh;
+            gap: 10px;
+            padding: 10px;
+        }
+        .cat-item {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            cursor: pointer;
             transition: all 0.2s;
         }
-        .card-bg:hover {
-            border-color: #FF5A00;
-            transform: translateY(-4px);
+        .cat-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.02);
         }
 
-        /* focus ring minimal */
-        :focus-visible {
-            outline: 2px solid #FF5A00;
-            outline-offset: 2px;
+        /* DESKTOP NAVIGATION BUTTONS */
+        .desktop-nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2000;
+            width: 100%;
+            pointer-events: none;
+            justify-content: space-between;
+            padding: 0 20px;
         }
-
-        /* scrollbar custom */
-        ::-webkit-scrollbar {
-            width: 6px;
+        .nav-arrow {
+            pointer-events: auto;
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            opacity: 0.85;
         }
-        ::-webkit-scrollbar-track {
-            background: #1A1A1A;
+        .nav-arrow:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #e05e00;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #FF5A00;
-            border-radius: 10px;
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .desktop-nav {
+                display: flex;
+            }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- STICKY HEADER / BRAND + minimal nav -->
-    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center backdrop-blur-md bg-black/60 border-b border-white/10">
-        <div class="text-2xl md:text-3xl font-black tracking-tighter">
-            <span class="text-white">SOLO</span><span class="text-[#FF5A00]">FORGE</span>
-            <span class="text-xs align-top text-gray-400 ml-1 font-mono">// dev</span>
+    <div id="app-menu-layer">
+        <div class="menu-header">
+            <div class="faz-logo">FAZ HOQ<span>.</span></div>
+            <div class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
         </div>
-        <nav class="hidden md:flex gap-8 text-sm font-medium">
-            <a href="#home" class="hover:text-[#FF5A00] transition-colors">HOME</a>
-            <a href="#craft" class="hover:text-[#FF5A00] transition-colors">CRAFT</a>
-            <a href="#services" class="hover:text-[#FF5A00] transition-colors">SERVICES</a>
-            <a href="#contact" class="hover:text-[#FF5A00] transition-colors">CONTACT</a>
-        </nav>
-        <!-- Mobile menu toggle (simple hamburger) -->
-        <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
-            <i class="fa-solid fa-bars text-white"></i>
-        </button>
-    </header>
-
-    <!-- mobile drawer (simple overlay) -->
-    <div id="mobile-drawer" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 ease-out md:hidden">
-        <div class="flex justify-end p-6">
-            <button id="close-drawer" class="text-3xl text-white"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="flex flex-col items-center justify-center gap-8 h-full text-2xl font-bold">
-            <a href="#home" class="drawer-link hover:text-[#FF5A00]">HOME</a>
-            <a href="#craft" class="drawer-link hover:text-[#FF5A00]">CRAFT</a>
-            <a href="#services" class="drawer-link hover:text-[#FF5A00]">SERVICES</a>
-            <a href="#contact" class="drawer-link hover:text-[#FF5A00]">CONTACT</a>
+        <div class="menu-links">
+            <a href="#" class="menu-item" onclick="goToSlide(0); toggleMenu()">HOME</a>
+            <a href="#" class="menu-item" onclick="goToSlide(1); toggleMenu()">CATEGORIES</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
     </div>
 
-    <main class="relative">
-        <!-- HERO SECTION: NO SEARCH, NO REVIEWS, NO PORTFOLIO. Pure intro -->
-        <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 pt-24 pb-16">
-            <div class="max-w-5xl mx-auto text-center">
-                <!-- animated wave / solo dev signature -->
-                <div class="mb-6 inline-block">
-                    <div class="text-7xl md:text-8xl animate-bounce inline-block">⚡</div>
-                </div>
-                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.1]">
-                    <span class="text-white">BUILDING</span><br>
-                    <span class="text-[#FF5A00]">DIGITAL TOOLS</span><br>
-                    <span class="text-white">FOR <span class="border-b-4 border-[#FF5A00]">SOLO</span> VISIONARIES</span>
-                </h1>
-                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mt-8 leading-relaxed">
-                    I'm a solo web developer — focused, fast, and hands-on. No fluff, no legacy portfolios. Just modern, high-performance websites tailored to your idea.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-5 justify-center mt-12">
-                    <a href="#contact" class="px-8 py-4 rounded-full font-bold text-lg text-center btn-solid inline-flex items-center justify-center gap-2">
-                        START A CONVERSATION <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="#craft" class="px-8 py-4 rounded-full font-bold text-lg text-center btn-outline-custom text-white inline-flex items-center justify-center gap-2">
-                        EXPLORE APPROACH <i class="fa-regular fa-compass"></i>
-                    </a>
-                </div>
-                <!-- minimal trust badge (no reviews, just confident) -->
-                <div class="mt-16 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-                    <span class="flex items-center gap-2"><i class="fa-regular fa-clock text-[#FF5A00]"></i> 48h rapid prototyping</span>
-                    <span class="flex items-center gap-2"><i class="fa-solid fa-code text-[#FF5A00]"></i> Hand-crafted code</span>
-                    <span class="flex items-center gap-2"><i class="fa-regular fa-message text-[#FF5A00]"></i> Direct 1:1 collaboration</span>
+    <div id="category-layer">
+        <h2 id="cat-title">Niche Selection</h2>
+        <div id="cat-list"></div>
+        <div class="close-menu-btn" onclick="toggleCategories()"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+
+    <nav class="faz-nav">
+        <div class="faz-logo" onclick="goToSlide(0)">FAZ HOQ<span>.</span></div>
+        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+
+    <!-- DESKTOP NAVIGATION -->
+    <div class="desktop-nav">
+        <div class="nav-arrow" id="desktop-prev"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-arrow" id="desktop-next"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+
+    <!-- SWIPE COUNTER -->
+    <div class="swipe-counter" id="swipeCounter"></div>
+
+    <div class="slide-container" id="master-wrapper">
+        <!-- SLIDE 0: HOME -->
+        <section class="active">
+            <!-- Mobile & Tablet Portrait stacked layout -->
+            <div class="text-wrap mobile-only-layout">
+                <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
+                <h1 class="huge-text">I build websites for:</h1>
+                <div class="huge-text black" id="typewriter-mobile">&nbsp;</div>
+                <div class="search-container">
+                    <input type="text" id="mainSearch" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearch()">
+                    <button class="search-icon-btn" onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
-        </section>
-
-        <!-- CRAFT SECTION: philosophy / skills without showing past work -->
-        <section id="craft" class="py-28 px-6 md:px-12 bg-gradient-to-b from-black to-[#0F0F0F]">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <span class="text-[#FF5A00] font-mono text-sm tracking-wider">// THE PROCESS</span>
-                    <h2 class="text-4xl md:text-6xl font-bold mt-3">No bloat, just <span class="text-[#FF5A00]">craft</span></h2>
-                    <div class="w-20 h-1 bg-[#FF5A00] mx-auto mt-4"></div>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card-bg rounded-2xl p-8 text-center">
-                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
-                            <i class="fa-solid fa-cube text-2xl text-[#FF5A00]"></i>
+            
+            <!-- Desktop & Tablet Landscape side-by-side layout -->
+            <div class="text-wrap desktop-only-layout">
+                <div class="desktop-hero-row">
+                    <div class="desktop-avatar">
+                        <img src="https://doctoc30.github.io/fazhoq/images/IMG_2973.png" alt="Faz Hoq" class="waving-hand">
+                    </div>
+                    <div class="desktop-search-wrapper">
+                        <div class="search-container">
+                            <input type="text" id="mainSearchDesktop" placeholder="Search any industry..." onkeypress="if(event.key==='Enter') triggerSearchDesktop()">
+                            <button class="search-icon-btn" onclick="triggerSearchDesktop()"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3">Solo-first mindset</h3>
-                        <p class="text-gray-300 leading-relaxed">I work with independent founders, freelancers and small teams. Every project is a direct collaboration — zero middlemen.</p>
-                    </div>
-                    <div class="card-bg rounded-2xl p-8 text-center">
-                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
-                            <i class="fa-solid fa-gauge-high text-2xl text-[#FF5A00]"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Performance obsessed</h3>
-                        <p class="text-gray-300 leading-relaxed">Lightning fast load times, clean architecture, and SEO foundations. I build websites that actually work.</p>
-                    </div>
-                    <div class="card-bg rounded-2xl p-8 text-center">
-                        <div class="w-16 h-16 rounded-full bg-[#FF5A00]/20 flex items-center justify-center mx-auto mb-5">
-                            <i class="fa-solid fa-pen-ruler text-2xl text-[#FF5A00]"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Tailored strategy</h3>
-                        <p class="text-gray-300 leading-relaxed">No templates, no copy-paste. Every line of code is written for your unique audience and goals.</p>
                     </div>
                 </div>
-                <!-- minimalist tech stack -->
-                <div class="mt-20 flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-400 text-sm uppercase tracking-wider">
-                    <span class="flex items-center gap-2"><i class="fa-brands fa-react text-sky-400"></i> React</span>
-                    <span class="flex items-center gap-2"><i class="fa-brands fa-js text-yellow-400"></i> Vanilla JS</span>
-                    <span class="flex items-center gap-2"><i class="fa-brands fa-tailwind"></i> Tailwind</span>
-                    <span class="flex items-center gap-2"><i class="fa-brands fa-node-js text-green-500"></i> Node.js</span>
-                    <span class="flex items-center gap-2"><i class="fa-solid fa-database"></i> Firebase / Supabase</span>
-                    <span class="flex items-center gap-2"><i class="fa-brands fa-figma"></i> Figma</span>
+                <div class="desktop-tagline">
+                    <h1 class="huge-text">I build websites for:</h1>
+                </div>
+                <div class="desktop-tagline">
+                    <div class="huge-text black" id="typewriter-desktop">&nbsp;</div>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES: concrete offerings (instead of categories / portfolio items) -->
-        <section id="services" class="py-28 px-6 md:px-12 bg-black">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <span class="text-[#FF5A00] font-mono text-sm tracking-wider">// WHAT I DELIVER</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mt-3">Services <span class="text-[#FF5A00]">without</span> the agency tax</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto mt-4">Direct, transparent, and built for impact — because you deserve a partner that cares.</p>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-globe text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Full-Stack Websites</h3>
-                        <p class="text-gray-400 text-sm">Custom landing pages, business websites, web apps — fully responsive and future-proof.</p>
+        <section>
+            <div class="text-wrap flex-col">
+                <h2 class="category-header">Or Select From Popular Categories</h2>
+                <div class="category-grid">
+                    <div class="category-tile" onclick="openNiche('Health & Wellness')">
+                        <div class="tile-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="tile-label">Health & Wellness</span>
                     </div>
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-chart-line text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">SEO & Core Web Vitals</h3>
-                        <p class="text-gray-400 text-sm">Optimized structure, performance audits, and visibility strategies to get you found.</p>
+                    <div class="category-tile" onclick="openNiche('Home & Trades')">
+                        <div class="tile-icon"><i class="fa-solid fa-hammer"></i></div>
+                        <span class="tile-label">Home & Trades</span>
                     </div>
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-cart-shopping text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">E-commerce setup</h3>
-                        <p class="text-gray-400 text-sm">Shopify, custom carts, Stripe integration — smooth checkout experiences that convert.</p>
+                    <div class="category-tile" onclick="openNiche('Professional')">
+                        <div class="tile-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <span class="tile-label">Professional Services</span>
                     </div>
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-rocket text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Launch & Maintenance</h3>
-                        <p class="text-gray-400 text-sm">Deployment, hosting setup, security updates, and ongoing support when you need it.</p>
+                    <div class="category-tile" onclick="openNiche('Food & Drink')">
+                        <div class="tile-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="tile-label">Food & Drink</span>
                     </div>
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-palette text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Modern UI/UX</h3>
-                        <p class="text-gray-400 text-sm">Accessible, mobile-first design with micro-interactions that feel premium.</p>
-                    </div>
-                    <div class="border border-white/10 rounded-2xl p-7 hover:border-[#FF5A00]/60 transition-all bg-[#111111]">
-                        <i class="fa-solid fa-arrows-spin text-3xl text-[#FF5A00] mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Migration & Refactor</h3>
-                        <p class="text-gray-400 text-sm">Legacy code cleanup, speed improvements, and modern stack migration.</p>
+                    <div class="category-tile" onclick="openNiche('Retail & Creative')" style="grid-column: span 2; flex-direction: row; padding: 20px; justify-content: center;">
+                        <div class="tile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="tile-label" style="margin-left: 15px;">Retail & Creative Industries</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CONTACT SECTION: one-on-one connection, NO SEARCH, no reviews -->
-        <section id="contact" class="py-28 px-6 md:px-12 bg-[#0A0A0A] relative">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="mb-6">
-                    <i class="fa-regular fa-comments text-5xl text-[#FF5A00] opacity-80"></i>
-                </div>
-                <h2 class="text-4xl md:text-6xl font-bold tracking-tight">Let’s build <span class="text-[#FF5A00]">something real</span></h2>
-                <p class="text-gray-300 text-lg max-w-2xl mx-auto mt-5 mb-10">
-                    You have an idea, a business, or a problem that needs a digital solution. I’m one message away — no forms, no automated replies.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                    <a href="mailto:hello@soloforge.dev" class="px-8 py-4 rounded-full font-bold text-lg btn-solid inline-flex items-center gap-3">
-                        <i class="fa-regular fa-envelope"></i> hello@soloforge.dev
-                    </a>
-                    <a href="https://wa.me/447000000000" class="px-8 py-4 rounded-full font-bold text-lg border border-white/30 hover:border-[#FF5A00] hover:bg-[#FF5A00]/10 transition-all inline-flex items-center gap-3">
-                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                    </a>
-                </div>
-                <!-- quick social / direct touchpoints (minimal) -->
-                <div class="mt-12 pt-8 border-t border-white/10 flex justify-center gap-8 text-gray-400 text-sm">
-                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-github mr-2"></i> GitHub</a>
-                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-linkedin mr-2"></i> LinkedIn</a>
-                    <a href="#" class="hover:text-[#FF5A00] transition"><i class="fa-brands fa-x-twitter mr-2"></i> X</a>
-                </div>
-            </div>
-        </section>
+        <section><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">STRATEGIC<br><span class="black">PARTNER.</span></h2></div></section>
+        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="font-style:italic; text-transform:uppercase">WOW<span>!</span><br><span class="black" style="color:#fff">INTERACTION.</span></h2></div></section>
+        <section style="background-color: #000;"><div class="text-wrap"><h2 class="huge-text" style="text-transform:uppercase">LET'S<br><span class="black" style="color:#fff">BUILD.</span></h2></div></section>
+    </div>
 
-        <!-- FOOTER (simple) -->
-        <footer class="border-t border-white/5 py-10 text-center text-gray-500 text-sm">
-            <p>© 2025 Solo Forge — Independent Web Development. No legacy portfolio, just future projects.</p>
-            <p class="mt-2">Built with <i class="fa-regular fa-heart text-[#FF5A00]"></i> by a solo developer</p>
-        </footer>
-    </main>
+    <div class="app-dock">
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <div class="dock-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i><span>MENU</span></div>
+    </div>
+
+    <style>
+        /* Default: show mobile layout, hide desktop layout */
+        .mobile-only-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .desktop-only-layout {
+            display: none;
+        }
+        
+        /* Mobile portrait: keep mobile layout with lift */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex;
+                margin-top: -25px;
+            }
+            .desktop-only-layout {
+                display: none;
+            }
+        }
+        
+        /* Tablet portrait: show mobile stacked layout (NO lift, normal position) */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            .mobile-only-layout {
+                display: flex !important;
+                margin-top: 0;
+            }
+            .desktop-only-layout {
+                display: none !important;
+            }
+        }
+        
+        /* Desktop & Tablet Landscape: show side-by-side layout */
+        @media (min-width: 769px) and (orientation: landscape) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+        
+        /* Large desktop landscape */
+        @media (min-width: 1025px) and (orientation: landscape) {
+            .mobile-only-layout {
+                display: none !important;
+            }
+            .desktop-only-layout {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
 
     <script>
-        // Mobile drawer toggle functionality
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const drawer = document.getElementById('mobile-drawer');
-        const closeDrawerBtn = document.getElementById('close-drawer');
-        const drawerLinks = document.querySelectorAll('.drawer-link');
+        // ============================================
+        // NICHE DATA - Complete category structure
+        // ============================================
+        const nicheData = {
+            "Health & Wellness": ["Barbers", "Dentists", "Gyms & Studios", "Spas & Beauty", "Physiotherapists", "Yoga Instructors", "Therapists"],
+            "Home & Trades": ["Plumbers", "Electricians", "Landscapers", "Cleaners", "Roofers", "Carpenters", "Locksmiths"],
+            "Professional": ["Lawyers", "Accountants", "Real Estate", "Tutors", "Marketing Agencies", "Consultants"],
+            "Food & Drink": ["Restaurants", "Cafes & Coffee", "Bakeries", "Bars & Clubs", "Catering", "Takeaways"],
+            "Retail & Creative": ["Boutiques", "E-commerce Stores", "Photographers", "Artists", "Florists", "Pet Shops"]
+        };
 
-        function openDrawer() {
-            drawer.classList.remove('translate-x-full');
-            drawer.classList.add('translate-x-0');
-            document.body.style.overflow = 'hidden';
+        // ============================================
+        // NICHE TO FOLDER PATH MAPPING
+        // Converts "Barbers" -> "barber", "Dentists" -> "dentist", etc.
+        // ============================================
+        function getNicheFolderName(niche) {
+            const mapping = {
+                "Barbers": "barber",
+                "Dentists": "dentist",
+                "Gyms & Studios": "gym",
+                "Spas & Beauty": "spa",
+                "Physiotherapists": "physio",
+                "Yoga Instructors": "yoga",
+                "Therapists": "therapist",
+                "Plumbers": "plumber",
+                "Electricians": "electrician",
+                "Landscapers": "landscaper",
+                "Cleaners": "cleaner",
+                "Roofers": "roofer",
+                "Carpenters": "carpenter",
+                "Locksmiths": "locksmith",
+                "Lawyers": "lawyer",
+                "Accountants": "accountant",
+                "Real Estate": "realestate",
+                "Tutors": "tutor",
+                "Marketing Agencies": "marketing",
+                "Consultants": "consultant",
+                "Restaurants": "restaurant",
+                "Cafes & Coffee": "cafe",
+                "Bakeries": "bakery",
+                "Bars & Clubs": "bar",
+                "Catering": "catering",
+                "Takeaways": "takeaway",
+                "Boutiques": "boutique",
+                "E-commerce Stores": "ecommerce",
+                "Photographers": "photographer",
+                "Artists": "artist",
+                "Florists": "florist",
+                "Pet Shops": "petshop"
+            };
+            
+            if (mapping[niche]) {
+                return mapping[niche];
+            }
+            // Default: lowercase and remove spaces/special chars
+            return niche.toLowerCase().replace(/[^a-z0-9]/g, '');
         }
-        function closeDrawer() {
-            drawer.classList.add('translate-x-full');
-            drawer.classList.remove('translate-x-0');
-            document.body.style.overflow = '';
+        
+        // ============================================
+        // FUNNEL REDIRECT FUNCTION - Opens the correct FAZ HOQ niche page
+        // Redirects to: fazhoq/{folder}/index.html
+        // Example: "Barbers" -> "fazhoq/barber/index.html"
+        // ============================================
+        function redirectToNichePage(nicheName) {
+            // Get the folder name for this niche
+            const folderName = getNicheFolderName(nicheName);
+            
+            // Build the URL - using relative path to go to the niche subdirectory
+            // This will look for: barber/index.html, dentist/index.html, etc.
+            const targetUrl = folderName + "/index.html";
+            
+            // Show loading state on search button if available
+            const loaderIcon = document.querySelector('.search-icon-btn i');
+            if (loaderIcon) {
+                loaderIcon.className = 'fa-solid fa-spinner fa-spin';
+            }
+            
+            // Set the search input value for consistency
+            const mobileInput = document.getElementById('mainSearch');
+            const desktopInput = document.getElementById('mainSearchDesktop');
+            if (mobileInput) mobileInput.value = nicheName;
+            if (desktopInput) desktopInput.value = nicheName;
+            
+            // Redirect to the niche page
+            setTimeout(function() {
+                window.location.href = targetUrl;
+            }, 200);
         }
-
-        if (menuBtn) {
-            menuBtn.addEventListener('click', openDrawer);
+        
+        // ============================================
+        // TYPEWRITER WORDS FOR ANIMATION
+        // ============================================
+        const nicheWords = ["Plumbers", "Barbers", "Lawyers", "Dentists", "Gyms", "Electricians", "Landscapers"];
+        
+        // ============================================
+        // TYPEWRITER FUNCTIONS (Mobile & Desktop)
+        // ============================================
+        let wordIndexM = 0, charIndexM = 0, isDeletingM = false;
+        const typewriterElM = document.getElementById('typewriter-mobile');
+        
+        let wordIndexD = 0, charIndexD = 0, isDeletingD = false;
+        const typewriterElD = document.getElementById('typewriter-desktop');
+        
+        function typeMobile() {
+            if (!typewriterElM) return;
+            const currentWord = nicheWords[wordIndexM];
+            charIndexM += isDeletingM ? -1 : 1;
+            typewriterElM.innerHTML = currentWord.substring(0, charIndexM) || "&nbsp;";
+            let speed = isDeletingM ? 60 : 100;
+            if (!isDeletingM && charIndexM === currentWord.length) { speed = 2000; isDeletingM = true; }
+            else if (isDeletingM && charIndexM === 0) { isDeletingM = false; wordIndexM = (wordIndexM + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeMobile, speed);
         }
-        if (closeDrawerBtn) {
-            closeDrawerBtn.addEventListener('click', closeDrawer);
+        
+        function typeDesktop() {
+            if (!typewriterElD) return;
+            const currentWord = nicheWords[wordIndexD];
+            charIndexD += isDeletingD ? -1 : 1;
+            typewriterElD.innerHTML = currentWord.substring(0, charIndexD) || "&nbsp;";
+            let speed = isDeletingD ? 60 : 100;
+            if (!isDeletingD && charIndexD === currentWord.length) { speed = 2000; isDeletingD = true; }
+            else if (isDeletingD && charIndexD === 0) { isDeletingD = false; wordIndexD = (wordIndexD + 1) % nicheWords.length; speed = 500; }
+            setTimeout(typeDesktop, speed);
         }
-        drawerLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                closeDrawer();
-                // smooth scroll to section after closing
-                const targetId = link.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    e.preventDefault();
-                    const targetEl = document.querySelector(targetId);
-                    if (targetEl) {
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
-                    }
+        
+        // ============================================
+        // SWIPE COUNTER FUNCTIONS
+        // ============================================
+        function createSwipeCounter() {
+            const sections = document.querySelectorAll('section');
+            const counterContainer = document.getElementById('swipeCounter');
+            if (!counterContainer) return;
+            
+            counterContainer.innerHTML = '';
+            for (let i = 0; i < sections.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'counter-dot';
+                if (i === currentIdx) dot.classList.add('active');
+                dot.addEventListener('click', (function(index) {
+                    return function() { goToSlide(index); };
+                })(i));
+                counterContainer.appendChild(dot);
+            }
+        }
+        
+        function updateSwipeCounter() {
+            const dots = document.querySelectorAll('.counter-dot');
+            dots.forEach((dot, i) => {
+                if (i === currentIdx) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
                 }
             });
-        });
-
-        // Close drawer on clicking outside? optional but not needed for simplicity
-
-        // Smooth scroll for all anchor links (desktop + mobile consistency)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === "#" || href === "") return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // if drawer is open, close it
-                    if (drawer && !drawer.classList.contains('translate-x-full')) {
-                        closeDrawer();
-                    }
-                }
+        }
+        
+        // ============================================
+        // MENU & CATEGORY FUNCTIONS
+        // ============================================
+        function toggleMenu() { document.getElementById('app-menu-layer').classList.toggle('active'); }
+        function toggleCategories() { document.getElementById('category-layer').classList.toggle('active'); }
+        
+        // Open niche selection overlay for a sector
+        function openNiche(sector) {
+            const list = document.getElementById('cat-list');
+            const title = document.getElementById('cat-title');
+            title.textContent = sector;
+            list.innerHTML = "";
+            nicheData[sector].forEach(niche => {
+                const div = document.createElement('div');
+                div.className = "cat-item";
+                div.textContent = niche;
+                // Each niche item redirects to its dedicated page when clicked
+                div.onclick = () => {
+                    toggleCategories();
+                    redirectToNichePage(niche);
+                };
+                list.appendChild(div);
             });
+            toggleCategories();
+        }
+        
+        // ============================================
+        // SEARCH TRIGGER FUNCTIONS
+        // ============================================
+        function triggerSearch() {
+            const mobileVal = document.getElementById('mainSearch')?.value;
+            const desktopVal = document.getElementById('mainSearchDesktop')?.value;
+            const val = mobileVal || desktopVal;
+            if(val) {
+                redirectToNichePage(val);
+            }
+        }
+        
+        function triggerSearchDesktop() {
+            const val = document.getElementById('mainSearchDesktop')?.value;
+            if(val) {
+                redirectToNichePage(val);
+            }
+        }
+        
+        // ============================================
+        // SLIDE NAVIGATION FUNCTIONS
+        // ============================================
+        const sections = document.querySelectorAll('section');
+        let currentIdx = 0, isMoving = false;
+        
+        function updateUI() {
+            sections.forEach((sec, i) => {
+                sec.classList.remove('active', 'prev');
+                if (i === currentIdx) sec.classList.add('active');
+                else if (i < currentIdx) sec.classList.add('prev');
+            });
+            updateSwipeCounter();
+        }
+        
+        function navigate(dir) {
+            if (isMoving) return;
+            const target = currentIdx + dir;
+            if (target >= 0 && target < sections.length) {
+                isMoving = true;
+                currentIdx = target;
+                updateUI();
+                setTimeout(() => { isMoving = false; }, 800);
+            }
+        }
+        
+        // Touch swipe for mobile
+        let sX, sY;
+        window.addEventListener('touchstart', e => { sX = e.touches[0].clientX; sY = e.touches[0].clientY; });
+        window.addEventListener('touchend', e => {
+            let dX = sX - e.changedTouches[0].clientX, dY = sY - e.changedTouches[0].clientY;
+            if (Math.abs(dX) > 50 || Math.abs(dY) > 50) navigate(Math.abs(dX) > Math.abs(dY) ? (dX > 0 ? 1 : -1) : (dY > 0 ? 1 : -1));
         });
-
-        // Optional: dynamic year, but not needed. Remove all search/rating/portfolio traces
-        // Additional: add subtle parallax or interactive effect? Just keeping clean & minimal
-        // Ensure no search bar, no portfolio cards, no reviews.
-        console.log("Solo developer page — no search, no past reviews, no portfolio gallery.");
+        
+        function goToSlide(i) { 
+            currentIdx = i; 
+            updateUI(); 
+        }
+        
+        // ============================================
+        // DESKTOP NAVIGATION BUTTONS
+        // ============================================
+        const prevBtn = document.getElementById('desktop-prev');
+        const nextBtn = document.getElementById('desktop-next');
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => navigate(-1));
+            nextBtn.addEventListener('click', () => navigate(1));
+        }
+        
+        // ============================================
+        // WINDOW ONLOAD INITIALIZATION
+        // ============================================
+        window.onload = function() {
+            typeMobile();
+            typeDesktop();
+            createSwipeCounter();
+        };
     </script>
-
-    <!-- ensure that there is absolutely NO search container or portfolio grid -->
-    <!-- Also no carousel of reviews. The design strictly follows requirements -->
-    <!-- The design presents solo web developer identity, services, craft philosophy, direct contact -->
-    <!-- There is no mention of past works, no star ratings, no portfolio project display, no search field -->
 </body>
 </html>
