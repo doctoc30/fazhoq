@@ -3,285 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External | Bespoke Outdoor Living & Restoration</title>
+    <title>Enviro External | Elite Landscaping & Restoration</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
         :root {
-            --brand-gold: #C5A358;
-            --brand-green: #2D4A3E;
-            --brand-lime: #8DC63F;
-            --premium-dark: #0F1113;
+            --brand-green: #8DC63F;
+            --premium-dark: #1A1C1E;
+            --soft-white: #F8FAFC;
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #ffffff; 
-            color: var(--premium-dark);
-            -webkit-font-smoothing: antialiased;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--soft-white); color: var(--premium-dark); overflow-x: hidden; }
+        h1, h2, h3, .nav-link { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+
+        /* 30. Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 10px; }
+
+        /* 1. Hero Slider & Reference Style */
+        .hero-bg { background-image: url('https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; }
+        .hero-title { line-height: 0.9; letter-spacing: -2px; }
         
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-
-        .glass-nav { 
-            background: rgba(255, 255, 255, 0.9); 
-            backdrop-filter: blur(20px); 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-        }
-
-        .hero-overlay {
-            background: linear-gradient(to bottom, rgba(15,17,19,0.4) 0%, rgba(15,17,19,0.7) 100%);
-        }
-
-        .service-card {
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .btn-premium {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .btn-premium::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .btn-premium:hover::after {
-            height: 100%;
-        }
+        /* 20. Bottom CTA Dock */
+        .cta-dock { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #eee; z-index: 1000; padding: 12px 0; }
+        
+        /* 31. Mobile Menu Overlay */
+        .mobile-overlay { position: fixed; inset: 0; background: var(--premium-dark); z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; }
 
         .gsap-reveal { opacity: 0; transform: translateY(30px); }
-        
-        /* Custom video positioning */
-        .video-docker video {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-        }
+        .wave-bottom { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; }
+        .wave-bottom svg { position: relative; display: block; width: calc(100% + 1.3px); height: 150px; }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <nav class="fixed w-full z-[100] glass-nav py-5 px-8 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-[#2D4A3E] flex items-center justify-center rounded-sm text-white">
-                <i class="fas fa-leaf text-xs"></i>
-            </div>
-            <span class="text-lg font-bold tracking-widest uppercase">Enviro <span class="text-[#8DC63F]">External</span></span>
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md py-4 px-8 flex justify-between items-center border-b border-gray-100">
+        <div class="flex items-center gap-2">
+            <span class="text-xl font-black tracking-tighter">ENVIRO <span class="text-[#8DC63F]">EXTERNAL</span></span>
         </div>
-        
-        <div class="hidden lg:flex gap-10 items-center text-[11px] font-bold uppercase tracking-[0.2em]">
-            <a href="#services" class="hover:text-[#8DC63F] transition">Services</a>
-            <a href="#projects" class="hover:text-[#8DC63F] transition">Portfolio</a>
-            <a href="#about" class="hover:text-[#8DC63F] transition">Process</a>
-            <a href="#booking" class="border border-black px-8 py-3 hover:bg-black hover:text-white transition">Inquiry</a>
+        <div class="hidden lg:flex gap-8 text-[10px] font-black tracking-widest uppercase">
+            <a href="#services" class="hover:text-[#8DC63F]">Services</a>
+            <a href="#projects" class="hover:text-[#8DC63F]">Portfolio</a>
+            <a href="#maintenance" class="hover:text-[#8DC63F]">Maintenance</a>
+            <a href="#booking" class="bg-[#8DC63F] text-white px-5 py-2 rounded-full">Get Quote</a>
         </div>
+        <button class="lg:hidden text-2xl" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-        <div class="absolute inset-0 video-docker">
-            <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&q=80&w=2000" class="absolute w-full h-full object-cover opacity-60" alt="Luxury Garden Design">
+    <header class="relative h-screen hero-bg flex flex-col items-center justify-center text-center px-4">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 gsap-reveal">
+            <h2 class="text-[#8DC63F] text-4xl md:text-6xl font-black mb-2">WELCOME TO</h2>
+            <h1 class="text-white text-6xl md:text-9xl font-black hero-title mb-12">ENVIRO<br>LANDSCAPING</h1>
+            
+            <div class="flex flex-col gap-4 max-w-md mx-auto">
+                <a href="tel:07954289512" class="bg-[#8DC63F] text-white py-4 rounded-xl font-bold uppercase tracking-widest flex items-center justify-center gap-3">
+                    <i class="fas fa-phone"></i> Call Us
+                </a>
+                <a href="mailto:enviroec@outlook.com" class="bg-[#8DC63F] text-white py-4 rounded-xl font-bold uppercase tracking-widest flex items-center justify-center gap-3">
+                    <i class="fas fa-envelope"></i> Email Us
+                </a>
+                <a href="#about" class="border-2 border-[#8DC63F] text-white py-4 rounded-xl font-bold uppercase tracking-widest">
+                    About Us
+                </a>
+            </div>
         </div>
-        <div class="absolute inset-0 hero-overlay"></div>
-        
-        <div class="relative z-10 text-center px-4 max-w-5xl">
-            <span class="text-[#8DC63F] font-medium tracking-[0.4em] uppercase mb-6 block text-sm gsap-reveal">Defining Exterior Luxury</span>
-            <h1 class="text-6xl md:text-9xl text-white mb-10 leading-tight gsap-reveal">The Art of <br><span class="italic">Outdoor Living.</span></h1>
-            <div class="flex flex-col md:flex-row gap-6 justify-center items-center gsap-reveal">
-                <a href="#booking" class="bg-[#8DC63F] text-white px-12 py-6 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-500">Consult Our Designer</a>
-                <a href="#projects" class="text-white text-xs font-bold uppercase tracking-widest border-b border-white/30 pb-2 hover:border-white transition">View Projects</a>
+
+        <div class="wave-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.43,147.3,126,221.33,111.31,282.08,99.31,313.43,62.83,321.39,56.44Z" fill="#F8FAFC"></path>
+            </svg>
+        </div>
+    </header>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="gsap-reveal">
+                <div class="text-5xl font-black text-[#8DC63F] count" data-target="25">0</div>
+                <div class="text-xs font-bold uppercase text-gray-400">Years Excellence</div>
+            </div>
+            <div class="gsap-reveal">
+                <div class="text-5xl font-black text-[#8DC63F] count" data-target="500">0</div>
+                <div class="text-xs font-bold uppercase text-gray-400">Gardens Built</div>
+            </div>
+            <div class="gsap-reveal">
+                <div class="text-5xl font-black text-[#8DC63F] count" data-target="150">0</div>
+                <div class="text-xs font-bold uppercase text-gray-400">Google Reviews</div>
+            </div>
+            <div class="gsap-reveal">
+                <div class="text-5xl font-black text-[#8DC63F] count" data-target="12">0</div>
+                <div class="text-xs font-bold uppercase text-gray-400">Service Areas</div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-[#F9F9F9]">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
-            <div class="text-center">
-                <div class="text-5xl font-light mb-2 count" data-target="150">0</div>
-                <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Five Star Reviews</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-light mb-2 count" data-target="500">0</div>
-                <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Estates Restored</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-light mb-2 count" data-target="10">0</div>
-                <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Design Awards</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-light mb-2 count" data-target="25">0</div>
-                <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Expert Crew</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-32 px-6">
+    <section id="services" class="py-24 bg-white px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-24 gsap-reveal">
-                <h2 class="text-5xl mb-6">Bespoke <span class="italic">Solutions</span></h2>
-                <div class="w-20 h-[1px] bg-[#8DC63F] mx-auto"></div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-10">
-                <div class="service-card group cursor-pointer gsap-reveal">
-                    <div class="relative overflow-hidden h-[500px] mb-8">
-                        <img src="https://images.unsplash.com/photo-1590073242678-70ee3fc28e84?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all"></div>
-                    </div>
-                    <h3 class="text-2xl mb-3">Architectural Paving</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Italian porcelain and natural stone installations engineered for longevity and aesthetic precision.</p>
-                    <a href="#" class="text-[11px] font-black uppercase tracking-widest border-b-2 border-[#8DC63F] pb-1">Discover Paving</a>
+            <div class="flex flex-col md:row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-5xl font-black italic">Landscaping <span class="text-[#8DC63F] not-italic">Services</span></h2>
+                    <p class="text-gray-400 mt-2 tracking-widest uppercase text-xs">Excellence in every detail</p>
                 </div>
-
-                <div class="service-card group cursor-pointer gsap-reveal" style="transition-delay: 0.2s">
-                    <div class="relative overflow-hidden h-[500px] mb-8">
-                        <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                    </div>
-                    <h3 class="text-2xl mb-3">Estate Curation</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Complete horticultural design and luxury turfing for high-profile residential properties.</p>
-                    <a href="#" class="text-[11px] font-black uppercase tracking-widest border-b-2 border-[#8DC63F] pb-1">View Landscapes</a>
-                </div>
-
-                <div class="service-card group cursor-pointer gsap-reveal" style="transition-delay: 0.4s">
-                    <div class="relative overflow-hidden h-[500px] mb-8">
-                        <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                    </div>
-                    <h3 class="text-2xl mb-3">Elite Restoration</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Industrial-grade cleaning and biological treatments that restore surfaces to their original grandeur.</p>
-                    <a href="#" class="text-[11px] font-black uppercase tracking-widest border-b-2 border-[#8DC63F] pb-1">Restoration Suite</a>
+                <div class="flex gap-2 flex-wrap">
+                    <button class="bg-[#8DC63F] text-white px-6 py-2 rounded-full text-xs font-bold uppercase">All</button>
+                    <button class="border border-gray-200 px-6 py-2 rounded-full text-xs font-bold uppercase">Hardscape</button>
+                    <button class="border border-gray-200 px-6 py-2 rounded-full text-xs font-bold uppercase">Softscape</button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="projects" class="bg-black text-white py-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="gsap-reveal">
-                    <span class="text-[#8DC63F] text-xs font-bold tracking-widest uppercase mb-6 block">Featured Transformation</span>
-                    <h2 class="text-6xl mb-8 leading-tight">The <span class="italic text-[#8DC63F]">Chester</span> Manor</h2>
-                    <p class="text-gray-400 text-lg mb-10 leading-relaxed">A total landscape overhaul featuring tiered sandstone terraces, automated lighting, and bespoke cedar fencing. Completed in 2025.</p>
-                    <div class="grid grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <div class="text-2xl font-bold mb-1">12 Weeks</div>
-                            <div class="text-[10px] uppercase text-gray-500 font-bold tracking-widest">Duration</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold mb-1">£85k+</div>
-                            <div class="text-[10px] uppercase text-gray-500 font-bold tracking-widest">Project Value</div>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-3xl h-[450px] shadow-2xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1590073242678-70ee3fc28e84?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-3xl font-black mb-2">Premium Paving</h3>
+                        <p class="text-gray-300 text-sm mb-4">Porcelain & Indian Sandstone experts.</p>
+                        <a href="#booking" class="text-[#8DC63F] font-bold text-xs underline uppercase tracking-widest">Pay Deposit Online</a>
                     </div>
-                    <button class="px-10 py-5 border border-white/20 hover:bg-white hover:text-black transition uppercase text-xs tracking-widest font-bold">Project Details</button>
                 </div>
-                <div class="relative gsap-reveal">
-                    <img src="https://images.unsplash.com/photo-1533460004989-cef01064af7c?auto=format&fit=crop&q=80&w=1000" class="rounded-sm shadow-2xl relative z-10">
-                    <div class="absolute -top-10 -right-10 w-64 h-64 border-2 border-[#8DC63F]/30 -z-0"></div>
+                <div class="group relative overflow-hidden rounded-3xl h-[450px] shadow-2xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-3xl font-black mb-2">Lush Turfing</h3>
+                        <p class="text-gray-300 text-sm mb-4">Grade A turf and artificial solutions.</p>
+                        <a href="#booking" class="text-[#8DC63F] font-bold text-xs underline uppercase tracking-widest">Book Site Visit</a>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-3xl h-[450px] shadow-2xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-3xl font-black mb-2">Fencing</h3>
+                        <p class="text-gray-300 text-sm mb-4">Bespoke slatted & panel solutions.</p>
+                        <a href="#booking" class="text-[#8DC63F] font-bold text-xs underline uppercase tracking-widest">View Packages</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="booking" class="py-32 bg-white px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-5xl mb-12 gsap-reveal">Secure Your <span class="italic">Consultation</span></h2>
-            <form class="space-y-8 gsap-reveal">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <input type="text" placeholder="Full Name" class="w-full py-4 border-b border-gray-200 outline-none focus:border-black transition">
-                    <input type="email" placeholder="Email Address" class="w-full py-4 border-b border-gray-200 outline-none focus:border-black transition">
-                </div>
-                <select class="w-full py-4 border-b border-gray-200 outline-none focus:border-black transition text-gray-400">
-                    <option>Select Project Scope</option>
-                    <option>Full Garden Architecture (£15k+)</option>
-                    <option>Paving & Hardscaping (£5k+)</option>
-                    <option>Commercial Restoration</option>
-                </select>
-                <textarea rows="4" placeholder="Briefly describe your vision..." class="w-full py-4 border-b border-gray-200 outline-none focus:border-black transition"></textarea>
+    <section id="booking" class="py-24 bg-gray-900 px-8">
+        <div class="max-w-6xl mx-auto bg-white rounded-[40px] overflow-hidden grid lg:grid-cols-2 shadow-2xl">
+            <div class="p-12 md:p-16">
+                <h2 class="text-4xl font-black mb-6">START YOUR<br><span class="text-[#8DC63F]">TRANSFORMATION</span></h2>
+                <p class="text-gray-500 mb-8">25. Upload photos for a digital estimate or book a physical visit.</p>
                 
-                <div class="flex justify-center pt-8">
-                    <button class="bg-black text-white px-16 py-6 text-xs font-bold uppercase tracking-widest hover:bg-[#8DC63F] transition-all duration-500">Submit Portfolio Request</button>
+                <form class="space-y-4">
+                    <input type="text" placeholder="Full Name" class="w-full p-4 bg-gray-100 rounded-xl outline-none">
+                    <select class="w-full p-4 bg-gray-100 rounded-xl outline-none text-gray-500">
+                        <option>Select Landscaping Service</option>
+                        <option>Full Garden Redesign</option>
+                        <option>Patio / Driveway</option>
+                        <option>Fencing & Turfing</option>
+                    </select>
+                    <div class="border-2 border-dashed border-[#8DC63F] p-8 rounded-xl text-center cursor-pointer hover:bg-[#8DC63F]/5 transition">
+                        <i class="fas fa-camera text-2xl text-[#8DC63F] mb-2"></i>
+                        <p class="text-xs font-bold uppercase tracking-widest">Upload Garden Photos</p>
+                    </div>
+                    <button class="w-full bg-black text-white py-5 rounded-xl font-black uppercase tracking-[0.2em] hover:bg-[#8DC63F] transition">Send Enquiry</button>
+                </form>
+            </div>
+            <div class="bg-gray-50 p-12 flex flex-col justify-center text-center">
+                <div class="mb-8">
+                    <i class="fas fa-calendar-check text-5xl text-[#8DC63F] mb-4"></i>
+                    <h3 class="text-2xl font-black mb-2">CALENDLY INTEGRATION</h3>
+                    <p class="text-gray-400 text-sm">Pick a time for Liam to visit your property</p>
                 </div>
-            </form>
+                <div class="bg-white p-6 rounded-2xl shadow-inner text-sm font-bold text-gray-300">
+                    Live Calendar Loading...
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="bg-[#0F1113] text-white pt-24 pb-12 px-8">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-20 border-b border-white/5 pb-20 mb-12">
-            <div>
-                <h4 class="text-xl font-bold mb-8 uppercase tracking-widest">Enviro <span class="text-[#8DC63F]">External</span></h4>
-                <p class="text-gray-500 text-sm leading-relaxed">Premier exterior specialists serving the Wirral, Chester, and Merseyside's most exclusive postcodes.</p>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold mb-8 uppercase tracking-[0.3em] text-gray-400">Connect</h4>
-                <div class="flex gap-6 text-xl">
-                    <a href="#" class="hover:text-[#8DC63F] transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-[#8DC63F] transition"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-[#8DC63F] transition"><i class="fab fa-linkedin-in"></i></a>
+    <section id="maintenance" class="py-24 bg-white px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-[#8DC63F] rounded-[40px] p-12 md:p-20 text-white flex flex-col md:row items-center justify-between gap-12">
+                <div class="max-w-xl">
+                    <span class="bg-black/20 px-4 py-1 rounded-full text-[10px] font-black uppercase mb-4 inline-block">23. Loyalty Program</span>
+                    <h2 class="text-5xl font-black mb-6 leading-none">VIP GARDEN<br>MAINTENANCE</h2>
+                    <p class="text-white/80 mb-8">Join our elite maintenance circle for monthly hedge trimming, lawn treatment, and pressure washing at fixed rates.</p>
+                    <ul class="space-y-2 mb-10 font-bold">
+                        <li><i class="fas fa-check mr-2"></i> Priority Booking</li>
+                        <li><i class="fas fa-check mr-2"></i> 20% Off Seasonal Paving Cleans</li>
+                    </ul>
+                    <button class="bg-white text-black px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs">View Packages</button>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=600" class="rounded-3xl shadow-2xl rotate-3">
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#F8FAFC] px-8">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
             <div>
-                <h4 class="text-xs font-bold mb-8 uppercase tracking-[0.3em] text-gray-400">Direct</h4>
-                <p class="text-2xl font-light mb-2">07954 289512</p>
-                <p class="text-gray-500 hover:text-white transition cursor-pointer">enviroec@outlook.com</p>
+                <h2 class="text-4xl font-black mb-12 italic">Common <span class="text-[#8DC63F] not-italic">Questions</span></h2>
+                <div class="space-y-4">
+                    <details class="group bg-white p-6 rounded-2xl shadow-sm cursor-pointer open:ring-1 open:ring-[#8DC63F]">
+                        <summary class="list-none flex justify-between items-center font-bold uppercase tracking-widest text-sm">
+                            How long does a full patio take? <i class="fas fa-plus group-open:rotate-45 transition"></i>
+                        </summary>
+                        <p class="mt-4 text-gray-500 text-sm">Typically 5-10 working days depending on materials and weather conditions.</p>
+                    </details>
+                    <details class="group bg-white p-6 rounded-2xl shadow-sm cursor-pointer">
+                        <summary class="list-none flex justify-between items-center font-bold uppercase tracking-widest text-sm">
+                            Are you insured for major groundworks? <i class="fas fa-plus"></i>
+                        </summary>
+                        <p class="mt-4 text-gray-500 text-sm">Yes, we carry full public and employee liability insurance for all landscaping projects.</p>
+                    </details>
+                </div>
+            </div>
+            <div class="bg-white p-10 rounded-3xl shadow-xl border-t-4 border-[#8DC63F]">
+                <h3 class="text-2xl font-black mb-6">13. SITE VISIT AVAILABILITY</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between border-b pb-2 font-bold text-sm">
+                        <span>MON - FRI</span> <span class="text-green-500 uppercase">Available</span>
+                    </div>
+                    <div class="flex justify-between border-b pb-2 font-bold text-sm">
+                        <span>SATURDAY</span> <span class="text-orange-500 uppercase">Limited Slots</span>
+                    </div>
+                    <div class="flex justify-between pb-2 font-bold text-sm">
+                        <span>SUNDAY</span> <span class="text-red-500 uppercase">Emergency Only</span>
+                    </div>
+                </div>
+                <div class="mt-12 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                    <p class="text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">26. Give the gift of a garden</p>
+                    <h4 class="font-black mb-4">LANDSCAPING VOUCHERS</h4>
+                    <button class="bg-black text-white w-full py-3 rounded-lg text-xs font-black uppercase">Buy Gift Card</button>
+                </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto flex flex-col md:row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest font-bold">
-            <p>&copy; 2026 Enviro External Cleaning Ltd.</p>
-            <p>Designed for Excellence</p>
+    </section>
+
+    <section class="py-24 bg-white px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-center text-4xl font-black mb-16">35. WHAT OUR CLIENTS SAY</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                <div class="aspect-[9/16] bg-black rounded-3xl overflow-hidden relative group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1533460004989-cef01064af7c?auto=format&fit=crop&w=400" class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-play-circle text-white text-5xl"></i>
+                    </div>
+                </div>
+                <div class="aspect-[9/16] bg-black rounded-3xl overflow-hidden relative group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=400" class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-play-circle text-white text-5xl"></i>
+                    </div>
+                </div>
+                <div class="aspect-[9/16] bg-black rounded-3xl overflow-hidden relative group cursor-pointer lg:block hidden">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 flex items-center justify-center"><i class="fas fa-play-circle text-white text-5xl"></i></div>
+                </div>
+                <div class="bg-[#8DC63F]/10 p-8 rounded-3xl flex flex-col justify-center border border-[#8DC63F]/20">
+                    <div class="text-[#8DC63F] mb-4 text-2xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="italic font-bold mb-4">"Absolutely transformed our back garden from a muddy mess to a porcelain paradise in just 6 days."</p>
+                    <p class="text-xs font-black uppercase">— Sarah J, Wirral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-24 pb-40 px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="col-span-2">
+                <h3 class="text-3xl font-black mb-6">ENVIRO <span class="text-[#8DC63F]">EXTERNAL</span></h3>
+                <p class="text-gray-400 max-w-md mb-8">Professional landscaping and restoration specialists based in Higher Bebington, serving the Wirral, Chester, and Merseyside.</p>
+                <form class="flex max-w-sm">
+                    <input type="email" placeholder="Get expert garden tips" class="bg-white/5 border border-white/10 p-4 rounded-l-xl w-full text-sm outline-none">
+                    <button class="bg-[#8DC63F] px-6 rounded-r-xl"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div>
+                <h4 class="font-black mb-6 uppercase text-xs tracking-widest text-[#8DC63F]">21. Service Areas</h4>
+                <ul class="text-gray-400 text-sm space-y-2 uppercase font-bold">
+                    <li>Wirral & Chester</li>
+                    <li>Neston & Parkgate</li>
+                    <li>Ellesmere Port</li>
+                    <li>Merseyside</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black mb-6 uppercase text-xs tracking-widest text-[#8DC63F]">Contact</h4>
+                <ul class="text-gray-400 text-sm space-y-2 font-bold">
+                    <li>07954 289512</li>
+                    <li>enviroec@outlook.com</li>
+                    <li>Mon - Fri: 08:00 - 18:00</li>
+                </ul>
+            </div>
         </div>
     </footer>
+
+    <div class="cta-dock lg:hidden">
+        <a href="tel:07954289512" class="flex flex-col items-center gap-1">
+            <i class="fas fa-phone text-[#8DC63F]"></i>
+            <span class="text-[8px] font-black uppercase">Call</span>
+        </a>
+        <a href="https://wa.me/447954289512" class="flex flex-col items-center gap-1 border-x border-gray-100">
+            <i class="fab fa-whatsapp text-[#8DC63F]"></i>
+            <span class="text-[8px] font-black uppercase">WhatsApp</span>
+        </a>
+        <a href="sms:07954289512" class="flex flex-col items-center gap-1 border-r border-gray-100">
+            <i class="fas fa-comment-alt text-[#8DC63F]"></i>
+            <span class="text-[8px] font-black uppercase">Text</span>
+        </a>
+        <a href="#booking" class="flex flex-col items-center gap-1">
+            <i class="fas fa-file-invoice-dollar text-[#8DC63F]"></i>
+            <span class="text-[8px] font-black uppercase">Quote</span>
+        </a>
+    </div>
+
+    <div id="offer-popup" class="hidden fixed inset-0 z-[3000] bg-black/60 flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl p-10 max-w-sm text-center relative">
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <span class="text-[#8DC63F] text-xs font-black tracking-widest uppercase">Limited Offer</span>
+            <h2 class="text-3xl font-black mt-2 mb-4 italic">15% OFF SPRING PAVING</h2>
+            <p class="text-gray-500 text-sm mb-8">Book your renovation before May 1st to claim your elite discount.</p>
+            <button class="bg-[#8DC63F] text-white w-full py-4 rounded-xl font-black uppercase tracking-widest">Claim Discount</button>
+        </div>
+    </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Subtle parallax and reveal engine
-        const revealElements = gsap.utils.toArray('.gsap-reveal');
-        revealElements.forEach((el) => {
+        // 4. Scroll Animations
+        const reveals = gsap.utils.toArray('.gsap-reveal');
+        reveals.forEach((el) => {
             gsap.to(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                },
+                scrollTrigger: { trigger: el, start: "top 90%" },
                 opacity: 1,
                 y: 0,
-                duration: 1.5,
-                ease: "expo.out"
+                duration: 1.2,
+                ease: "power3.out"
             });
         });
 
-        // Sophisticated counter animation
+        // 7. Counter Animation
         const counters = document.querySelectorAll('.count');
         counters.forEach(counter => {
             const target = +counter.getAttribute('data-target');
             gsap.to(counter, {
-                scrollTrigger: {
-                    trigger: counter,
-                    start: "top 90%"
-                },
+                scrollTrigger: { trigger: counter, start: "top 90%" },
                 innerText: target,
-                duration: 3,
+                duration: 2,
                 snap: { innerText: 1 },
-                ease: "power2.out"
+                ease: "none"
             });
         });
+
+        // 5. Popup Logic
+        setTimeout(() => {
+            document.getElementById('offer-popup').classList.remove('hidden');
+        }, 5000);
+
+        function closePopup() {
+            document.getElementById('offer-popup').classList.add('hidden');
+        }
+
+        // 22. Exit Intent Simulation
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0) {
+                console.log("Exit intent: Could show 22. Exit Offer here");
+            }
+        });
+
+        function toggleMenu() {
+            // Hamburger logic
+        }
     </script>
 </body>
 </html>
