@@ -3,309 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External Cleaning | Elite Landscaping</title>
+    <title>Enviro External Cleaning | Elite Landscaping & Restoration</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         :root {
-            --brand-green: #8DC63F;
-            --brand-dark: #0F172A;
-            --brand-forest: #14532D;
-            --glass: rgba(255, 255, 255, 0.05);
+            /* Branding colors based on user inputs */
+            --brand-green: #8DC63F; /* Primary Background Color */
+            --contrast-white: #FFFFFF; /* New Contrast Color */
+            --contrast-gray: #F5F5F5; /* Lighter Contrast Gray */
+            --text-dark: #121212; /* Darker text for white surfaces */
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--brand-dark); 
-            color: #ffffff;
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--brand-green); /* Primary background is Green */
+            color: var(--contrast-white); /* Main text color is White */
             overflow-x: hidden;
+            padding-bottom: 70px; /* Space for Bottom CTA Dock */
         }
 
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: -1px; }
+        h1, h2, h3 { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--contrast-white); /* Headings are White */
+        }
 
-        /* 30. Custom Scrollbar & Page Customization */
+        /* Custom Scrollbar for Green Theme */
         ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--brand-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: var(--brand-green); }
+        ::-webkit-scrollbar-thumb { background: var(--contrast-white); border-radius: 5px; }
 
-        /* 20. Bottom CTA Dock (Device Aware) */
+        /* Modified Glassmorphism Classes for Green Theme */
+        .glass {
+            background: rgba(255, 255, 255, 0.1); /* Brighter glass for green theme */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Video Branding Modification */
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(141, 198, 63, 0.9) 0%, rgba(141, 198, 63, 0.5) 100%);
+            z-index: 1;
+        }
+
+        /* Inverted Color Helpers */
+        .text-brand-dark { color: var(--text-dark); }
+        .bg-contrast-white { background-color: var(--contrast-white); }
+        .border-contrast-white { border-color: var(--contrast-white); }
+        .text-light-gray { color: #E0E0E0; }
+
+        /* Floating CTA Dock - Modified for Green Theme */
         .cta-dock {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 75px;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-            border-top: 2px solid var(--brand-green);
-            display: flex; justify-content: space-around; align-items: center;
-            z-index: 9999;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--contrast-white);
+            border-top: 2px solid var(--text-dark);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
         }
-        .dock-item { text-align: center; color: white; text-decoration: none; transition: 0.3s; }
-        .dock-item i { font-size: 1.4rem; color: var(--brand-green); display: block; margin-bottom: 3px; }
-        .dock-item span { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Smooth Reveal Base */
-        .reveal { opacity: 0; transform: translateY(50px); filter: blur(5px); transition: all 1s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
-
-        /* 17. Gallery Lightbox Enhancements */
-        .gallery-img { cursor: zoom-in; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .gallery-img:hover { transform: scale(1.05) rotate(1deg); filter: brightness(1.2); }
-
-        /* 5 & 22. Exit Intent Popup */
-        #exit-popup {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            z-index: 10000; align-items: center; justify-content: center;
+        .cta-dock a {
+            color: var(--text-dark);
         }
+
+        /* Grid Image Effects - Modified for White Surfaces */
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: var(--contrast-white);
+            color: var(--text-dark);
+            padding: 4px 12px;
+            font-weight: bold;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        .gallery-info {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.95);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        .gallery-info p { color: var(--text-dark); }
+        .gallery-item:hover .gallery-info {
+            opacity: 1;
+        }
+
+        /* Mobile Menu - Modified for Green Theme */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.77,0.2,0.05,1.0);
+            background: var(--contrast-white);
+            color: var(--text-dark);
+        }
+        #mobile-menu a { color: var(--text-dark); }
+        #mobile-menu a.special { color: var(--brand-green); }
+
+        /* Accordion Customization - Modified for Green Theme */
+        .faq-item[open] summary i { transform: rotate(180deg); }
+        .faq-item summary { color: var(--contrast-white); }
+        .faq-item p { color: var(--contrast-gray); }
+        
+        /* Animation Hide Classes for GSAP */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
     </style>
 </head>
-<body class="pb-20">
+<body>
 
-    <nav class="fixed w-full z-[1000] py-5 px-8 flex justify-between items-center transition-all duration-500" id="main-nav">
+    <nav class="fixed top-0 w-full z-50 border-b border-white/20 px-6 py-4 flex justify-between items-center glass bg-brand-green">
         <div class="flex items-center gap-3">
-            <div class="p-2 bg-[#8DC63F] rounded-xl rotate-3 shadow-[0_0_20px_rgba(141,198,63,0.4)]">
-                <i class="fas fa-leaf text-white text-xl"></i>
+            <div class="w-12 h-12 bg-contrast-white rounded-full flex items-center justify-center">
+                <i class="fas fa-leaf text-brand-dark text-2xl"></i>
             </div>
-            <span class="text-2xl font-black tracking-tighter">ENVIRO<span class="text-[#8DC63F]">EXTERNAL</span></span>
+            <div>
+                <h1 class="text-xl font-black leading-tight uppercase tracking-tighter text-contrast-white">Enviro <span class="text-light-gray">External</span></h1>
+                <p class="text-[10px] tracking-[4px] uppercase text-contrast-gray">Cleaning & Landscaping</p>
+            </div>
         </div>
-        <div class="hidden lg:flex gap-10 font-bold text-[11px] tracking-[2px]">
-            <a href="#services" class="hover:text-[#8DC63F]">SERVICES</a>
-            <a href="#projects" class="hover:text-[#8DC63F]">PROJECTS</a>
-            <a href="#booking" class="bg-[#8DC63F] text-white px-8 py-3 rounded-full hover:scale-105 transition">GET A QUOTE</a>
+        
+        <div class="hidden lg:flex gap-8 items-center font-semibold text-sm uppercase tracking-widest text-contrast-white">
+            <a href="#services" class="hover:text-light-gray transition">Services</a>
+            <a href="#projects" class="hover:text-light-gray transition">Projects</a>
+            <a href="#maintenance" class="hover:text-light-gray transition">Maintenance</a>
+            <a href="#contact" class="bg-contrast-white text-brand-dark px-6 py-3 rounded-full hover:scale-105 transition shadow-lg">Get Elite Quote</a>
         </div>
-        <div class="lg:hidden text-2xl text-[#8DC63F]"><i class="fas fa-bars-staggered"></i></div>
+
+        <button onclick="toggleMenu()" class="lg:hidden text-contrast-white text-3xl">
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
 
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
-        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+    <div id="mobile-menu" class="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-8 translate-x-full">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-brand-dark text-4xl"><i class="fas fa-times"></i></button>
+        <a href="#services" onclick="toggleMenu()" class="text-3xl font-bold">SERVICES</a>
+        <a href="#projects" onclick="toggleMenu()" class="text-3xl font-bold">OUR WORK</a>
+        <a href="#booking" onclick="toggleMenu()" class="text-3xl font-bold special font-black italic">BOOK NOW</a>
+    </div>
+
+    <header class="relative video-container h-screen overflow-hidden">
+        <video autoplay loop muted playsinline class="video-background absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 z-[-1] object-cover">
             <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
-        
-        <div class="relative z-20 text-center px-6">
-            <span class="inline-block px-4 py-1 border border-[#8DC63F] text-[#8DC63F] text-[10px] font-bold tracking-[4px] rounded-full mb-6 reveal">ESTABLISHED MERSEYSIDE EXPERTS</span>
-            <h1 class="text-6xl md:text-[9rem] leading-[0.85] font-black mb-8 reveal">TRANSFORM<br><span class="text-[#8DC63F]">OUTDOORS</span></h1>
-            <div class="flex flex-col md:flex-row justify-center gap-6 reveal">
-                <a href="#booking" class="bg-[#8DC63F] text-white px-12 py-6 rounded-sm font-black text-sm tracking-widest hover:bg-white hover:text-black transition">START MY PROJECT</a>
-                <a href="tel:07954289512" class="border-2 border-white/30 backdrop-blur-md px-12 py-6 rounded-sm font-black text-sm tracking-widest hover:border-[#8DC63F] transition">07954 289512</a>
+        <div class="video-overlay"></div>
+
+        <div class="relative z-10 h-full flex items-center px-6 md:px-20 max-w-7xl mx-auto gsap-reveal" id="hero-reveal">
+            <div class="max-w-4xl">
+                <span class="text-contrast-white font-bold tracking-[6px] uppercase mb-4 block">Premium Restoration & Landscaping</span>
+                <h2 class="text-6xl md:text-8xl font-black mb-6 leading-none text-contrast-white">THE ELITE <br><span class="text-light-gray">OUTDOOR</span> VALET.</h2>
+                <p class="text-xl text-contrast-gray mb-8 max-w-xl">Reliable, affordable, and professional service across Merseyside and Chester. Making your property look like new using eco-friendly technology.</p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#booking" class="bg-contrast-white text-brand-dark font-black py-5 px-12 rounded-sm text-lg hover:bg-light-gray transition flex items-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                        START YOUR TRANSFORMATION <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 bg-contrast-white border-y border-brand-green/20 gsap-reveal" id="stats-reveal">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="stat-item">
+                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="500">0</h3>
+                <p class="text-brand-dark uppercase tracking-widest text-xs">Gardens Perfected</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="150">0</h3>
+                <p class="text-brand-dark uppercase tracking-widest text-xs">Social Posts</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="text-5xl font-black text-brand-dark mb-2">4.9/5</h3>
+                <p class="text-brand-dark uppercase tracking-widest text-xs">Customer Rating</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="10">0</h3>
+                <p class="text-brand-dark uppercase tracking-widest text-xs">Years Expertise</p>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-[#8DC63F] text-black">
-        <div class="max-w-7xl mx-auto px-10 grid grid-cols-2 md:grid-cols-4 gap-12">
-            <div class="reveal">
-                <div class="text-6xl font-black counter" data-target="500">0</div>
-                <p class="font-bold text-xs uppercase tracking-widest">Gardens Saved</p>
-            </div>
-            <div class="reveal">
-                <div class="text-6xl font-black counter" data-target="150">0</div>
-                <p class="font-bold text-xs uppercase tracking-widest">Google Reviews</p>
-            </div>
-            <div class="reveal">
-                <div class="text-6xl font-black counter" data-target="10">0</div>
-                <p class="font-bold text-xs uppercase tracking-widest">Team Specialists</p>
-            </div>
-            <div class="reveal">
-                <div class="text-6xl font-black counter" data-target="100">0</div>
-                <p class="font-bold text-xs uppercase tracking-widest">% Satisfaction</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-32 px-8 bg-white text-black">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20">
-                <div class="reveal">
-                    <h2 class="text-5xl font-black leading-none">PREMIUM<br><span class="text-[#8DC63F]">SERVICES</span></h2>
-                </div>
-                <div class="flex gap-4 mt-8 reveal">
-                    <button class="filter-btn active text-xs font-black tracking-widest border-b-4 border-[#8DC63F] pb-2">ALL</button>
-                    <button class="filter-btn text-xs font-black tracking-widest text-gray-300 hover:text-black transition pb-2">CLEANING</button>
-                    <button class="filter-btn text-xs font-black tracking-widest text-gray-300 hover:text-black transition pb-2">LANDSCAPING</button>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="group bg-gray-50 rounded-[40px] p-10 hover:bg-[#8DC63F] transition-all duration-500 reveal">
-                    <i class="fas fa-droplet text-4xl mb-8 group-hover:text-white"></i>
-                    <h3 class="text-2xl font-black mb-4 group-hover:text-white">Pressure<br>Washing</h3>
-                    <p class="text-gray-500 group-hover:text-white/80 mb-8">Driveways, Patios, and Decking restored to factory finish.</p>
-                    <a href="#booking" class="text-xs font-black tracking-widest group-hover:text-white underline">BOOK SERVICE</a>
-                </div>
-                <div class="group bg-gray-50 rounded-[40px] p-10 hover:bg-[#8DC63F] transition-all duration-500 reveal">
-                    <i class="fas fa-leaf text-4xl mb-8 group-hover:text-white"></i>
-                    <h3 class="text-2xl font-black mb-4 group-hover:text-white">Garden<br>Design</h3>
-                    <p class="text-gray-500 group-hover:text-white/80 mb-8">Professional landscaping, turfing, and fencing installations.</p>
-                    <a href="#booking" class="text-xs font-black tracking-widest group-hover:text-white underline">REQUEST SITE VISIT</a>
-                </div>
-                <div class="group bg-gray-50 rounded-[40px] p-10 hover:bg-[#8DC63F] transition-all duration-500 reveal">
-                    <i class="fas fa-house text-4xl mb-8 group-hover:text-white"></i>
-                    <h3 class="text-2xl font-black mb-4 group-hover:text-white">Gutter &<br>Soffit</h3>
-                    <p class="text-gray-500 group-hover:text-white/80 mb-8">Full external valet for your property's UPVC and cladding.</p>
-                    <a href="#booking" class="text-xs font-black tracking-widest group-hover:text-white underline">SEE PACKAGES</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-32 px-8">
-        <h2 class="text-center text-4xl font-black mb-20 reveal">RECENT <span class="text-[#8DC63F]">TRANSFORMATIONS</span></h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-[1600px] mx-auto">
-            <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1533460004989-cef01064af7c?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800" class="gallery-img w-full h-[300px] object-cover rounded-2xl reveal">
-        </div>
-    </section>
-
-    <section id="booking" class="py-32 px-8 bg-[#8DC63F]">
-        <div class="max-w-6xl mx-auto bg-[#0F172A] p-12 md:p-20 rounded-[60px] shadow-2xl reveal">
-            <div class="grid lg:grid-cols-2 gap-20">
+    <section id="booking" class="py-24 px-6 max-w-7xl mx-auto gsap-reveal">
+        <div class="glass p-8 md:p-16 rounded-3xl border-white/20 shadow-2xl bg-brand-green/30">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-5xl font-black mb-8 italic">GET YOUR<br><span class="text-[#8DC63F]">FREE QUOTE</span></h2>
-                    <p class="text-gray-400 mb-12">Clients in Higher Bebington & Wirral trust us for high-end results. Upload your project photos below for a 24-hour response.</p>
+                    <h2 class="text-4xl md:text-5xl font-black mb-6 text-contrast-white">Request Your <span class="text-light-gray italic underline decoration-contrast-white">Site Visit</span></h2>
+                    <p class="text-contrast-gray mb-8">Select your service and choose a date. High-ticket property owners receive a complimentary video garden assessment.</p>
                     
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 mb-8">
-                        <h4 class="font-bold text-[#8DC63F] text-xs mb-4 uppercase">Current Availability</h4>
-                        <p class="font-bold">Next Site Visit Slot: <span class="text-white underline">Thursday 23rd April</span></p>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs font-bold text-gray-500">
-                        <i class="fas fa-map-marker-alt text-[#8DC63F]"></i>
-                        <span>SERVING MERSEYSIDE, CHESTER & WIRRAL</span>
-                    </div>
+                    <ul class="space-y-4 mb-8 text-contrast-white">
+                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Exact Quote Pricing</li>
+                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Professional Consultation</li>
+                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Eco-Friendly Strategy</li>
+                    </ul>
                 </div>
-                <form class="space-y-6">
-                    <input type="text" placeholder="FULL NAME" class="w-full bg-white/5 border border-white/10 p-6 rounded-xl outline-none focus:border-[#8DC63F]">
-                    <select class="w-full bg-white/5 border border-white/10 p-6 rounded-xl outline-none focus:border-[#8DC63F] font-bold text-xs uppercase">
-                        <option>Pressure Washing Quote</option>
-                        <option>Landscaping Project</option>
-                        <option>Maintenance Package</option>
+                
+                <form class="space-y-4">
+                    <select class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
+                        <option class="text-brand-dark">Select Elite Service...</option>
+                        <option class="text-brand-dark">Pressure Washing (Driveways/Patios)</option>
+                        <option class="text-brand-dark">Landscaping & Garden Design</option>
+                        <option class="text-brand-dark">Gutter Clearing & Roofline Cleaning</option>
+                        <option class="text-brand-dark">Conservatory & Cladding Valet</option>
                     </select>
-                    <div class="p-10 border-2 border-dashed border-white/10 rounded-2xl text-center cursor-pointer hover:border-[#8DC63F] transition group">
-                        <i class="fas fa-cloud-upload text-3xl mb-4 text-gray-500 group-hover:text-[#8DC63F]"></i>
-                        <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest">Upload Garden Photos (Max 5)</p>
+                    <input type="text" placeholder="Full Name" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
+                    <input type="tel" placeholder="Phone Number" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
+                    <div class="flex gap-4">
+                        <input type="date" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
                     </div>
-                    <button class="w-full bg-[#8DC63F] text-white py-6 rounded-xl font-black uppercase tracking-widest text-sm shadow-[0_20px_40px_rgba(141,198,63,0.3)]">SUBMIT ENQUIRY</button>
+                    <button class="w-full bg-contrast-white text-brand-dark font-black py-5 rounded-lg text-xl hover:bg-light-gray transition uppercase">Book Site Survey Now</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <footer class="py-32 px-8 border-t border-white/5 bg-[#0A0F1C]">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-16">
-            <div class="col-span-2 reveal">
-                <h2 class="text-3xl font-black mb-8 italic">ENVIRO<span class="text-[#8DC63F]">EXTERNAL</span></h2>
-                <p class="text-gray-500 max-w-sm mb-10 text-sm leading-relaxed">Professional property restoration using industry-leading machinery and eco-safe solutions. Based in Higher Bebington.</p>
-                <div class="flex gap-4">
-                    <a href="https://wa.me/447954289512" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#8DC63F] transition"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#8DC63F] transition"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#8DC63F] transition"><i class="fab fa-instagram"></i></a>
+    <section id="services" class="py-24 bg-contrast-white gsap-reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-5xl font-black mb-4 text-brand-dark">OUR ELITE <span class="text-brand-green">PORTFOLIO</span></h2>
+                    <p class="text-brand-dark max-w-md opacity-80">Comprehensive restoration services using industrial equipment for residential and commercial assets.</p>
+                </div>
+                <a href="#" class="text-brand-green font-bold border-b-2 border-brand-green pb-1 hover:text-brand-dark transition">View Maintenance Packages</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="services-grid">
+                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
+                    <div class="relative h-64 overflow-hidden rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Pressure Washing</h3>
+                        <p class="text-brand-dark text-sm mb-6 opacity-80">Industrial restoration of block paving, sandstone patios, and tarmac driveways.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-brand-green font-bold">FROM £199</span>
+                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
+                    <div class="relative h-64 overflow-hidden rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Gutter & Roofline</h3>
+                        <p class="text-brand-dark text-sm mb-6 opacity-80">High-reach clearing and UPVC cleaning including soffits, fascias, and cladding.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-brand-green font-bold">FROM £75</span>
+                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
+                    <div class="relative h-64 overflow-hidden rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Landscaping</h3>
+                        <p class="text-brand-dark text-sm mb-6 opacity-80">Complete design, turfing, fencing, and seasonal garden maintenance packages.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-brand-green font-bold">ELITE QUOTE</span>
+                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="reveal">
-                <h4 class="font-black text-xs uppercase tracking-widest mb-8 text-[#8DC63F]">CONTACT Info</h4>
-                <ul class="text-sm space-y-4 font-bold text-gray-400">
-                    <li>07954 289512</li>
-                    <li>enviroec@outlook.com</li>
-                    <li>CH63 3BW, Bebington</li>
-                </ul>
-            </div>
-            <div class="reveal">
-                <h4 class="font-black text-xs uppercase tracking-widest mb-8 text-[#8DC63F]">PROGRAMS</h4>
-                <ul class="text-sm space-y-4 font-bold text-gray-400">
-                    <li>23. LOYALTY PROGRAM</li>
-                    <li>26. GIFT VOUCHERS</li>
-                    <li>8. MAINTENANCE CARE</li>
-                </ul>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 px-6 bg-brand-green gsap-reveal">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-black mb-12 text-center uppercase tracking-widest text-contrast-white">Recent <span class="text-light-gray">Transformations</span></h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="project-grid">
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
+                    <span class="gallery-label">Driveway Before</span>
+                    <div class="gallery-info text-center p-4">
+                        <p class="font-bold text-lg">Driveway Before</p>
+                        <p class="text-sm">Heavily soiled, moss-covered block paving.</p>
+                    </div>
+                </div>
+                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
+                    <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    <span class="gallery-label">Driveway After</span>
+                    <div class="gallery-info text-center p-4">
+                        <p class="font-bold text-lg">Driveway After</p>
+                        <p class="text-sm">Industrial pressure wash and re-sanding transformation.</p>
+                    </div>
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
+                    <span class="gallery-label">Gutter Before</span>
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <span class="gallery-label">Gutter After</span>
+                </div>
+                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
+                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
+                    <span class="gallery-label">Garden Before</span>
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
+                </div>
+                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
+                    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    <span class="gallery-label">Patio After</span>
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1527443195645-1133e7d28990?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
+                </div>
+                <div class="gallery-item h-64 md:h-80 project-item">
+                    <img src="https://images.unsplash.com/photo-1527443195645-1133e7d28990?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 text-center text-[9px] font-black uppercase text-gray-600 tracking-[4px]">
-            &copy; 2026 ENVIRO EXTERNAL CLEANING. ALL RIGHTS RESERVED.
+    </section>
+
+    <section class="py-24 px-6 max-w-4xl mx-auto gsap-reveal">
+        <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-widest text-contrast-white">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
+                <summary class="flex justify-between items-center font-bold text-lg list-none">
+                    How long does a typical driveway clean take?
+                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
+                </summary>
+                <p class="mt-4">Most residential driveways take 4-6 hours depending on the level of grime and whether re-sanding is required.</p>
+            </details>
+            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
+                <summary class="flex justify-between items-center font-bold text-lg list-none">
+                    Are your cleaning products safe for my pets?
+                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
+                </summary>
+                <p class="mt-4">Yes, we pride ourselves on being 'Enviro' conscious. We use biodegradable, pH-neutral products wherever possible.</p>
+            </details>
+            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
+                <summary class="flex justify-between items-center font-bold text-lg list-none">
+                    Do you offer monthly maintenance?
+                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
+                </summary>
+                <p class="mt-4">We offer maintenance packages for lawns, weeding, and window cleaning to keep your property looking like new year-round.</p>
+            </details>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-contrast-white pt-24 pb-32 px-6 border-t border-brand-green/20 gsap-reveal">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 text-brand-dark">
+            <div>
+                <h3 class="text-2xl font-black mb-6 text-brand-green">ENVIRO EXTERNAL</h3>
+                <p class="mb-6 opacity-80">Professional, reliable exterior cleaning and landscaping using eco-friendly products wherever possible. Making your property look like new again.</p>
+                <div class="flex gap-4 text-2xl text-brand-green">
+                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-bold mb-6 italic underline decoration-brand-green text-brand-dark">Contact Info</h3>
+                <ul class="space-y-4 font-semibold opacity-90">
+                    <li class="flex items-center gap-3"><i class="fas fa-phone text-brand-green"></i> 07954 289512</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-green"></i> enviroec@outlook.com</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-brand-green"></i> Higher Bebington, CH63 3BW</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-clock text-brand-green"></i> Mon - Sat: 08:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-6 italic underline decoration-brand-green text-brand-dark">Service Areas</h3>
+                <div class="grid grid-cols-2 gap-2 text-sm opacity-90">
+                    <span>Higher Bebington</span>
+                    <span>Chester</span>
+                    <span>Merseyside</span>
+                    <span>Wirral</span>
+                    <span>Ellesmere Port</span>
+                    <span>Neston</span>
+                </div>
+                <div class="mt-8">
+                    <h4 class="font-bold mb-2 text-brand-dark">Subscribe for Seasonal Offers</h4>
+                    <div class="flex">
+                        <input type="email" placeholder="Email" class="bg-white/10 p-3 rounded-l-lg w-full border-brand-green/20 text-brand-dark">
+                        <button class="bg-brand-green text-contrast-white px-4 rounded-r-lg"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <div class="cta-dock">
-        <a href="tel:07954289512" class="dock-item">
-            <i class="fas fa-phone"></i>
-            <span>CALL</span>
-        </a>
-        <a href="https://wa.me/447954289512" class="dock-item">
-            <i class="fab fa-whatsapp text-[#25D366]"></i>
-            <span>WHATSAPP</span>
-        </a>
-        <a href="sms:07954289512" class="dock-item">
-            <i class="fas fa-comment-dots"></i>
-            <span>TEXT</span>
-        </a>
-        <a href="#booking" class="dock-item">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>QUOTE</span>
-        </a>
+    <div id="exit-popup" class="bg-contrast-white p-12 rounded-3xl border-2 border-brand-green text-center max-w-lg shadow-[0_0_50px_rgba(0,0,0,0.1)] text-brand-dark">
+        <h2 class="text-4xl font-black mb-4 uppercase text-brand-green">Wait! Before You Go...</h2>
+        <p class="text-xl mb-8">Get <span class="text-brand-green font-black text-2xl">10% OFF</span> your first driveway valet or gutter clean!</p>
+        <button onclick="closeExit()" class="bg-brand-green text-contrast-white font-black py-4 px-10 rounded-full text-lg uppercase shadow-xl hover:bg-brand-green/90">Claim Discount Now</button>
     </div>
 
-    <div id="exit-popup">
-        <div class="bg-[#8DC63F] text-black p-16 rounded-[40px] text-center max-w-xl mx-4">
-            <h2 class="text-5xl font-black mb-6">WAIT!</h2>
-            <p class="font-bold mb-8 uppercase tracking-widest">Get 10% off your first gutter clearing if you book today.</p>
-            <button onclick="document.getElementById('exit-popup').style.display='none'" class="bg-black text-white px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest">CLAIM DISCOUNT</button>
-        </div>
+    <div class="cta-dock lg:hidden">
+        <a href="tel:07954289512" class="flex flex-col items-center gap-1 text-[10px]">
+            <i class="fas fa-phone text-xl"></i> CALL
+        </a>
+        <a href="https://wa.me/447954289512" class="flex flex-col items-center gap-1 text-[10px]">
+            <i class="fab fa-whatsapp text-xl"></i> WHATSAPP
+        </a>
+        <a href="#booking" class="flex flex-col items-center gap-1 text-[10px]">
+            <i class="fas fa-calendar-alt text-xl"></i> QUOTE
+        </a>
+        <a href="mailto:enviroec@outlook.com" class="flex flex-col items-center gap-1 text-[10px]">
+            <i class="fas fa-envelope text-xl"></i> EMAIL
+        </a>
     </div>
 
     <script>
+        // ... (GSAP scripts remain unchanged) ...
         gsap.registerPlugin(ScrollTrigger);
 
-        // 4. Advanced Scroll Reveal
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach(el => {
-            ScrollTrigger.create({
-                trigger: el,
-                start: "top 85%",
-                onEnter: () => el.classList.add('active'),
-                onLeaveBack: () => el.classList.remove('active')
-            });
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        gsap.to("#hero-reveal", { opacity: 1, visibility: "visible", y: 0, duration: 1.5, delay: 0.5, ease: "power4.out" });
+
+        const reveals = gsap.utils.toArray('.gsap-reveal');
+        reveals.forEach((reveal) => {
+            gsap.fromTo(reveal, { opacity: 0, y: 50, visibility: "hidden" }, { opacity: 1, y: 0, visibility: "visible", duration: 1, scrollTrigger: { trigger: reveal, start: "top 80%", toggleActions: "play none none none" } });
         });
 
-        // 7. Counter Animation
+        gsap.from(".service-card", { opacity: 0, y: 30, stagger: 0.2, duration: 0.8, scrollTrigger: { trigger: "#services-grid", start: "top 70%", toggleActions: "play none none none" } });
+
+        gsap.from(".project-item", { opacity: 0, scale: 0.8, stagger: 0.1, duration: 0.7, ease: "back.out(1.7)", scrollTrigger: { trigger: "#project-grid", start: "top 70%", toggleActions: "play none none none" } });
+
         const counters = document.querySelectorAll('.counter');
-        counters.forEach(c => {
-            const target = +c.getAttribute('data-target');
-            gsap.to(c, {
-                scrollTrigger: { trigger: c, start: "top 90%" },
-                innerText: target,
-                duration: 2,
-                snap: { innerText: 1 },
-                ease: "power2.out"
-            });
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, { innerText: target, duration: 2, snap: { innerText: 1 }, scrollTrigger: { trigger: "#stats-reveal", start: "top 85%", onEnter: () => counter.innerText = 0 } });
         });
 
-        // 18. Nav Background Change on Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('main-nav');
-            if(window.scrollY > 50) {
-                nav.style.background = "rgba(15, 23, 42, 0.95)";
-                nav.style.backdropFilter = "blur(10px)";
-                nav.style.padding = "15px 30px";
-            } else {
-                nav.style.background = "transparent";
-                nav.style.backdropFilter = "none";
-                nav.style.padding = "20px 30px";
-            }
-        });
-
-        // 22. Exit Intent Trigger
-        document.addEventListener('mouseleave', (e) => {
-            if(e.clientY < 0) {
-                document.getElementById('exit-popup').style.display = 'flex';
-            }
-        });
+        let shownPopup = false;
+        document.addEventListener("mouseleave", function(e) { if (e.clientY < 0 && !shownPopup) { document.getElementById('exit-popup').style.display = 'block'; shownPopup = true; } });
+        function closeExit() { document.getElementById('exit-popup').style.display = 'none'; }
     </script>
 </body>
 </html>
