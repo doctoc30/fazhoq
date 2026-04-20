@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External | Elite Landscaping & Property Restoration</title>
+    <title>Enviro External | Elite Landscaping & Garden Design</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -12,255 +12,224 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --brand: #8DC63F; --dark: #121212; --glass: rgba(255, 255, 255, 0.95); }
+        :root { --brand: #8DC63F; --white: #ffffff; }
         
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: var(--brand); 
-            color: var(--dark);
+            color: #1a1a1a;
             overflow-x: hidden;
             padding-bottom: 100px;
         }
 
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: -1px; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
 
-        /* 31. Full Page Slide Menu */
-        #mobile-menu {
+        /* 31. Full Page Slide Menu - NOW BRAND GREEN */
+        #full-page-menu {
             position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: #0f1a04; z-index: 5000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            background: var(--brand); z-index: 5000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
-        #mobile-menu.active { right: 0; }
-        .menu-item { font-size: 3rem; color: white; margin: 15px 0; font-family: 'Montserrat'; italic; }
-        .menu-item:hover { color: var(--brand); transform: scale(1.1); }
+        #full-page-menu.active { transform: translateX(-100%); }
+        .menu-link { 
+            font-size: clamp(2rem, 8vw, 4rem); font-family: 'Montserrat'; color: white; 
+            margin: 10px 0; transition: 0.4s; letter-spacing: -2px; italic;
+        }
+        .menu-link:hover { color: #1a1a1a; transform: translateX(20px); }
 
-        /* Elite Card Design */
+        /* Card Design */
         .elite-card {
-            background: var(--glass);
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
+            background: white;
+            border-radius: 50px 5px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: transform 0.3s ease;
+            border: none;
         }
 
-        /* 4. Hero Text Animations */
-        .hero-line { display: inline-block; will-change: transform; }
-        .reveal { opacity: 0; transform: translateY(40px); }
+        /* 4. Hero Text Slide Physics */
+        .hero-title-wrap { overflow: hidden; white-space: nowrap; }
+        .hero-title-line { display: inline-block; will-change: transform; }
 
         /* 20. CTA App Dock */
         .cta-dock {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 480px; height: 80px; background: white;
-            border-radius: 100px; display: flex; justify-content: space-around;
-            align-items: center; z-index: 4000; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 2px solid #0f1a04;
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 500px; height: 85px; 
+            background: white; border-radius: 100px; display: flex; 
+            justify-content: space-around; align-items: center; z-index: 4000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 2px solid #f0f0f0;
         }
-        .dock-link { text-align: center; font-size: 22px; color: #0f1a04; text-decoration: none; }
-        .dock-link span { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; }
+        .dock-item { text-align: center; color: #1a1a1a; text-decoration: none; }
+        .dock-item i { font-size: 22px; display: block; color: var(--brand); }
+        .dock-item span { font-size: 9px; font-weight: 800; text-transform: uppercase; }
 
-        /* 17. Image Hover */
-        .img-zoom { transition: 0.5s; cursor: pointer; }
-        .img-zoom:hover { transform: scale(1.05); }
-
-        /* Responsive Utility */
-        @media (max-width: 768px) {
-            .menu-item { font-size: 2rem; }
-            h1 { font-size: 3.5rem !important; }
+        .reveal { opacity: 0; transform: translateY(50px); }
+        
+        /* Unsplash Overlay */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(141, 198, 63, 0.4), rgba(141, 198, 63, 0.8));
         }
     </style>
 </head>
-<body class="bg-[#8DC63F]">
+<body>
 
-    <div id="mobile-menu">
-        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-white text-5xl">&times;</button>
-        <a href="#services" onclick="toggleMenu()" class="menu-item">SERVICES</a>
-        <a href="#projects" onclick="toggleMenu()" class="menu-item">PROJECTS</a>
-        <a href="#maintenance" onclick="toggleMenu()" class="menu-item">MAINTENANCE</a>
-        <a href="#quote" onclick="toggleMenu()" class="menu-item text-[#8DC63F]">GET QUOTE</a>
+    <div id="full-page-menu">
+        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-white text-6xl">&times;</button>
+        <div class="text-center">
+            <a href="#services" onclick="toggleMenu()" class="menu-link block italic">01. SERVICES</a>
+            <a href="#landscape" onclick="toggleMenu()" class="menu-link block italic">02. LANDSCAPING</a>
+            <a href="#maintenance" onclick="toggleMenu()" class="menu-link block italic">03. MAINTENANCE</a>
+            <a href="#quote" onclick="toggleMenu()" class="menu-link block italic">04. GET QUOTE</a>
+        </div>
     </div>
 
-    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-[4000] bg-white/90 backdrop-blur-md rounded-full px-6 py-4 flex justify-between items-center shadow-xl">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-leaf text-[#8DC63F] text-2xl"></i>
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-[4000] bg-white rounded-full px-8 py-4 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#8DC63F] rounded-full flex items-center justify-center">
+                <i class="fas fa-leaf text-white"></i>
+            </div>
             <span class="font-black text-xl italic uppercase tracking-tighter">Enviro<span class="text-[#8DC63F]">External</span></span>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="tel:07954289512" class="hidden md:block font-extrabold text-xs">07954 289512</a>
-            <button onclick="toggleMenu()" class="bg-black text-white w-12 h-12 rounded-full flex items-center justify-center">
-                <i class="fas fa-bars-staggered"></i>
-            </button>
-        </div>
+        <button onclick="toggleMenu()" class="bg-black text-white w-12 h-12 rounded-full flex items-center justify-center">
+            <i class="fas fa-bars-staggered"></i>
+        </button>
     </nav>
 
-    <header class="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-60">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
-        </video>
+    <header class="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+        <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
         <div class="relative z-10 text-center px-4">
-            <div class="overflow-hidden">
-                <h1 id="hero-1" class="hero-line text-6xl md:text-[12rem] text-white font-black italic leading-none">PRESTIGE</h1>
+            <div class="hero-title-wrap">
+                <h1 id="hero-left" class="hero-title-line text-6xl md:text-[11rem] text-white font-black italic">ELITE</h1>
             </div>
-            <div class="overflow-hidden">
-                <h1 id="hero-2" class="hero-line text-6xl md:text-[12rem] text-[#8DC63F] font-black italic leading-none">GARDENS</h1>
+            <div class="hero-title-wrap">
+                <h1 id="hero-right" class="hero-title-line text-6xl md:text-[11rem] text-black font-black italic">OUTDOORS</h1>
             </div>
-            <p class="text-white font-bold tracking-[10px] uppercase mt-8 reveal">Bebington • Wirral • Chester</p>
+            <p class="text-white font-bold tracking-[12px] uppercase mt-10 reveal">Merseyside • Wirral • Chester</p>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 -mt-24 relative z-20">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-            <div class="elite-card p-8 text-center reveal">
-                <div class="text-4xl font-black text-[#8DC63F] counter" data-target="500">0</div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-2">Projects</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            <div class="elite-card p-10 text-center reveal">
+                <div class="text-5xl font-black text-[#8DC63F] counter" data-target="500">0</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Projects</p>
             </div>
-            <div class="elite-card p-8 text-center reveal">
-                <div class="text-4xl font-black text-[#8DC63F] counter" data-target="150">0</div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-2">Reviews</p>
+            <div class="elite-card p-10 text-center reveal">
+                <div class="text-5xl font-black text-[#8DC63F]">4.9</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Rating</p>
             </div>
-            <div class="elite-card p-8 text-center reveal">
-                <div class="text-4xl font-black text-[#8DC63F]">4.9</div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-2">Star Rating</p>
+            <div class="elite-card p-10 text-center reveal">
+                <div class="text-5xl font-black text-[#8DC63F] counter" data-target="150">0</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Reviews</p>
             </div>
-            <div class="elite-card p-8 text-center reveal">
-                <div class="text-4xl font-black text-[#8DC63F]">10yr</div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-2">Experience</p>
+            <div class="elite-card p-10 text-center reveal">
+                <div class="text-5xl font-black text-[#8DC63F]">100%</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Local</p>
             </div>
         </div>
 
         <section id="services" class="mb-20">
-            <h2 class="text-white text-4xl font-black italic mb-10 text-center">Elite Services</h2>
-            <div class="grid md:grid-cols-3 gap-6">
+            <h2 class="text-white text-5xl font-black italic mb-12 text-center">Elite Landscaping</h2>
+            <div class="grid md:grid-cols-3 gap-8">
                 <div class="elite-card reveal group">
-                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=800" class="w-full h-full object-cover img-zoom"></div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-3">Hard Landscaping</h3>
-                        <p class="text-sm text-gray-500 mb-6 font-medium">Bespoke Indian Stone & Porcelain Paving.</p>
-                        <a href="#quote" class="bg-[#8DC63F] text-white px-6 py-3 rounded-full text-[10px] font-black uppercase">Enquire</a>
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-10">
+                        <h3 class="text-2xl font-black mb-4">Hard Landscaping</h3>
+                        <p class="text-sm text-gray-400 mb-6 font-medium">Bespoke Indian Stone, Porcelain Paving & Custom Walls.</p>
+                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">BOOK SURVEY</a>
                     </div>
                 </div>
                 <div class="elite-card reveal group">
-                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=800" class="w-full h-full object-cover img-zoom"></div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-3">Exterior Valet</h3>
-                        <p class="text-sm text-gray-500 mb-6 font-medium">Commercial Grade Pressure Restoration.</p>
-                        <a href="#quote" class="bg-black text-white px-6 py-3 rounded-full text-[10px] font-black uppercase">Book Now</a>
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-10">
+                        <h3 class="text-2xl font-black mb-4">Garden Design</h3>
+                        <p class="text-sm text-gray-400 mb-6 font-medium">Full transformations, turfing and drainage solutions.</p>
+                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">VIEW PACKAGES</a>
                     </div>
                 </div>
                 <div class="elite-card reveal group">
-                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=800" class="w-full h-full object-cover img-zoom"></div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-3">Fencing & Turf</h3>
-                        <p class="text-sm text-gray-500 mb-6 font-medium">Premium Timber & Lush Artificial Grass.</p>
-                        <a href="#quote" class="bg-[#8DC63F] text-white px-6 py-3 rounded-full text-[10px] font-black uppercase">Survey</a>
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="maintenance" class="mb-20 reveal">
-            <div class="elite-card bg-[#0f1a04] text-white p-10 md:p-20 border-none">
-                <div class="grid lg:grid-cols-2 gap-10 items-center">
-                    <div>
-                        <h3 class="text-[#8DC63F] font-black text-xs tracking-widest mb-4">Maintenance Packages</h3>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6">ALL-SEASON CARE</h2>
-                        <div class="space-y-4 mb-8">
-                            <div class="flex justify-between border-b border-white/10 pb-2"><span>Monthly Lawn Care</span><span class="font-black text-[#8DC63F]">£25</span></div>
-                            <div class="flex justify-between border-b border-white/10 pb-2"><span>Full Garden Valet</span><span class="font-black text-[#8DC63F]">£65</span></div>
-                        </div>
-                        <button class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase hover:bg-[#8DC63F] hover:text-white transition">Join The Program</button>
-                    </div>
-                    <div class="rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=800">
+                    <div class="p-10">
+                        <h3 class="text-2xl font-black mb-4">External Valet</h3>
+                        <p class="text-sm text-gray-400 mb-6 font-medium">Commercial pressure cleaning for driveways & patios.</p>
+                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">GET PRICE</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="quote" class="mb-20 reveal">
-            <div class="elite-card p-10 md:p-20">
-                <div class="grid lg:grid-cols-2 gap-16">
+            <div class="elite-card p-12 md:p-24">
+                <div class="grid lg:grid-cols-2 gap-20">
                     <div>
-                        <h2 class="text-4xl font-black italic mb-6">BOOK YOUR<br><span class="text-[#8DC63F]">VALUATION</span></h2>
-                        <p class="text-gray-500 font-medium mb-10">Based in Higher Bebington (CH63 3BW), we serve the entire Wirral and Chester region. Fast, fixed-price quotes.</p>
-                        
+                        <h2 class="text-5xl font-black mb-8 italic leading-tight">Start Your<br><span class="text-[#8DC63F]">Transformation</span></h2>
+                        <p class="text-gray-400 mb-10 font-bold">Serving Bebington (CH63) and surrounding Wirral areas. Free site visits and accurate digital quotes.</p>
                         <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <i class="fas fa-map-marked-alt text-2xl text-[#8DC63F]"></i>
-                                <div><p class="text-[9px] font-black uppercase text-gray-400">21. Service Area</p><p class="font-bold">Wirral, Chester, Merseyside</p></div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <i class="fas fa-calendar-alt text-2xl text-[#8DC63F]"></i>
-                                <div><p class="text-[9px] font-black uppercase text-gray-400">13. Availability</p><p class="font-bold">Surveys Mon-Sat</p></div>
+                            <div class="flex items-center gap-4 bg-gray-50 p-6 rounded-3xl border-l-4 border-[#8DC63F]">
+                                <i class="fas fa-map-marker-alt text-[#8DC63F]"></i>
+                                <div><p class="text-[9px] font-black uppercase">21. Service Area</p><p class="font-bold">Wirral & Cheshire</p></div>
                             </div>
                         </div>
                     </div>
-                    <form class="space-y-4">
-                        <input type="text" placeholder="Full Name" class="w-full bg-gray-100 p-5 rounded-2xl outline-none focus:ring-2 focus:ring-[#8DC63F] font-bold">
-                        <input type="tel" placeholder="Phone Number" class="w-full bg-gray-100 p-5 rounded-2xl outline-none focus:ring-2 focus:ring-[#8DC63F] font-bold">
-                        <select class="w-full bg-gray-100 p-5 rounded-2xl font-bold text-gray-400">
-                            <option>Driveway Restoration</option>
-                            <option>Garden Landscaping</option>
-                            <option>Fencing/Turfing</option>
+                    <form class="space-y-6">
+                        <input type="text" placeholder="Full Name" class="w-full border-b-2 border-gray-100 p-4 outline-none focus:border-[#8DC63F] font-bold">
+                        <select class="w-full border-b-2 border-gray-100 p-4 outline-none font-bold text-gray-400">
+                            <option>New Patio/Paving</option>
+                            <option>Full Landscaping</option>
+                            <option>Driveway Cleaning</option>
                         </select>
-                        <div class="border-2 border-dashed border-gray-200 p-10 rounded-3xl text-center hover:bg-gray-50 transition cursor-pointer">
-                            <i class="fas fa-camera text-2xl text-gray-300 mb-2"></i>
-                            <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Attach Photos For A Fast Price</p>
+                        <div class="border-2 border-dashed border-[#8DC63F]/20 p-10 rounded-3xl text-center bg-[#8DC63F]/5">
+                            <i class="fas fa-camera text-2xl text-[#8DC63F] mb-4"></i>
+                            <p class="text-[10px] font-black uppercase">Upload Garden Photos for Quote</p>
                         </div>
-                        <button class="w-full bg-black text-white py-6 rounded-full font-black uppercase tracking-widest shadow-xl hover:bg-[#8DC63F] transition">Request My Quote</button>
+                        <button class="w-full bg-black text-white py-6 rounded-full font-black uppercase tracking-widest shadow-2xl hover:bg-[#8DC63F] transition">Send Enquiry</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <section class="grid md:grid-cols-3 gap-6 mb-20 reveal">
-            <div class="elite-card p-10">
-                <h4 class="font-black text-xs mb-4 text-[#8DC63F]">3. FREQUENTLY ASKED</h4>
-                <details class="mb-2 cursor-pointer font-bold text-xs"><summary>Do you offer warranties?</summary><p class="text-[10px] text-gray-500 mt-2">All paving work comes with a 5-year structural guarantee.</p></details>
-                <details class="cursor-pointer font-bold text-xs"><summary>Are you insured?</summary><p class="text-[10px] text-gray-500 mt-2">Fully insured up to £5m Public Liability.</p></details>
+        <div class="grid md:grid-cols-3 gap-6 mb-20">
+            <div class="elite-card p-10 reveal">
+                <h3 class="font-black text-xs text-[#8DC63F] mb-4 tracking-widest">3. FAQ</h3>
+                <details class="cursor-pointer font-bold text-xs mb-2"><summary>Fully Insured?</summary><p class="mt-2 text-gray-400">Up to £5m Public Liability.</p></details>
             </div>
-            <div class="elite-card p-10 bg-[#0f1a04] text-white">
+            <div class="elite-card p-10 bg-black text-white reveal">
                 <i class="fas fa-medal text-3xl mb-4 text-[#8DC63F]"></i>
-                <h4 class="font-black text-xs mb-2 tracking-widest">23. LOYALTY PROGRAM</h4>
-                <p class="text-[10px] font-medium opacity-60">10% off for returning driveway cleaning clients every year.</p>
+                <h3 class="font-black text-xs mb-2 tracking-widest">23. LOYALTY</h3>
+                <p class="text-[10px] font-bold opacity-50 uppercase">Discounts for annual maintenance clients.</p>
             </div>
-            <div class="elite-card p-10 bg-white">
+            <div class="elite-card p-10 reveal">
                 <i class="fas fa-gift text-3xl mb-4 text-[#8DC63F]"></i>
-                <h4 class="font-black text-xs mb-2 tracking-widest">26. GIFT VOUCHERS</h4>
-                <p class="text-[10px] font-bold text-gray-400">Gift a patio valet. Vouchers available from £50.</p>
+                <h3 class="font-black text-xs mb-2 tracking-widest">26. VOUCHERS</h3>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gift a garden makeover.</p>
             </div>
-        </section>
+        </div>
 
     </main>
 
-    <footer class="bg-white py-24 px-10 reveal">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-            <div class="col-span-2">
-                <h2 class="text-4xl font-black italic mb-6">ENVIRO<span class="text-[#8DC63F]">EXTERNAL</span></h2>
-                <p class="text-gray-400 font-bold max-w-sm">Premium Landscaping and External Restoration for Wirral and Cheshire Properties.</p>
-            </div>
-            <div>
-                <h4 class="font-black text-xs mb-6 uppercase text-[#8DC63F]">Contact</h4>
-                <p class="font-black text-sm mb-2">07954 289512</p>
-                <p class="font-black text-sm">enviroec@outlook.com</p>
-            </div>
-            <div>
-                <h4 class="font-black text-xs mb-6 uppercase text-[#8DC63F]">Socials</h4>
-                <div class="flex gap-4 text-2xl">
-                    <i class="fab fa-instagram"></i><i class="fab fa-facebook"></i><i class="fab fa-whatsapp"></i>
-                </div>
-            </div>
+    <footer class="bg-white py-20 px-10 text-center reveal">
+        <h2 class="text-4xl font-black italic mb-6">ENVIRO<span class="text-[#8DC63F]">EXTERNAL</span></h2>
+        <div class="flex justify-center gap-6 mb-10 text-xl">
+            <i class="fab fa-instagram"></i><i class="fab fa-facebook"></i><i class="fab fa-whatsapp"></i>
         </div>
-        <div class="text-center mt-20 text-[10px] font-black text-gray-300 tracking-[8px]">© 2026 ENVIRO EXTERNAL CLEANING</div>
+        <p class="text-[10px] font-black text-gray-300 tracking-[10px]">© 2026 ENVIRO EXTERNAL CLEANING</p>
     </footer>
 
     <div class="cta-dock">
-        <a href="tel:07954289512" class="dock-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
-        <a href="https://wa.me/447954289512" class="dock-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
-        <a href="sms:07954289512" class="dock-link"><i class="fas fa-comment"></i><span>Text</span></a>
-        <a href="#quote" class="dock-link">
+        <a href="tel:07954289512" class="dock-item"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+        <a href="https://wa.me/447954289512" class="dock-item"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
+        <a href="sms:07954289512" class="dock-item"><i class="fas fa-comment"></i><span>Text</span></a>
+        <a href="#quote" class="dock-item">
             <div class="w-16 h-16 bg-[#8DC63F] rounded-full flex items-center justify-center -mt-12 shadow-2xl border-4 border-white text-white">
                 <i class="fas fa-file-invoice-dollar m-0"></i>
             </div>
@@ -271,30 +240,29 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // 31. Menu Toggle
         function toggleMenu() {
-            document.getElementById('mobile-menu').classList.toggle('active');
+            document.getElementById('full-page-menu').classList.toggle('active');
         }
 
-        // Hero Scroll Animation (Physics Text)
-        gsap.to("#hero-1", {
+        // Hero Scroll Animation
+        gsap.to("#hero-left", {
             scrollTrigger: { trigger: "header", start: "top top", scrub: 1 },
             x: -300
         });
-        gsap.to("#hero-2", {
+        gsap.to("#hero-right", {
             scrollTrigger: { trigger: "header", start: "top top", scrub: 1 },
             x: 300
         });
 
-        // Global Reveal
+        // Global Reveals
         gsap.utils.toArray('.reveal').forEach(el => {
             gsap.to(el, {
                 scrollTrigger: { trigger: el, start: "top 85%" },
-                opacity: 1, y: 0, duration: 1, ease: "power2.out"
+                opacity: 1, y: 0, duration: 1, ease: "power3.out"
             });
         });
 
-        // 7. Counter Logic
+        // Counter
         gsap.utils.toArray('.counter').forEach(el => {
             const target = +el.getAttribute('data-target');
             gsap.to(el, { scrollTrigger: el, innerText: target, duration: 2, snap: { innerText: 1 } });
