@@ -3,172 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External Cleaning | Professional Landscaping</title>
+    <title>Enviro External Cleaning | Elite Landscaping & Restoration</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
         :root {
             --brand-green: #8DC63F;
-            --dark-gray: #333333;
-            --light-bg: #F9FAFB;
+            --premium-dark: #1A1C1E;
+            --soft-white: #F8FAFC;
+            --accent-gray: #64748B;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--dark-gray);
-            overflow-x: hidden;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--soft-white); color: var(--premium-dark); scroll-behavior: smooth; }
+        h1, h2, h3, .nav-link { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
 
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 10px; }
 
-        .text-brand { color: var(--brand-green); }
-        .bg-brand { background-color: var(--brand-green); }
-
-        /* Video Hero */
-        .hero-video-container {
-            position: relative;
-            height: 90vh;
-            overflow: hidden;
-        }
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            z-index: -1;
-        }
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.7); /* Lighter overlay for clean look */
-        }
-
-        /* Gallery Item */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-        .gallery-item img { transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.05); }
-
-        .gsap-reveal { opacity: 0; transform: translateY(30px); }
+        /* Feature Styling */
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .hero-gradient { background: linear-gradient(rgba(26, 28, 30, 0.6), rgba(26, 28, 30, 0.6)); }
+        
+        /* Grid Layout Fixes */
+        .grid-10 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        
+        /* Floating CTA Dock */
+        .cta-dock { position: fixed; bottom: 0; width: 100%; background: white; border-top: 2px solid var(--brand-green); z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
+        
+        /* Lightbox Simulation */
+        .lightbox-trigger:hover { cursor: zoom-in; transform: scale(1.02); transition: 0.3s; }
+        
+        .service-filter-btn.active { background-color: var(--brand-green); color: white; }
+        .gsap-reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+    <nav class="fixed w-full z-[100] glass-nav py-4 px-6 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-brand rounded-lg flex items-center justify-center text-white">
+            <div class="w-10 h-10 bg-[#8DC63F] flex items-center justify-center rounded-lg text-white">
                 <i class="fas fa-leaf"></i>
             </div>
-            <span class="text-xl font-black tracking-tighter">ENVIRO <span class="text-brand">EXTERNAL</span></span>
+            <span class="text-xl font-black tracking-tighter">ENVIRO <span class="text-[#8DC63F]">EXTERNAL</span></span>
         </div>
-        <a href="tel:07954289512" class="bg-brand text-white px-5 py-2 rounded-full font-bold hover:shadow-lg transition">
-            Call 07954 289512
-        </a>
+        <div class="hidden lg:flex gap-8 items-center text-xs font-bold tracking-widest">
+            <a href="#services" class="hover:text-[#8DC63F] transition">Services</a>
+            <a href="#maintenance" class="hover:text-[#8DC63F] transition">Maintenance</a>
+            <a href="#projects" class="hover:text-[#8DC63F] transition">Portfolio</a>
+            <a href="#booking" class="bg-[#8DC63F] text-white px-6 py-3 rounded-full hover:shadow-xl transition">Request Quote</a>
+        </div>
+        <button class="lg:hidden text-2xl"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <section class="hero-video-container flex items-center px-6">
-        <video autoplay loop muted playsinline class="hero-video">
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <video autoplay loop muted playsinline class="absolute w-full h-full object-cover">
             <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
         </video>
-        <div class="hero-overlay"></div>
-        <div class="relative z-10 max-w-4xl mx-auto text-center gsap-reveal">
-            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight text-gray-900">
-                Premium Exterior <br><span class="text-brand">Restoration</span>
-            </h1>
-            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Professional cleaning and landscaping services across Merseyside & Chester. 
-                Using eco-friendly technology to make your property look brand new.
-            </p>
-            <a href="#quote" class="bg-brand text-white text-lg font-black px-10 py-4 rounded-md shadow-xl hover:brightness-110 transition inline-block">
-                GET A FREE QUOTE
-            </a>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 gsap-reveal">
-                <h2 class="text-4xl font-black mb-4">Our Expertise</h2>
-                <div class="h-1.5 w-20 bg-brand mx-auto"></div>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="gsap-reveal p-8 bg-gray-50 rounded-2xl border-b-4 border-brand">
-                    <i class="fas fa-faucet-drip text-4xl text-brand mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">Pressure Washing</h3>
-                    <p class="text-gray-500">Deep cleaning for driveways, patios, and block paving using industrial power.</p>
-                </div>
-                <div class="gsap-reveal p-8 bg-gray-50 rounded-2xl border-b-4 border-brand">
-                    <i class="fas fa-broom text-4xl text-brand mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">Gutter Clearing</h3>
-                    <p class="text-gray-500">High-reach vacuum systems to clear debris and ensure perfect drainage.</p>
-                </div>
-                <div class="gsap-reveal p-8 bg-gray-50 rounded-2xl border-b-4 border-brand">
-                    <i class="fas fa-tree text-4xl text-brand mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">Landscaping</h3>
-                    <p class="text-gray-500">From new turf to complete garden design and fencing installations.</p>
-                </div>
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="relative z-10 text-center px-4 gsap-reveal">
+            <span class="text-[#8DC63F] font-bold tracking-[5px] uppercase mb-4 block">Merseyside's Elite Landscapers</span>
+            <h1 class="text-5xl md:text-8xl font-black text-white leading-none mb-8">Outdoor <br>Perfection.</h1>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#booking" class="bg-[#8DC63F] text-white px-10 py-5 font-black rounded-sm hover:bg-white hover:text-black transition uppercase tracking-widest">Book Site Visit</a>
+                <a href="#projects" class="border-2 border-white text-white px-10 py-5 font-black rounded-sm hover:bg-white hover:text-black transition uppercase tracking-widest">View Portfolio</a>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-gray-50 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-black mb-12 text-center gsap-reveal">Transformation Gallery</h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1533460004989-cef01064af7c?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
-                <div class="gallery-item h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=400" class="w-full h-full object-cover"></div>
+    <section class="py-12 bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl font-black text-[#8DC63F] count" data-target="500">0</div>
+                <div class="text-[10px] uppercase font-bold text-gray-400">Gardens Transformed</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-[#8DC63F] count" data-target="150">0</div>
+                <div class="text-[10px] uppercase font-bold text-gray-400">Five Star Reviews</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-[#8DC63F] count" data-target="12">0</div>
+                <div class="text-[10px] uppercase font-bold text-gray-400">Service Areas</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-[#8DC63F] count" data-target="10">0</div>
+                <div class="text-[10px] uppercase font-bold text-gray-400">Years Experience</div>
             </div>
         </div>
     </section>
 
-    <section id="quote" class="py-20 bg-white px-6">
-        <div class="max-w-4xl mx-auto bg-gray-900 rounded-3xl p-10 text-white gsap-reveal shadow-2xl">
-            <h2 class="text-3xl font-black mb-6 text-center text-brand">Get Your Free Quote</h2>
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input type="text" placeholder="Your Name" class="bg-gray-800 border-none p-4 rounded-lg focus:ring-2 focus:ring-brand">
-                <input type="tel" placeholder="Phone Number" class="bg-gray-800 border-none p-4 rounded-lg focus:ring-2 focus:ring-brand">
-                <select class="bg-gray-800 border-none p-4 rounded-lg focus:ring-2 focus:ring-brand md:col-span-2">
-                    <option>Select Service</option>
-                    <option>Driveway Cleaning</option>
-                    <option>Landscaping</option>
-                    <option>Gutter Clearing</option>
+    <section id="booking" class="py-24 bg-[#f1f5f9] px-6">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 bg-white rounded-3xl p-8 shadow-2xl overflow-hidden gsap-reveal">
+            <div>
+                <h2 class="text-4xl font-black mb-6">Request Your <span class="text-[#8DC63F]">Elite Quote</span></h2>
+                <p class="text-gray-500 mb-8">Upload photos of your garden for a faster, accurate digital estimate or book a physical site visit below.</p>
+                <div class="bg-gray-50 rounded-xl p-6 border-2 border-dashed border-gray-200 text-center">
+                    <i class="fas fa-calendar-alt text-4xl text-[#8DC63F] mb-4"></i>
+                    <p class="font-bold">Calendly Integration Ready</p>
+                    <p class="text-sm text-gray-400">Live booking calendar loads here</p>
+                </div>
+            </div>
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="Name" class="w-full p-4 bg-gray-100 rounded-lg outline-none">
+                    <input type="tel" placeholder="Phone" class="w-full p-4 bg-gray-100 rounded-lg outline-none">
+                </div>
+                <select class="w-full p-4 bg-gray-100 rounded-lg outline-none">
+                    <option>Select Landscaping Service</option>
+                    <option>Full Garden Design</option>
+                    <option>Patio & Paving</option>
+                    <option>Fencing & Turfing</option>
                 </select>
-                <button class="md:col-span-2 bg-brand text-gray-900 font-black py-4 rounded-lg text-xl uppercase tracking-widest hover:bg-white transition">Request Site Visit</button>
+                <div class="p-8 border-2 border-dashed border-[#8DC63F]/30 rounded-lg text-center cursor-pointer hover:bg-[#8DC63F]/5 transition">
+                    <i class="fas fa-camera text-2xl text-[#8DC63F] mb-2"></i>
+                    <p class="text-xs font-bold">25. UPLOAD GARDEN PHOTOS FOR QUOTE</p>
+                </div>
+                <button class="w-full bg-[#8DC63F] text-white py-5 font-black uppercase tracking-widest rounded-lg">Submit Enquiry</button>
             </form>
         </div>
     </section>
 
-    <footer class="py-10 text-center text-gray-400 text-sm">
-        <p>&copy; 2026 Enviro External Cleaning & Landscaping. Merseyside & Chester.</p>
+    <section id="services" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="gsap-reveal">
+                    <h2 class="text-4xl font-black">Elite <span class="text-[#8DC63F]">Services</span></h2>
+                    <p class="text-gray-400">Filtering through our premium exterior solutions</p>
+                </div>
+                <div class="flex flex-wrap gap-2 gsap-reveal">
+                    <button class="service-filter-btn active px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase">All</button>
+                    <button class="service-filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase">Cleaning</button>
+                    <button class="service-filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase">Landscaping</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-2xl shadow-xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-2xl font-black mb-2">Premium Paving</h3>
+                        <p class="text-gray-300 text-sm mb-4">Sandstone, Porcelain, and Block Paving experts.</p>
+                        <a href="#" class="text-[#8DC63F] font-bold text-xs underline">15. PAY DEPOSIT ONLINE</a>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl shadow-xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-2xl font-black mb-2">Lush Turfing</h3>
+                        <p class="text-gray-300 text-sm mb-4">Grade A turf and artificial grass installations.</p>
+                        <a href="#" class="text-[#8DC63F] font-bold text-xs underline">15. BOOK SERVICE</a>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl shadow-xl gsap-reveal">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-white text-2xl font-black mb-2">Driveway Valet</h3>
+                        <p class="text-gray-300 text-sm mb-4">Industrial grade restoration & cleaning.</p>
+                        <a href="#" class="text-[#8DC63F] font-bold text-xs underline">15. VIEW PACKAGES</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 bg-gray-50 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-black text-center mb-16 gsap-reveal">Recent <span class="text-[#8DC63F]">Transformations</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1533460004989-cef01064af7c?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+                <div class="gallery-item lightbox-trigger h-48 gsap-reveal"><img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=400" class="w-full h-full object-cover rounded-lg shadow"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-black mb-12 text-center gsap-reveal">Project <span class="text-[#8DC63F]">Videos</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center gsap-reveal"><i class="fas fa-play-circle text-4xl text-[#8DC63F]"></i></div>
+                <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center gsap-reveal"><i class="fas fa-play-circle text-4xl text-[#8DC63F]"></i></div>
+                <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center gsap-reveal"><i class="fas fa-play-circle text-4xl text-[#8DC63F]"></i></div>
+                <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center gsap-reveal"><i class="fas fa-play-circle text-4xl text-[#8DC63F]"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
+            <div class="gsap-reveal">
+                <h2 class="text-3xl font-black mb-8">Landscaping <span class="text-[#8DC63F]">FAQs</span></h2>
+                <div class="space-y-4">
+                    <details class="group bg-white/5 p-6 rounded-xl border border-white/10 cursor-pointer">
+                        <summary class="font-bold flex justify-between items-center list-none">How long does a driveway clean take? <i class="fas fa-plus text-[#8DC63F]"></i></summary>
+                        <p class="mt-4 text-gray-400 text-sm">Most residential driveways take 4-6 hours depending on soil levels and drainage capacity.</p>
+                    </details>
+                    <details class="group bg-white/5 p-6 rounded-xl border border-white/10 cursor-pointer">
+                        <summary class="font-bold flex justify-between items-center list-none">Are your products pet safe? <i class="fas fa-plus text-[#8DC63F]"></i></summary>
+                        <p class="mt-4 text-gray-400 text-sm">Yes, we pride ourselves on using eco-friendly, biodegradable solutions that are safe for pets and plants.</p>
+                    </details>
+                </div>
+            </div>
+            <div class="gsap-reveal">
+                <h2 class="text-3xl font-black mb-8">Client <span class="text-[#8DC63F]">Vibe</span></h2>
+                <div class="bg-white p-8 rounded-2xl text-black">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="flex text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <span class="font-black">Google Review</span>
+                    </div>
+                    <p class="italic text-gray-600 mb-4">"Enviro transformed our back garden from a jungle into a premium sandstone oasis in just 4 days. Professional and tidy!"</p>
+                    <p class="font-bold">- James M, Chester</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="gsap-reveal">
+                    <h2 class="text-4xl font-black mb-6">Meet The <span class="text-[#8DC63F]">Crew</span></h2>
+                    <div class="flex gap-4">
+                        <div class="w-32 h-32 bg-gray-200 rounded-full"></div>
+                        <div>
+                            <h3 class="text-xl font-bold">Liam Smith</h3>
+                            <p class="text-[#8DC63F] font-bold text-xs mb-2">Lead Designer & Founder</p>
+                            <p class="text-gray-500 text-xs">Liam has over 10 years experience in landscape architecture and external restoration.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-3xl gsap-reveal">
+                    <h3 class="text-xl font-black mb-4 italic uppercase">13. Weekly Availability</h3>
+                    <ul class="space-y-2 text-sm font-bold">
+                        <li class="flex justify-between border-b py-2"><span>Mon - Fri</span> <span class="text-green-500">AVAILABLE</span></li>
+                        <li class="flex justify-between border-b py-2"><span>Saturday</span> <span class="text-orange-500">BOOKED</span></li>
+                        <li class="flex justify-between py-2"><span>Sunday</span> <span class="text-red-500">CLOSED</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="popup-offer" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white p-12 rounded-3xl z-[2000] shadow-2xl text-center">
+        <button class="absolute top-4 right-4 text-gray-400" onclick="closePopup()"><i class="fas fa-times"></i></button>
+        <span class="bg-[#8DC63F] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4 inline-block">Limited Time Offer</span>
+        <h2 class="text-4xl font-black mb-4">15% OFF <br>SPRING TURFING</h2>
+        <p class="text-gray-500 mb-8">Book before May 1st to claim your premium garden discount.</p>
+        <button class="bg-[#8DC63F] text-white w-full py-4 font-black uppercase tracking-widest rounded-lg">Claim Offer Now</button>
+    </div>
+
+    <div class="cta-dock md:hidden">
+        <div class="flex justify-around items-center p-4">
+            <a href="tel:07954289512" class="text-center"><i class="fas fa-phone text-xl mb-1"></i><p class="text-[8px] font-bold uppercase">Call</p></a>
+            <a href="https://wa.me/447954289512" class="text-center"><i class="fab fa-whatsapp text-xl mb-1"></i><p class="text-[8px] font-bold uppercase">WhatsApp</p></a>
+            <a href="#booking" class="bg-[#8DC63F] text-white px-6 py-2 rounded-full text-[10px] font-black uppercase">Get Quote</a>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white pt-24 pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 border-b border-white/5 pb-16 mb-12">
+            <div class="col-span-1 md:col-span-2">
+                <h3 class="text-2xl font-black mb-6">Enviro <span class="text-[#8DC63F]">External</span></h3>
+                <p class="text-gray-400 text-sm max-w-sm mb-6">Merseyside & Chester's premier choice for exterior restoration, cleaning, and landscape design. Professional, reliable, and elite.</p>
+                <div class="flex max-w-sm">
+                    <input type="email" placeholder="Email Updates" class="bg-white/5 border border-white/10 p-4 rounded-l-lg w-full text-sm">
+                    <button class="bg-[#8DC63F] p-4 rounded-r-lg"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-black mb-6 uppercase text-xs tracking-widest">21. Service Areas</h4>
+                <ul class="text-gray-400 text-sm space-y-2 font-bold">
+                    <li>Higher Bebington</li>
+                    <li>Wirral & Chester</li>
+                    <li>Neston & Parkgate</li>
+                    <li>Ellesmere Port</li>
+                    <li>Merseyside</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black mb-6 uppercase text-xs tracking-widest">Company</h4>
+                <ul class="text-gray-400 text-sm space-y-2 font-bold">
+                    <li>07954 289512</li>
+                    <li>enviroec@outlook.com</li>
+                    <li>23. Loyalty Program</li>
+                    <li>26. Buy Gift Cards</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto text-center text-gray-600 text-[10px] uppercase font-bold tracking-widest">
+            &copy; 2026 Enviro External Cleaning. All Rights Reserved.
+        </div>
     </footer>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animation for all elements with class .gsap-reveal
-        const reveals = gsap.utils.toArray('.gsap-reveal');
-        reveals.forEach((el) => {
+        // 4. Scroll Animations Engine
+        const revealElements = gsap.utils.toArray('.gsap-reveal');
+        revealElements.forEach((el) => {
             gsap.to(el, {
                 scrollTrigger: {
                     trigger: el,
@@ -177,9 +323,41 @@
                 },
                 opacity: 1,
                 y: 0,
-                duration: 1,
-                ease: "power2.out"
+                duration: 1.2,
+                ease: "power3.out"
             });
+        });
+
+        // 7. Counter Animation
+        const counters = document.querySelectorAll('.count');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+                scrollTrigger: {
+                    trigger: counter,
+                    start: "top 90%"
+                },
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "none"
+            });
+        });
+
+        // 5. Limited Offer Popup Logic
+        setTimeout(() => {
+            document.getElementById('popup-offer').classList.remove('hidden');
+        }, 5000);
+
+        function closePopup() {
+            document.getElementById('popup-offer').classList.add('hidden');
+        }
+
+        // 22. Exit Intent Simulation
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0) {
+                console.log("Exit Intent Triggered: Show Discount Code");
+            }
         });
     </script>
 </body>
