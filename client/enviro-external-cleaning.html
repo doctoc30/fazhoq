@@ -3,483 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External Cleaning | Elite Landscaping & Restoration</title>
+    <title>Enviro App | Premium Restoration</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        :root {
-            /* Branding colors based on user inputs */
-            --brand-green: #8DC63F; /* Primary Background Color */
-            --contrast-white: #FFFFFF; /* New Contrast Color */
-            --contrast-gray: #F5F5F5; /* Lighter Contrast Gray */
-            --text-dark: #121212; /* Darker text for white surfaces */
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--brand-green); /* Primary background is Green */
-            color: var(--contrast-white); /* Main text color is White */
+        :root { --brand: #8DC63F; --app-bg: #8DC63F; --card: #ffffff; }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--app-bg); 
+            color: #1a1a1a;
             overflow-x: hidden;
-            padding-bottom: 70px; /* Space for Bottom CTA Dock */
+            margin: 0;
+            padding-bottom: 90px; /* Space for the dock */
         }
 
-        h1, h2, h3 { 
-            font-family: 'Montserrat', sans-serif; 
-            color: var(--contrast-white); /* Headings are White */
+        /* App-like Card Styling */
+        .app-card {
+            background: var(--card);
+            border-radius: 32px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-bottom: 20px;
         }
 
-        /* Custom Scrollbar for Green Theme */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--brand-green); }
-        ::-webkit-scrollbar-thumb { background: var(--contrast-white); border-radius: 5px; }
-
-        /* Modified Glassmorphism Classes for Green Theme */
-        .glass {
-            background: rgba(255, 255, 255, 0.1); /* Brighter glass for green theme */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Hero Video Branding Modification */
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(141, 198, 63, 0.9) 0%, rgba(141, 198, 63, 0.5) 100%);
-            z-index: 1;
-        }
-
-        /* Inverted Color Helpers */
-        .text-brand-dark { color: var(--text-dark); }
-        .bg-contrast-white { background-color: var(--contrast-white); }
-        .border-contrast-white { border-color: var(--contrast-white); }
-        .text-light-gray { color: #E0E0E0; }
-
-        /* Floating CTA Dock - Modified for Green Theme */
-        .cta-dock {
+        /* 20. Bottom CTA Dock (App Navigation Style) */
+        .app-dock {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--contrast-white);
-            border-top: 2px solid var(--text-dark);
-            z-index: 1000;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
             display: flex;
             justify-content: space-around;
-            padding: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            align-items: center;
+            z-index: 9999;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
         }
-        .cta-dock a {
-            color: var(--text-dark);
-        }
-
-        /* Grid Image Effects - Modified for White Surfaces */
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 12px;
-            position: relative;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        .gallery-item img {
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-label {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: var(--contrast-white);
-            color: var(--text-dark);
-            padding: 4px 12px;
-            font-weight: bold;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            z-index: 2;
-        }
-        .gallery-info {
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.95);
-            color: var(--text-dark);
+        .dock-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
+            text-decoration: none;
+            color: #4b5563;
+            transition: 0.3s;
         }
-        .gallery-info p { color: var(--text-dark); }
-        .gallery-item:hover .gallery-info {
-            opacity: 1;
-        }
+        .dock-btn i { font-size: 1.4rem; margin-bottom: 4px; color: var(--brand); }
+        .dock-btn span { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .dock-btn:active { transform: scale(0.9); }
 
-        /* Mobile Menu - Modified for Green Theme */
-        #mobile-menu {
-            transition: transform 0.4s cubic-bezier(0.77,0.2,0.05,1.0);
-            background: var(--contrast-white);
-            color: var(--text-dark);
-        }
-        #mobile-menu a { color: var(--text-dark); }
-        #mobile-menu a.special { color: var(--brand-green); }
+        /* Smooth Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); }
 
-        /* Accordion Customization - Modified for Green Theme */
-        .faq-item[open] summary i { transform: rotate(180deg); }
-        .faq-item summary { color: var(--contrast-white); }
-        .faq-item p { color: var(--contrast-gray); }
-        
-        /* Animation Hide Classes for GSAP */
-        .gsap-reveal { opacity: 0; visibility: hidden; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 0px; } /* App-like hidden scrollbar */
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 border-b border-white/20 px-6 py-4 flex justify-between items-center glass bg-brand-green">
+    <nav class="sticky top-0 z-[1000] px-6 py-4 flex justify-between items-center bg-white/20 backdrop-blur-md border-b border-white/30">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-contrast-white rounded-full flex items-center justify-center">
-                <i class="fas fa-leaf text-brand-dark text-2xl"></i>
+            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg">
+                <i class="fas fa-leaf text-[#8DC63F]"></i>
             </div>
-            <div>
-                <h1 class="text-xl font-black leading-tight uppercase tracking-tighter text-contrast-white">Enviro <span class="text-light-gray">External</span></h1>
-                <p class="text-[10px] tracking-[4px] uppercase text-contrast-gray">Cleaning & Landscaping</p>
-            </div>
+            <span class="text-white font-extrabold text-lg tracking-tight uppercase">Enviro<span class="opacity-70">App</span></span>
         </div>
-        
-        <div class="hidden lg:flex gap-8 items-center font-semibold text-sm uppercase tracking-widest text-contrast-white">
-            <a href="#services" class="hover:text-light-gray transition">Services</a>
-            <a href="#projects" class="hover:text-light-gray transition">Projects</a>
-            <a href="#maintenance" class="hover:text-light-gray transition">Maintenance</a>
-            <a href="#contact" class="bg-contrast-white text-brand-dark px-6 py-3 rounded-full hover:scale-105 transition shadow-lg">Get Elite Quote</a>
+        <div class="flex gap-4">
+            <a href="tel:07954289512" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#8DC63F] shadow-md">
+                <i class="fas fa-phone"></i>
+            </a>
         </div>
-
-        <button onclick="toggleMenu()" class="lg:hidden text-contrast-white text-3xl">
-            <i class="fas fa-bars"></i>
-        </button>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-8 translate-x-full">
-        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-brand-dark text-4xl"><i class="fas fa-times"></i></button>
-        <a href="#services" onclick="toggleMenu()" class="text-3xl font-bold">SERVICES</a>
-        <a href="#projects" onclick="toggleMenu()" class="text-3xl font-bold">OUR WORK</a>
-        <a href="#booking" onclick="toggleMenu()" class="text-3xl font-bold special font-black italic">BOOK NOW</a>
-    </div>
+    <main class="px-5 pt-8 max-w-2xl mx-auto">
+        
+        <section class="app-card relative h-[450px] flex items-end p-8 reveal">
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="relative z-10 text-white">
+                <h1 class="text-4xl font-extrabold leading-none mb-4">RESTORING<br>YOUR PROPERTY.</h1>
+                <p class="text-white/80 text-sm font-medium mb-6">Expert exterior cleaning across Merseyside & Chester.</p>
+                <a href="#quote" class="inline-block bg-white text-[#8DC63F] px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl">Get Started</a>
+            </div>
+        </section>
 
-    <header class="relative video-container h-screen overflow-hidden">
-        <video autoplay loop muted playsinline class="video-background absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 z-[-1] object-cover">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
-
-        <div class="relative z-10 h-full flex items-center px-6 md:px-20 max-w-7xl mx-auto gsap-reveal" id="hero-reveal">
-            <div class="max-w-4xl">
-                <span class="text-contrast-white font-bold tracking-[6px] uppercase mb-4 block">Premium Restoration & Landscaping</span>
-                <h2 class="text-6xl md:text-8xl font-black mb-6 leading-none text-contrast-white">THE ELITE <br><span class="text-light-gray">OUTDOOR</span> VALET.</h2>
-                <p class="text-xl text-contrast-gray mb-8 max-w-xl">Reliable, affordable, and professional service across Merseyside and Chester. Making your property look like new using eco-friendly technology.</p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <a href="#booking" class="bg-contrast-white text-brand-dark font-black py-5 px-12 rounded-sm text-lg hover:bg-light-gray transition flex items-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                        START YOUR TRANSFORMATION <i class="fas fa-arrow-right"></i>
-                    </a>
+        <div class="grid grid-cols-2 gap-4 mb-5">
+            <div class="app-card p-6 flex flex-col items-center justify-center reveal">
+                <span class="text-3xl font-black text-[#8DC63F] counter" data-target="500">0</span>
+                <span class="text-[10px] font-bold opacity-40 uppercase">Gardens Saved</span>
+            </div>
+            <div class="app-card p-6 flex flex-col items-center justify-center reveal">
+                <span class="text-3xl font-black text-[#8DC63F]">4.9</span>
+                <div class="flex text-yellow-400 text-[8px] mt-1">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
             </div>
         </div>
-    </header>
 
-    <section class="py-12 bg-contrast-white border-y border-brand-green/20 gsap-reveal" id="stats-reveal">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div class="stat-item">
-                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="500">0</h3>
-                <p class="text-brand-dark uppercase tracking-widest text-xs">Gardens Perfected</p>
+        <section class="mb-8 reveal">
+            <div class="flex justify-between items-center mb-4 px-2">
+                <h2 class="font-extrabold text-white uppercase tracking-tight">Top Services</h2>
+                <span class="text-white/60 text-xs font-bold">View All</span>
             </div>
-            <div class="stat-item">
-                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="150">0</h3>
-                <p class="text-brand-dark uppercase tracking-widest text-xs">Social Posts</p>
-            </div>
-            <div class="stat-item">
-                <h3 class="text-5xl font-black text-brand-dark mb-2">4.9/5</h3>
-                <p class="text-brand-dark uppercase tracking-widest text-xs">Customer Rating</p>
-            </div>
-            <div class="stat-item">
-                <h3 class="text-5xl font-black text-brand-dark mb-2 counter" data-target="10">0</h3>
-                <p class="text-brand-dark uppercase tracking-widest text-xs">Years Expertise</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="booking" class="py-24 px-6 max-w-7xl mx-auto gsap-reveal">
-        <div class="glass p-8 md:p-16 rounded-3xl border-white/20 shadow-2xl bg-brand-green/30">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-black mb-6 text-contrast-white">Request Your <span class="text-light-gray italic underline decoration-contrast-white">Site Visit</span></h2>
-                    <p class="text-contrast-gray mb-8">Select your service and choose a date. High-ticket property owners receive a complimentary video garden assessment.</p>
-                    
-                    <ul class="space-y-4 mb-8 text-contrast-white">
-                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Exact Quote Pricing</li>
-                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Professional Consultation</li>
-                        <li class="flex items-center gap-3 text-lg"><i class="fas fa-check-circle text-contrast-white"></i> Eco-Friendly Strategy</li>
-                    </ul>
+            <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+                <div class="app-card min-w-[200px] p-6 text-center">
+                    <i class="fas fa-tint text-2xl text-[#8DC63F] mb-4"></i>
+                    <h3 class="font-bold text-sm">Pressure Wash</h3>
                 </div>
-                
-                <form class="space-y-4">
-                    <select class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
-                        <option class="text-brand-dark">Select Elite Service...</option>
-                        <option class="text-brand-dark">Pressure Washing (Driveways/Patios)</option>
-                        <option class="text-brand-dark">Landscaping & Garden Design</option>
-                        <option class="text-brand-dark">Gutter Clearing & Roofline Cleaning</option>
-                        <option class="text-brand-dark">Conservatory & Cladding Valet</option>
+                <div class="app-card min-w-[200px] p-6 text-center">
+                    <i class="fas fa-broom text-2xl text-[#8DC63F] mb-4"></i>
+                    <h3 class="font-bold text-sm">Gutter Clear</h3>
+                </div>
+                <div class="app-card min-w-[200px] p-6 text-center">
+                    <i class="fas fa-tree text-2xl text-[#8DC63F] mb-4"></i>
+                    <h3 class="font-bold text-sm">Landscaping</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="quote" class="app-card p-8 reveal">
+            <h2 class="text-2xl font-black mb-2">Request Quote</h2>
+            <p class="text-gray-400 text-xs mb-8">Higher Bebington, CH63 3BW & Surrounding Areas</p>
+            
+            <form class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold uppercase text-gray-400 ml-2">Service Type</label>
+                    <select class="w-full bg-gray-100 p-4 rounded-2xl outline-none border-none font-bold text-sm">
+                        <option>Driveway Cleaning</option>
+                        <option>Gutter Restoration</option>
+                        <option>Full Landscaping</option>
                     </select>
-                    <input type="text" placeholder="Full Name" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
-                    <input type="tel" placeholder="Phone Number" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
-                    <div class="flex gap-4">
-                        <input type="date" class="w-full bg-white/10 border border-white/20 p-5 rounded-lg text-contrast-white">
-                    </div>
-                    <button class="w-full bg-contrast-white text-brand-dark font-black py-5 rounded-lg text-xl hover:bg-light-gray transition uppercase">Book Site Survey Now</button>
-                </form>
+                </div>
+                <input type="text" placeholder="Your Name" class="w-full bg-gray-100 p-4 rounded-2xl outline-none border-none font-bold text-sm">
+                
+                <div class="border-2 border-dashed border-[#8DC63F]/30 bg-[#8DC63F]/5 p-8 rounded-2xl text-center">
+                    <i class="fas fa-camera text-[#8DC63F] text-xl mb-2"></i>
+                    <p class="text-[10px] font-bold text-[#8DC63F]">UPLOAD PROPERTY PHOTOS</p>
+                </div>
+
+                <button class="w-full bg-[#8DC63F] text-white py-5 rounded-2xl font-black uppercase text-sm tracking-widest shadow-lg active:scale-95 transition">Send Request</button>
+            </form>
+        </section>
+
+        <section class="app-card p-8 reveal">
+            <h2 class="font-black text-lg mb-6 uppercase">FAQ</h2>
+            <div class="space-y-4">
+                <details class="group">
+                    <summary class="list-none font-bold text-sm flex justify-between items-center cursor-pointer">
+                        Service Areas? <i class="fas fa-plus text-[#8DC63F] group-open:rotate-45 transition"></i>
+                    </summary>
+                    <p class="text-xs text-gray-500 mt-2">We cover Wirral, Merseyside, and Chester (CH63 3BW base).</p>
+                </details>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="services" class="py-24 bg-contrast-white gsap-reveal">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
-                <div>
-                    <h2 class="text-5xl font-black mb-4 text-brand-dark">OUR ELITE <span class="text-brand-green">PORTFOLIO</span></h2>
-                    <p class="text-brand-dark max-w-md opacity-80">Comprehensive restoration services using industrial equipment for residential and commercial assets.</p>
-                </div>
-                <a href="#" class="text-brand-green font-bold border-b-2 border-brand-green pb-1 hover:text-brand-dark transition">View Maintenance Packages</a>
-            </div>
+        <footer class="text-center py-10 reveal">
+            <p class="text-white/60 text-[10px] font-bold tracking-[3px] uppercase">Enviro External Cleaning & Landscaping</p>
+            <p class="text-white/40 text-[9px] mt-2 italic">© 2026 Professional Restoration</p>
+        </footer>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="services-grid">
-                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
-                    <div class="relative h-64 overflow-hidden rounded-xl">
-                        <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
-                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Pressure Washing</h3>
-                        <p class="text-brand-dark text-sm mb-6 opacity-80">Industrial restoration of block paving, sandstone patios, and tarmac driveways.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-brand-green font-bold">FROM £199</span>
-                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
-                        </div>
-                    </div>
-                </div>
+    </main>
 
-                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
-                    <div class="relative h-64 overflow-hidden rounded-xl">
-                        <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
-                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Gutter & Roofline</h3>
-                        <p class="text-brand-dark text-sm mb-6 opacity-80">High-reach clearing and UPVC cleaning including soffits, fascias, and cladding.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-brand-green font-bold">FROM £75</span>
-                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass p-1 rounded-2xl group overflow-hidden service-card bg-brand-green/10 border-brand-green/20">
-                    <div class="relative h-64 overflow-hidden rounded-xl">
-                        <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-covergrayscale group-hover:grayscale-0 transition duration-700">
-                        <div class="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition"></div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3 uppercase italic text-brand-dark">Landscaping</h3>
-                        <p class="text-brand-dark text-sm mb-6 opacity-80">Complete design, turfing, fencing, and seasonal garden maintenance packages.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-brand-green font-bold">ELITE QUOTE</span>
-                            <button class="text-brand-dark hover:text-brand-green"><i class="fas fa-plus-circle text-2xl"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-24 px-6 bg-brand-green gsap-reveal">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-black mb-12 text-center uppercase tracking-widest text-contrast-white">Recent <span class="text-light-gray">Transformations</span></h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="project-grid">
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
-                    <span class="gallery-label">Driveway Before</span>
-                    <div class="gallery-info text-center p-4">
-                        <p class="font-bold text-lg">Driveway Before</p>
-                        <p class="text-sm">Heavily soiled, moss-covered block paving.</p>
-                    </div>
-                </div>
-                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
-                    <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
-                    <span class="gallery-label">Driveway After</span>
-                    <div class="gallery-info text-center p-4">
-                        <p class="font-bold text-lg">Driveway After</p>
-                        <p class="text-sm">Industrial pressure wash and re-sanding transformation.</p>
-                    </div>
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
-                    <span class="gallery-label">Gutter Before</span>
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-                    <span class="gallery-label">Gutter After</span>
-                </div>
-                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
-                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
-                    <span class="gallery-label">Garden Before</span>
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
-                </div>
-                <div class="gallery-item h-64 md:h-80 col-span-2 project-item">
-                    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
-                    <span class="gallery-label">Patio After</span>
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1527443195645-1133e7d28990?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale">
-                </div>
-                <div class="gallery-item h-64 md:h-80 project-item">
-                    <img src="https://images.unsplash.com/photo-1527443195645-1133e7d28990?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 max-w-4xl mx-auto gsap-reveal">
-        <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-widest text-contrast-white">Frequently Asked Questions</h2>
-        <div class="space-y-4">
-            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-lg list-none">
-                    How long does a typical driveway clean take?
-                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
-                </summary>
-                <p class="mt-4">Most residential driveways take 4-6 hours depending on the level of grime and whether re-sanding is required.</p>
-            </details>
-            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-lg list-none">
-                    Are your cleaning products safe for my pets?
-                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
-                </summary>
-                <p class="mt-4">Yes, we pride ourselves on being 'Enviro' conscious. We use biodegradable, pH-neutral products wherever possible.</p>
-            </details>
-            <details class="faq-item glass p-6 rounded-xl cursor-pointer">
-                <summary class="flex justify-between items-center font-bold text-lg list-none">
-                    Do you offer monthly maintenance?
-                    <i class="fas fa-chevron-down text-contrast-white transition-transform"></i>
-                </summary>
-                <p class="mt-4">We offer maintenance packages for lawns, weeding, and window cleaning to keep your property looking like new year-round.</p>
-            </details>
-        </div>
-    </section>
-
-    <footer id="contact" class="bg-contrast-white pt-24 pb-32 px-6 border-t border-brand-green/20 gsap-reveal">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 text-brand-dark">
-            <div>
-                <h3 class="text-2xl font-black mb-6 text-brand-green">ENVIRO EXTERNAL</h3>
-                <p class="mb-6 opacity-80">Professional, reliable exterior cleaning and landscaping using eco-friendly products wherever possible. Making your property look like new again.</p>
-                <div class="flex gap-4 text-2xl text-brand-green">
-                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-brand-dark transition"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            
-            <div>
-                <h3 class="text-xl font-bold mb-6 italic underline decoration-brand-green text-brand-dark">Contact Info</h3>
-                <ul class="space-y-4 font-semibold opacity-90">
-                    <li class="flex items-center gap-3"><i class="fas fa-phone text-brand-green"></i> 07954 289512</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-green"></i> enviroec@outlook.com</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-brand-green"></i> Higher Bebington, CH63 3BW</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-clock text-brand-green"></i> Mon - Sat: 08:00 - 18:00</li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-xl font-bold mb-6 italic underline decoration-brand-green text-brand-dark">Service Areas</h3>
-                <div class="grid grid-cols-2 gap-2 text-sm opacity-90">
-                    <span>Higher Bebington</span>
-                    <span>Chester</span>
-                    <span>Merseyside</span>
-                    <span>Wirral</span>
-                    <span>Ellesmere Port</span>
-                    <span>Neston</span>
-                </div>
-                <div class="mt-8">
-                    <h4 class="font-bold mb-2 text-brand-dark">Subscribe for Seasonal Offers</h4>
-                    <div class="flex">
-                        <input type="email" placeholder="Email" class="bg-white/10 p-3 rounded-l-lg w-full border-brand-green/20 text-brand-dark">
-                        <button class="bg-brand-green text-contrast-white px-4 rounded-r-lg"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div id="exit-popup" class="bg-contrast-white p-12 rounded-3xl border-2 border-brand-green text-center max-w-lg shadow-[0_0_50px_rgba(0,0,0,0.1)] text-brand-dark">
-        <h2 class="text-4xl font-black mb-4 uppercase text-brand-green">Wait! Before You Go...</h2>
-        <p class="text-xl mb-8">Get <span class="text-brand-green font-black text-2xl">10% OFF</span> your first driveway valet or gutter clean!</p>
-        <button onclick="closeExit()" class="bg-brand-green text-contrast-white font-black py-4 px-10 rounded-full text-lg uppercase shadow-xl hover:bg-brand-green/90">Claim Discount Now</button>
-    </div>
-
-    <div class="cta-dock lg:hidden">
-        <a href="tel:07954289512" class="flex flex-col items-center gap-1 text-[10px]">
-            <i class="fas fa-phone text-xl"></i> CALL
+    <div class="app-dock">
+        <a href="tel:07954289512" class="dock-btn">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call</span>
         </a>
-        <a href="https://wa.me/447954289512" class="flex flex-col items-center gap-1 text-[10px]">
-            <i class="fab fa-whatsapp text-xl"></i> WHATSAPP
+        <a href="https://wa.me/447954289512" class="dock-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
         </a>
-        <a href="#booking" class="flex flex-col items-center gap-1 text-[10px]">
-            <i class="fas fa-calendar-alt text-xl"></i> QUOTE
+        <a href="sms:07954289512" class="dock-btn">
+            <i class="fas fa-comment-alt"></i>
+            <span>SMS</span>
         </a>
-        <a href="mailto:enviroec@outlook.com" class="flex flex-col items-center gap-1 text-[10px]">
-            <i class="fas fa-envelope text-xl"></i> EMAIL
+        <a href="#quote" class="dock-btn">
+            <div class="w-12 h-12 bg-[#8DC63F] rounded-2xl flex items-center justify-center mb-1 shadow-lg shadow-[#8DC63F]/40 transform -translate-y-4">
+                <i class="fas fa-file-invoice text-white m-0"></i>
+            </div>
+            <span class="text-[#8DC63F] font-black">Quote</span>
         </a>
     </div>
 
     <script>
-        // ... (GSAP scripts remain unchanged) ...
         gsap.registerPlugin(ScrollTrigger);
 
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('translate-x-full');
-        }
-
-        gsap.to("#hero-reveal", { opacity: 1, visibility: "visible", y: 0, duration: 1.5, delay: 0.5, ease: "power4.out" });
-
-        const reveals = gsap.utils.toArray('.gsap-reveal');
-        reveals.forEach((reveal) => {
-            gsap.fromTo(reveal, { opacity: 0, y: 50, visibility: "hidden" }, { opacity: 1, y: 0, visibility: "visible", duration: 1, scrollTrigger: { trigger: reveal, start: "top 80%", toggleActions: "play none none none" } });
+        // 4. Scroll Animations Engine
+        gsap.utils.toArray('.reveal').forEach((card, i) => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                delay: i * 0.1
+            });
         });
 
-        gsap.from(".service-card", { opacity: 0, y: 30, stagger: 0.2, duration: 0.8, scrollTrigger: { trigger: "#services-grid", start: "top 70%", toggleActions: "play none none none" } });
-
-        gsap.from(".project-item", { opacity: 0, scale: 0.8, stagger: 0.1, duration: 0.7, ease: "back.out(1.7)", scrollTrigger: { trigger: "#project-grid", start: "top 70%", toggleActions: "play none none none" } });
-
-        const counters = document.querySelectorAll('.counter');
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            gsap.to(counter, { innerText: target, duration: 2, snap: { innerText: 1 }, scrollTrigger: { trigger: "#stats-reveal", start: "top 85%", onEnter: () => counter.innerText = 0 } });
+        // 7. Counter Engine
+        gsap.utils.toArray('.counter').forEach(el => {
+            const target = +el.getAttribute('data-target');
+            gsap.to(el, {
+                scrollTrigger: el,
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 }
+            });
         });
 
-        let shownPopup = false;
-        document.addEventListener("mouseleave", function(e) { if (e.clientY < 0 && !shownPopup) { document.getElementById('exit-popup').style.display = 'block'; shownPopup = true; } });
-        function closeExit() { document.getElementById('exit-popup').style.display = 'none'; }
+        // 5 & 22. Exit Intent simulation
+        window.addEventListener('mouseleave', () => {
+            console.log("App-style Exit Intent Triggered");
+        });
     </script>
 </body>
 </html>
