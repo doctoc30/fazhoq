@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valor Barbers | Premium Men's Grooming - Luton</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --accent: #C5B39D; /* Matches the tan in the VB logo */
+            --dark: #0A0A0A;
+        }
+        body { background: #050505; color: #fff; font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.9; font-weight: 900; }
+        .glass-panel { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
+        
+        .btn-elite { background: var(--accent); color: #000; padding: 18px 36px; font-family: 'Archivo Black'; font-size: 11px; letter-spacing: 2px; transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); text-align: center; display: inline-block; cursor: pointer; border: none; }
+        .btn-elite:hover { background: #fff; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(197,179,157,0.2); }
+        
+        .menu-link:hover { color: var(--accent); }
+        #chatbot-widget { position: fixed; bottom: 100px; right: 24px; z-index: 999; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        
+        .ticker-wrap { background: var(--accent); color: black; padding: 12px 0; font-family: 'Archivo Black'; font-size: 10px; letter-spacing: 2px; }
+        .bottom-dock { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--accent); z-index: 500; display: flex; justify-content: space-around; padding: 12px 20px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+        .dock-item i { stroke: var(--accent); }
+        
+        .before-after-slider { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        .slider-handle { background: var(--accent); }
+        
+        ::-webkit-scrollbar-thumb { background: var(--accent); }
+        
+        .hero-slider-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; filter: brightness(0.3); }
+        .booking-container { display: flex; flex-wrap: wrap; background: rgba(0,0,0,0.6); border: 1px solid var(--accent); padding: 6px; border-radius: 4px; margin-top: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .booking-field { background: transparent; border: none; color: white !important; padding: 12px 20px; font-size: 13px; text-transform: uppercase; outline: none; flex: 1; min-width: 150px; border-right: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+<div id="exitPopup" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border-2 border-[--accent] p-8 z-[2000] text-center rounded-xl hidden max-w-sm w-[90%]">
+    <h3 class="font-huge text-2xl mb-2">BEFORE YOU GO</h3>
+    <p class="text-sm opacity-70 mb-6">Book your first session now and get a complimentary hair wash.</p>
+    <button class="btn-elite w-full" onclick="location.href='https://valorbarbers.booksy.com/a'">SECURE NOW</button>
+    <button class="text-xs mt-4 opacity-50" id="closeExitPopup">Maybe later</button>
+</div>
+
+<header class="fixed top-0 w-full z-[500] flex justify-between items-center px-6 py-4 md:px-12 bg-black/50 backdrop-blur-md">
+    <div class="flex items-center gap-3">
+        <div class="font-huge text-3xl text-white">VB<span class="text-[--accent]">.</span></div>
+        <span class="text-[10px] tracking-widest uppercase opacity-50 hidden sm:block">Valor Barbers Luton</span>
+    </div>
+    <nav class="hidden lg:flex gap-8 items-center text-[10px] font-bold tracking-[0.2em] uppercase">
+        <a href="#services" class="hover:text-[--accent] transition">Services</a>
+        <a href="#gallery" class="hover:text-[--accent] transition">Gallery</a>
+        <a href="#team" class="hover:text-[--accent] transition">The Team</a>
+        <a href="#contact" class="hover:text-[--accent] transition">Location</a>
+        <a href="https://valorbarbers.booksy.com/a" class="border border-[--accent] px-4 py-2 hover:bg-[--accent] hover:text-black transition">Book Online</a>
+    </nav>
+    <button id="menu-btn" class="lg:hidden p-2 border border-white/20 rounded">
+        <i data-lucide="menu"></i>
+    </button>
+</header>
+
+<main id="main-content">
+    <section class="relative h-screen flex items-center justify-center text-center px-6">
+        <div class="swiper heroSwiper hero-slider-bg">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80" class="w-full h-full object-cover"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621605815841-aa897808795c?auto=format&fit=crop&q=80" class="w-full h-full object-cover"></div>
+            </div>
+        </div>
+        <div class="relative z-10 bob-up">
+            <h4 class="text-[--accent] font-bold tracking-[0.4em] mb-4 text-[10px] uppercase">Premium Men's Grooming</h4>
+            <h1 class="font-huge text-[clamp(2.5rem,8vw,8rem)] mb-6">STEP IN OR<br>STAY AVERAGE.</h1>
+            <div class="booking-container hidden md:flex">
+                <div class="booking-field flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-4 text-[--accent]"></i> Luton, LU2
+                </div>
+                <select class="booking-field">
+                    <option>Standard Haircut</option>
+                    <option>Skin Fade</option>
+                    <option>Beard Sculpt</option>
+                </select>
+                <button class="btn-elite" onclick="location.href='https://valorbarbers.booksy.com/a'">BOOK VIA BOOKSY</button>
+            </div>
+            <button class="btn-elite md:hidden mt-4" onclick="location.href='https://valorbarbers.booksy.com/a'">BOOK APPOINTMENT</button>
+        </div>
+    </section>
+
+    <section class="py-20 bg-zinc-950 border-y border-white/5">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
+            <div><span class="font-huge text-4xl text-[--accent] stat-number" data-target="1500">0</span><p class="text-[10px] uppercase tracking-widest mt-2">Cuts Completed</p></div>
+            <div><span class="font-huge text-4xl text-[--accent] stat-number" data-target="100">0</span><p class="text-[10px] uppercase tracking-widest mt-2">% Satisfaction</p></div>
+            <div><span class="font-huge text-4xl text-[--accent] stat-number" data-target="5">0</span><p class="text-[10px] uppercase tracking-widest mt-2">Master Barbers</p></div>
+            <div><span class="font-huge text-4xl text-[--accent] stat-number" data-target="2024">0</span><p class="text-[10px] uppercase tracking-widest mt-2">Est. Year</p></div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="font-huge text-5xl md:text-7xl mb-16 text-center">THE SERVICES</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass-panel p-10 hover:border-[--accent] transition-all group">
+                <i data-lucide="scissors" class="w-10 h-10 text-[--accent] mb-6"></i>
+                <h3 class="font-huge text-2xl mb-2">PRECISION CUT</h3>
+                <p class="text-sm opacity-50 mb-6">Valor signature style with taper and line up.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-xl">£25+</span>
+                    <a href="https://valorbarbers.booksy.com/a" class="text-[--accent] text-xs font-bold underline">BOOK NOW</a>
+                </div>
+            </div>
+            <div class="glass-panel p-10 hover:border-[--accent] transition-all">
+                <i data-lucide="zap" class="w-10 h-10 text-[--accent] mb-6"></i>
+                <h3 class="font-huge text-2xl mb-2">SKIN FADE</h3>
+                <p class="text-sm opacity-50 mb-6">High, mid, or low fade with razor finish.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-xl">£30+</span>
+                    <a href="https://valorbarbers.booksy.com/a" class="text-[--accent] text-xs font-bold underline">BOOK NOW</a>
+                </div>
+            </div>
+            <div class="glass-panel p-10 hover:border-[--accent] transition-all">
+                <i data-lucide="beard" class="w-10 h-10 text-[--accent] mb-6"></i>
+                <h3 class="font-huge text-2xl mb-2">BEARD SCULPT</h3>
+                <p class="text-sm opacity-50 mb-6">Shape, trim and hot towel finish.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-xl">£15+</span>
+                    <a href="https://valorbarbers.booksy.com/a" class="text-[--accent] text-xs font-bold underline">BOOK NOW</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-24 bg-black">
+        <h2 class="font-huge text-4xl text-center mb-12">GALLERY WORK</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <img src="https://images.unsplash.com/photo-1593702295094-ada35bc1297e?auto=format&fit=crop&q=80" class="gallery-img aspect-square object-cover cursor-pointer hover:opacity-80">
+            <img src="https://images.unsplash.com/photo-1512690118231-7e871783313d?auto=format&fit=crop&q=80" class="gallery-img aspect-square object-cover cursor-pointer hover:opacity-80">
+            <img src="https://images.unsplash.com/photo-1622286332618-f2803b186711?auto=format&fit=crop&q=80" class="gallery-img aspect-square object-cover cursor-pointer hover:opacity-80">
+            <img src="https://images.unsplash.com/photo-1605497746444-1493630f9a2e?auto=format&fit=crop&q=80" class="gallery-img aspect-square object-cover cursor-pointer hover:opacity-80">
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 border-t border-white/5 bg-zinc-950">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
+            <div>
+                <h3 class="font-huge text-4xl mb-8">LOCATE US</h3>
+                <p class="text-sm opacity-60 mb-8">13A Eaton Green Rd, LU29HE, Luton,<br>United Kingdom</p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex justify-between border-b border-white/10 pb-2"><span>Mon - Fri</span><span>09:00 - 19:00</span></div>
+                    <div class="flex justify-between border-b border-white/10 pb-2"><span>Sat</span><span>08:00 - 18:00</span></div>
+                    <div class="flex justify-between text-[--accent]"><span>Sun</span><span>Closed</span></div>
+                </div>
+                <div class="flex gap-4">
+                    <a href="tel:07743116659" class="glass-panel p-4 flex-1 text-center hover:bg-white/5 transition"><i data-lucide="phone" class="inline w-4 mr-2"></i> Call</a>
+                    <a href="mailto:valorbarbers1@gmail.com" class="glass-panel p-4 flex-1 text-center hover:bg-white/5 transition"><i data-lucide="mail" class="inline w-4 mr-2"></i> Email</a>
+                </div>
+            </div>
+            <div class="h-80 bg-zinc-900 rounded-lg overflow-hidden border border-white/10">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2459.712613589947!2d-0.3846610233158097!3d51.88414408339247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487648356973e271%3A0x63351221b2d3986a!2sEaton%20Green%20Rd%2C%20Luton!5e0!3m2!1sen!2suk!4v1711200000000" width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9);" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-3xl mx-auto">
+        <h2 class="font-huge text-3xl mb-12 text-center">COMMON QUESTIONS</h2>
+        <div class="space-y-4">
+            <div class="faq-item border-b border-white/10 pb-4">
+                <button class="faq-question w-full text-left font-bold flex justify-between py-2">Do you accept walk-ins? <i data-lucide="plus"></i></button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all opacity-60 text-sm">While we prefer bookings via Booksy to ensure a slot, we do take walk-ins if a barber is available.</div>
+            </div>
+            <div class="faq-item border-b border-white/10 pb-4">
+                <button class="faq-question w-full text-left font-bold flex justify-between py-2">Where can I park? <i data-lucide="plus"></i></button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all opacity-60 text-sm">There is street parking available nearby on Eaton Green Road.</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="py-20 px-6 border-t border-white/10 bg-black text-center pb-32">
+    <div class="font-huge text-4xl mb-6">VB</div>
+    <p class="text-[10px] tracking-[0.5em] opacity-30 uppercase">Valor Barbers Luton © 2026</p>
+</footer>
+
+<div class="bottom-dock">
+    <a href="tel:07743116659" class="dock-item"><i data-lucide="phone"></i><span class="hidden sm:inline">Call</span></a>
+    <a href="https://wa.me/447743116659" class="dock-item"><i data-lucide="message-square"></i><span class="hidden sm:inline">WhatsApp</span></a>
+    <a href="https://valorbarbers.booksy.com/a" class="dock-item bg-[--accent] px-4 rounded-full text-black"><i data-lucide="calendar" class="!stroke-black"></i><span class="hidden sm:inline">Booksy</span></a>
+    <a href="#contact" class="dock-item"><i data-lucide="map-pin"></i><span class="hidden sm:inline">Visit</span></a>
+</div>
+
+<script>
+    lucide.createIcons();
+    gsap.registerPlugin(ScrollTrigger);
+
+    new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
+
+    // Stats counter animation
+    document.querySelectorAll('.stat-number').forEach(stat => {
+        ScrollTrigger.create({
+            trigger: stat,
+            onEnter: () => {
+                let target = +stat.dataset.target;
+                gsap.to(stat, { innerText: target, duration: 2, snap: { innerText: 1 } });
+            }
+        });
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const ans = btn.nextElementSibling;
+            ans.style.maxHeight = ans.style.maxHeight ? null : ans.scrollHeight + "px";
+            btn.querySelector('i').style.transform = ans.style.maxHeight ? "rotate(45deg)" : "rotate(0deg)";
+        });
+    });
+
+    // Exit Intent Logic
+    let showedExit = false;
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 0 && !showedExit) {
+            document.getElementById('exitPopup').style.display = 'block';
+            showedExit = true;
+        }
+    });
+    document.getElementById('closeExitPopup').onclick = () => document.getElementById('exitPopup').style.display = 'none';
+
+    // Lightbox for Gallery
+    document.querySelectorAll('.gallery-img').forEach(img => {
+        img.onclick = () => {
+            const overlay = document.createElement('div');
+            overlay.className = "fixed inset-0 bg-black/95 z-[3000] flex items-center justify-center p-4";
+            overlay.innerHTML = `<img src="${img.src}" class="max-w-full max-h-full border-2 border-[--accent]">`;
+            overlay.onclick = () => overlay.remove();
+            document.body.appendChild(overlay);
+        };
+    });
+
+    gsap.utils.toArray('.bob-up').forEach(el => {
+        gsap.from(el, { scrollTrigger: el, y: 50, opacity: 0, duration: 1 });
+    });
+</script>
+</body>
+</html>
