@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviro External | Elite Landscaping & Garden Design</title>
+    <title>Enviro External | Premium Landscaping & Garden Design</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -23,274 +23,226 @@
 
         h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
 
-        /* Premium Landscaping Card Style */
+        /* Full Page Slide Menu */
+        #full-page-menu {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: var(--dark-leaf); z-index: 3000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        #full-page-menu.active { right: 0; }
+        .menu-link { 
+            font-size: 3rem; font-family: 'Montserrat'; color: white; 
+            margin: 15px 0; transition: 0.3s; 
+        }
+        .menu-link:hover { color: var(--brand); transform: skewX(-10deg); }
+
+        /* Premium Garden Elements */
         .garden-card {
-            background: white;
-            border-radius: 40px 0 40px 0; /* Stylized organic corners */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 40px;
-            overflow: hidden;
-            border-left: 8px solid var(--dark-leaf);
+            background: white; border-radius: 50px 5px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px; overflow: hidden; border-bottom: 10px solid var(--dark-leaf);
         }
 
-        /* Hero Parallax */
-        .hero-bg {
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-        }
+        /* Hero Text Animation Containers */
+        .hero-title-wrap { overflow: hidden; }
+        .hero-title-line { display: block; will-change: transform; }
 
-        /* 20. App-Style Bottom Dock */
+        /* 20. Bottom CTA Dock */
         .cta-dock {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 500px; height: 80px; 
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border-radius: 100px; display: flex; justify-content: space-around; 
-            align-items: center; z-index: 2000; border: 2px solid var(--dark-leaf);
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 450px; height: 85px; 
+            background: white; border-radius: 100px; display: flex; 
+            justify-content: space-around; align-items: center; z-index: 2000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid var(--dark-leaf);
         }
-        .dock-item { text-align: center; color: var(--dark-leaf); font-size: 22px; }
-        .dock-item span { display: block; font-size: 9px; font-weight: 800; }
+        .dock-item { text-align: center; color: var(--dark-leaf); }
+        .dock-item i { font-size: 20px; display: block; }
+        .dock-item span { font-size: 9px; font-weight: 800; text-transform: uppercase; }
 
-        /* Custom scroll reveals */
-        .reveal { opacity: 0; transform: translateY(50px); }
-
-        /* 9. Image Grids */
-        .before-after-grid img { 
-            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: saturate(1.2);
-        }
-        .before-after-grid img:hover { transform: scale(1.03); }
-
-        /* Organic Background Textures */
         .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-16.57 13.43-30 30-30v60c-16.57 0-30-13.43-30-30z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/svg%3E");
         }
     </style>
 </head>
 <body class="bg-pattern">
 
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-[1000] bg-white/90 backdrop-blur-md rounded-full px-8 py-4 flex justify-between items-center shadow-2xl">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-seedling text-[#8DC63F] text-2xl"></i>
-            <span class="font-black text-xl tracking-tighter uppercase italic">Enviro<span class="text-[#8DC63F]">External</span></span>
+    <div id="full-page-menu">
+        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-white text-5xl">&times;</button>
+        <a href="#services" onclick="toggleMenu()" class="menu-link italic">01. SERVICES</a>
+        <a href="#landscape" onclick="toggleMenu()" class="menu-link italic">02. LANDSCAPING</a>
+        <a href="#gallery" onclick="toggleMenu()" class="menu-link italic">03. PROJECTS</a>
+        <a href="#quote" onclick="toggleMenu()" class="menu-link italic text-[#8DC63F]">04. GET QUOTE</a>
+    </div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-[1000] bg-white rounded-full px-10 py-5 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-leaf text-[#8DC63F] text-3xl"></i>
+            <span class="font-black text-2xl tracking-tighter uppercase italic">Enviro<span class="text-[#8DC63F]">External</span></span>
         </div>
-        <div class="hidden lg:flex gap-8 font-bold text-[10px] tracking-widest">
-            <a href="#landscape" class="hover:text-[#8DC63F]">LANDSCAPING</a>
-            <a href="#cleaning" class="hover:text-[#8DC63F]">CLEANING</a>
-            <a href="#gallery" class="hover:text-[#8DC63F]">GALLERY</a>
-            <a href="#quote" class="bg-[#8DC63F] text-white px-6 py-2 rounded-full">GET QUOTE</a>
-        </div>
-        <div class="lg:hidden text-2xl text-[#8DC63F]"><i class="fas fa-bars-staggered"></i></div>
+        <button onclick="toggleMenu()" class="bg-black text-white w-14 h-14 rounded-full flex items-center justify-center hover:bg-[#8DC63F] transition">
+            <i class="fas fa-bars-staggered text-xl"></i>
+        </button>
     </nav>
 
-    <header class="relative h-screen hero-bg bg-white overflow-hidden">
+    <header class="relative h-screen bg-white flex items-center justify-center overflow-hidden">
         <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
             <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-cleaning-the-garden-with-a-pressure-washer-34444-large.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
-        <div class="relative z-10 h-full flex flex-col justify-center px-10 md:px-24">
-            <span class="text-[#8DC63F] font-black tracking-[5px] mb-4 reveal">MERSEYSIDE & CHESHIRE</span>
-            <h1 class="text-5xl md:text-8xl text-white font-black leading-[0.9] mb-8 reveal">ELITE<br><span class="text-[#8DC63F]">LANDSCAPING</span><br>DESIGN.</h1>
-            <p class="text-white/80 max-w-xl text-lg mb-10 reveal">Professional property restoration and garden transformations for Bebington's most beautiful homes.</p>
-            <div class="flex gap-4 reveal">
-                <a href="#quote" class="bg-[#8DC63F] text-white px-10 py-5 rounded-full font-black text-sm uppercase shadow-2xl hover:scale-105 transition">Start Transformation</a>
+        <div class="absolute inset-0 bg-black/40"></div>
+        
+        <div class="relative z-10 text-center px-6">
+            <div class="hero-title-wrap">
+                <h1 id="hero-text-1" class="hero-title-line text-5xl md:text-9xl text-white font-black italic">PREMIUM</h1>
             </div>
+            <div class="hero-title-wrap">
+                <h1 id="hero-text-2" class="hero-title-line text-5xl md:text-9xl text-[#8DC63F] font-black italic">LANDSCAPES</h1>
+            </div>
+            <p class="text-white font-bold tracking-[8px] uppercase mt-10">Bebington • Wirral • Chester</p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
+    <main class="max-w-7xl mx-auto px-6 -mt-32 relative z-20 pb-40">
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-            <div class="garden-card p-10 text-center border-none reveal">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+            <div class="garden-card p-10 text-center bg-white reveal shadow-2xl">
                 <div class="text-5xl font-black text-[#8DC63F] counter" data-target="500">0</div>
-                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Gardens Perfected</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Projects Completed</p>
             </div>
-            <div class="garden-card p-10 text-center border-none reveal">
-                <div class="text-5xl font-black text-[#8DC63F] counter" data-target="150">0</div>
-                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Verified Reviews</p>
-            </div>
-            <div class="garden-card p-10 text-center border-none reveal">
-                <div class="text-5xl font-black text-[#8DC63F] counter" data-target="10">0</div>
-                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Team Experts</p>
-            </div>
-            <div class="garden-card p-10 text-center border-none reveal">
+            <div class="garden-card p-10 text-center bg-white reveal">
                 <div class="text-5xl font-black text-[#8DC63F]">4.9</div>
-                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Google Rating</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Star Rating</p>
+            </div>
+            <div class="garden-card p-10 text-center bg-white reveal">
+                <div class="text-5xl font-black text-[#8DC63F] counter" data-target="15">0</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Team Members</p>
+            </div>
+            <div class="garden-card p-10 text-center bg-white reveal">
+                <div class="text-5xl font-black text-[#8DC63F]">100%</div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Reliability</p>
             </div>
         </div>
 
-        <section id="landscape" class="reveal">
-            <h2 class="text-white text-3xl font-black mb-10 italic">27. LANDSCAPING & DESIGN</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="garden-card group">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <section id="landscape" class="mb-32">
+            <div class="flex flex-col items-center mb-16">
+                <h2 class="text-white text-5xl font-black italic text-center leading-tight">GARDEN<br>DESIGN & CARE</h2>
+                <div class="w-24 h-2 bg-white mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="garden-card reveal p-0 flex flex-col md:flex-row h-full">
+                    <div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558905734-b83d73676831?auto=format&fit=crop&w=800" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-4">Garden Design</h3>
-                        <p class="text-sm text-gray-500 mb-6">Complete overhaul including turfing, planting, and drainage solutions.</p>
-                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">VIEW PACKAGES</a>
-                    </div>
-                </div>
-                <div class="garden-card group">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-4">Paving & Fencing</h3>
-                        <p class="text-sm text-gray-500 mb-6">Indian stone, porcelain, and high-end timber fencing installations.</p>
-                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">BOOK SURVEY</a>
+                    <div class="p-10 md:w-1/2">
+                        <h3 class="text-2xl font-black mb-4">Hard Landscaping</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-6">Bespoke patios, Indian sandstone, and porcelain paving installations designed for elite properties.</p>
+                        <ul class="text-[10px] font-bold space-y-2 uppercase text-[#8DC63F]">
+                            <li><i class="fas fa-check"></i> Custom Paving</li>
+                            <li><i class="fas fa-check"></i> Retaining Walls</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="garden-card group">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+
+                <div class="garden-card reveal p-0 flex flex-col md:flex-row h-full">
+                    <div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1590019158224-399dc0f9fc31?auto=format&fit=crop&w=800" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-8">
-                        <h3 class="text-xl font-black mb-4">External Cleaning</h3>
-                        <p class="text-sm text-gray-500 mb-6">Industrial pressure washing for driveways, roofs, and UPVC.</p>
-                        <a href="#quote" class="text-[#8DC63F] font-black text-xs underline">QUICK QUOTE</a>
+                    <div class="p-10 md:w-1/2">
+                        <h3 class="text-2xl font-black mb-4">Pressure Restoration</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-6">Industrial grade cleaning for driveways, patios, and block paving. Removal of black spot and lichen.</p>
+                        <ul class="text-[10px] font-bold space-y-2 uppercase text-[#8DC63F]">
+                            <li><i class="fas fa-check"></i> Moss Removal</li>
+                            <li><i class="fas fa-check"></i> Re-sanding</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="gallery" class="reveal mt-20">
-            <div class="flex justify-between items-end mb-10">
-                <h2 class="text-white text-3xl font-black italic">Recent Transformations</h2>
-                <span class="text-white font-bold border-b-2 border-white pb-1">17. VIEW ALL</span>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 before-after-grid">
-                <img src="https://images.unsplash.com/photo-1592150621344-22d5081514f0?auto=format&fit=crop&w=500" class="garden-card h-64 w-full object-cover">
-                <img src="https://images.unsplash.com/photo-1523302228240-4da138a83d06?auto=format&fit=crop&w=500" class="garden-card h-64 w-full object-cover">
-                <img src="https://images.unsplash.com/photo-1605117814642-880b0f70f98a?auto=format&fit=crop&w=500" class="garden-card h-64 w-full object-cover">
-                <div class="garden-card h-64 bg-white flex flex-col items-center justify-center p-6 text-center">
-                    <i class="fas fa-play-circle text-4xl text-[#8DC63F] mb-4"></i>
-                    <p class="text-[10px] font-black uppercase">10. Watch Video Case Study</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="quote" class="reveal mt-20">
-            <div class="garden-card p-12 md:p-20 bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
-                <div class="grid lg:grid-cols-2 gap-20">
+        <section id="quote" class="reveal">
+            <div class="garden-card p-10 md:p-20">
+                <div class="grid lg:grid-cols-2 gap-16">
                     <div>
-                        <h2 class="text-5xl font-black leading-none mb-8">START YOUR<br><span class="text-[#8DC63F]">TRANSFORMATION</span></h2>
-                        <p class="text-gray-500 mb-10">Serving Higher Bebington (CH63 3BW) and the surrounding Wirral area. Our team offers a full site visit and accurate quoting.</p>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-[#8DC63F]/10 rounded-full flex items-center justify-center text-[#8DC63F]"><i class="fas fa-calendar-alt"></i></div>
-                                <div><p class="text-[10px] font-black uppercase text-gray-400">13. Next Slot Available</p><p class="font-bold">This Thursday, 10:00 AM</p></div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-[#8DC63F]/10 rounded-full flex items-center justify-center text-[#8DC63F]"><i class="fas fa-map-marker-alt"></i></div>
-                                <div><p class="text-[10px] font-black uppercase text-gray-400">21. Primary Area</p><p class="font-bold">Higher Bebington, Wirral</p></div>
-                            </div>
+                        <h2 class="text-4xl font-black mb-6 italic">BOOK YOUR<br><span class="text-[#8DC63F]">CONSULTATION</span></h2>
+                        <p class="text-gray-400 mb-8 font-medium">Site visits available in Higher Bebington (CH63 3BW) and across the Wirral. We offer a fixed-price guarantee on all landscaping works.</p>
+                        <div class="p-6 bg-gray-50 rounded-3xl border-l-8 border-[#8DC63F]">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">21. Service Area</p>
+                            <p class="font-black">Merseyside, Chester & Wirral</p>
                         </div>
                     </div>
                     <form class="space-y-6">
-                        <input type="text" placeholder="Full Name" class="w-full border-b-2 border-gray-100 p-4 outline-none focus:border-[#8DC63F] transition font-bold">
-                        <select class="w-full border-b-2 border-gray-100 p-4 outline-none focus:border-[#8DC63F] font-bold text-gray-400">
-                            <option>Garden Landscaping</option>
-                            <option>Driveway Cleaning</option>
-                            <option>Fencing & Gates</option>
-                        </select>
-                        <div class="border-2 border-dashed border-[#8DC63F]/30 p-10 rounded-3xl text-center bg-[#8DC63F]/5 cursor-pointer">
-                            <i class="fas fa-camera text-2xl text-[#8DC63F] mb-4"></i>
-                            <p class="text-[10px] font-black uppercase">Upload Garden Photos for Instant Review</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Name" class="w-full border-b-2 border-gray-100 p-4 focus:border-[#8DC63F] outline-none font-bold">
+                            <input type="tel" placeholder="Phone" class="w-full border-b-2 border-gray-100 p-4 focus:border-[#8DC63F] outline-none font-bold">
                         </div>
-                        <button class="w-full bg-black text-white py-6 rounded-full font-black uppercase tracking-widest hover:bg-[#8DC63F] transition shadow-xl">Submit Enquiry</button>
+                        <select class="w-full border-b-2 border-gray-100 p-4 font-bold text-gray-400 focus:border-[#8DC63F] outline-none">
+                            <option>Indian Stone Paving</option>
+                            <option>Fencing & Turf</option>
+                            <option>Exterior Valet</option>
+                        </select>
+                        <div class="border-2 border-dashed border-[#8DC63F]/20 p-8 rounded-3xl text-center hover:bg-[#8DC63F]/5 transition cursor-pointer">
+                            <i class="fas fa-camera-retro text-2xl text-[#8DC63F] mb-2"></i>
+                            <p class="text-[10px] font-black uppercase">Attach Garden Photos for Pricing</p>
+                        </div>
+                        <button class="w-full bg-black text-white py-6 rounded-full font-black uppercase tracking-widest shadow-2xl hover:bg-[#8DC63F] transition">Send Enquiry</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <section class="grid md:grid-cols-3 gap-8 mt-10 mb-20 reveal">
-            <div class="garden-card p-10">
-                <h3 class="font-black text-xs uppercase mb-6 text-[#8DC63F]">3. Common Questions</h3>
-                <details class="mb-4"><summary class="font-bold text-xs cursor-pointer">Do you provide free quotes?</summary><p class="text-[10px] mt-2 text-gray-400">Yes, we provide free site surveys across Wirral.</p></details>
-                <details><summary class="font-bold text-xs cursor-pointer">Are you fully insured?</summary><p class="text-[10px] mt-2 text-gray-400">Yes, full public liability up to £5m.</p></details>
-            </div>
-            <div class="garden-card p-10 bg-[#14532D] text-white">
-                <i class="fas fa-medal text-3xl mb-6 text-[#8DC63F]"></i>
-                <h3 class="font-black text-sm uppercase mb-4">23. Loyalty Rewards</h3>
-                <p class="text-[10px] font-bold opacity-60">Refer a neighbor and get 15% off your next seasonal maintenance.</p>
-            </div>
-            <div class="garden-card p-10 bg-black text-white">
-                <i class="fas fa-gift text-3xl mb-6 text-[#8DC63F]"></i>
-                <h3 class="font-black text-sm uppercase mb-4">26. Gift Vouchers</h3>
-                <p class="text-[10px] font-bold opacity-60">The perfect gift for a homeowner. Available from £50-£500.</p>
-            </div>
-        </section>
-
     </main>
 
-    <footer class="bg-white py-32 px-10">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-16">
-            <div class="col-span-2">
-                <h2 class="text-4xl font-black italic mb-8 uppercase">Enviro<span class="text-[#8DC63F]">External</span></h2>
-                <p class="text-gray-400 max-w-sm font-medium">Bespoke landscaping and external restoration based in Higher Bebington. Built on quality and local reputation.</p>
-            </div>
-            <div>
-                <h4 class="font-black text-xs mb-6 uppercase text-[#8DC63F]">Quick Contact</h4>
-                <ul class="text-sm font-bold space-y-4">
-                    <li>07954 289512</li>
-                    <li>enviroec@outlook.com</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-black text-xs mb-6 uppercase text-[#8DC63F]">Connect</h4>
-                <div class="flex gap-4 text-xl">
-                    <i class="fab fa-facebook-square"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-            </div>
-        </div>
-        <div class="mt-20 pt-10 border-t text-center text-[9px] font-black uppercase tracking-[5px] text-gray-300">
-            © 2026 ENVIRO EXTERNAL CLEANING & LANDSCAPING
-        </div>
-    </footer>
-
     <div class="cta-dock">
-        <a href="tel:07954289512" class="dock-item"><i class="fas fa-phone"></i><span>CALL</span></a>
-        <a href="https://wa.me/447954289512" class="dock-item"><i class="fab fa-whatsapp text-green-500"></i><span>CHAT</span></a>
-        <a href="sms:07954289512" class="dock-item"><i class="fas fa-comment"></i><span>TEXT</span></a>
+        <a href="tel:07954289512" class="dock-item"><i class="fas fa-phone-alt"></i><span>CALL</span></a>
+        <a href="https://wa.me/447954289512" class="dock-item"><i class="fab fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="sms:07954289512" class="dock-item"><i class="fas fa-comment-dots"></i><span>TEXT</span></a>
         <a href="#quote" class="dock-item">
-            <div class="w-14 h-14 bg-[#8DC63F] rounded-full flex items-center justify-center -mt-10 shadow-2xl">
-                <i class="fas fa-file-invoice-dollar text-white text-xl"></i>
+            <div class="w-16 h-16 bg-[#8DC63F] rounded-full flex items-center justify-center -mt-12 shadow-2xl text-white">
+                <i class="fas fa-file-invoice-dollar text-xl m-0"></i>
             </div>
-            <span>QUOTE</span>
+            <span class="mt-1">QUOTE</span>
         </a>
-    </div>
-
-    <div id="exit-popup" class="fixed inset-0 z-[5000] bg-black/80 flex items-center justify-center p-6 hidden">
-        <div class="bg-white p-12 rounded-[50px] text-center max-w-lg">
-            <h2 class="text-4xl font-black mb-6 italic uppercase">Wait!</h2>
-            <p class="font-bold text-gray-500 mb-8 uppercase tracking-widest text-xs">Don't leave without your 10% First-Time discount.</p>
-            <button onclick="document.getElementById('exit-popup').classList.add('hidden')" class="bg-[#8DC63F] text-white px-10 py-5 rounded-full font-black text-xs uppercase shadow-xl">Claim 10% Discount</button>
-        </div>
     </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // 4. Reveal Animations
+        // 31. Full Page Menu Toggle
+        function toggleMenu() {
+            document.getElementById('full-page-menu').classList.toggle('active');
+        }
+
+        // Hero Text Slide Animation on Scroll
+        gsap.from("#hero-text-1", {
+            x: -200, opacity: 0, duration: 1.5, ease: "power4.out"
+        });
+        gsap.from("#hero-text-2", {
+            x: 200, opacity: 0, duration: 1.5, ease: "power4.out", delay: 0.2
+        });
+
+        // Scroll-triggered slide reactions for Hero
+        gsap.to("#hero-text-1", {
+            scrollTrigger: { trigger: "header", start: "top top", scrub: 1 },
+            x: -300
+        });
+        gsap.to("#hero-text-2", {
+            scrollTrigger: { trigger: "header", start: "top top", scrub: 1 },
+            x: 300
+        });
+
+        // Global Reveal
         gsap.utils.toArray('.reveal').forEach(el => {
             gsap.to(el, {
                 scrollTrigger: { trigger: el, start: "top 85%" },
-                opacity: 1, y: 0, duration: 1, ease: "power2.out"
+                opacity: 1, y: 0, duration: 1, ease: "power3.out"
             });
         });
 
-        // 7. Counter
+        // 7. Counter Logic
         gsap.utils.toArray('.counter').forEach(el => {
             const target = +el.getAttribute('data-target');
             gsap.to(el, { scrollTrigger: el, innerText: target, duration: 2, snap: { innerText: 1 } });
-        });
-
-        // 22. Exit Intent
-        document.addEventListener('mouseleave', e => {
-            if(e.clientY < 0) document.getElementById('exit-popup').classList.remove('hidden');
         });
     </script>
 </body>
