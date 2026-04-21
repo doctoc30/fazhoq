@@ -16,21 +16,17 @@
         :root { --brand-red: #d32f2f; --brand-dark: #0f0f0f; }
         body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; overflow-x: hidden; padding-bottom: 80px; }
         
-        /* 30. Custom Scrollbar & Page Customization */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 10px; }
 
-        /* 18 & 31. Sticky Nav & Mobile Menu */
         .glass-nav { background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
         #mobile-menu { clip-path: circle(0% at 100% 0%); transition: all 0.7s cubic-bezier(0.7, 0, 0.3, 1); }
         #mobile-menu.active { clip-path: circle(150% at 100% 0%); }
 
-        /* 1. Hero Swiper Enhancement */
         .heroSwiper .swiper-slide { opacity: 0 !important; transition: opacity 1s ease; }
         .heroSwiper .swiper-slide-active { opacity: 1 !important; }
         
-        /* 3. FAQ Accordion */
         .faq-content { max-height: 0; overflow: hidden; transition: all 0.3s ease; }
         .faq-item.active .faq-content { max-height: 200px; padding-top: 1rem; }
         .faq-item.active i { transform: rotate(180deg); }
@@ -38,15 +34,12 @@
         .btn-press:active { transform: scale(0.96); }
         .bottom-dock { box-shadow: 0 -10px 30px rgba(0,0,0,0.15); }
         
-        /* 17 & 29. Gallery Lightbox & Hover */
         .zoom-parent:hover .zoom-img { transform: scale(1.08); }
         .zoom-img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         
-        /* 9. Before/After Slider */
         .ba-container { position: relative; overflow: hidden; border-radius: 1rem; }
         .ba-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 3px solid white; }
 
-        /* 11. Testimonials Slider */
         .testimonial-swiper { padding: 40px 0; }
     </style>
 </head>
@@ -148,7 +141,7 @@
                 <p class="text-gray-500 text-sm mb-6">Complete strip and re-roof using premium slate or clay tiles with 25yr warranty.</p>
                 <a href="#" class="text-xs font-black uppercase text-[#d32f2f] border-b-2 border-[#d32f2f] pb-1">Deposit Payment <i class="fas fa-arrow-right ml-2"></i></a>
             </div>
-            </div>
+        </div>
     </div>
 </section>
 
@@ -159,43 +152,41 @@
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal">
-                <img src="https://images.unsplash.com/photo-1731192706116-328f15f063ca?q=80&w=1287&auto=format&fit=crop"
+                <img src="https://images.unsplash.com/photo-1635424709845-3a85ad5e1f5e?q=80&w=1471&auto=format&fit=crop"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 1">
+                     alt="Recent Work 1">
             </div>
 
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.1">
                 <img src="https://images.unsplash.com/photo-1626885930974-4b69aa21bbf9?auto=format&fit=crop&q=80&w=800"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 2">
+                     alt="Recent Work 2">
             </div>
 
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.2">
                 <img src="https://images.unsplash.com/photo-1635424709845-3a85ad5e1f5e?q=80&w=1471&auto=format&fit=crop"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 3">
+                     alt="Recent Work 3">
             </div>
 
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal">
                 <img src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=800"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 4">
+                     alt="Recent Work 4">
             </div>
 
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.1">
                 <img src="https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?q=80&w=1470&auto=format&fit=crop"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 5">
+                     alt="Recent Work 5">
             </div>
 
             <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.2">
-                <img src="https://images.unsplash.com/photo-1682617326551-4749611516f6?q=80&w=1333&auto=format&fit=crop"
+                <img src="https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?q=80&w=1470&auto=format&fit=crop"
                      class="w-full h-full object-cover zoom-img"
-                     alt="Roof 6">
+                     alt="Recent Work 6">
             </div>
-
         </div>
     </div>
 </section>
@@ -400,7 +391,6 @@
 </footer>
 
 <script>
-    // 4. GSAP Scroll Animations
     gsap.registerPlugin(ScrollTrigger);
     
     gsap.utils.toArray('.gs-reveal').forEach(el => {
@@ -417,7 +407,6 @@
         });
     });
 
-    // 7. Animated Stats Counter
     const counters = document.querySelectorAll('.counter');
     counters.forEach(c => {
         ScrollTrigger.create({
@@ -435,11 +424,9 @@
         });
     });
 
-    // 1 & 11. Swiper Initializations
     new Swiper('.heroSwiper', { effect: 'fade', autoplay: { delay: 4000 }, loop: true });
     new Swiper('.testimonial-swiper', { slidesPerView: 1, spaceBetween: 30, breakpoints: { 768: { slidesPerView: 2 } }, loop: true });
 
-    // 22. Exit Intent Trigger
     let showedPopup = false;
     document.addEventListener('mouseleave', (e) => {
         if(e.clientY < 0 && !showedPopup) {
