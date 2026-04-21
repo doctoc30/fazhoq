@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barber Lounge Woodley | Traditional Turkish Barbers</title>
+    <title>Barber Lounge | Traditional Turkish Barbering & Grooming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -14,279 +14,411 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #a68945; } /* Gold from Logo */
-        body { background: #0a0a0a; color: #fff; font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.9; font-weight: 900; }
-        .glass-panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(166,137,69,0.2); backdrop-filter: blur(10px); }
-        .booking-container { display: flex; flex-wrap: wrap; background: rgba(0,0,0,0.6); border: 1px solid var(--accent); padding: 6px; border-radius: 4px; margin-top: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; }
-        .booking-field { background: transparent; border: none; color: white !important; padding: 12px 20px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; outline: none; flex: 1; min-width: 140px; border-right: 1px solid rgba(166,137,69,0.3); color-scheme: dark; }
-        .booking-field:last-of-type { border-right: none; }
-        .btn-elite { background: var(--accent); color: #000; padding: 18px 36px; font-family: 'Archivo Black'; font-size: 11px; letter-spacing: 2px; transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); text-align: center; display: inline-block; cursor: pointer; border: none; }
-        .btn-elite:hover { background: #fff; color: #000; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(166,137,69,0.3); }
-        #mobile-menu { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); z-index: 600; display: none; flex-direction: column; align-items: center; justify-content: center; }
-        .menu-link { font-family: 'Archivo Black'; font-size: 3rem; text-transform: uppercase; color: white; transition: 0.3s; line-height: 1.2; }
-        .menu-link:hover { color: var(--accent); }
-        header { padding: 1.5rem 2rem !important; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); }
-        .status-pulse { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #00ff00; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        .social-footer-icon { background: rgba(166,137,69,0.1); width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; border: 1px solid var(--accent); color: #fff; }
-        .social-footer-icon:hover { background: var(--accent); color: #000; transform: translateY(-5px); }
-        .ticker-wrap { background: var(--accent); color: black; padding: 12px 0; font-family: 'Archivo Black'; font-size: 11px; letter-spacing: 2px; overflow: hidden; }
-        .ticker-move { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .bottom-dock { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--accent); z-index: 500; display: flex; justify-content: space-around; padding: 12px 20px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-        .dock-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: white; font-size: 10px; font-weight: bold; text-transform: uppercase; text-decoration: none; }
-        .dock-item i { width: 20px; height: 20px; stroke: var(--accent); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s ease; color: rgba(255,255,255,0.7); padding: 0 10px; }
-        .exit-intent-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #000; border: 2px solid var(--accent); z-index: 2000; max-width: 400px; width: 90%; border-radius: 12px; display: none; padding: 2.5rem; text-align: center; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); }
+        :root { 
+            --accent: #a68945; /* Gold from Logo */
+            --bg-dark: #0a0a0a;
+            --panel-bg: rgba(20, 20, 20, 0.8);
+        }
+        
+        body { 
+            background: var(--bg-dark); 
+            color: #fff; 
+            font-family: 'Space Grotesk', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden; 
+        }
+
+        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.9; }
+
+        /* Scroll Customization (30) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        /* Logo Background Texture Simulation */
+        .texture-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(166, 137, 69, 0.05) 0%, transparent 100%), 
+                              url('https://www.transparenttextures.com/patterns/dark-matter.png');
+        }
+
+        .glass-panel { background: var(--panel-bg); border: 1px solid rgba(166,137,69,0.2); backdrop-filter: blur(12px); }
+        
+        /* Sticky Header (18) */
+        header { transition: all 0.4s ease; background: transparent; }
+        header.scrolled { background: rgba(0,0,0,0.95); padding: 1rem 2rem !important; border-bottom: 1px solid var(--accent); }
+
+        .btn-gold { 
+            background: var(--accent); 
+            color: #000; 
+            padding: 16px 32px; 
+            font-family: 'Archivo Black'; 
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+            border: 1px solid var(--accent);
+        }
+        .btn-gold:hover { background: transparent; color: var(--accent); transform: translateY(-3px); }
+
+        /* Animation States */
+        .reveal-up { opacity: 0; transform: translateY(50px); }
+        
+        /* Bottom CTA Dock (20) */
+        .bottom-dock { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: rgba(0,0,0,0.95); border-top: 1px solid var(--accent); 
+            z-index: 1000; display: flex; justify-content: space-around; 
+            padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom));
+        }
+        .dock-item { color: white; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .dock-item i { color: var(--accent); width: 22px; height: 22px; margin-bottom: 4px; }
+
+        /* Before/After Slider (9) */
+        .ba-container { position: relative; width: 100%; height: 400px; overflow: hidden; border: 1px solid var(--accent); }
+        .ba-after { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .ba-before { position: absolute; top: 0; left: 0; width: 50%; height: 100%; object-fit: cover; border-right: 2px solid var(--accent); z-index: 2; }
+
+        /* FAQ Toggle (3) */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.active .faq-content { max-height: 200px; padding-top: 1rem; }
+
+        /* Mobile Full Screen Menu (31) */
+        #mobile-nav { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        
+        /* Scroll to Top (14) */
+        #scrollTop { position: fixed; bottom: 100px; right: 20px; background: var(--accent); color: #000; padding: 10px; border-radius: 50%; display: none; z-index: 99; cursor: pointer; }
     </style>
 </head>
-<body>
+<body class="texture-bg">
 
-<div id="exitPopup" class="exit-intent-popup">
-    <h3 class="font-huge text-2xl text-[var(--accent)]">Wait!</h3>
-    <p class="mt-2">Thinking of leaving? Get 10% off your first Wet Shave today.</p>
-    <button class="btn-elite w-full mt-6" id="closeExitPopup">Get Discount</button>
-</div>
-
-<div id="mobile-menu">
-    <button id="close-menu" class="absolute top-10 right-10 text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
-    <nav class="flex flex-col gap-6 text-center">
-        <a href="#about" class="menu-link">About</a>
-        <a href="#services" class="menu-link">Services</a>
-        <a href="#gallery" class="menu-link">Gallery</a>
-        <a href="#contact" class="menu-link">Book Now</a>
-    </nav>
-</div>
-
-<header class="fixed top-0 w-full z-[500] flex justify-between items-center">
-    <div class="flex items-center gap-4">
-        <img src="https://i.ibb.co/XfXkXp0/logo.png" alt="Barber Lounge" class="h-12 md:h-16"> <div class="hidden sm:flex items-center gap-2 px-3 py-1 glass-panel rounded-full">
-            <span class="status-pulse"></span>
-            <span class="text-[9px] uppercase font-bold tracking-tighter">Turkish Masters Active</span>
-        </div>
+<div id="exit-popup" class="fixed inset-0 bg-black/80 z-[3000] hidden items-center justify-center p-4">
+    <div class="glass-panel p-10 max-w-md text-center rounded-xl border-2 border-[var(--accent)]">
+        <h3 class="font-huge text-3xl mb-4">WAIT! 10% OFF</h3>
+        <p class="mb-6 opacity-80">Don't leave yet! Get a discount on your first Wet Shave by booking now.</p>
+        <button class="btn-gold w-full mb-4" onclick="location.href='#contact'">Claim Offer</button>
+        <button onclick="closeExitPopup()" class="text-xs uppercase tracking-widest opacity-50">Maybe later</button>
     </div>
-    <nav class="hidden lg:flex gap-8 items-center">
-        <a href="#about" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">About</a>
-        <a href="#services" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">Services</a>
-        <a href="#gallery" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">Gallery</a>
-        <a href="#contact" class="btn-elite py-2 px-6">Book Now</a>
+</div>
+
+<header class="fixed top-0 w-full z-[1500] px-8 py-6 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+        <div class="w-12 h-12 bg-[var(--accent)] flex items-center justify-center rounded text-black font-bold text-2xl font-huge">BL</div>
+        <span class="font-huge text-xl hidden sm:block">BARBER <span class="text-[var(--accent)]">LOUNGE</span></span>
+    </div>
+    <nav class="hidden lg:flex gap-10 items-center">
+        <a href="#services" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent)] transition">Services</a>
+        <a href="#gallery" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent)] transition">Gallery</a>
+        <a href="#team" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent)] transition">Barbers</a>
+        <a href="#contact" class="btn-gold py-2 px-6">Book Appointment</a>
     </nav>
-    <button id="menu-btn" class="lg:hidden p-2 border border-[var(--accent)] rounded">
-        <i data-lucide="menu"></i>
-    </button>
+    <button onclick="toggleMobileNav()" class="lg:hidden text-[var(--accent)]"><i data-lucide="menu" class="w-8 h-8"></i></button>
 </header>
 
-<main id="main-content">
-    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+<div id="mobile-nav">
+    <button onclick="toggleMobileNav()" class="absolute top-10 right-10"><i data-lucide="x" class="w-10 h-10"></i></button>
+    <div class="flex flex-col gap-8">
+        <a href="#services" onclick="toggleMobileNav()" class="font-huge text-4xl">Services</a>
+        <a href="#gallery" onclick="toggleMobileNav()" class="font-huge text-4xl">Gallery</a>
+        <a href="#team" onclick="toggleMobileNav()" class="font-huge text-4xl">Barbers</a>
+        <a href="#contact" onclick="toggleMobileNav()" class="font-huge text-4xl text-[var(--accent)]">Book Now</a>
+    </div>
+</div>
+
+<main>
+    <section class="relative h-screen flex items-center justify-center">
         <div class="swiper heroSwiper absolute inset-0 z-0">
             <div class="swiper-wrapper">
                 <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80" class="w-full h-full object-cover brightness-50"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80" class="w-full h-full object-cover brightness-50"></div>
                 <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712?q=80" class="w-full h-full object-cover brightness-50"></div>
             </div>
         </div>
-        <div class="relative z-10 px-4">
-            <h4 class="text-[var(--accent)] font-bold tracking-[0.4em] mb-4 text-xs uppercase">Traditional Turkish Barbers • Woodley</h4>
-            <h1 class="font-huge text-[clamp(2.5rem,10vw,8rem)] mb-6">BARBER<br>LOUNGE</h1>
-            <div class="booking-container">
-                <input type="date" class="booking-field" id="book-date">
-                <select class="booking-field">
-                    <option>Standard Haircut</option>
-                    <option>Traditional Wet Shave</option>
-                    <option>Full Male Grooming</option>
-                </select>
-                <button class="btn-elite" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});">Reserve Now</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-20 px-6 bg-zinc-950">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="bob-up">
-                <h2 class="font-huge text-4xl md:text-6xl mb-6">ESTABLISHED 2017</h2>
-                <p class="opacity-70 leading-relaxed mb-8">We are traditional Turkish barbers specialized in the art of the wet shave, precision haircuts, and comprehensive male grooming. Experience the heritage of Turkish barbering in the heart of Woodley.</p>
-                <div class="grid grid-cols-2 gap-6">
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="2017">0</span><p class="text-xs uppercase">Established</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="568">0</span><p class="text-xs uppercase">Styles Posted</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="41">0</span><p class="text-xs uppercase">5-Star Reviews</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="1100">0</span><p class="text-xs uppercase">Followers</p></div>
+        
+        <div class="relative z-10 text-center px-4 reveal-up">
+            <h1 class="font-huge text-6xl md:text-9xl mb-4">TRADITIONAL<br><span class="text-transparent" style="-webkit-text-stroke: 1px var(--accent);">TURKISH</span></h1>
+            <p class="max-w-2xl mx-auto mb-10 text-lg opacity-80 uppercase tracking-widest">3 Headley Road, Woodley, Reading, RG5 4JB</p>
+            
+            <div class="glass-panel p-6 max-w-4xl mx-auto grid md:grid-cols-3 gap-4 items-center">
+                <div class="text-left md:border-r border-white/10 pr-4">
+                    <p class="text-[10px] uppercase font-bold opacity-50 mb-1">Schedule</p>
+                    <p class="text-sm font-bold">Mon - Sat: 9am - 6:30pm</p>
                 </div>
-            </div>
-            <div class="bob-up glass-panel p-2 rounded-lg">
-                <img src="https://images.unsplash.com/photo-1593702295094-ada35bc1307e?q=80" class="rounded grayscale hover:grayscale-0 transition-all duration-700">
+                <div class="text-left md:border-r border-white/10 pr-4">
+                    <p class="text-[10px] uppercase font-bold opacity-50 mb-1">Contact</p>
+                    <p class="text-sm font-bold">0118 376 6070</p>
+                </div>
+                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});return false;" class="btn-gold w-full">Quick Book Calendar</button>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="font-huge text-5xl mb-4">OUR SPECIALITIES</h2>
-            <div class="flex justify-center gap-4 mb-10 overflow-x-auto pb-4">
-                <button class="px-6 py-2 border border-[var(--accent)] rounded-full text-xs active">ALL</button>
-                <button class="px-6 py-2 border border-white/10 rounded-full text-xs">HAIRCUTS</button>
-                <button class="px-6 py-2 border border-white/10 rounded-full text-xs">SHAVES</button>
+    <section class="py-20 border-y border-white/10 bg-black/40">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            <div class="reveal-up"><h3 class="font-huge text-4xl text-[var(--accent)] stat" data-target="15000">0</h3><p class="text-xs uppercase font-bold tracking-widest">Cuts Finished</p></div>
+            <div class="reveal-up"><h3 class="font-huge text-4xl text-[var(--accent)] stat" data-target="10">0</h3><p class="text-xs uppercase font-bold tracking-widest">Master Barbers</p></div>
+            <div class="reveal-up"><h3 class="font-huge text-4xl text-[var(--accent)] stat" data-target="5">0</h3><p class="text-xs uppercase font-bold tracking-widest">Star Rating</p></div>
+            <div class="reveal-up"><h3 class="font-huge text-4xl text-[var(--accent)] stat" data-target="7">0</h3><p class="text-xs uppercase font-bold tracking-widest">Years in Woodley</p></div>
+        </div>
+    </section>
+
+    <section id="services" class="py-32 px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div class="reveal-up">
+                <h2 class="font-huge text-5xl md:text-7xl mb-4">SERVICES<span class="text-[var(--accent)]">.</span></h2>
+                <p class="opacity-60 uppercase tracking-widest">Traditional techniques meets modern style</p>
+            </div>
+            <div class="flex gap-4 reveal-up">
+                <button class="text-[10px] font-bold border border-[var(--accent)] px-6 py-2 rounded-full hover:bg-[var(--accent)] hover:text-black transition">ALL</button>
+                <button class="text-[10px] font-bold border border-white/20 px-6 py-2 rounded-full hover:border-[var(--accent)] transition">HAIRCUTS</button>
+                <button class="text-[10px] font-bold border border-white/20 px-6 py-2 rounded-full hover:border-[var(--accent)] transition">SHAVES</button>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-panel p-8 bob-up group">
-                <i data-lucide="scissors" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
-                <h3 class="font-huge text-2xl mb-2">Traditional Cut</h3>
-                <p class="text-sm opacity-60 mb-6">Scissor or clipper work tailored to your head shape.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £20</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-panel p-8 reveal-up group hover:border-[var(--accent)] transition-all">
+                <div class="flex justify-between items-start mb-6">
+                    <i data-lucide="scissors" class="w-10 h-10 text-[var(--accent)]"></i>
+                    <span class="font-huge text-2xl">£20</span>
+                </div>
+                <h3 class="font-huge text-2xl mb-2">Standard Cut</h3>
+                <p class="text-sm opacity-60 mb-8">Professional scissor or clipper cut with consultation and styling.</p>
+                <a href="#contact" class="text-xs font-bold border-b border-[var(--accent)] pb-1 hover:text-[var(--accent)] transition">PRE-PAY ONLINE (15)</a>
             </div>
-            <div class="glass-panel p-8 bob-up group" style="transition-delay: 0.1s">
-                <i data-lucide="razor" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
+
+            <div class="glass-panel p-8 reveal-up group hover:border-[var(--accent)] transition-all" style="transition-delay: 0.1s">
+                <div class="flex justify-between items-start mb-6">
+                    <i data-lucide="user" class="w-10 h-10 text-[var(--accent)]"></i>
+                    <span class="font-huge text-2xl">£25</span>
+                </div>
                 <h3 class="font-huge text-2xl mb-2">Turkish Wet Shave</h3>
-                <p class="text-sm opacity-60 mb-6">Hot towel, straight razor, and face massage ritual.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £25</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
+                <p class="text-sm opacity-60 mb-8">Traditional straight-razor shave with hot towels and face massage.</p>
+                <a href="#contact" class="text-xs font-bold border-b border-[var(--accent)] pb-1 hover:text-[var(--accent)] transition">PRE-PAY ONLINE (15)</a>
             </div>
-            <div class="glass-panel p-8 bob-up group" style="transition-delay: 0.2s">
-                <i data-lucide="sparkles" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
+
+            <div class="glass-panel p-8 reveal-up group hover:border-[var(--accent)] transition-all" style="transition-delay: 0.2s">
+                <div class="flex justify-between items-start mb-6">
+                    <i data-lucide="gem" class="w-10 h-10 text-[var(--accent)]"></i>
+                    <span class="font-huge text-2xl">£45</span>
+                </div>
                 <h3 class="font-huge text-2xl mb-2">Full Grooming</h3>
-                <p class="text-sm opacity-60 mb-6">The ultimate package: Haircut, Shave, and Ear Singeing.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £45</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
+                <p class="text-sm opacity-60 mb-8">Cut, Shave, Ear Singeing, and Eyebrow threading. The VIP treatment.</p>
+                <a href="#contact" class="text-xs font-bold border-b border-[var(--accent)] pb-1 hover:text-[var(--accent)] transition">PRE-PAY ONLINE (15)</a>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-zinc-950">
-        <h2 class="font-huge text-4xl text-center mb-12">TRANSFORMATIONS</h2>
-        <div class="max-w-2xl mx-auto relative h-96 rounded-xl overflow-hidden shadow-2xl border border-[var(--accent)]">
-            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1" class="absolute inset-0 w-full h-full object-cover">
-            <div id="before-after-overlay" class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-[var(--accent)]">
-                <img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712" class="w-[200%] h-full object-cover">
-            </div>
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-5xl mx-auto px-8 text-center mb-16">
+            <h2 class="font-huge text-5xl mb-4">TRANSFORMATIONS</h2>
+            <p class="opacity-50">Drag the slider to see the difference</p>
         </div>
-        <div class="text-center mt-12">
-            <button class="btn-elite" onclick="document.getElementById('uploadForm').style.display='block'">Submit Your Result</button>
-            <div id="uploadForm" class="hidden mt-6 glass-panel p-6 max-w-md mx-auto">
-                <input type="file" class="text-xs mb-4">
-                <button class="btn-elite w-full py-2">Upload Photo</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 max-w-3xl mx-auto">
-        <h2 class="font-huge text-4xl mb-12 text-center">FREQUENT QUESTIONS</h2>
-        <div class="space-y-4">
-            <div class="border-b border-white/10 pb-4 cursor-pointer faq-toggle">
-                <div class="flex justify-between items-center font-bold">Do I need an appointment? <i data-lucide="plus"></i></div>
-                <div class="faq-answer">While we accept walk-ins, we highly recommend booking during weekends to avoid long wait times.</div>
-            </div>
-            <div class="border-b border-white/10 pb-4 cursor-pointer faq-toggle">
-                <div class="flex justify-between items-center font-bold">What is a Turkish Wet Shave? <i data-lucide="plus"></i></div>
-                <div class="faq-answer">It is a traditional ritual including hot towels, specialized oils, a straight-razor shave, and a cooling massage.</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 px-6 border-t border-white/10">
-        <div class="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
-            <div class="bob-up">
-                <h2 class="font-huge text-5xl mb-8">FIND US</h2>
-                <div class="space-y-6 mb-8">
-                    <p class="flex items-center gap-4"><i data-lucide="map-pin" class="text-[var(--accent)]"></i> 3 Headley Road, Woodley, RG5 4JB</p>
-                    <p class="flex items-center gap-4"><i data-lucide="phone" class="text-[var(--accent)]"></i> 0118 376 6070</p>
-                    <p class="flex items-center gap-4"><i data-lucide="clock" class="text-[var(--accent)]"></i> Mon-Sat: 9am - 6:30pm (Sun: Closed)</p>
+        <div class="max-w-4xl mx-auto px-8 reveal-up">
+            <div class="ba-container rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80" class="ba-after" alt="After">
+                <div class="ba-before-wrapper ba-before">
+                    <img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712?q=80" class="w-full h-full object-cover" alt="Before">
                 </div>
-                <iframe class="w-full h-80 grayscale contrast-125 rounded-lg border border-white/10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.2!2d-0.9!3d51.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDI3JzAwLjAiTiAwwrA1NCc0MC4wIlc!5e0!3m2!1sen!2suk!4v1620000000000!5m2!1sen!2suk"></iframe>
+                <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full opacity-0 z-10 cursor-pointer" id="ba-slider">
             </div>
-            <form class="glass-panel p-10 space-y-6 rounded-xl border-t-4 border-[var(--accent)]">
-                <h3 class="font-huge text-2xl">ENQUIRY FORM</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="Full Name" class="bg-white/5 p-4 border-none outline-none focus:ring-1 ring-[var(--accent)]">
-                    <input type="tel" placeholder="Phone" class="bg-white/5 p-4 border-none outline-none focus:ring-1 ring-[var(--accent)]">
+            
+            <div class="mt-12 glass-panel p-8 text-center max-w-xl mx-auto">
+                <h4 class="font-huge text-xl mb-4">BE FEATURED</h4>
+                <p class="text-sm opacity-60 mb-6">Clients can submit their transformation photos to our gallery.</p>
+                <input type="file" class="hidden" id="ba-upload">
+                <button onclick="document.getElementById('ba-upload').click()" class="btn-gold">Upload Transformation</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="py-32 px-8 max-w-7xl mx-auto">
+        <h2 class="font-huge text-5xl mb-16 reveal-up">THE MASTER BARBERS</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="reveal-up group">
+                <div class="aspect-[3/4] overflow-hidden mb-4 rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
                 </div>
-                <select class="w-full bg-white/5 p-4 border-none outline-none">
-                    <option>Select Service</option>
-                    <option>Haircut</option>
-                    <option>Wet Shave</option>
-                    <option>Beard Trim</option>
-                </select>
-                <textarea rows="4" placeholder="Special Requests..." class="w-full bg-white/5 p-4 border-none outline-none"></textarea>
-                <button type="submit" class="btn-elite w-full">Send Message</button>
+                <h4 class="font-huge text-xl">Hakan</h4>
+                <p class="text-[10px] text-[var(--accent)] font-bold uppercase mb-2">Master Barber / Owner</p>
+                <p class="text-xs opacity-50 mb-4">15+ years experience in Turkish grooming techniques.</p>
+                <button class="text-[10px] font-bold uppercase tracking-tighter border border-white/20 px-4 py-1 hover:border-[var(--accent)]">Select Barber</button>
+            </div>
+            <div class="reveal-up group" style="transition-delay: 0.1s">
+                <div class="aspect-[3/4] overflow-hidden mb-4 rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                </div>
+                <h4 class="font-huge text-xl">Memo</h4>
+                <p class="text-[10px] text-[var(--accent)] font-bold uppercase mb-2">Fade Specialist</p>
+                <p class="text-xs opacity-50 mb-4">The King of zero-fades and beard alignment.</p>
+                <button class="text-[10px] font-bold uppercase tracking-tighter border border-white/20 px-4 py-1 hover:border-[var(--accent)]">Select Barber</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-black/40">
+        <div class="max-w-4xl mx-auto px-8 text-center">
+            <div class="swiper reviewSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="flex justify-center gap-1 mb-6">
+                            <i data-lucide="star" class="fill-[var(--accent)] text-[var(--accent)] w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-[var(--accent)] text-[var(--accent)] w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-[var(--accent)] text-[var(--accent)] w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-[var(--accent)] text-[var(--accent)] w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-[var(--accent)] text-[var(--accent)] w-4 h-4"></i>
+                        </div>
+                        <p class="text-2xl font-medium italic mb-8">"Best traditional shave I've had in years. The hot towel treatment is a game changer."</p>
+                        <p class="font-huge text-[var(--accent)]">— DAVID STEVENS</p>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-20">
+            <div class="reveal-up">
+                <h2 class="font-huge text-5xl mb-10">ENQUIRIES</h2>
+                <div class="space-y-4">
+                    <div class="faq-item glass-panel p-6 cursor-pointer" onclick="this.classList.toggle('active')">
+                        <div class="flex justify-between items-center"><span class="font-bold">Do I need to book?</span><i data-lucide="plus"></i></div>
+                        <div class="faq-content text-sm opacity-60">Walk-ins are welcome, but booking ensures you see your favorite barber on time.</div>
+                    </div>
+                    <div class="faq-item glass-panel p-6 cursor-pointer" onclick="this.classList.toggle('active')">
+                        <div class="flex justify-between items-center"><span class="font-bold">Gift cards available? (26)</span><i data-lucide="plus"></i></div>
+                        <div class="faq-content text-sm opacity-60">Yes! Digital and physical gift vouchers can be purchased in-store.</div>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <h3 class="font-huge text-2xl mb-4">NEWSLETTER (6)</h3>
+                    <div class="flex">
+                        <input type="email" placeholder="Your Email" class="flex-1 bg-white/5 border border-white/10 p-4 outline-none focus:border-[var(--accent)]">
+                        <button class="btn-gold">Join</button>
+                    </div>
+                </div>
+            </div>
+
+            <form class="glass-panel p-10 reveal-up">
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 p-4 outline-none focus:border-[var(--accent)]">
+                    <input type="tel" placeholder="Phone" class="w-full bg-white/5 border border-white/10 p-4 outline-none focus:border-[var(--accent)]">
+                </div>
+                <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 p-4 mb-6 outline-none focus:border-[var(--accent)]">
+                <textarea placeholder="Message / Service Requested" rows="4" class="w-full bg-white/5 border border-white/10 p-4 mb-6 outline-none focus:border-[var(--accent)]"></textarea>
+                <button type="submit" class="btn-gold w-full">Send Message</button>
             </form>
         </div>
     </section>
 
-    <div class="ticker-wrap">
-        <div class="ticker-move">
-            98% RECOMMENDATION RATE • TRADITIONAL TURKISH TECHNIQUES • BOOK YOUR SLOTTED APPOINTMENT NOW • WET SHAVE SPECIALISTS • WOODLEY'S PREMIER BARBER SHOP • 
+    <section class="py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-10 items-center">
+            <div class="reveal-up">
+                <h2 class="font-huge text-3xl mb-4">MULTIPLE LOCATIONS (21)</h2>
+                <p class="text-[var(--accent)] font-bold mb-6">MAIN SHOP: 3 Headley Road, Woodley, RG5 4JB</p>
+                <div class="space-y-2 opacity-70">
+                    <p class="flex justify-between border-b border-white/5 pb-2"><span>Monday</span><span>9:00 AM - 6:30 PM</span></p>
+                    <p class="flex justify-between border-b border-white/5 pb-2"><span>Tuesday</span><span>9:00 AM - 6:30 PM</span></p>
+                    <p class="flex justify-between border-b border-white/5 pb-2"><span>Wednesday</span><span>9:00 AM - 6:30 PM</span></p>
+                    <p class="flex justify-between border-b border-white/5 pb-2 text-[var(--accent)] font-bold"><span>Today</span><span>9:00 AM - 6:30 PM</span></p>
+                    <p class="flex justify-between border-b border-white/5 pb-2"><span>Saturday</span><span>8:30 AM - 6:00 PM</span></p>
+                    <p class="flex justify-between"><span>Sunday</span><span>Closed</span></p>
+                </div>
+            </div>
+            <div class="h-80 rounded-2xl overflow-hidden grayscale contrast-125 reveal-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.291771457199!2d-0.9080775233816155!3d51.45281897179978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48767b7e6b0a0001%3A0x868b5550c766860!2s3%20Headley%20Rd%2C%20Woodley%2C%20Reading%20RG5%204JB!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
-    </div>
+    </section>
 </main>
 
-<footer class="py-20 px-6 text-center bg-black border-t border-white/5">
-    <img src="https://i.ibb.co/XfXkXp0/logo.png" class="h-20 mx-auto mb-8 grayscale opacity-50">
-    <div class="flex justify-center gap-6 mb-10">
-        <a href="#" class="social-footer-icon"><i data-lucide="instagram"></i></a>
-        <a href="#" class="social-footer-icon"><i data-lucide="facebook"></i></a>
+<footer class="py-20 px-8 text-center bg-black border-t border-[var(--accent)]">
+    <div class="flex justify-center gap-10 mb-10 reveal-up">
+        <a href="#" class="hover:text-[var(--accent)]"><i data-lucide="instagram"></i></a>
+        <a href="#" class="hover:text-[var(--accent)]"><i data-lucide="facebook"></i></a>
+        <a href="#" class="hover:text-[var(--accent)]"><i data-lucide="twitter"></i></a>
     </div>
-    <p class="text-[10px] tracking-[0.5em] opacity-30 uppercase">© 2026 BARBER LOUNGE WOODLEY. ALL RIGHTS RESERVED.</p>
+    <p class="font-huge text-xl opacity-20 mb-4">BARBER LOUNGE WOODLEY</p>
+    <p class="text-[10px] tracking-widest opacity-40">© 2026 THE BARBER LOUNGE | BUILT FOR CHAMPIONS</p>
 </footer>
 
-<div class="bottom-dock">
+<div class="bottom-dock lg:hidden">
     <a href="tel:01183766070" class="dock-item"><i data-lucide="phone"></i><span>Call</span></a>
-    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-square"></i><span>WhatsApp</span></a>
-    <a href="#contact" class="dock-item"><i data-lucide="calendar-days"></i><span>Book</span></a>
-    <a href="#contact" class="dock-item"><i data-lucide="navigation"></i><span>Map</span></a>
+    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-circle"></i><span>WhatsApp</span></a>
+    <a href="#contact" class="dock-item"><i data-lucide="calendar"></i><span>Book</span></a>
+    <a href="#contact" class="dock-item"><i data-lucide="file-text"></i><span>Quote</span></a>
 </div>
+
+<div id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i data-lucide="arrow-up"></i></div>
 
 <script>
     lucide.createIcons();
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero Slider
+    // Hero Slider (1)
     new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
+    new Swiper('.reviewSwiper', { loop: true, autoplay: { delay: 5000 }, pagination: { el: '.swiper-pagination', clickable: true } });
 
     // Scroll Animations (4)
-    gsap.utils.toArray('.bob-up').forEach(el => {
-        gsap.to(el, { scrollTrigger: { trigger: el, start: "top 90%" }, opacity: 1, y: 0, duration: 1 });
+    gsap.utils.toArray('.reveal-up').forEach(el => {
+        gsap.to(el, { scrollTrigger: { trigger: el, start: "top 90%" }, opacity: 1, y: 0, duration: 1, ease: "power2.out" });
     });
 
     // Stats Counter (7)
-    const stats = document.querySelectorAll('.stat-number');
-    const animateStats = () => {
-        stats.forEach(stat => {
-            const target = +stat.dataset.target;
-            const update = () => {
-                const cur = +stat.innerText;
-                const inc = target / 100;
-                if(cur < target) { stat.innerText = Math.ceil(cur + inc); setTimeout(update, 20); }
-                else stat.innerText = target;
+    const stats = document.querySelectorAll('.stat');
+    stats.forEach(stat => {
+        ScrollTrigger.create({
+            trigger: stat, start: "top 90%",
+            onEnter: () => {
+                let target = +stat.dataset.target;
+                let count = 0;
+                let inc = target / 50;
+                let update = setInterval(() => {
+                    count += inc;
+                    if(count >= target) { stat.innerText = target.toLocaleString() + (target > 100 ? '+' : ''); clearInterval(update); }
+                    else { stat.innerText = Math.ceil(count).toLocaleString(); }
+                }, 30);
             }
-            update();
         });
-    };
-    ScrollTrigger.create({ trigger: "#about", start: "top 80%", onEnter: animateStats });
+    });
 
-    // FAQ Accordion (3)
-    document.querySelectorAll('.faq-toggle').forEach(item => {
-        item.addEventListener('click', () => {
-            const ans = item.querySelector('.faq-answer');
-            const icon = item.querySelector('i');
-            const isOpen = ans.style.maxHeight !== '0px';
-            ans.style.maxHeight = isOpen ? '0px' : ans.scrollHeight + 'px';
-            icon.setAttribute('data-lucide', isOpen ? 'plus' : 'minus');
-            lucide.createIcons();
+    // Before/After Slider (9)
+    const baSlider = document.getElementById('ba-slider');
+    const baBefore = document.querySelector('.ba-before');
+    if(baSlider) {
+        baSlider.addEventListener('input', (e) => {
+            baBefore.style.width = `${e.target.value}%`;
         });
+    }
+
+    // Header Scroll UX (18)
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        const st = document.getElementById('scrollTop');
+        if(window.scrollY > 100) {
+            header.classList.add('scrolled');
+            st.style.display = 'block';
+        } else {
+            header.classList.remove('scrolled');
+            st.style.display = 'none';
+        }
     });
 
     // Exit Intent (22)
+    let exitTriggered = false;
     document.addEventListener('mouseleave', (e) => {
-        if(e.clientY < 0) document.getElementById('exitPopup').style.display = 'block';
+        if(e.clientY < 0 && !exitTriggered) {
+            document.getElementById('exit-popup').style.display = 'flex';
+            exitTriggered = true;
+        }
     });
-    document.getElementById('closeExitPopup').onclick = () => document.getElementById('exitPopup').style.display = 'none';
+    function closeExitPopup() { document.getElementById('exit-popup').style.display = 'none'; }
 
-    // Mobile Menu
-    document.getElementById('menu-btn').onclick = () => document.getElementById('mobile-menu').style.display = 'flex';
-    document.getElementById('close-menu').onclick = () => document.getElementById('mobile-menu').style.display = 'none';
-
+    // Navigation (31)
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobile-nav');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
 </script>
 </body>
 </html>
