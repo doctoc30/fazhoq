@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barber Lounge Woodley | Traditional Turkish Barbers</title>
+    <title>Barber Lounge | Traditional Turkish Barbering</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -11,222 +11,256 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700;900&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
 
     <style>
         :root { 
             --gold: #a68945; 
             --dark: #1a1a1a;
-            --paper-bg: #e5e5e7; /* Matching the logo image background exactly */
+            --paper: #e5e5e7; /* Exact Logo Background */
         }
         
-        body { 
-            background-color: var(--paper-bg);
-            color: var(--dark); 
-            font-family: 'Space Grotesk', sans-serif; 
-            overflow-x: hidden; 
-        }
-
-        /* TEXTURED CARDSTOCK BACKGROUND */
+        body { background-color: var(--paper); color: var(--dark); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+        
+        /* 30. Scroll/Page Customization */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--paper); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+        
         .texture-bg {
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
             background-attachment: fixed;
         }
 
-        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
         .font-logo { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900; }
+        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
 
-        /* SCROLL ANIMATIONS (4) */
-        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
-        .reveal-up.active { opacity: 1; transform: translateY(0); }
+        /* 18. Sticky Navigation */
+        header.scrolled { background: rgba(229, 229, 231, 0.9); backdrop-filter: blur(10px); padding: 10px 20px !important; border-bottom: 2px solid var(--gold); }
 
-        /* STICKY HEADER (18) */
-        header.scrolled { 
-            background: rgba(229, 229, 231, 0.95); 
-            padding: 10px 20px !important; 
-            border-bottom: 2px solid var(--gold);
-            backdrop-filter: blur(10px);
-        }
+        /* 4. Scroll Up Animations */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .btn-gold { 
-            background: var(--gold); color: white; padding: 12px 24px; 
-            font-family: 'Archivo Black'; font-size: 11px; transition: 0.4s;
-            border: 2px solid var(--gold); letter-spacing: 1px;
-        }
-        .btn-gold:hover { background: var(--dark); border-color: var(--dark); transform: scale(1.05); }
-
-        /* BEFORE/AFTER SLIDER (9) */
-        .ba-slider { position: relative; width: 100%; height: 450px; overflow: hidden; border: 6px solid white; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        /* 9. Before/After */
+        .ba-container { position: relative; width: 100%; height: 450px; overflow: hidden; border: 4px solid white; border-radius: 8px; }
         .ba-before { position: absolute; top: 0; left: 0; width: 50%; height: 100%; z-index: 2; border-right: 3px solid var(--gold); }
 
-        /* SCROLL TO TOP BUTTON (14) */
-        #scrollTop { 
-            position: fixed; bottom: 110px; right: 25px; background: var(--dark); 
-            color: var(--gold); width: 45px; height: 45px; border-radius: 50%; 
-            display: none; place-items: center; cursor: pointer; z-index: 999;
-            transition: 0.3s;
-        }
-        #scrollTop:hover { background: var(--gold); color: white; }
+        /* 20. Bottom CTA Dock */
+        .bottom-dock { position: fixed; bottom: 0; width: 100%; background: var(--dark); display: flex; justify-content: space-around; padding: 15px; z-index: 1000; border-top: 3px solid var(--gold); }
+        .dock-item { color: white; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; }
+        .dock-item i { color: var(--gold); margin-bottom: 4px; }
 
-        /* BOTTOM CTA DOCK (20) */
-        .bottom-dock { 
-            position: fixed; bottom: 0; width: 100%; background: var(--dark); 
-            display: flex; justify-content: space-around; padding: 12px 10px; z-index: 1000;
-            border-top: 3px solid var(--gold);
-        }
-        .dock-item { color: white; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .dock-item i { color: var(--gold); margin-bottom: 4px; width: 20px; }
+        /* Buttons */
+        .btn-gold { background: var(--gold); color: white; padding: 14px 28px; font-family: 'Archivo Black'; font-size: 12px; transition: 0.3s; border: 2px solid var(--gold); }
+        .btn-gold:hover { background: transparent; color: var(--gold); transform: translateY(-3px); }
 
-        .glass-panel { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(166, 137, 69, 0.2); backdrop-filter: blur(8px); }
+        /* 3. FAQ Accordion */
+        .faq-content { max-height: 0; overflow: hidden; transition: all 0.3s ease-out; opacity: 0; }
+        .faq-item.active .faq-content { max-height: 200px; opacity: 1; margin-top: 15px; }
     </style>
 </head>
 <body class="texture-bg">
 
-<div id="exit-intent" class="fixed inset-0 bg-black/80 z-[9999] hidden items-center justify-center p-6">
-    <div class="glass-panel p-12 max-w-md text-center rounded-sm border-t-8 border-[var(--gold)]">
+<div id="exit-popup" class="fixed inset-0 bg-black/80 z-[9999] hidden items-center justify-center p-6">
+    <div class="bg-[var(--paper)] p-12 max-w-md text-center rounded-sm border-t-8 border-[var(--gold)]">
         <h2 class="font-logo text-4xl mb-2 text-black">Barber Lounge</h2>
-        <p class="font-huge text-sm tracking-widest mb-6">Exclusive Offer</p>
-        <p class="mb-8 font-medium">Don't leave yet! Claim a 10% discount for your next Turkish Wet Shave by booking now.</p>
-        <button onclick="closeExit()" class="btn-gold w-full py-4">CLAIM 10% OFF</button>
+        <p class="font-huge text-xs tracking-widest mb-6">Don't Miss Out</p>
+        <p class="mb-8 font-medium">Claim 10% off your first Turkish Wet Shave. Just show this screen at checkout.</p>
+        <button onclick="closeExit()" class="btn-gold w-full">CLAIM DISCOUNT</button>
     </div>
+</div>
+
+<div id="promo-popup" class="fixed bottom-24 left-6 z-[900] bg-white p-6 shadow-2xl border-l-4 border-[var(--gold)] max-w-xs reveal">
+    <button class="absolute top-2 right-2 opacity-50" onclick="this.parentElement.remove()"><i data-lucide="x" class="w-4 h-4"></i></button>
+    <span class="text-[10px] font-black text-[var(--gold)] tracking-widest">OFFER (5)</span>
+    <h4 class="font-huge text-lg mb-2">Student Tuesday</h4>
+    <p class="text-xs opacity-70 mb-4">Get 20% off all haircuts every Tuesday with a valid ID.</p>
+    <a href="#contact" class="text-xs font-black border-b-2 border-black pb-1">BOOK NOW</a>
 </div>
 
 <header class="fixed top-0 w-full z-[2000] px-10 py-8 flex justify-between items-center transition-all duration-500">
-    <div class="flex flex-col items-start leading-none">
+    <div class="flex flex-col leading-none">
         <span class="font-logo text-3xl text-black">Barber Lounge</span>
-        <span class="text-[9px] font-black tracking-[0.4em] text-[var(--gold)]">ESTD 2017 • WOODLEY</span>
+        <span class="text-[9px] font-black tracking-[0.4em] text-[var(--gold)]">WOODLEY • READING</span>
     </div>
     
-    <nav class="hidden lg:flex gap-10 font-bold text-[11px] tracking-[0.2em]">
-        <a href="#services" class="hover:text-[var(--gold)] transition">SERVICES</a>
-        <a href="#gallery" class="hover:text-[var(--gold)] transition">TRANSFORMATIONS</a>
-        <a href="#team" class="hover:text-[var(--gold)] transition">THE TEAM</a>
-        <a href="#contact" class="hover:text-[var(--gold)] transition">LOCATION</a>
+    <nav class="hidden lg:flex gap-10 font-bold text-[11px] tracking-widest">
+        <a href="#services" class="hover:text-[var(--gold)]">SERVICES</a>
+        <a href="#transformations" class="hover:text-[var(--gold)]">TRANSFORMATIONS</a>
+        <a href="#team" class="hover:text-[var(--gold)]">THE TEAM</a>
+        <a href="#contact" class="hover:text-[var(--gold)]">CONTACT</a>
     </nav>
 
-    <div class="hidden lg:block">
-        <a href="tel:01183766070" class="btn-gold">BOOK: 0118 376 6070</a>
+    <div class="hidden lg:flex gap-4">
+        <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});" class="btn-gold">BOOK ONLINE (2)</button>
     </div>
-
-    <button class="lg:hidden text-black" onclick="toggleMenu()"><i data-lucide="menu" class="w-8 h-8"></i></button>
+    <button class="lg:hidden" onclick="toggleMenu()"><i data-lucide="menu" class="w-8 h-8"></i></button>
 </header>
 
-<div id="mobile-nav" class="fixed inset-0 bg-[var(--paper-bg)] z-[3000] hidden flex-col items-center justify-center gap-10">
+<div id="mobile-menu" class="fixed inset-0 bg-[var(--paper)] z-[3000] hidden flex-col items-center justify-center gap-10 text-center">
     <button class="absolute top-10 right-10" onclick="toggleMenu()"><i data-lucide="x" class="w-10 h-10"></i></button>
     <span class="font-logo text-5xl">Barber Lounge</span>
-    <div class="flex flex-col gap-6 text-center">
+    <nav class="flex flex-col gap-6">
         <a href="#services" class="font-huge text-2xl" onclick="toggleMenu()">SERVICES</a>
-        <a href="#team" class="font-huge text-2xl" onclick="toggleMenu()">BARBERS</a>
-        <a href="#contact" class="font-huge text-2xl" onclick="toggleMenu()">BOOK NOW</a>
-    </div>
+        <a href="#team" class="font-huge text-2xl" onclick="toggleMenu()">TEAM</a>
+        <a href="#contact" class="font-huge text-2xl" onclick="toggleMenu()">LOCATION</a>
+    </nav>
 </div>
 
-<section class="h-screen flex items-center justify-center relative overflow-hidden">
-    <div class="swiper heroSwiper absolute inset-0 z-0 opacity-40 grayscale">
+<section class="h-screen relative flex items-center justify-center overflow-hidden">
+    <div class="swiper heroSwiper absolute inset-0 z-0 grayscale opacity-40">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1" class="w-full h-full object-cover"></div>
-            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70" class="w-full h-full object-cover"></div>
         </div>
     </div>
-    <div class="relative z-10 text-center px-6 reveal-up">
-        <h1 class="font-logo text-7xl md:text-[12rem] text-black leading-none mb-6">Barber Lounge</h1>
-        <p class="font-huge text-sm md:text-xl tracking-[0.6em] mb-12">Traditional Turkish Grooming</p>
-        <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <button onclick="window.location.href='#services'" class="btn-gold px-12 py-5 text-sm">VIEW OUR MENU</button>
-            <button onclick="window.location.href='#contact'" class="border-2 border-black font-huge px-12 py-5 text-[11px] hover:bg-black hover:text-white transition">BOOK APPOINTMENT (2)</button>
+    
+    <div class="relative z-10 text-center px-6 reveal">
+        <h1 class="font-logo text-7xl md:text-[10rem] text-black leading-none mb-4">Barber Lounge</h1>
+        <p class="font-huge text-sm md:text-xl tracking-[0.6em] mb-12">The Turkish Grooming Experience</p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <button onclick="window.location.href='#services'" class="btn-gold px-12">VIEW SERVICES (27)</button>
+            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});" class="bg-black text-white px-12 py-4 font-huge text-[11px] tracking-widest">BOOK NOW (32)</button>
         </div>
     </div>
 </section>
 
-<section class="py-24 bg-white/40 border-y border-black/5">
+<section class="py-24 bg-white/50 border-y border-black/5">
     <div class="max-w-7xl mx-auto px-10 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-        <div class="reveal-up">
+        <div class="reveal">
             <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="15000">0</h3>
-            <p class="text-[10px] font-black tracking-widest opacity-60">CLIENTS SERVED</p>
+            <p class="text-[10px] font-black tracking-widest opacity-60">CLIENTS SERVED (7)</p>
         </div>
-        <div class="reveal-up" style="transition-delay: 0.1s">
-            <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="98">0</h3>
-            <p class="text-[10px] font-black tracking-widest opacity-60">POSITIVE FEEDBACK %</p>
-        </div>
-        <div class="reveal-up" style="transition-delay: 0.2s">
-            <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="8">0</h3>
+        <div class="reveal" style="transition-delay: 0.1s">
+            <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="10">0</h3>
             <p class="text-[10px] font-black tracking-widest opacity-60">MASTER BARBERS</p>
         </div>
-        <div class="reveal-up" style="transition-delay: 0.3s">
+        <div class="reveal" style="transition-delay: 0.2s">
+            <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="5">0</h3>
+            <p class="text-[10px] font-black tracking-widest opacity-60">GOOGLE STAR RATING</p>
+        </div>
+        <div class="reveal" style="transition-delay: 0.3s">
             <h3 class="font-logo text-5xl text-[var(--gold)] counter" data-target="2017">0</h3>
-            <p class="text-[10px] font-black tracking-widest opacity-60">YEAR FOUNDED</p>
+            <p class="text-[10px] font-black tracking-widest opacity-60">YEAR ESTABLISHED</p>
         </div>
     </div>
 </section>
 
 <section id="services" class="py-32 px-10 max-w-7xl mx-auto">
-    <div class="text-center mb-24 reveal-up">
-        <span class="font-logo text-4xl block mb-2">Barber Lounge</span>
-        <h2 class="font-huge text-5xl md:text-7xl">PRICELIST</h2>
-        <div class="w-24 h-1 bg-[var(--gold)] mx-auto mt-4"></div>
+    <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+        <div>
+            <h2 class="font-huge text-5xl md:text-7xl">SERVICES</h2>
+            <p class="font-bold opacity-50 tracking-[0.3em]">34. INTERACTIVE PRICE LIST</p>
+        </div>
+        <div class="flex gap-4">
+            <button class="bg-black text-white text-[10px] font-bold px-6 py-2 rounded-full">ALL</button>
+            <button class="bg-white border border-black/10 text-[10px] font-bold px-6 py-2 rounded-full hover:bg-black hover:text-white transition">HAIRCUTS</button>
+            <button class="bg-white border border-black/10 text-[10px] font-bold px-6 py-2 rounded-full hover:bg-black hover:text-white transition">SHAVES</button>
+        </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-10">
-        <div class="glass-panel p-12 rounded-sm border-b-4 border-[var(--gold)] reveal-up group hover:bg-black transition-all duration-500">
-            <div class="flex justify-between items-start mb-8">
-                <i data-lucide="scissors" class="text-[var(--gold)] w-10 h-10"></i>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white/40 p-10 border-b-4 border-[var(--gold)] reveal group hover:bg-black transition-all duration-500">
+            <h3 class="font-huge text-2xl mb-2 group-hover:text-white transition">Standard Cut</h3>
+            <p class="text-sm opacity-60 mb-8 group-hover:text-white/70">Scissor or clipper cut, includes consultation and style.</p>
+            <div class="flex justify-between items-center">
                 <span class="font-logo text-3xl group-hover:text-white transition">£20</span>
+                <a href="#" class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY ONLINE (15)</a>
             </div>
-            <h3 class="font-huge text-xl mb-3 group-hover:text-white transition">Standard Cut</h3>
-            <p class="text-sm opacity-60 mb-10 group-hover:text-white/70 transition">Precision cut finished with hot towel neck shave and style.</p>
-            <button class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY & BOOK ONLINE (15)</button>
         </div>
-
-        <div class="glass-panel p-12 rounded-sm border-b-4 border-[var(--gold)] reveal-up group hover:bg-black transition-all duration-500" style="transition-delay: 0.1s">
-            <div class="flex justify-between items-start mb-8">
-                <i data-lucide="user-check" class="text-[var(--gold)] w-10 h-10"></i>
+        
+        <div class="bg-white/40 p-10 border-b-4 border-[var(--gold)] reveal group hover:bg-black transition-all duration-500" style="transition-delay: 0.1s">
+            <h3 class="font-huge text-2xl mb-2 group-hover:text-white transition">Wet Shave</h3>
+            <p class="text-sm opacity-60 mb-8 group-hover:text-white/70">Traditional hot towels, oils, and straight razor.</p>
+            <div class="flex justify-between items-center">
                 <span class="font-logo text-3xl group-hover:text-white transition">£25</span>
+                <a href="#" class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY ONLINE (15)</a>
             </div>
-            <h3 class="font-huge text-xl mb-3 group-hover:text-white transition">Wet Shave</h3>
-            <p class="text-sm opacity-60 mb-10 group-hover:text-white/70 transition">Authentic Turkish straight razor shave with steam and oils.</p>
-            <button class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY & BOOK ONLINE (15)</button>
         </div>
 
-        <div class="glass-panel p-12 rounded-sm border-b-4 border-[var(--dark)] reveal-up group hover:bg-black transition-all duration-500" style="transition-delay: 0.2s">
-            <div class="flex justify-between items-start mb-8">
-                <i data-lucide="crown" class="text-[var(--gold)] w-10 h-10"></i>
+        <div class="bg-white/40 p-10 border-b-4 border-[var(--gold)] reveal group hover:bg-black transition-all duration-500" style="transition-delay: 0.2s">
+            <h3 class="font-huge text-2xl mb-2 group-hover:text-white transition">Full Grooming</h3>
+            <p class="text-sm opacity-60 mb-8 group-hover:text-white/70">Cut, shave, mask, ears and nose grooming.</p>
+            <div class="flex justify-between items-center">
                 <span class="font-logo text-3xl group-hover:text-white transition">£45</span>
+                <a href="#" class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY ONLINE (15)</a>
             </div>
-            <h3 class="font-huge text-xl mb-3 group-hover:text-white transition">Full VIP</h3>
-            <p class="text-sm opacity-60 mb-10 group-hover:text-white/70 transition">The ultimate package: Haircut, shave, mask, and ears/nose.</p>
-            <button class="text-[10px] font-black border-b-2 border-black group-hover:border-[var(--gold)] group-hover:text-[var(--gold)] pb-1 transition">PAY & BOOK ONLINE (15)</button>
         </div>
     </div>
 </section>
 
-<section id="gallery" class="py-32 bg-white/20">
-    <div class="max-w-4xl mx-auto px-10 text-center">
-        <h2 class="font-logo text-5xl mb-12 reveal-up">Transformations</h2>
-        <div class="ba-slider reveal-up">
+<section class="py-32 bg-black text-white">
+    <div class="max-w-7xl mx-auto px-10 grid lg:grid-cols-2 gap-20 items-center">
+        <div class="reveal">
+            <span class="text-[var(--gold)] font-bold tracking-[0.4em] text-xs mb-4 block">LOYALTY PROGRAM (23)</span>
+            <h2 class="font-huge text-5xl mb-8">THE LOUNGE MEMBERSHIP (8)</h2>
+            <p class="opacity-60 mb-10 leading-relaxed">Join our exclusive membership program. For £60/month, enjoy unlimited haircuts, priority booking, and a complimentary drink with every visit.</p>
+            <button class="btn-gold">JOIN THE VIP LIST</button>
+        </div>
+        <div class="reveal border-2 border-[var(--gold)] p-12 bg-zinc-900">
+            <h4 class="font-huge text-2xl mb-6 text-[var(--gold)]">MEMBERSHIP PERKS</h4>
+            <ul class="space-y-4 text-sm font-bold">
+                <li class="flex items-center gap-4"><i data-lucide="check" class="text-[var(--gold)]"></i> Unlimited Standard Haircuts</li>
+                <li class="flex items-center gap-4"><i data-lucide="check" class="text-[var(--gold)]"></i> 20% Off All Retail Products</li>
+                <li class="flex items-center gap-4"><i data-lucide="check" class="text-[var(--gold)]"></i> Priority Weekend Booking</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="transformations" class="py-32 px-10 bg-white/20">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="font-logo text-5xl text-center mb-16 reveal">The Transformation (9)</h2>
+        <div class="ba-container reveal">
             <img src="https://images.unsplash.com/photo-1599351431247-f13b3dc3668b" class="w-full h-full object-cover grayscale" alt="After">
             <div class="ba-before absolute inset-0 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1" class="w-full h-full object-cover" style="width: 450px;" alt="Before">
             </div>
-            <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full opacity-0 z-10 cursor-pointer" id="ba-slider-input">
+            <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full opacity-0 z-10 cursor-pointer" id="ba-slider">
         </div>
-        <p class="mt-8 text-sm font-bold opacity-50 tracking-widest italic">Slide to compare our work</p>
+        
+        <div class="mt-20 p-10 border border-black/10 rounded-lg text-center reveal">
+            <h3 class="font-huge text-2xl mb-4">SUBMIT YOUR CUT (25)</h3>
+            <p class="text-sm opacity-60 mb-8">Send us your before & after to be featured on our social media.</p>
+            <button class="border-2 border-black font-huge px-8 py-3 text-[10px]">UPLOAD PHOTO</button>
+        </div>
+    </div>
+</section>
+
+<section class="py-32 bg-zinc-950 text-white">
+    <div class="max-w-7xl mx-auto px-10">
+        <h2 class="font-huge text-4xl mb-16 text-center text-[var(--gold)]">ATMOSPHERE (10, 17)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="aspect-video bg-zinc-800 rounded-lg overflow-hidden reveal">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
+            </div>
+            <div class="aspect-video bg-zinc-800 rounded-lg overflow-hidden reveal" style="transition-delay: 0.1s">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
+            </div>
+            <div class="aspect-video bg-zinc-800 rounded-lg overflow-hidden reveal" style="transition-delay: 0.2s">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
+            </div>
+        </div>
     </div>
 </section>
 
 <section id="team" class="py-32 px-10 max-w-7xl mx-auto">
-    <h2 class="font-logo text-5xl mb-16 text-center reveal-up">Our Barbers</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="reveal-up text-center group">
-            <div class="aspect-[4/5] rounded-sm overflow-hidden mb-6 border-4 border-white">
-                <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+    <h2 class="font-logo text-5xl mb-16 text-center reveal">Our Master Barbers (24)</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="reveal text-center group">
+            <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm border-4 border-white shadow-xl">
+                <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
             </div>
             <h4 class="font-huge text-xl">Hakan</h4>
-            <p class="text-[10px] font-black text-[var(--gold)] tracking-widest">OWNER / MASTER BARBER</p>
+            <p class="text-[10px] font-black text-[var(--gold)] tracking-widest">MASTER BARBER / OWNER</p>
         </div>
-        <div class="reveal-up text-center group" style="transition-delay: 0.1s">
-            <div class="aspect-[4/5] rounded-sm overflow-hidden mb-6 border-4 border-white">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+        <div class="reveal text-center group" style="transition-delay: 0.1s">
+            <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm border-4 border-white shadow-xl">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
             </div>
             <h4 class="font-huge text-xl">Memo</h4>
             <p class="text-[10px] font-black text-[var(--gold)] tracking-widest">FADE SPECIALIST</p>
@@ -234,83 +268,121 @@
     </div>
 </section>
 
+<section class="py-32 bg-white/40">
+    <div class="max-w-7xl mx-auto px-10 grid lg:grid-cols-2 gap-24">
+        <div class="reveal">
+            <h2 class="font-huge text-4xl mb-12">FAQ (3)</h2>
+            <div class="space-y-4">
+                <div class="faq-item border-b border-black/10 pb-4">
+                    <button class="flex justify-between w-full font-bold text-left" onclick="toggleFaq(this)">
+                        DO YOU ACCEPT WALK-INS? <i data-lucide="plus" class="w-5 h-5 text-[var(--gold)]"></i>
+                    </button>
+                    <div class="faq-content text-sm opacity-60">Yes, walk-ins are always welcome, though bookings are recommended for peak times.</div>
+                </div>
+                <div class="faq-item border-b border-black/10 pb-4">
+                    <button class="flex justify-between w-full font-bold text-left" onclick="toggleFaq(this)">
+                        WHAT IS A TRADITIONAL TURKISH SHAVE? <i data-lucide="plus" class="w-5 h-5 text-[var(--gold)]"></i>
+                    </button>
+                    <div class="faq-content text-sm opacity-60">It involves multiple hot towels, straight razors, and a neck/shoulder massage for total relaxation.</div>
+                </div>
+            </div>
+        </div>
+        <div class="reveal">
+            <h2 class="font-huge text-4xl mb-12">REVIEWS (35)</h2>
+            <div class="bg-white p-10 shadow-xl border-t-4 border-[var(--gold)]">
+                <div class="flex gap-1 mb-4">
+                    <i data-lucide="star" class="fill-[var(--gold)] text-[var(--gold)] w-4 h-4"></i>
+                    <i data-lucide="star" class="fill-[var(--gold)] text-[var(--gold)] w-4 h-4"></i>
+                    <i data-lucide="star" class="fill-[var(--gold)] text-[var(--gold)] w-4 h-4"></i>
+                    <i data-lucide="star" class="fill-[var(--gold)] text-[var(--gold)] w-4 h-4"></i>
+                    <i data-lucide="star" class="fill-[var(--gold)] text-[var(--gold)] w-4 h-4"></i>
+                </div>
+                <p class="font-bold italic mb-6">"Best barbers in Woodley. Hakan is a master of the craft. Highly recommended for the full Turkish experience."</p>
+                <p class="text-[10px] font-black tracking-widest opacity-40">— JAMES S. (GOOGLE REVIEWS)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="contact" class="py-32 px-10 max-w-7xl mx-auto border-t border-black/5">
-    <div class="grid lg:grid-cols-2 gap-24">
-        <div class="reveal-up">
-            <h2 class="font-logo text-5xl mb-8">Visit Us</h2>
-            <p class="font-bold mb-2">3 Headley Road, Woodley</p>
-            <p class="font-bold mb-10 opacity-60 text-sm">Reading, United Kingdom, RG5 4JB</p>
-            
-            <div class="space-y-6 mb-12 font-bold text-sm">
-                <h4 class="font-huge text-xs tracking-widest text-[var(--gold)]">TRADING HOURS (10)</h4>
+    <div class="grid lg:grid-cols-2 gap-20">
+        <div class="reveal">
+            <h2 class="font-huge text-4xl mb-10">LOCATE US (12, 21)</h2>
+            <p class="font-bold mb-4">3 Headley Road, Woodley, Reading, RG5 4JB</p>
+            <div class="h-[400px] bg-white rounded-lg overflow-hidden grayscale border-2 border-white shadow-2xl">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.208752671569!2d-0.9085816!3d51.4542617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487679803309a963%3A0xc3457193d56715a3!2s3%20Headley%20Rd%2C%20Woodley%2C%20Reading%20RG5%204JB!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+        </div>
+        <div class="reveal">
+            <h2 class="font-huge text-4xl mb-10">OPENING HOURS (13)</h2>
+            <div class="space-y-3 font-bold text-sm">
                 <div class="flex justify-between border-b border-black/5 pb-2"><span>MONDAY - FRIDAY</span><span>09:00 - 18:30</span></div>
                 <div class="flex justify-between border-b border-black/5 pb-2"><span>SATURDAY</span><span>08:30 - 18:00</span></div>
                 <div class="flex justify-between text-red-600"><span>SUNDAY</span><span>CLOSED</span></div>
             </div>
-
-            <div class="h-[300px] rounded-sm overflow-hidden grayscale border-2 border-white shadow-lg">
-                <iframe src="http://googleusercontent.com/maps.google.com/5!" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            
+            <div class="mt-20">
+                <h4 class="font-huge text-xl mb-6">NEWSLETTER (6)</h4>
+                <div class="flex gap-4">
+                    <input type="email" placeholder="EMAIL ADDRESS" class="flex-1 bg-white border border-black/10 p-4 outline-none focus:border-[var(--gold)] font-bold text-xs">
+                    <button class="btn-gold">JOIN</button>
+                </div>
             </div>
         </div>
-
-        <form class="glass-panel p-10 rounded-sm shadow-xl reveal-up">
-            <h2 class="font-huge text-2xl mb-8">ENQUIRY FORM (4)</h2>
-            <div class="space-y-6">
-                <input type="text" placeholder="FULL NAME" class="w-full bg-white/50 border border-black/10 p-4 outline-none focus:border-[var(--gold)]">
-                <input type="tel" placeholder="PHONE NUMBER" class="w-full bg-white/50 border border-black/10 p-4 outline-none focus:border-[var(--gold)]">
-                <textarea placeholder="HOW CAN WE HELP?" rows="5" class="w-full bg-white/50 border border-black/10 p-4 outline-none focus:border-[var(--gold)]"></textarea>
-                <button class="btn-gold w-full py-5 text-sm">SEND MESSAGE</button>
-            </div>
-        </form>
     </div>
 </section>
 
-<footer class="py-20 bg-white/30 text-center border-t border-black/5">
-    <div class="flex justify-center gap-10 mb-10">
-        <a href="#" class="hover:text-[var(--gold)] transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
-        <a href="#" class="hover:text-[var(--gold)] transition"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+<footer class="py-20 bg-white/40 border-t border-black/5 text-center">
+    <span class="font-logo text-4xl block mb-2">Barber Lounge</span>
+    <p class="font-huge text-xs tracking-[0.4em] opacity-30 mb-10">THE FINEST CUTS IN WOODLEY</p>
+    <div class="flex justify-center gap-10 opacity-60">
+        <a href="#" class="hover:text-[var(--gold)]"><i data-lucide="instagram"></i></a>
+        <a href="#" class="hover:text-[var(--gold)]"><i data-lucide="facebook"></i></a>
     </div>
-    <span class="font-logo text-3xl block mb-2">Barber Lounge</span>
-    <p class="text-[10px] font-black tracking-[0.4em] opacity-40">© 2026 BARBER LOUNGE WOODLEY | DESIGNED FOR KINGS</p>
 </footer>
 
 <div class="bottom-dock lg:hidden">
     <a href="tel:01183766070" class="dock-item"><i data-lucide="phone"></i><span>CALL</span></a>
-    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-circle"></i><span>WHATSAPP</span></a>
+    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-square"></i><span>WHATSAPP</span></a>
     <a href="#contact" class="dock-item"><i data-lucide="calendar"></i><span>BOOK</span></a>
-    <a href="http://maps.google.com/?q=Barber+Lounge+Woodley" class="dock-item"><i data-lucide="map-pin"></i><span>MAP</span></a>
+    <a href="#contact" class="dock-item"><i data-lucide="help-circle"></i><span>QUOTE</span></a>
 </div>
 
-<div id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i data-lucide="chevron-up"></i></div>
+<button id="scrollTop" class="fixed bottom-28 right-6 bg-black text-[var(--gold)] w-12 h-12 rounded-full hidden place-items-center z-[1000] shadow-xl" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+</button>
 
 <script>
     lucide.createIcons();
 
-    // GSAP Scroll Animations (4)
+    // 4. Scroll Up Animations
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('active');
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    // 1. Hero Swiper
+    new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
 
-    // Stats Counter (7)
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
+    // 7. Stats Counter
+    const stats = document.querySelectorAll('.counter');
+    stats.forEach(stat => {
         ScrollTrigger.create({
-            trigger: counter,
+            trigger: stat,
             onEnter: () => {
-                const target = +counter.dataset.target;
-                let count = 0;
+                const target = +stat.dataset.target;
+                let current = 0;
                 const update = () => {
                     const inc = target / 60;
-                    if (count < target) {
-                        count += inc;
-                        counter.innerText = Math.ceil(count).toLocaleString();
+                    if(current < target) {
+                        current += inc;
+                        stat.innerText = Math.ceil(current).toLocaleString();
                         setTimeout(update, 20);
                     } else {
-                        counter.innerText = target.toLocaleString() + (target > 50 ? '+' : '');
+                        stat.innerText = target.toLocaleString() + '+';
                     }
                 };
                 update();
@@ -318,8 +390,8 @@
         });
     });
 
-    // Before/After (9)
-    const baInput = document.getElementById('ba-slider-input');
+    // 9. Before/After Slider
+    const baInput = document.getElementById('ba-slider');
     const baBefore = document.querySelector('.ba-before');
     if(baInput) {
         baInput.addEventListener('input', (e) => {
@@ -327,7 +399,7 @@
         });
     }
 
-    // Header & ScrollTop Logic (18, 14)
+    // 18. Header & Scroll Top
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
         const st = document.getElementById('scrollTop');
@@ -340,25 +412,30 @@
         }
     });
 
-    // Exit Intent (22)
-    let exitFlag = false;
+    // 22. Exit Intent
+    let exitTriggered = false;
     document.addEventListener('mouseleave', (e) => {
-        if(e.clientY < 0 && !exitFlag) {
-            document.getElementById('exit-intent').style.display = 'flex';
-            exitFlag = true;
+        if(e.clientY < 0 && !exitTriggered) {
+            document.getElementById('exit-popup').style.display = 'flex';
+            exitTriggered = true;
         }
     });
-    function closeExit() { document.getElementById('exit-intent').style.display = 'none'; }
+    function closeExit() { document.getElementById('exit-popup').style.display = 'none'; }
 
-    // Navigation Toggle (31)
+    // 3. FAQ Toggle
+    function toggleFaq(btn) {
+        const item = btn.parentElement;
+        item.classList.toggle('active');
+        const icon = btn.querySelector('i');
+        icon.style.transform = item.classList.contains('active') ? 'rotate(45deg)' : 'rotate(0deg)';
+    }
+
+    // 31. Menu Toggle
     function toggleMenu() {
-        const menu = document.getElementById('mobile-nav');
+        const menu = document.getElementById('mobile-menu');
         menu.classList.toggle('hidden');
         menu.classList.toggle('flex');
     }
-
-    // Hero Swiper (1)
-    new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
 </script>
 
 </body>
