@@ -14,12 +14,11 @@
 
     <style>
         :root {
-            --peacock-blue: #00338d; /* Exact match from your logo */
+            --peacock-blue: #00338d;
             --peacock-dark: #001f54;
             --peacock-accent: #3b82f6;
         }
 
-        /* 30. Custom Scrollbar & Color Customization */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: var(--peacock-blue); border-radius: 5px; }
@@ -29,17 +28,13 @@
         .text-peacock { color: var(--peacock-blue); }
         .border-peacock { border-color: var(--peacock-blue); }
 
-        /* 17. Gallery Lightbox & 29. Hover Effects */
         .gallery-item:hover img { transform: scale(1.08); transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* 31. Full-Screen Mobile Menu */
         #mobile-nav { clip-path: circle(0% at 100% 0%); transition: all 0.7s ease-in-out; }
         #mobile-nav.open { clip-path: circle(150% at 100% 0%); }
 
-        /* 20. Bottom CTA Dock */
         @media (max-width: 768px) { .bottom-dock { display: flex; } body { padding-bottom: 80px; } }
         
-        /* 34. Interactive Filters */
         .filter-btn.active { background: var(--peacock-blue); color: white; border-color: var(--peacock-blue); }
     </style>
 </head>
@@ -95,10 +90,11 @@
         <a href="#booking" onclick="toggleMobileNav()" class="bg-white text-peacock px-12 py-4 rounded-full text-xl shadow-2xl">Get A Quote</a>
     </div>
 
+    <!-- Hero Swiper - Pure Landscaping Images -->
     <section class="swiper heroSwiper h-[95vh] relative overflow-hidden">
         <div class="swiper-wrapper">
             <div class="swiper-slide relative">
-                <img src="https://images.unsplash.com/photo-1598901861713-a4ad609332ad?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Luxury Patio">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Luxury Garden Landscaping with Paving">
                 <div class="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
                     <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6 animate__animated animate__fadeInDown">Garden <br><span class="text-blue-400">Mastery</span></h1>
                     <p class="text-lg md:text-2xl font-medium max-w-2xl mb-10 opacity-90">Premium Indian Stone & Paving Specialists in Worksop.</p>
@@ -106,7 +102,7 @@
                 </div>
             </div>
             <div class="swiper-slide relative">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Brickwork">
+                <img src="https://images.unsplash.com/photo-1558905619-17153ad27393?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Stunning Patio and Garden Design">
                 <div class="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
                     <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6">Structural <br><span class="text-blue-400">Excellence</span></h1>
                     <a href="#services" class="bg-peacock text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm shadow-2xl">Our Specialist Services</a>
@@ -163,9 +159,10 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
+                <!-- Indian Stone Service - Landscaping Image -->
                 <div class="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1591857177580-2720ca0bc324?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Indian Stone">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Premium Indian Stone Patio Landscaping">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-8">
                             <a href="#" class="bg-white text-peacock px-6 py-2 rounded-full font-bold text-[10px] uppercase">Secure Deposit Online</a>
                         </div>
@@ -180,9 +177,10 @@
                     </div>
                 </div>
 
+                <!-- Brickwork Service - Landscaping with structural elements -->
                 <div class="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1558905619-17153ad27393?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Building">
+                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Elegant Garden Brickwork and Landscaping">
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-black text-peacock uppercase mb-2">Brickwork</h3>
@@ -194,9 +192,10 @@
                     </div>
                 </div>
 
+                <!-- Premium Turf Service - Pure Landscaping -->
                 <div class="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1592150621344-828ec28ee97d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Lawn">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Lush Green Lawn and Turf Landscaping">
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-black text-peacock uppercase mb-2">Premium Turf</h3>
@@ -232,7 +231,7 @@
             </div>
             <div class="relative" data-aos="fade-left">
                 <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition duration-700">
-                    <img src="https://images.unsplash.com/photo-1557429287-b2e26467fc2b?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="VIP Garden">
+                    <img src="https://images.unsplash.com/photo-1584551246679-258d7b3a33bc?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Beautiful landscaped garden with patio and plants">
                 </div>
                 <div class="absolute inset-0 bg-blue-500 rounded-[3rem] -rotate-3 scale-105 opacity-20"></div>
             </div>
@@ -243,7 +242,7 @@
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl font-black text-center text-white uppercase tracking-tighter mb-16">See Us In Action</h2>
             <div class="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white/5">
-                <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Video Cover">
+                <img src="https://images.unsplash.com/photo-1600240644455-3ed43955c40e?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Professional landscaping team working on garden design">
                 <div class="absolute inset-0 flex items-center justify-center">
                     <button class="w-24 h-24 bg-peacock text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition"><i class="fas fa-play ml-2"></i></button>
                 </div>
@@ -251,16 +250,17 @@
         </div>
     </section>
 
+    <!-- Before & After Transformation - Landscaping -->
     <section class="py-24 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl font-black text-center text-peacock uppercase tracking-tighter mb-16">The Transformation</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="relative rounded-[2.5rem] overflow-hidden shadow-xl" data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185138a04b9?q=80&w=1000&auto=format&fit=crop" class="w-full h-[450px] object-cover grayscale opacity-80" alt="Before">
+                    <img src="https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?q=80&w=1000&auto=format&fit=crop" class="w-full h-[450px] object-cover grayscale opacity-80" alt="Overgrown garden before landscaping">
                     <div class="absolute top-8 left-8 bg-black/60 text-white px-4 py-2 rounded-full font-black text-[10px] uppercase tracking-widest">Original State</div>
                 </div>
                 <div class="relative rounded-[2.5rem] overflow-hidden shadow-xl" data-aos="fade-left">
-                    <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?q=80&w=1000&auto=format&fit=crop" class="w-full h-[450px] object-cover" alt="After">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop" class="w-full h-[450px] object-cover" alt="Stunning transformed garden with stone paving">
                     <div class="absolute top-8 left-8 bg-peacock text-white px-4 py-2 rounded-full font-black text-[10px] uppercase tracking-widest">Finished Project</div>
                 </div>
             </div>
@@ -288,14 +288,14 @@
                     <div class="swiper-slide bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
                         <p class="text-gray-600 text-lg font-medium italic mb-8">"Peacock Building transformed our rear garden. The Indian stone patio is perfectly level and the brickwork is absolute quality. Highly recommend in Worksop!"</p>
                         <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-12 h-12 rounded-full object-cover" alt="Client photo">
                             <div><p class="font-black text-peacock uppercase text-xs tracking-widest">Mark S.</p><p class="text-[10px] text-gray-400 font-bold">April 2026</p></div>
                         </div>
                     </div>
                     <div class="swiper-slide bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
                         <p class="text-gray-600 text-lg font-medium italic mb-8">"Honest, hardworking team. They gave us a fixed price quote and stuck to it. Our new garden wall looks incredible. Best landscapers we've used."</p>
                         <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-12 h-12 rounded-full object-cover" alt="Client photo">
                             <div><p class="font-black text-peacock uppercase text-xs tracking-widest">Sarah L.</p><p class="text-[10px] text-gray-400 font-bold">March 2026</p></div>
                         </div>
                     </div>
@@ -373,8 +373,9 @@
         </div>
     </section>
 
+    <!-- Contact Section - Pure Landscaping Background -->
     <section id="contact" class="h-[600px] w-full relative">
-        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-20" alt="Map Area">
+        <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-20" alt="Aerial view of landscaped gardens and patios">
         <div class="absolute inset-0 flex items-center justify-center p-6">
             <div class="bg-white p-12 rounded-[4rem] shadow-2xl text-center max-w-sm" data-aos="zoom-in">
                 <div class="w-16 h-16 bg-peacock rounded-2xl mx-auto mb-6 flex items-center justify-center text-white text-2xl shadow-xl"><i class="fas fa-location-dot"></i></div>
@@ -455,12 +456,10 @@
         function toggleMobileNav() { document.getElementById('mobile-nav').classList.toggle('open'); }
         function closeExitPopup() { document.getElementById('exit-popup').classList.add('hidden'); }
 
-        // 22. Exit Intent logic
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 0) document.getElementById('exit-popup').classList.remove('hidden');
         });
 
-        // 7. Counter logic
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
             const updateCount = () => {
@@ -475,7 +474,6 @@
             updateCount();
         });
 
-        // Show promo after 4s
         setTimeout(() => { document.getElementById('offer-toast').classList.remove('hidden'); }, 4000);
     </script>
 </body>
