@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barber Lounge Woodley | Traditional Turkish Barbers</title>
+    <title>Barber Lounge | Traditional Turkish Barbering & Grooming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -14,279 +14,402 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #a68945; } /* Gold from Logo */
-        body { background: #0a0a0a; color: #fff; font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.9; font-weight: 900; }
-        .glass-panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(166,137,69,0.2); backdrop-filter: blur(10px); }
-        .booking-container { display: flex; flex-wrap: wrap; background: rgba(0,0,0,0.6); border: 1px solid var(--accent); padding: 6px; border-radius: 4px; margin-top: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; }
-        .booking-field { background: transparent; border: none; color: white !important; padding: 12px 20px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; outline: none; flex: 1; min-width: 140px; border-right: 1px solid rgba(166,137,69,0.3); color-scheme: dark; }
-        .booking-field:last-of-type { border-right: none; }
-        .btn-elite { background: var(--accent); color: #000; padding: 18px 36px; font-family: 'Archivo Black'; font-size: 11px; letter-spacing: 2px; transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); text-align: center; display: inline-block; cursor: pointer; border: none; }
-        .btn-elite:hover { background: #fff; color: #000; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(166,137,69,0.3); }
-        #mobile-menu { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); z-index: 600; display: none; flex-direction: column; align-items: center; justify-content: center; }
-        .menu-link { font-family: 'Archivo Black'; font-size: 3rem; text-transform: uppercase; color: white; transition: 0.3s; line-height: 1.2; }
-        .menu-link:hover { color: var(--accent); }
-        header { padding: 1.5rem 2rem !important; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); }
-        .status-pulse { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #00ff00; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        .social-footer-icon { background: rgba(166,137,69,0.1); width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; border: 1px solid var(--accent); color: #fff; }
-        .social-footer-icon:hover { background: var(--accent); color: #000; transform: translateY(-5px); }
-        .ticker-wrap { background: var(--accent); color: black; padding: 12px 0; font-family: 'Archivo Black'; font-size: 11px; letter-spacing: 2px; overflow: hidden; }
-        .ticker-move { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .bottom-dock { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--accent); z-index: 500; display: flex; justify-content: space-around; padding: 12px 20px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-        .dock-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: white; font-size: 10px; font-weight: bold; text-transform: uppercase; text-decoration: none; }
-        .dock-item i { width: 20px; height: 20px; stroke: var(--accent); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s ease; color: rgba(255,255,255,0.7); padding: 0 10px; }
-        .exit-intent-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #000; border: 2px solid var(--accent); z-index: 2000; max-width: 400px; width: 90%; border-radius: 12px; display: none; padding: 2.5rem; text-align: center; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); }
+        :root { 
+            --accent-gold: #a68945; /* Gold from Logo */
+            --logo-black: #1a1a1a;
+            --paper-bg: #e5e5e7; /* Light grey background from logo image */
+            --glass-white: rgba(255, 255, 255, 0.7);
+        }
+        
+        body { 
+            background-color: var(--paper-bg);
+            color: var(--logo-black); 
+            font-family: 'Space Grotesk', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        /* Logo Background Texture (Using a subtle paper grain pattern) */
+        .texture-bg {
+            background-image: url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
+            background-attachment: fixed;
+        }
+
+        .font-huge { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
+
+        /* Scroll Customization (30) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--paper-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 10px; }
+
+        .glass-panel { 
+            background: var(--glass-white); 
+            border: 1px solid rgba(166, 137, 69, 0.3); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        /* Sticky Header (18) */
+        header { transition: all 0.4s ease; }
+        header.scrolled { background: var(--glass-white); border-bottom: 1px solid var(--accent-gold); padding: 0.75rem 2rem !important; }
+
+        .btn-black { 
+            background: var(--logo-black); 
+            color: #fff; 
+            padding: 14px 28px; 
+            font-family: 'Archivo Black'; 
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+        .btn-black:hover { background: var(--accent-gold); transform: translateY(-3px); }
+
+        /* Scroll Animations (4) */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+        /* Bottom CTA Dock (20) */
+        .bottom-dock { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: var(--logo-black); 
+            z-index: 1000; display: flex; justify-content: space-around; 
+            padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom));
+        }
+        .dock-item { color: #fff; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .dock-item i { color: var(--accent-gold); margin-bottom: 4px; }
+
+        /* Before/After Slider (9) */
+        .ba-container { position: relative; width: 100%; height: 450px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .ba-after { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .ba-before { position: absolute; top: 0; left: 0; width: 50%; height: 100%; object-fit: cover; border-right: 3px solid var(--accent-gold); z-index: 2; }
+
+        /* FAQ Accordion (3) */
+        .faq-content { max-height: 0; overflow: hidden; transition: all 0.4s ease; opacity: 0; }
+        .faq-item.active .faq-content { max-height: 200px; opacity: 1; padding-top: 1rem; }
+        .faq-item.active i { transform: rotate(45deg); color: var(--accent-gold); }
+
+        /* Floating Action Button (14) */
+        #scrollTop { 
+            position: fixed; bottom: 100px; right: 25px; 
+            background: var(--accent-gold); color: white; 
+            width: 50px; height: 50px; border-radius: 50%; 
+            display: none; place-items: center; z-index: 99; 
+            cursor: pointer; box-shadow: 0 5px 15px rgba(166,137,69,0.4);
+        }
     </style>
 </head>
-<body>
+<body class="texture-bg">
 
-<div id="exitPopup" class="exit-intent-popup">
-    <h3 class="font-huge text-2xl text-[var(--accent)]">Wait!</h3>
-    <p class="mt-2">Thinking of leaving? Get 10% off your first Wet Shave today.</p>
-    <button class="btn-elite w-full mt-6" id="closeExitPopup">Get Discount</button>
+<div id="exit-popup" class="fixed inset-0 bg-black/60 z-[3000] hidden items-center justify-center p-4">
+    <div class="glass-panel p-10 max-w-md text-center rounded-2xl border-t-8 border-[var(--accent-gold)]">
+        <h3 class="font-huge text-3xl mb-2 text-[var(--logo-black)]">WAIT!</h3>
+        <p class="mb-8 opacity-70">Don't leave without your discount. Show this at 3 Headley Road for 10% off your first cut.</p>
+        <button class="btn-black w-full mb-4" onclick="closeExitPopup()">Claim Offer</button>
+    </div>
 </div>
 
-<div id="mobile-menu">
-    <button id="close-menu" class="absolute top-10 right-10 text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
-    <nav class="flex flex-col gap-6 text-center">
-        <a href="#about" class="menu-link">About</a>
-        <a href="#services" class="menu-link">Services</a>
-        <a href="#gallery" class="menu-link">Gallery</a>
-        <a href="#contact" class="menu-link">Book Now</a>
-    </nav>
-</div>
-
-<header class="fixed top-0 w-full z-[500] flex justify-between items-center">
-    <div class="flex items-center gap-4">
-        <img src="https://i.ibb.co/XfXkXp0/logo.png" alt="Barber Lounge" class="h-12 md:h-16"> <div class="hidden sm:flex items-center gap-2 px-3 py-1 glass-panel rounded-full">
-            <span class="status-pulse"></span>
-            <span class="text-[9px] uppercase font-bold tracking-tighter">Turkish Masters Active</span>
+<header class="fixed top-0 w-full z-[1500] px-8 py-6 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+        <img src="https://i.ibb.co/vzrKxL9/Barber-Lounge-Logo.png" alt="Barber Lounge Logo" class="h-14 w-auto">
+        <div class="hidden md:block">
+            <p class="font-huge text-lg leading-none">BARBER LOUNGE</p>
+            <p class="text-[9px] tracking-[0.3em] font-bold text-[var(--accent-gold)]">ESTD 2017 • WOODLEY</p>
         </div>
     </div>
-    <nav class="hidden lg:flex gap-8 items-center">
-        <a href="#about" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">About</a>
-        <a href="#services" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">Services</a>
-        <a href="#gallery" class="hover:text-[var(--accent)] transition uppercase text-xs font-bold">Gallery</a>
-        <a href="#contact" class="btn-elite py-2 px-6">Book Now</a>
+    <nav class="hidden lg:flex gap-10 items-center">
+        <a href="#services" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent-gold)] transition">Services</a>
+        <a href="#gallery" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent-gold)] transition">Gallery</a>
+        <a href="#team" class="text-xs font-bold uppercase tracking-widest hover:text-[var(--accent-gold)] transition">Our Barbers</a>
+        <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});" class="btn-black">Book Appointment</button>
     </nav>
-    <button id="menu-btn" class="lg:hidden p-2 border border-[var(--accent)] rounded">
-        <i data-lucide="menu"></i>
-    </button>
+    <button onclick="toggleMobileNav()" class="lg:hidden"><i data-lucide="menu" class="w-8 h-8"></i></button>
 </header>
 
-<main id="main-content">
-    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+<div id="mobile-nav" class="fixed inset-0 bg-white z-[2000] hidden flex-col items-center justify-center text-center">
+    <button onclick="toggleMobileNav()" class="absolute top-10 right-10"><i data-lucide="x" class="w-10 h-10"></i></button>
+    <div class="flex flex-col gap-10">
+        <a href="#services" onclick="toggleMobileNav()" class="font-huge text-4xl">SERVICES</a>
+        <a href="#gallery" onclick="toggleMobileNav()" class="font-huge text-4xl">GALLERY</a>
+        <a href="#team" onclick="toggleMobileNav()" class="font-huge text-4xl">THE TEAM</a>
+        <a href="#contact" onclick="toggleMobileNav()" class="font-huge text-4xl text-[var(--accent-gold)]">BOOK NOW</a>
+    </div>
+</div>
+
+<main>
+    <section class="relative h-[90vh] flex items-center justify-center pt-20">
         <div class="swiper heroSwiper absolute inset-0 z-0">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80" class="w-full h-full object-cover brightness-50"></div>
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712?q=80" class="w-full h-full object-cover brightness-50"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1512690199101-837494f13456?q=80" class="w-full h-full object-cover grayscale opacity-40"></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1599351431247-f13b3dc3668b?q=80" class="w-full h-full object-cover grayscale opacity-40"></div>
             </div>
         </div>
-        <div class="relative z-10 px-4">
-            <h4 class="text-[var(--accent)] font-bold tracking-[0.4em] mb-4 text-xs uppercase">Traditional Turkish Barbers • Woodley</h4>
-            <h1 class="font-huge text-[clamp(2.5rem,10vw,8rem)] mb-6">BARBER<br>LOUNGE</h1>
-            <div class="booking-container">
-                <input type="date" class="booking-field" id="book-date">
-                <select class="booking-field">
-                    <option>Standard Haircut</option>
-                    <option>Traditional Wet Shave</option>
-                    <option>Full Male Grooming</option>
-                </select>
-                <button class="btn-elite" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});">Reserve Now</button>
+        
+        <div class="relative z-10 text-center px-4 reveal-up">
+            <span class="text-[var(--accent-gold)] font-bold tracking-[0.4em] text-xs mb-4 block">TRADITIONAL TURKISH BARBERING</span>
+            <h1 class="font-huge text-6xl md:text-9xl mb-8 leading-none">SHARP CUTS<br>& SHAVES</h1>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button onclick="location.href='#services'" class="btn-black px-12">View Menu</button>
+                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/'});" class="border-2 border-black px-12 py-3 font-huge text-[11px] tracking-widest hover:bg-black hover:text-white transition">Book Now (2)</button>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-20 px-6 bg-zinc-950">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="bob-up">
-                <h2 class="font-huge text-4xl md:text-6xl mb-6">ESTABLISHED 2017</h2>
-                <p class="opacity-70 leading-relaxed mb-8">We are traditional Turkish barbers specialized in the art of the wet shave, precision haircuts, and comprehensive male grooming. Experience the heritage of Turkish barbering in the heart of Woodley.</p>
-                <div class="grid grid-cols-2 gap-6">
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="2017">0</span><p class="text-xs uppercase">Established</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="568">0</span><p class="text-xs uppercase">Styles Posted</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="41">0</span><p class="text-xs uppercase">5-Star Reviews</p></div>
-                    <div><span class="font-huge text-3xl text-[var(--accent)] stat-number" data-target="1100">0</span><p class="text-xs uppercase">Followers</p></div>
+    <section class="py-24 bg-white/50 border-y border-black/5">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div class="text-center reveal-up">
+                <h3 class="font-huge text-5xl text-[var(--accent-gold)] stat" data-target="15000">0</h3>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Happy Clients</p>
+            </div>
+            <div class="text-center reveal-up">
+                <h3 class="font-huge text-5xl text-[var(--accent-gold)] stat" data-target="8">0</h3>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Master Barbers</p>
+            </div>
+            <div class="text-center reveal-up">
+                <h3 class="font-huge text-5xl text-[var(--accent-gold)] stat" data-target="98">0</h3>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Recommendation %</p>
+            </div>
+            <div class="text-center reveal-up">
+                <h3 class="font-huge text-5xl text-[var(--accent-gold)] stat" data-target="2017">0</h3>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Year Established</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-32 px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div class="reveal-up">
+                <h2 class="font-huge text-5xl md:text-7xl">OUR SERVICES</h2>
+                <div class="w-24 h-2 bg-[var(--accent-gold)] mt-4"></div>
+            </div>
+            <div class="flex gap-3 reveal-up">
+                <button class="bg-black text-white text-[10px] px-6 py-2 font-bold rounded-full">ALL</button>
+                <button class="bg-white border border-black/10 text-[10px] px-6 py-2 font-bold rounded-full hover:border-black transition">HAIRCUTS</button>
+                <button class="bg-white border border-black/10 text-[10px] px-6 py-2 font-bold rounded-full hover:border-black transition">GROOMING</button>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="glass-panel p-10 group hover:bg-black hover:text-white transition-all duration-500 reveal-up">
+                <h3 class="font-huge text-2xl mb-2">Standard Cut</h3>
+                <p class="text-sm opacity-60 mb-8 h-12">Scissor or clipper cut, includes consultation and premium styling products.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-2xl">£20.00</span>
+                    <a href="#" class="text-[10px] font-black border-b-2 border-[var(--accent-gold)] pb-1 group-hover:text-[var(--accent-gold)]">PAY ONLINE (15)</a>
                 </div>
             </div>
-            <div class="bob-up glass-panel p-2 rounded-lg">
-                <img src="https://images.unsplash.com/photo-1593702295094-ada35bc1307e?q=80" class="rounded grayscale hover:grayscale-0 transition-all duration-700">
-            </div>
-        </div>
-    </section>
 
-    <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="font-huge text-5xl mb-4">OUR SPECIALITIES</h2>
-            <div class="flex justify-center gap-4 mb-10 overflow-x-auto pb-4">
-                <button class="px-6 py-2 border border-[var(--accent)] rounded-full text-xs active">ALL</button>
-                <button class="px-6 py-2 border border-white/10 rounded-full text-xs">HAIRCUTS</button>
-                <button class="px-6 py-2 border border-white/10 rounded-full text-xs">SHAVES</button>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-panel p-8 bob-up group">
-                <i data-lucide="scissors" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
-                <h3 class="font-huge text-2xl mb-2">Traditional Cut</h3>
-                <p class="text-sm opacity-60 mb-6">Scissor or clipper work tailored to your head shape.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £20</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
-            </div>
-            <div class="glass-panel p-8 bob-up group" style="transition-delay: 0.1s">
-                <i data-lucide="razor" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
+            <div class="glass-panel p-10 group hover:bg-black hover:text-white transition-all duration-500 reveal-up" style="transition-delay: 0.1s">
                 <h3 class="font-huge text-2xl mb-2">Turkish Wet Shave</h3>
-                <p class="text-sm opacity-60 mb-6">Hot towel, straight razor, and face massage ritual.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £25</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
+                <p class="text-sm opacity-60 mb-8 h-12">The full experience: Hot towels, straight razor, and face massage.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-2xl">£25.00</span>
+                    <a href="#" class="text-[10px] font-black border-b-2 border-[var(--accent-gold)] pb-1 group-hover:text-[var(--accent-gold)]">PAY ONLINE (15)</a>
+                </div>
             </div>
-            <div class="glass-panel p-8 bob-up group" style="transition-delay: 0.2s">
-                <i data-lucide="sparkles" class="w-12 h-12 text-[var(--accent)] mb-6"></i>
+
+            <div class="glass-panel p-10 group hover:bg-black hover:text-white transition-all duration-500 reveal-up" style="transition-delay: 0.2s">
                 <h3 class="font-huge text-2xl mb-2">Full Grooming</h3>
-                <p class="text-sm opacity-60 mb-6">The ultimate package: Haircut, Shave, and Ear Singeing.</p>
-                <p class="font-huge text-[var(--accent)] mb-4">FROM £45</p>
-                <button class="text-xs underline group-hover:text-[var(--accent)]" onclick="alert('Redirecting to secure payment...')">Pre-pay Online →</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 bg-zinc-950">
-        <h2 class="font-huge text-4xl text-center mb-12">TRANSFORMATIONS</h2>
-        <div class="max-w-2xl mx-auto relative h-96 rounded-xl overflow-hidden shadow-2xl border border-[var(--accent)]">
-            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1" class="absolute inset-0 w-full h-full object-cover">
-            <div id="before-after-overlay" class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-[var(--accent)]">
-                <img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712" class="w-[200%] h-full object-cover">
-            </div>
-        </div>
-        <div class="text-center mt-12">
-            <button class="btn-elite" onclick="document.getElementById('uploadForm').style.display='block'">Submit Your Result</button>
-            <div id="uploadForm" class="hidden mt-6 glass-panel p-6 max-w-md mx-auto">
-                <input type="file" class="text-xs mb-4">
-                <button class="btn-elite w-full py-2">Upload Photo</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 max-w-3xl mx-auto">
-        <h2 class="font-huge text-4xl mb-12 text-center">FREQUENT QUESTIONS</h2>
-        <div class="space-y-4">
-            <div class="border-b border-white/10 pb-4 cursor-pointer faq-toggle">
-                <div class="flex justify-between items-center font-bold">Do I need an appointment? <i data-lucide="plus"></i></div>
-                <div class="faq-answer">While we accept walk-ins, we highly recommend booking during weekends to avoid long wait times.</div>
-            </div>
-            <div class="border-b border-white/10 pb-4 cursor-pointer faq-toggle">
-                <div class="flex justify-between items-center font-bold">What is a Turkish Wet Shave? <i data-lucide="plus"></i></div>
-                <div class="faq-answer">It is a traditional ritual including hot towels, specialized oils, a straight-razor shave, and a cooling massage.</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 px-6 border-t border-white/10">
-        <div class="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
-            <div class="bob-up">
-                <h2 class="font-huge text-5xl mb-8">FIND US</h2>
-                <div class="space-y-6 mb-8">
-                    <p class="flex items-center gap-4"><i data-lucide="map-pin" class="text-[var(--accent)]"></i> 3 Headley Road, Woodley, RG5 4JB</p>
-                    <p class="flex items-center gap-4"><i data-lucide="phone" class="text-[var(--accent)]"></i> 0118 376 6070</p>
-                    <p class="flex items-center gap-4"><i data-lucide="clock" class="text-[var(--accent)]"></i> Mon-Sat: 9am - 6:30pm (Sun: Closed)</p>
+                <p class="text-sm opacity-60 mb-8 h-12">Cut, Shave, Nose/Ear waxing, and Eyebrow threading.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-huge text-2xl">£45.00</span>
+                    <a href="#" class="text-[10px] font-black border-b-2 border-[var(--accent-gold)] pb-1 group-hover:text-[var(--accent-gold)]">PAY ONLINE (15)</a>
                 </div>
-                <iframe class="w-full h-80 grayscale contrast-125 rounded-lg border border-white/10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.2!2d-0.9!3d51.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDI3JzAwLjAiTiAwwrA1NCc0MC4wIlc!5e0!3m2!1sen!2suk!4v1620000000000!5m2!1sen!2suk"></iframe>
             </div>
-            <form class="glass-panel p-10 space-y-6 rounded-xl border-t-4 border-[var(--accent)]">
-                <h3 class="font-huge text-2xl">ENQUIRY FORM</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="Full Name" class="bg-white/5 p-4 border-none outline-none focus:ring-1 ring-[var(--accent)]">
-                    <input type="tel" placeholder="Phone" class="bg-white/5 p-4 border-none outline-none focus:ring-1 ring-[var(--accent)]">
-                </div>
-                <select class="w-full bg-white/5 p-4 border-none outline-none">
-                    <option>Select Service</option>
-                    <option>Haircut</option>
-                    <option>Wet Shave</option>
-                    <option>Beard Trim</option>
-                </select>
-                <textarea rows="4" placeholder="Special Requests..." class="w-full bg-white/5 p-4 border-none outline-none"></textarea>
-                <button type="submit" class="btn-elite w-full">Send Message</button>
-            </form>
         </div>
     </section>
 
-    <div class="ticker-wrap">
-        <div class="ticker-move">
-            98% RECOMMENDATION RATE • TRADITIONAL TURKISH TECHNIQUES • BOOK YOUR SLOTTED APPOINTMENT NOW • WET SHAVE SPECIALISTS • WOODLEY'S PREMIER BARBER SHOP • 
+    <section class="py-32 bg-white/30 overflow-hidden">
+        <div class="max-w-4xl mx-auto px-8">
+            <h2 class="font-huge text-4xl text-center mb-16 reveal-up">TRANSFORMATIONS (9)</h2>
+            <div class="ba-container rounded-3xl reveal-up">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80" class="ba-after" alt="After">
+                <div class="ba-before-wrapper ba-before">
+                    <img src="https://images.unsplash.com/photo-1621605815841-aa89786b9712?q=80" class="w-full h-full object-cover" alt="Before">
+                </div>
+                <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full opacity-0 z-10 cursor-pointer" id="ba-slider">
+            </div>
+            
+            <div class="mt-12 text-center reveal-up">
+                <p class="text-sm font-bold opacity-60 mb-6">Want to be featured in our gallery?</p>
+                <button class="border-2 border-black px-8 py-3 text-[11px] font-huge hover:bg-black hover:text-white transition">SUBMIT YOUR PHOTO (25)</button>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section id="team" class="py-32 px-8 max-w-7xl mx-auto">
+        <h2 class="font-huge text-5xl mb-16 text-center reveal-up">MEET THE BARBERS (24)</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="reveal-up text-center">
+                <div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80" class="w-full h-full object-cover grayscale">
+                </div>
+                <h4 class="font-huge text-xl">Hakan</h4>
+                <p class="text-[10px] font-bold text-[var(--accent-gold)] uppercase tracking-widest">Master Barber / Owner</p>
+            </div>
+            <div class="reveal-up text-center" style="transition-delay: 0.1s">
+                <div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80" class="w-full h-full object-cover grayscale">
+                </div>
+                <h4 class="font-huge text-xl">Memo</h4>
+                <p class="text-[10px] font-bold text-[var(--accent-gold)] uppercase tracking-widest">Fade Expert</p>
+            </div>
+            </div>
+    </section>
+
+    <section id="contact" class="py-32 bg-white/60">
+        <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-24">
+            <div class="reveal-up">
+                <h2 class="font-huge text-4xl mb-10">FREQUENTLY ASKED</h2>
+                <div class="space-y-4">
+                    <div class="faq-item glass-panel p-6 cursor-pointer rounded-xl" onclick="this.classList.toggle('active')">
+                        <div class="flex justify-between items-center"><span class="font-bold text-sm">Do you accept walk-ins?</span><i data-lucide="plus" class="transition-transform"></i></div>
+                        <div class="faq-content text-sm opacity-60">Yes, we always welcome walk-ins, though booking ensures you see your preferred barber at a specific time.</div>
+                    </div>
+                    <div class="faq-item glass-panel p-6 cursor-pointer rounded-xl" onclick="this.classList.toggle('active')">
+                        <div class="flex justify-between items-center"><span class="font-bold text-sm">How long is a Wet Shave?</span><i data-lucide="plus" class="transition-transform"></i></div>
+                        <div class="faq-content text-sm opacity-60">A traditional Turkish wet shave typically takes 30-40 minutes including the hot towel treatment.</div>
+                    </div>
+                </div>
+
+                <div class="mt-16 reveal-up">
+                    <h3 class="font-huge text-xl mb-6">OUR HOURS (10)</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>Mon - Fri</div><div class="font-bold">9:00 AM - 6:30 PM</div>
+                        <div>Saturday</div><div class="font-bold">8:30 AM - 6:00 PM</div>
+                        <div>Sunday</div><div class="font-bold text-red-500">CLOSED</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-up">
+                <h2 class="font-huge text-4xl mb-10">SEND A MESSAGE (4)</h2>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <input type="text" placeholder="Your Name" class="w-full bg-white border border-black/10 p-4 outline-none focus:border-[var(--accent-gold)]">
+                        <input type="tel" placeholder="Phone Number" class="w-full bg-white border border-black/10 p-4 outline-none focus:border-[var(--accent-gold)]">
+                    </div>
+                    <input type="email" placeholder="Email Address" class="w-full bg-white border border-black/10 p-4 outline-none focus:border-[var(--accent-gold)]">
+                    <textarea placeholder="How can we help?" rows="5" class="w-full bg-white border border-black/10 p-4 outline-none focus:border-[var(--accent-gold)]"></textarea>
+                    <button class="btn-black w-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 </main>
 
-<footer class="py-20 px-6 text-center bg-black border-t border-white/5">
-    <img src="https://i.ibb.co/XfXkXp0/logo.png" class="h-20 mx-auto mb-8 grayscale opacity-50">
-    <div class="flex justify-center gap-6 mb-10">
-        <a href="#" class="social-footer-icon"><i data-lucide="instagram"></i></a>
-        <a href="#" class="social-footer-icon"><i data-lucide="facebook"></i></a>
+<footer class="bg-[var(--logo-black)] text-white py-24 px-8">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
+        <div>
+            <img src="https://i.ibb.co/vzrKxL9/Barber-Lounge-Logo.png" class="h-20 mx-auto md:mx-0 mb-6 filter brightness-0 invert" alt="Footer Logo">
+            <p class="text-sm opacity-50 max-w-xs mx-auto md:mx-0">Premium traditional Turkish barbers specialising in wet shaves and master cuts since 2017.</p>
+        </div>
+        <div>
+            <h4 class="font-huge text-lg mb-8">QUICK LINKS</h4>
+            <div class="flex flex-col gap-4 text-xs font-bold opacity-60">
+                <a href="#services" class="hover:text-[var(--accent-gold)]">SERVICES</a>
+                <a href="#gallery" class="hover:text-[var(--accent-gold)]">GALLERY</a>
+                <a href="#team" class="hover:text-[var(--accent-gold)]">OUR TEAM</a>
+                <a href="#" class="hover:text-[var(--accent-gold)]">GIFT CARDS (26)</a>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-huge text-lg mb-8">LOCATE US</h4>
+            <p class="text-sm opacity-60 mb-4">3 Headley Road, Woodley,<br>Reading, RG5 4JB</p>
+            <p class="text-[var(--accent-gold)] font-bold">0118 376 6070</p>
+        </div>
     </div>
-    <p class="text-[10px] tracking-[0.5em] opacity-30 uppercase">© 2026 BARBER LOUNGE WOODLEY. ALL RIGHTS RESERVED.</p>
 </footer>
 
-<div class="bottom-dock">
-    <a href="tel:01183766070" class="dock-item"><i data-lucide="phone"></i><span>Call</span></a>
-    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-square"></i><span>WhatsApp</span></a>
-    <a href="#contact" class="dock-item"><i data-lucide="calendar-days"></i><span>Book</span></a>
-    <a href="#contact" class="dock-item"><i data-lucide="navigation"></i><span>Map</span></a>
+<div class="bottom-dock lg:hidden">
+    <a href="tel:01183766070" class="dock-item"><i data-lucide="phone" class="w-5 h-5"></i><span>Call</span></a>
+    <a href="https://wa.me/441183766070" class="dock-item"><i data-lucide="message-circle" class="w-5 h-5"></i><span>WhatsApp</span></a>
+    <a href="#contact" class="dock-item"><i data-lucide="calendar" class="w-5 h-5"></i><span>Book</span></a>
+    <a href="https://maps.app.goo.gl/..." class="dock-item"><i data-lucide="map-pin" class="w-5 h-5"></i><span>Directions</span></a>
 </div>
+
+<div id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i data-lucide="arrow-up" class="w-6 h-6"></i></div>
 
 <script>
     lucide.createIcons();
-    gsap.registerPlugin(ScrollTrigger);
 
-    // Hero Slider
-    new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
+    // GSAP Scroll Up Animations (4)
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
 
-    // Scroll Animations (4)
-    gsap.utils.toArray('.bob-up').forEach(el => {
-        gsap.to(el, { scrollTrigger: { trigger: el, start: "top 90%" }, opacity: 1, y: 0, duration: 1 });
-    });
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
     // Stats Counter (7)
-    const stats = document.querySelectorAll('.stat-number');
-    const animateStats = () => {
+    const stats = document.querySelectorAll('.stat');
+    const startCounters = () => {
         stats.forEach(stat => {
-            const target = +stat.dataset.target;
+            const target = parseInt(stat.getAttribute('data-target'));
+            let current = 0;
+            const increment = target / 50;
             const update = () => {
-                const cur = +stat.innerText;
-                const inc = target / 100;
-                if(cur < target) { stat.innerText = Math.ceil(cur + inc); setTimeout(update, 20); }
-                else stat.innerText = target;
-            }
+                current += increment;
+                if(current < target) {
+                    stat.innerText = Math.ceil(current).toLocaleString();
+                    setTimeout(update, 30);
+                } else {
+                    stat.innerText = target.toLocaleString() + (target === 98 ? '%' : (target === 8 ? '' : '+'));
+                }
+            };
             update();
         });
     };
-    ScrollTrigger.create({ trigger: "#about", start: "top 80%", onEnter: animateStats });
+    
+    // Trigger counters when in view
+    ScrollTrigger.create({
+        trigger: ".stat",
+        onEnter: startCounters
+    });
 
-    // FAQ Accordion (3)
-    document.querySelectorAll('.faq-toggle').forEach(item => {
-        item.addEventListener('click', () => {
-            const ans = item.querySelector('.faq-answer');
-            const icon = item.querySelector('i');
-            const isOpen = ans.style.maxHeight !== '0px';
-            ans.style.maxHeight = isOpen ? '0px' : ans.scrollHeight + 'px';
-            icon.setAttribute('data-lucide', isOpen ? 'plus' : 'minus');
-            lucide.createIcons();
+    // Before/After Slider (9)
+    const baSlider = document.getElementById('ba-slider');
+    const baBefore = document.querySelector('.ba-before');
+    if(baSlider) {
+        baSlider.addEventListener('input', (e) => {
+            baBefore.style.width = `${e.target.value}%`;
         });
+    }
+
+    // Scroll UX (Header & Top Button)
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        const st = document.getElementById('scrollTop');
+        if(window.scrollY > 100) {
+            header.classList.add('scrolled');
+            st.style.display = 'grid';
+        } else {
+            header.classList.remove('scrolled');
+            st.style.display = 'none';
+        }
     });
 
     // Exit Intent (22)
+    let exitFlag = false;
     document.addEventListener('mouseleave', (e) => {
-        if(e.clientY < 0) document.getElementById('exitPopup').style.display = 'block';
+        if(e.clientY < 0 && !exitFlag) {
+            document.getElementById('exit-popup').style.display = 'flex';
+            exitFlag = true;
+        }
     });
-    document.getElementById('closeExitPopup').onclick = () => document.getElementById('exitPopup').style.display = 'none';
+    function closeExitPopup() { document.getElementById('exit-popup').style.display = 'none'; }
 
-    // Mobile Menu
-    document.getElementById('menu-btn').onclick = () => document.getElementById('mobile-menu').style.display = 'flex';
-    document.getElementById('close-menu').onclick = () => document.getElementById('mobile-menu').style.display = 'none';
+    // Swipers
+    new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 4000 }, effect: 'fade' });
 
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobile-nav');
+        nav.classList.toggle('hidden');
+        nav.classList.toggle('flex');
+    }
 </script>
 </body>
 </html>
