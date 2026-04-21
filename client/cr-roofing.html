@@ -15,19 +15,25 @@
     <style>
         :root { --brand-red: #d32f2f; --brand-dark: #0f0f0f; }
         body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; overflow-x: hidden; }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 10px; }
+
         .glass-nav { background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         #mobile-menu { clip-path: circle(0% at 100% 0%); transition: all 0.7s cubic-bezier(0.7, 0, 0.3, 1); }
         #mobile-menu.active { clip-path: circle(150% at 100% 0%); }
+
         .heroSwiper .swiper-slide { opacity: 0 !important; transition: opacity 1s ease-in-out; }
         .heroSwiper .swiper-slide-active { opacity: 1 !important; }
+        
         .zoom-img { transition: transform 0.5s ease; }
         .zoom-parent:hover .zoom-img { transform: scale(1.1); }
+        
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .faq-item.active .faq-content { max-height: 200px; }
         .faq-item.active i { transform: rotate(180deg); }
+
         .btn-press:active { transform: scale(0.96); }
     </style>
 </head>
@@ -75,7 +81,7 @@
                 </div>
             </div>
             <div class="swiper-slide relative">
-                <img src="https://images.unsplash.com/photo-1683140804492-ae54cf3eec81?q=80&w=1470&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="New Roof Installation">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=1470&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="New Roof Installation">
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-6">
                     <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter">Premium <span class="text-[#d32f2f]">Finish</span></h1>
                     <p class="text-xl mt-4 mb-8">Insurance Backed Guarantees as Standard.</p>
@@ -107,7 +113,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-8" id="service-grid">
             <div class="service-item repair bg-white rounded-3xl overflow-hidden shadow-lg zoom-parent">
-                <img src="https://images.unsplash.com/photo-1620662656345-42f2b3887293?q=80&w=800&auto=format&fit=crop" class="w-full h-56 object-cover zoom-img" alt="Repair">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=800" class="w-full h-56 object-cover zoom-img" alt="Repair">
                 <div class="p-8">
                     <h3 class="text-xl font-black uppercase mb-2">Leak Repair</h3>
                     <p class="text-gray-500 text-sm mb-4">Emergency patch-up and long-term leak prevention.</p>
@@ -115,7 +121,7 @@
                 </div>
             </div>
             <div class="service-item new bg-white rounded-3xl overflow-hidden shadow-lg zoom-parent">
-                <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=800&auto=format&fit=crop" class="w-full h-56 object-cover zoom-img" alt="New Roof">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=800" class="w-full h-56 object-cover zoom-img" alt="New Roof">
                 <div class="p-8">
                     <h3 class="text-xl font-black uppercase mb-2">Re-Roofing</h3>
                     <p class="text-gray-500 text-sm mb-4">Complete strip and replacement using Grade-A slate.</p>
@@ -123,7 +129,7 @@
                 </div>
             </div>
             <div class="service-item repair bg-white rounded-3xl overflow-hidden shadow-lg zoom-parent">
-                <img src="https://images.unsplash.com/photo-1632759162351-475264611b18?q=80&w=800&auto=format&fit=crop" class="w-full h-56 object-cover zoom-img" alt="Chimney">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=800" class="w-full h-56 object-cover zoom-img" alt="Chimney">
                 <div class="p-8">
                     <h3 class="text-xl font-black uppercase mb-2">Chimney Work</h3>
                     <p class="text-gray-500 text-sm mb-4">Lead flashing, pointing, and stack removal.</p>
@@ -151,11 +157,11 @@
         <h2 class="text-4xl font-black text-center uppercase tracking-tighter mb-16">The <span class="text-[#d32f2f]">Difference</span></h2>
         <div class="grid md:grid-cols-2 gap-8">
             <div class="relative rounded-3xl overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1632774912134-9d7e1ccd6c6a?q=80&w=1200&auto=format&fit=crop" class="w-full h-[400px] object-cover grayscale brightness-50" alt="Before">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=1200" class="w-full h-[400px] object-cover grayscale brightness-50" alt="Before">
                 <div class="absolute inset-0 flex items-center justify-center"><span class="bg-black/50 px-6 py-2 rounded-full text-white font-bold">BEFORE</span></div>
             </div>
             <div class="relative rounded-3xl overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1622393321528-98e98e4f6206?q=80&w=1200&auto=format&fit=crop" class="w-full h-[400px] object-cover" alt="After">
+                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=1200" class="w-full h-[400px] object-cover" alt="After">
                 <div class="absolute inset-0 flex items-center justify-center"><span class="bg-[#d32f2f] px-6 py-2 rounded-full text-white font-bold">AFTER</span></div>
             </div>
         </div>
@@ -168,21 +174,21 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="text-center">
                 <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-4 border-red-500">
-                    <img src="https://images.unsplash.com/photo-1620662656345-42f2b3887293?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Team">
+                    <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=200" class="w-full h-full object-cover" alt="Team">
                 </div>
                 <h4 class="font-black uppercase">Chris R.</h4>
                 <p class="text-xs text-gray-500">Master Roofer (22 yrs exp)</p>
             </div>
             <div class="text-center">
                 <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1590632551523-9584285223c2?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Team">
+                    <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=200" class="w-full h-full object-cover" alt="Team">
                 </div>
                 <h4 class="font-black uppercase">Dave S.</h4>
                 <p class="text-xs text-gray-500">Lead Maintenance</p>
             </div>
             <div class="text-center">
                 <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Team">
+                    <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=200" class="w-full h-full object-cover" alt="Team">
                 </div>
                 <h4 class="font-black uppercase">Mark L.</h4>
                 <p class="text-xs text-gray-500">Surveyor</p>
@@ -213,36 +219,11 @@
     </div>
 </section>
 
-<div class="fixed bottom-0 left-0 right-0 z-[5000] bg-white border-t p-3 flex gap-2 lg:hidden">
-    <a href="tel:07472683623" class="flex-1 bg-slate-100 py-4 rounded-xl text-center text-xs font-black uppercase"><i class="fas fa-phone mr-2"></i> Call</a>
-    <a href="https://wa.me/yourlink" class="flex-1 bg-green-500 text-white py-4 rounded-xl text-center text-xs font-black uppercase"><i class="fab fa-whatsapp mr-2"></i> Chat</a>
-    <a href="#booking" class="flex-[2] bg-[#d32f2f] text-white py-4 rounded-xl text-center text-xs font-black uppercase">Book Survey</a>
-</div>
-
 <footer class="bg-[#0f0f0f] text-white pt-24 pb-32 px-6">
     <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         <div class="col-span-2">
             <h4 class="text-3xl font-black uppercase mb-6 text-[#d32f2f]">C R Roofing</h4>
             <p class="text-gray-500 max-w-sm mb-6">Sheffield's premium roofing contractors. Est 2004.</p>
-            <form class="flex bg-white/10 p-1 rounded-full max-w-sm">
-                <input type="email" placeholder="Email Updates" class="bg-transparent px-4 py-2 w-full text-xs">
-                <button class="bg-[#d32f2f] px-6 py-2 rounded-full text-xs font-bold uppercase">Join</button>
-            </form>
-        </div>
-        <div>
-            <h5 class="text-xs font-black uppercase text-red-500 mb-6">Hours</h5>
-            <ul class="text-xs text-gray-400 space-y-2">
-                <li>Mon - Fri: 08:00 - 18:00</li>
-                <li>Sat: 09:00 - 13:00</li>
-                <li>Sun: Closed</li>
-            </ul>
-        </div>
-        <div>
-            <h5 class="text-xs font-black uppercase text-red-500 mb-6">Social</h5>
-            <div class="flex gap-4 text-xl">
-                <i class="fab fa-facebook hover:text-red-500 cursor-pointer"></i>
-                <i class="fab fa-instagram hover:text-red-500 cursor-pointer"></i>
-            </div>
         </div>
     </div>
 </footer>
@@ -252,22 +233,7 @@
     gsap.utils.toArray('.gs-reveal').forEach(el => {
         gsap.from(el, { scrollTrigger: el, y: 50, opacity: 0, duration: 1 });
     });
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(c => {
-        ScrollTrigger.create({
-            trigger: c,
-            onEnter: () => {
-                let target = +c.dataset.target;
-                let count = 0;
-                let step = target / 50;
-                let itv = setInterval(() => {
-                    count += step;
-                    if(count >= target) { c.innerText = target; clearInterval(itv); }
-                    else c.innerText = Math.floor(count);
-                }, 30);
-            }, once: true
-        });
-    });
+
     new Swiper('.heroSwiper', {
         effect: 'fade',
         fadeEffect: { crossFade: true },
@@ -275,19 +241,9 @@
         loop: true,
         speed: 1000
     });
-    function filterServices(cat) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-[#d32f2f]', 'text-white'));
-        event.target.classList.add('bg-[#d32f2f]', 'text-white');
-        document.querySelectorAll('.service-item').forEach(item => {
-            if(cat === 'all' || item.classList.contains(cat)) item.style.display = 'block';
-            else item.style.display = 'none';
-        });
-    }
+
     function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
     function toggleExitPopup() { document.getElementById('exit-popup').classList.toggle('hidden'); document.getElementById('exit-popup').classList.toggle('flex'); }
-    document.addEventListener('mouseleave', (e) => {
-        if(e.clientY < 0) toggleExitPopup();
-    }, { once: true });
 </script>
 
 </body>
