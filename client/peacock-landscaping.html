@@ -4,241 +4,399 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peacock Building & Landscaping | Premium Garden Design</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         :root {
-            --peacock-blue: #00338d;
-            --peacock-accent: #1e40af;
+            --peacock-blue: #00338d; /* Your Exact Branding Color */
+            --peacock-dark: #001f54;
+            --peacock-accent: #3b82f6;
         }
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        /* 30. Custom Scrollbar & Page Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--peacock-blue); border-radius: 10px; }
+        
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         .bg-peacock { background-color: var(--peacock-blue); }
         .text-peacock { color: var(--peacock-blue); }
-        .border-peacock { border-color: var(--peacock-blue); }
         
-        /* 30. Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--peacock-blue); border-radius: 5px; }
+        /* 17. Gallery Lightbox & 29. Hover Effects */
+        .gallery-card:hover img { transform: scale(1.1); transition: 0.5s ease; }
+        .service-filter-btn.active { background-color: var(--peacock-blue); color: white; }
 
-        .hero-zoom { animation: zoomEffect 20s infinite alternate; }
-        @keyframes zoomEffect { from { transform: scale(1); } to { transform: scale(1.1); } }
-        
-        .floating-cta { position: fixed; bottom: 0; width: 100%; z-index: 100; }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        /* 20. Bottom CTA Dock */
+        .bottom-dock { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; display: none; }
+        @media (max-width: 768px) { .bottom-dock { display: flex; } body { padding-bottom: 70px; } }
+
+        /* 1. Hero Slider Animation */
+        .swiper-slide-active .hero-text { animation: fadeInUp 1s both; }
+
+        /* 31. Full-Screen Hamburger */
+        #mobile-nav-overlay {
+            clip-path: circle(0% at 100% 0%);
+            transition: all 0.6s ease-in-out;
+        }
+        #mobile-nav-overlay.open { clip-path: circle(150% at 100% 0%); }
     </style>
 </head>
-<body class="bg-gray-50 overflow-x-hidden">
+<body class="bg-slate-50">
 
-    <div id="mobile-menu" class="fixed inset-0 bg-peacock z-[200] hidden flex-col items-center justify-center text-white space-y-8 text-2xl font-bold">
-        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-4xl">&times;</button>
-        <a href="#services" onclick="toggleMenu()">Services</a>
-        <a href="#gallery" onclick="toggleMenu()">Gallery</a>
-        <a href="#booking" onclick="toggleMenu()">Book Now</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <div id="exit-popup" class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/80 hidden px-4">
+        <div class="bg-white rounded-3xl p-10 max-w-md text-center relative shadow-2xl">
+            <button onclick="closePopups()" class="absolute top-4 right-4 text-gray-400 text-2xl">&times;</button>
+            <div class="text-peacock text-6xl mb-4"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h3 class="text-3xl font-black mb-2">Wait!</h3>
+            <p class="text-gray-600 mb-6">Planning a Summer garden? Get a **FREE 3D Design Mockup** with any booking made today.</p>
+            <a href="#booking" onclick="closePopups()" class="bg-peacock text-white py-4 px-8 rounded-full block font-bold uppercase tracking-widest">Claim My Design</a>
+        </div>
     </div>
 
-    <nav class="fixed w-full z-[100] bg-white border-b border-gray-100 py-4 px-6 shadow-sm">
+    <div id="promo-popup" class="fixed bottom-10 left-10 z-[1000] hidden animate__animated animate__slideInLeft">
+        <div class="bg-white shadow-2xl rounded-2xl p-6 border-l-8 border-peacock max-w-xs">
+            <div class="flex justify-between items-start">
+                <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">OFFER</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400">&times;</button>
+            </div>
+            <p class="text-sm font-bold mt-2">10% OFF Indian Stone Patios</p>
+            <p class="text-xs text-gray-500 mb-4">Book before April 30th!</p>
+            <a href="#booking" class="text-peacock text-xs font-black underline uppercase">Book Now</a>
+        </div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-[150] bg-white/90 backdrop-blur-md border-b py-4 px-6 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-peacock rounded-lg flex items-center justify-center text-white text-xl">
-                    <i class="fas fa-feather-pointed"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-black text-xl leading-none text-peacock uppercase tracking-tighter">Peacock</span>
-                    <span class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Building & Landscaping</span>
+            <div class="flex items-center gap-2">
+                <div class="bg-peacock text-white p-2 rounded-lg"><i class="fas fa-tools"></i></div>
+                <div class="leading-none">
+                    <span class="text-2xl font-black text-peacock tracking-tighter block">PEACOCK</span>
+                    <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500">Building & Landscaping</span>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
+            <div class="hidden lg:flex items-center gap-8 text-xs font-black uppercase tracking-widest text-gray-600">
                 <a href="#services" class="hover:text-peacock transition">Services</a>
-                <a href="#vip" class="hover:text-peacock transition">VIP Loyalty</a>
-                <a href="#faq" class="hover:text-peacock transition">FAQ</a>
-                <a href="#booking" class="bg-peacock text-white px-6 py-3 rounded hover:bg-blue-900 transition">Get A Quote</a>
+                <a href="#vip" class="hover:text-peacock transition">VIP Membership</a>
+                <a href="#reviews" class="hover:text-peacock transition">Reviews</a>
+                <a href="#booking" class="bg-peacock text-white px-6 py-3 rounded-full hover:shadow-lg transition">Request Quote</a>
             </div>
-            <button class="lg:hidden text-peacock text-2xl" onclick="toggleMenu()">
-                <i class="fas fa-bars-staggered"></i>
-            </button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-peacock"><i class="fas fa-bars-staggered"></i></button>
         </div>
     </nav>
 
-    <section class="relative h-[90vh] flex items-center justify-center overflow-hidden pt-20">
-        <div class="absolute inset-0 z-0">
-            <img src="[attachment_2](attachment)" class="w-full h-full object-cover brightness-[0.45] hero-zoom" alt="Luxury Landscaped Garden">
-        </div>
-        <div class="relative z-10 text-center px-4 animate__animated animate__fadeIn">
-            <h1 class="text-4xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
-                Bring Your Vision <br><span class="text-blue-400">To Reality</span>
-            </h1>
-            <p class="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium">
-                Premier Landscape Design and Structural Brickwork across Worksop.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#booking" class="bg-peacock text-white px-10 py-5 rounded font-bold text-sm uppercase tracking-widest hover:bg-blue-800 transition">Book Free Survey</a>
-                <a href="tel:07856582599" class="bg-white text-peacock px-10 py-5 rounded font-bold text-sm uppercase tracking-widest hover:bg-gray-100 transition">Call Today</a>
+    <div id="mobile-nav-overlay" class="fixed inset-0 bg-peacock z-[1000] flex flex-col items-center justify-center text-white space-y-8 text-3xl font-black uppercase tracking-tighter">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-4xl">&times;</button>
+        <a href="#services" onclick="toggleMobileMenu()">Services</a>
+        <a href="#vip" onclick="toggleMobileMenu()">VIP Loyalty</a>
+        <a href="#gallery" onclick="toggleMobileMenu()">Our Work</a>
+        <a href="#booking" onclick="toggleMobileMenu()" class="bg-white text-peacock px-10 py-4 rounded-full">Book Quote</a>
+    </div>
+
+    <section class="swiper heroSwiper h-screen pt-20">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide relative">
+                <img src="https://images.unsplash.com/photo-1590053303153-6058e1329623?auto=format&fit=crop&q=80&w=1920" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="Paving">
+                <div class="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
+                    <h1 class="hero-text text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6">Expert <br><span class="text-blue-400">Landscaping</span></h1>
+                    <a href="#booking" class="bg-white text-peacock px-12 py-5 rounded-full font-black uppercase tracking-widest hover:scale-110 transition shadow-2xl">Start Your Project</a>
+                </div>
+            </div>
+            <div class="swiper-slide relative">
+                <img src="https://images.unsplash.com/photo-1584622781564-1d9876a13d00?auto=format&fit=crop&q=80&w=1920" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="Brickwork">
+                <div class="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
+                    <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6">Premium <br><span class="text-blue-400">Brickwork</span></h1>
+                    <a href="#services" class="bg-peacock text-white px-12 py-5 rounded-full font-black uppercase tracking-widest">View Services</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-white py-12 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <section class="py-16 bg-white border-b overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-12">
             <div class="text-center" data-aos="fade-up">
-                <p class="text-4xl font-black text-peacock mb-1">500+</p>
-                <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Projects Completed</p>
+                <p class="text-5xl font-black text-peacock mb-2 counter" data-target="992">0</p>
+                <p class="text-gray-400 text-xs font-black uppercase tracking-widest">Projects Completed</p>
             </div>
             <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                <p class="text-4xl font-black text-peacock mb-1">30+</p>
-                <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">5-Star Reviews</p>
+                <p class="text-5xl font-black text-peacock mb-2 counter" data-target="350">0</p>
+                <p class="text-gray-400 text-xs font-black uppercase tracking-widest">Happy Clients</p>
             </div>
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                <p class="text-4xl font-black text-peacock mb-1">15+</p>
-                <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Years Experience</p>
+                <p class="text-5xl font-black text-peacock mb-2">5/5</p>
+                <p class="text-gray-400 text-xs font-black uppercase tracking-widest">Google Rating</p>
             </div>
             <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                <p class="text-4xl font-black text-peacock mb-1">100%</p>
-                <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Quality Guaranteed</p>
+                <p class="text-5xl font-black text-peacock mb-2">12+</p>
+                <p class="text-gray-400 text-xs font-black uppercase tracking-widest">Years Experience</p>
             </div>
         </div>
     </section>
 
     <section id="services" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <h2 class="text-3xl font-black text-peacock uppercase tracking-tighter mb-4">Specialist Services</h2>
-            <p class="text-gray-500 max-w-xl mx-auto">Expert tradesmen dedicated to transforming your outdoor living space.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
-            <div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-500" data-aos="fade-up">
-                <div class="h-64 overflow-hidden">
-                    <img src="[attachment_0](attachment)" class="w-full h-full object-cover" alt="Indian Sandstone Patio">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-bold mb-3 text-peacock uppercase">Indian Stone & Patios</h3>
-                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">Precision-laid sandstone and porcelain paving designed to stand the test of time.</p>
-                    <a href="#booking" class="text-peacock font-bold text-xs uppercase tracking-widest border-b-2 border-peacock pb-1 hover:text-blue-500 transition">Get A Quote &rarr;</a>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-peacock uppercase mb-4 tracking-tighter">Our Specialist Services</h2>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <button class="service-filter-btn active px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest">All</button>
+                    <button class="service-filter-btn px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest">Paving</button>
+                    <button class="service-filter-btn px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest">Brickwork</button>
+                    <button class="service-filter-btn px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest">Garden</button>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-500" data-aos="fade-up" data-aos-delay="100">
-                <div class="h-64 overflow-hidden">
-                    <img src="[attachment_3](attachment)" class="w-full h-full object-cover" alt="Garden Brickwork">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-bold mb-3 text-peacock uppercase">Brickwork & Walls</h3>
-                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">Structural building and decorative garden walling from experienced local tradesmen.</p>
-                    <a href="#booking" class="text-peacock font-bold text-xs uppercase tracking-widest border-b-2 border-peacock pb-1 hover:text-blue-500 transition">Get A Quote &rarr;</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="h-64 overflow-hidden">
-                    <img src="[attachment_1](attachment)" class="w-full h-full object-cover" alt="Artificial Grass Installation">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-bold mb-3 text-peacock uppercase">Artificial Grass & Turf</h3>
-                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">High-grade artificial lawns and fresh turfing for a perfect garden finish all year round.</p>
-                    <a href="#booking" class="text-peacock font-bold text-xs uppercase tracking-widest border-b-2 border-peacock pb-1 hover:text-blue-500 transition">Get A Quote &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="booking" class="py-24 bg-peacock text-white">
-        <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="text-4xl font-black mb-6 uppercase tracking-tighter leading-tight">Book Your <br>Site Survey</h2>
-                <p class="text-blue-200 mb-8 font-medium">Select a time for us to visit your property, take measurements, and provide a detailed, itemised quotation.</p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 bg-white/10 p-4 rounded-lg">
-                        <i class="fas fa-check-circle text-blue-400"></i>
-                        <span class="text-sm font-bold uppercase tracking-wide">No-Obligation Quotes</span>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.unsplash.com/photo-1598901861713-a4ad609332ad?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Indian Stone">
+                        <div class="absolute top-4 right-4 bg-peacock text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">Top Rated</div>
                     </div>
-                    <div class="flex items-center gap-4 bg-white/10 p-4 rounded-lg">
-                        <i class="fas fa-check-circle text-blue-400"></i>
-                        <span class="text-sm font-bold uppercase tracking-wide">Expert Site Measurement</span>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-black mb-2 uppercase tracking-tighter">Indian Stone</h3>
+                        <p class="text-gray-500 text-sm mb-6">Expert laying of porcelain & sandstone patios.</p>
+                        <a href="#booking" class="bg-slate-100 text-peacock px-8 py-3 rounded-full font-black text-xs uppercase hover:bg-peacock hover:text-white transition">Book Survey</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Brickwork">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-black mb-2 uppercase tracking-tighter">Brickwork</h3>
+                        <p class="text-gray-500 text-sm mb-6">Garden walls, extensions, and structural repairs.</p>
+                        <a href="#booking" class="bg-slate-100 text-peacock px-8 py-3 rounded-full font-black text-xs uppercase hover:bg-peacock hover:text-white transition">Book Survey</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-500" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.unsplash.com/photo-1592150621344-828ec28ee97d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Turf">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-2xl font-black mb-2 uppercase tracking-tighter">Artificial Turf</h3>
+                        <p class="text-gray-500 text-sm mb-6">High-grade maintenance-free green lawns.</p>
+                        <a href="#booking" class="bg-slate-100 text-peacock px-8 py-3 rounded-full font-black text-xs uppercase hover:bg-peacock hover:text-white transition">Book Survey</a>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800">
-                <div class="h-80 bg-gray-50 border-2 border-dashed border-gray-200 rounded flex flex-col items-center justify-center text-center">
-                    <i class="fas fa-calendar-alt text-4xl text-gray-200 mb-4"></i>
-                    <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Calendly Integration <br>Will Appear Here</p>
+        </div>
+    </section>
+
+    <section id="vip" class="py-24 bg-peacock text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <span class="text-blue-400 font-black uppercase tracking-widest text-xs">Premium Garden Care</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">The VIP Garden <br>Membership</h2>
+                <p class="text-blue-100 mb-8 font-medium">Join our seasonal maintenance program for priority booking and 15% off all recurring landscape services.</p>
+                <div class="flex gap-4">
+                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
+                        <p class="text-3xl font-black mb-1">15%</p>
+                        <p class="text-[10px] uppercase font-bold text-blue-300">Loyalty Discount</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
+                        <p class="text-3xl font-black mb-1">Fast</p>
+                        <p class="text-[10px] uppercase font-bold text-blue-300">Priority Booking</p>
+                    </div>
                 </div>
-                <button class="w-full bg-peacock text-white mt-6 py-4 rounded font-black uppercase tracking-widest hover:bg-blue-900 transition">Confirm Booking</button>
+                <button class="mt-10 bg-white text-peacock px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs shadow-xl">Join The Club</button>
+            </div>
+            <div class="relative" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1558905619-17153ad27393?auto=format&fit=crop&q=80&w=800" class="rounded-[40px] shadow-2xl rotate-2 hover:rotate-0 transition duration-500" alt="VIP Garden">
             </div>
         </div>
     </section>
 
-    <section id="faq" class="py-24 bg-white">
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-3xl font-black text-center mb-12 uppercase tracking-tighter text-peacock">Frequently Asked Questions</h2>
-            <div class="space-y-4">
-                <details class="group bg-gray-50 p-6 rounded-xl cursor-pointer">
-                    <summary class="list-none font-bold text-peacock flex justify-between items-center uppercase text-sm tracking-widest">
-                        What areas do you cover?
-                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 text-sm leading-relaxed">We are based in Worksop and cover all surrounding areas including Nottinghamshire, South Yorkshire, and Derbyshire.</p>
-                </details>
-                <details class="group bg-gray-50 p-6 rounded-xl cursor-pointer">
-                    <summary class="list-none font-bold text-peacock flex justify-between items-center uppercase text-sm tracking-widest">
-                        How long is the current waiting list?
-                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 text-sm leading-relaxed">Our diary fills up fast! Typically, we book 3-4 weeks in advance, but we recommend booking your survey early to secure your slot.</p>
-                </details>
+    <section class="py-24 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-black text-center mb-16 uppercase tracking-tighter">Real Transformations</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1591857177580-2720ca0bc324?auto=format&fit=crop&q=80&w=800" class="w-full h-[400px] object-cover" alt="After">
+                    <div class="absolute bottom-6 right-6 bg-peacock text-white px-4 py-2 rounded-full text-xs font-black">AFTER</div>
+                </div>
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl opacity-80" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185138a04b9?auto=format&fit=crop&q=80&w=800" class="w-full h-[400px] object-cover" alt="Before">
+                    <div class="absolute bottom-6 right-6 bg-gray-500 text-white px-4 py-2 rounded-full text-xs font-black">BEFORE</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[150] flex md:hidden shadow-2xl">
-        <a href="tel:07856582599" class="flex-1 flex flex-col items-center py-4 border-r border-gray-50">
-            <i class="fas fa-phone text-peacock"></i>
-            <span class="text-[9px] uppercase mt-1 font-black text-gray-500">Call</span>
-        </a>
-        <a href="https://wa.me/447856582599" class="flex-1 flex flex-col items-center py-4 border-r border-gray-50 text-green-600">
-            <i class="fab fa-whatsapp"></i>
-            <span class="text-[9px] uppercase mt-1 font-black text-gray-500">WhatsApp</span>
-        </a>
-        <a href="#booking" class="flex-[2] flex items-center justify-center bg-peacock text-white font-black uppercase text-[10px] tracking-[0.2em]">
-            Get Free Quote
-        </a>
-    </div>
+    <section id="video" class="py-24 bg-slate-900 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-black text-white mb-12 uppercase tracking-tighter">Our Team In Action</h2>
+            <div class="aspect-video bg-black rounded-[40px] overflow-hidden shadow-2xl border-8 border-white/5 relative group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover opacity-60" alt="Video">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 bg-peacock rounded-full flex items-center justify-center text-white text-2xl group-hover:scale-125 transition duration-500"><i class="fas fa-play ml-1"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-gray-950 text-white pt-24 pb-32 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
+    <section id="booking" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-peacock rounded-[50px] overflow-hidden shadow-2xl flex flex-wrap">
+                <div class="w-full lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8 leading-none">Schedule Your <br>Site Survey</h2>
+                    <p class="text-blue-100 text-lg mb-10">We'll visit your property, provide a 3D design brief, and give an itemised fixed-price quote.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4"><i class="fas fa-check text-blue-400"></i> <span class="font-bold">No-Obligation Survey</span></div>
+                        <div class="flex items-center gap-4"><i class="fas fa-check text-blue-400"></i> <span class="font-bold">Professional 3D Designs</span></div>
+                        <div class="flex items-center gap-4"><i class="fas fa-check text-blue-400"></i> <span class="font-bold">Fixed Pricing</span></div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 bg-white p-8 lg:p-12">
+                    <div class="h-full min-h-[400px] border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-center p-8">
+                        <i class="fas fa-calendar-alt text-5xl text-slate-200 mb-4"></i>
+                        <h4 class="font-black text-xl text-peacock uppercase tracking-tighter mb-2">Calendly Integration</h4>
+                        <p class="text-sm text-slate-400 mb-8">Click to sync your calendar and choose a slot.</p>
+                        <button class="bg-peacock text-white px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest shadow-xl">Open Calendar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-50 border-y px-6">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div>
-                <h4 class="font-black text-xl uppercase mb-6 tracking-tighter">Peacock Landscaping</h4>
-                <p class="text-gray-500 text-sm leading-relaxed font-medium">Quality workmanship and premium materials. 53 Furnival Street, Worksop, S80 2NF.</p>
-                <div class="mt-6 flex gap-4 text-xl">
-                    <a href="#" class="text-gray-600 hover:text-white transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-gray-600 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                <h3 class="text-3xl font-black text-peacock uppercase tracking-tighter mb-6">Our Working Hours</h3>
+                <div class="space-y-4 text-sm font-bold uppercase tracking-widest text-gray-500">
+                    <div class="flex justify-between border-b pb-2"><span>Mon - Fri</span> <span class="text-peacock">08:00 - 18:00</span></div>
+                    <div class="flex justify-between border-b pb-2"><span>Saturday</span> <span class="text-peacock">09:00 - 14:00</span></div>
+                    <div class="flex justify-between pb-2"><span>Sunday</span> <span class="text-red-500">Closed</span></div>
+                </div>
+            </div>
+            <div class="bg-peacock p-10 rounded-[40px] text-white text-center">
+                <i class="fas fa-clock text-4xl mb-4 text-blue-400"></i>
+                <h4 class="text-xl font-black mb-2">CURRENT WAIT TIME</h4>
+                <p class="text-3xl font-black mb-4">3 WEEKS</p>
+                <p class="text-[10px] uppercase font-bold tracking-widest text-blue-200">Secure your summer slot now</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="location" class="h-[500px] w-full relative">
+        <div class="absolute inset-0 bg-slate-200">
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale" alt="Map Area">
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center p-6">
+            <div class="bg-white p-10 rounded-[3rem] shadow-2xl text-center max-w-sm" data-aos="fade-up">
+                <h4 class="text-2xl font-black text-peacock mb-2">Worksop HQ</h4>
+                <p class="text-gray-500 text-sm mb-6 font-medium">53 Furnival Street, Worksop,<br>S80 2NF, Nottinghamshire</p>
+                <a href="https://maps.google.com" target="_blank" class="bg-peacock text-white px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest block mb-4">Get Directions</a>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Serving all Worksop & Surrounds</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
+            <div>
+                <h4 class="text-2xl font-black tracking-tighter mb-6">PEACOCK <br><span class="text-blue-500">BUILDING</span></h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8">Premium building and landscaping specialists. Transforming visions into reality with master craftsmanship.</p>
+                <div class="flex gap-4 text-xl">
+                    <a href="#" class="hover:text-blue-500 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div>
-                <h4 class="font-bold text-xs uppercase tracking-[0.3em] mb-6 text-blue-500">Contact Us</h4>
-                <ul class="space-y-4 text-sm font-bold text-gray-400">
-                    <li><i class="fas fa-phone mr-2 text-blue-500"></i> 07856 582599</li>
-                    <li><i class="fas fa-envelope mr-2 text-blue-500"></i> gpeacockbuildingservices@outlook.com</li>
+                <h5 class="font-black text-xs uppercase tracking-[0.3em] mb-6 text-blue-500">Quick Links</h5>
+                <ul class="space-y-4 text-sm font-bold text-slate-400 uppercase tracking-widest">
+                    <li><a href="#services" class="hover:text-white">Services</a></li>
+                    <li><a href="#gallery" class="hover:text-white">Portfolio</a></li>
+                    <li><a href="#vip" class="hover:text-white">VIP Loyalty</a></li>
+                    <li><a href="#booking" class="hover:text-white text-blue-400">Get A Quote</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-bold text-xs uppercase tracking-[0.3em] mb-6 text-blue-500">Working Hours</h4>
-                <div class="text-sm font-bold text-gray-400 space-y-2 uppercase tracking-widest">
-                    <div class="flex justify-between"><span>Mon - Fri</span> <span>08:00 - 18:00</span></div>
-                    <div class="flex justify-between"><span>Saturday</span> <span>09:00 - 14:00</span></div>
-                    <div class="flex justify-between text-red-900"><span>Sunday</span> <span>Closed</span></div>
-                </div>
+                <h5 class="font-black text-xs uppercase tracking-[0.3em] mb-6 text-blue-500">Contact</h5>
+                <ul class="space-y-4 text-sm font-bold text-slate-400">
+                    <li><i class="fas fa-phone mr-3 text-blue-500"></i> 07856 582599</li>
+                    <li><i class="fas fa-envelope mr-3 text-blue-500"></i> gpeacockbuildingservices@outlook.com</li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-black text-xs uppercase tracking-[0.3em] mb-6 text-blue-500">Newsletter</h5>
+                <p class="text-xs text-slate-500 mb-4">Get seasonal garden tips & private offers.</p>
+                <form class="flex bg-white/5 p-1 rounded-full border border-white/10">
+                    <input type="email" placeholder="Email" class="bg-transparent border-none px-4 py-2 w-full text-sm outline-none">
+                    <button class="bg-peacock px-4 py-2 rounded-full"><i class="fas fa-paper-plane"></i></button>
+                </form>
             </div>
         </div>
     </footer>
 
+    <div class="bottom-dock bg-white/80 backdrop-blur-xl border-t px-4 py-2 gap-2 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+        <a href="tel:07856582599" class="flex-1 flex flex-col items-center justify-center p-2 rounded-xl text-peacock">
+            <i class="fas fa-phone text-lg"></i>
+            <span class="text-[9px] font-black uppercase mt-1">Call</span>
+        </a>
+        <a href="https://wa.me/447856582599" class="flex-1 flex flex-col items-center justify-center p-2 rounded-xl text-green-600">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span class="text-[9px] font-black uppercase mt-1">WhatsApp</span>
+        </a>
+        <a href="#booking" class="flex-[3] bg-peacock text-white flex items-center justify-center rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
+            Get Quote
+        </a>
+    </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-        function toggleMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-            document.getElementById('mobile-menu').classList.toggle('flex');
+        AOS.init({ duration: 1000, once: true });
+
+        // Hero Swiper
+        const swiper = new Swiper('.heroSwiper', {
+            loop: true,
+            autoplay: { delay: 5000 },
+            effect: 'fade',
+        });
+
+        // 31. Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobile-nav-overlay').classList.toggle('open');
         }
+
+        // Close all popups
+        function closePopups() {
+            document.getElementById('exit-popup').classList.add('hidden');
+        }
+
+        // 22. Exit Intent Trigger
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY < 0) {
+                document.getElementById('exit-popup').classList.remove('hidden');
+            }
+        });
+
+        // Show promo popup after 3 seconds
+        setTimeout(() => {
+            document.getElementById('promo-popup').classList.remove('hidden');
+        }, 3000);
+
+        // 7. Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const speed = 200;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
     </script>
 </body>
 </html>
