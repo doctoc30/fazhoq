@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacock Building & Landscaping Services | Worksop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --peacock-blue: #00338d; /* Extracted from branding */
+            --peacock-accent: #1e40af;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .bg-peacock { background-color: var(--peacock-blue); }
+        .text-peacock { color: var(--peacock-blue); }
+        .border-peacock { border-color: var(--peacock-blue); }
+        .hero-slider { height: 80vh; overflow: hidden; position: relative; }
+        .sticky-nav { position: sticky; top: 0; z-index: 50; transition: all 0.3s; }
+        .floating-cta { position: fixed; bottom: 0; width: 100%; z-index: 100; }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--peacock-blue); border-radius: 10px; }
+        .gallery-img:hover { transform: scale(1.05); transition: 0.3s; cursor: pointer; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="custom-scrollbar bg-gray-50 text-gray-800">
+
+    <nav class="sticky-nav bg-white shadow-md p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1590053303153-6058e1329623?q=80&w=100&auto=format&fit=crop" alt="Logo" class="h-12 w-12 rounded-full">
+                <span class="font-bold text-xl text-peacock uppercase tracking-tighter">Peacock Landscaping</span>
+            </div>
+            <div class="hidden md:flex gap-6 font-semibold">
+                <a href="#services" class="hover:text-blue-700">Services</a>
+                <a href="#gallery" class="hover:text-blue-700">Portfolio</a>
+                <a href="#reviews" class="hover:text-blue-700">Reviews</a>
+                <a href="#booking" class="bg-peacock text-white px-4 py-2 rounded">Book Quote</a>
+            </div>
+            <button class="md:hidden text-2xl" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <header class="hero-slider bg-black flex items-center justify-center text-white text-center">
+        <div class="absolute inset-0 opacity-60">
+            <img src="https://images.unsplash.com/photo-1558905619-17153ad27393?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover" alt="Landscaping Background">
+        </div>
+        <div class="relative z-10 p-6 animate__animated animate__fadeIn">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">Bring Your Vision To Reality</h1>
+            <p class="text-xl mb-8">Premium Patios, Brickwork & Garden Transformations in Worksop</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#booking" class="bg-peacock hover:bg-blue-800 text-white px-8 py-4 rounded-full font-bold text-lg">Book A Free Quote</a>
+                <a href="#services" class="bg-white text-peacock px-8 py-4 rounded-full font-bold text-lg">View Services</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 bg-white">
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up">
+                <div class="text-4xl font-bold text-peacock">500+</div>
+                <div class="text-gray-600">Projects Completed</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="text-4xl font-bold text-peacock">30</div>
+                <div class="text-gray-600">5-Star Reviews</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="text-4xl font-bold text-peacock">12+</div>
+                <div class="text-gray-600">Years Experience</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <div class="text-4xl font-bold text-peacock">100%</div>
+                <div class="text-gray-600">Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Specialist Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1590053303153-6058e1329623?q=80&w=600&auto=format&fit=crop" alt="Patios" class="h-52 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">Patios & Indian Stone</h3>
+                    <p class="text-gray-600 mb-4">Precision laid Indian sandstone and porcelain paving for luxury outdoor living.</p>
+                    <a href="#booking" class="text-peacock font-bold">Inquire Now →</a>
+                </div>
+            </div>
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1584622781564-1d9876a13d00?q=80&w=600&auto=format&fit=crop" alt="Brickwork" class="h-52 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">Brickwork & Building</h3>
+                    <p class="text-gray-600 mb-4">From garden walls to structural extensions, our tradesmen ensure quality build.</p>
+                    <a href="#booking" class="text-peacock font-bold">Inquire Now →</a>
+                </div>
+            </div>
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1592150621344-828ec28ee97d?q=80&w=600&auto=format&fit=crop" alt="Turf" class="h-52 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">Artificial Grass & Turf</h3>
+                    <p class="text-gray-600 mb-4">High-quality lawn installation for a lush green garden year-round.</p>
+                    <a href="#booking" class="text-peacock font-bold">Inquire Now →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Garden Transformations</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="relative group" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185138a04b9?q=80&w=800&auto=format&fit=crop" class="rounded-lg shadow-xl" alt="Before">
+                    <div class="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded">Before</div>
+                </div>
+                <div class="relative group" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?q=80&w=800&auto=format&fit=crop" class="rounded-lg shadow-xl" alt="After">
+                    <div class="absolute top-4 left-4 bg-peacock text-white px-3 py-1 rounded">After</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-20 container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-wrap">
+            <div class="w-full md:w-1/2 bg-peacock p-12 text-white">
+                <h2 class="text-3xl font-bold mb-6">Book Your Free Site Survey</h2>
+                <p class="mb-6">Select a date and time for our specialist team to visit your property and provide a detailed quote.</p>
+                <ul class="space-y-4">
+                    <li><i class="fas fa-check-circle mr-2"></i> No obligation quotes</li>
+                    <li><i class="fas fa-check-circle mr-2"></i> Expert design advice</li>
+                    <li><i class="fas fa-check-circle mr-2"></i> Fully insured tradesmen</li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/2 p-12">
+                <div class="h-64 bg-gray-100 rounded flex items-center justify-center border-2 border-dashed border-gray-300">
+                    <span class="text-gray-500">[Calendar Integration Placeholder]</span>
+                </div>
+                <button class="w-full bg-peacock text-white mt-6 py-3 rounded font-bold uppercase tracking-widest hover:bg-blue-900 transition">Confirm Selection</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Recent Projects</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <img src="https://images.unsplash.com/photo-1598901861713-a4ad609332ad?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 1">
+                <img src="https://images.unsplash.com/photo-1557429287-b2e26467fc2b?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 2">
+                <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 3">
+                <img src="https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 4">
+                <img src="https://images.unsplash.com/photo-1591857177580-2720ca0bc324?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 5">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" class="gallery-img rounded-lg shadow-md" alt="Work 6">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-peacock text-white">
+        <div class="container mx-auto px-4 flex flex-wrap items-center">
+            <div class="w-full md:w-1/2 mb-8 md:mb-0">
+                <h2 class="text-3xl font-bold mb-6">Our Working Hours</h2>
+                <div class="space-y-2 max-w-sm">
+                    <div class="flex justify-between border-b border-blue-400 py-2"><span>Monday - Friday</span> <span>08:00 - 18:00</span></div>
+                    <div class="flex justify-between border-b border-blue-400 py-2"><span>Saturday</span> <span>09:00 - 14:00</span></div>
+                    <div class="flex justify-between py-2 text-blue-300"><span>Sunday</span> <span>Closed</span></div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <div class="bg-white text-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Current Availability</h3>
+                    <p class="text-red-600 font-bold mb-4"><i class="fas fa-calendar-exclamation mr-2"></i> Our diary is filling up fast for Summer 2026!</p>
+                    <p class="text-sm">We are currently booking projects 3-4 weeks in advance. Message today to secure your slot.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="h-96 w-full bg-gray-300 relative">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="glass-card p-6 rounded-lg shadow-lg z-10 text-center">
+                <h4 class="font-bold text-peacock">Serving Worksop & Nottinghamshire</h4>
+                <p class="text-sm">53 Furnival Street, Worksop, S80 2NF</p>
+                <a href="https://maps.google.com" target="_blank" class="text-blue-600 underline text-xs mt-2 block">Get Directions</a>
+            </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-50" alt="Map Area">
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
+            <div>
+                <h4 class="font-bold text-xl mb-4">Peacock Building</h4>
+                <p class="text-gray-400 text-sm">Quality workmanship and 5-star service for all your building and landscaping needs.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Services</h4>
+                <ul class="text-gray-400 text-sm space-y-2">
+                    <li>Indian Stone Patios</li>
+                    <li>Artificial Grass</li>
+                    <li>Brickwork & Walls</li>
+                    <li>Fencing</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Contact Info</h4>
+                <ul class="text-gray-400 text-sm space-y-2">
+                    <li><i class="fas fa-phone mr-2"></i> 07856 582599</li>
+                    <li><i class="fas fa-envelope mr-2"></i> gpeacockbuildingservices@outlook.com</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Follow Us</h4>
+                <div class="flex gap-4 text-2xl">
+                    <a href="#" class="hover:text-blue-500"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-xs">
+            © 2026 Peacock Building & Landscaping Services. All Rights Reserved.
+        </div>
+    </footer>
+
+    <div class="floating-cta md:hidden flex bg-peacock text-white border-t border-blue-400">
+        <a href="tel:07856582599" class="flex-1 py-4 text-center border-r border-blue-400"><i class="fas fa-phone mr-2"></i> Call</a>
+        <a href="https://wa.me/447856582599" class="flex-1 py-4 text-center border-r border-blue-400"><i class="fab fa-whatsapp mr-2"></i> WhatsApp</a>
+        <a href="#booking" class="flex-1 py-4 text-center bg-blue-700 font-bold">Get Quote</a>
+    </div>
+
+    <div id="offerPopup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 hidden">
+        <div class="bg-white p-8 rounded-3xl max-w-sm relative text-center animate__animated animate__bounceIn">
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-black"><i class="fas fa-times"></i></button>
+            <div class="text-peacock text-5xl mb-4"><i class="fas fa-gift"></i></div>
+            <h3 class="text-2xl font-bold mb-2">Spring Offer!</h3>
+            <p class="mb-6 text-gray-600">Get **10% OFF** all patio installations booked before the end of May.</p>
+            <a href="#booking" onclick="closePopup()" class="bg-peacock text-white px-6 py-3 rounded-full block font-bold">Claim Discount</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        function closePopup() {
+            document.getElementById('offerPopup').classList.add('hidden');
+        }
+
+        // Show popup after 3 seconds
+        setTimeout(() => {
+            document.getElementById('offerPopup').classList.remove('hidden');
+        }, 3000);
+
+        function toggleMenu() {
+            // Simplified for demo - just scrolls to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
