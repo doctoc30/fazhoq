@@ -3,360 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grime 2 Shine Plymouth | Exterior Cleaning Specialists</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>Grime 2 Shine Ltd - Exterior Cleaning</title>
     <style>
-        :root {
-            --brand-green: #2d5a27;
-            --brand-light-green: #4ade80;
-            --brand-dark: #1a1a1a;
+        /* Recreating the flyer's specific background gradient */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            /* Subtly matches the flyer background */
+            background: linear-gradient(135deg, #f7f9f7 0%, #ffffff 100%);
+            min-height: 100vh;
         }
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .bg-brand-green { background-color: var(--brand-green); }
-        .text-brand-green { color: var(--brand-green); }
-        .border-brand-green { border-color: var(--brand-green); }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 5px; }
 
-        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1558905619-17355201bd2c?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; }
-        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-        
-        /* Floating Action Bar */
-        .floating-cta { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 10px; border-top: 2px solid var(--brand-green); z-index: 1000; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); }
-        
-        .exit-intent-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Branding: Exact Grime 2 Shine header style and color */
+        h1 {
+            color: #3b7b3b; /* Distinctive green from image */
+            font-size: 56px;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-style: italic;
+            font-weight: bold;
+            margin-top: -5px;
+            color: #333;
+        }
+
+        .content-layout {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        .text-content {
+            flex: 1;
+        }
+
+        .image-content {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Service Categories: Exact font color and style from image */
+        .service-category {
+            color: #3b7b3b; /* Same matching green */
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        /* Lists and bullets matched to image color */
+        ul.service-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.service-list li {
+            padding-left: 20px;
+            position: relative;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        /* Customizing bullets to be green and square/blocky as in the flyer */
+        ul.service-list li::before {
+            content: "■"; /* Using a block symbol */
+            color: #3b7b3b; /* Green bullet color */
+            position: absolute;
+            left: 0;
+            font-size: 12px;
+            top: 4px;
+        }
+
+        /* Footer styling, italicized as in image */
+        .footer-note {
+            font-style: italic;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        /* Image styling - rounded corners match the flyer design */
+        .service-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Simple responsive adjustment */
+        @media (max-width: 768px) {
+            .content-layout {
+                flex-direction: column-reverse;
+            }
+            .image-content {
+                width: 100%;
+            }
+            h1 {
+                font-size: 42px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-brand-green rounded-full flex items-center justify-center text-white font-bold">G2S</div>
-                <span class="text-2xl font-black text-brand-green tracking-tighter">GRIME 2 SHINE</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-semibold uppercase text-sm">
-                <a href="#services" class="hover:text-green-600 transition">Services</a>
-                <a href="#gallery" class="hover:text-green-600 transition">Gallery</a>
-                <a href="#pricing" class="hover:text-green-600 transition">VIP Packages</a>
-                <a href="#contact" class="hover:text-green-600 transition">Contact</a>
-            </div>
-            <a href="#book" class="bg-brand-green text-white px-6 py-2 rounded-full font-bold hover:bg-black transition">GET A QUOTE</a>
+<div class="container">
+    <header>
+        <h1>Grime 2 Shine Ltd</h1>
+        <h2>Let us do your dirty work</h2>
+    </header>
+
+    <div class="content-layout">
+        <div class="text-content">
+            <div class="service-category">uPVC Cleaning...</div>
+            <ul class="service-list">
+                <li>Guttering and Downpipes</li>
+                <li>Fascia and Soffit Boards</li>
+                <li>Conservatories and Porches</li>
+                <li>Windows and Doors</li>
+                <li>Moss removal from Roofs</li>
+                <li>Algae removal from exterior Walls</li>
+            </ul>
+
+            <div class="service-category">Power washing...</div>
+            <ul class="service-list">
+                <li>Driveways & Paths</li>
+                <li>Patios</li>
+                <li>Decking Areas</li>
+            </ul>
+
+            <div class="service-category">Moss & Algae Removal...</div>
+            <ul class="service-list">
+                <li>Roofs</li>
+                <li>Walls</li>
+                <li>Chimney Stacks</li>
+            </ul>
+
+            <div class="service-category">Driveways...</div>
+            <ul class="service-list">
+                <li>De-greasing and re-sealing tarmac drives and paths</li>
+            </ul>
+
+            <p class="footer-note">• All staff fully trained, uniformed & professional</p>
         </div>
-    </nav>
 
-    <section class="relative h-[90vh] flex items-center hero-gradient text-white">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h1 class="text-5xl md:text-7xl font-black mb-4 italic uppercase">Let us do your<br><span class="text-green-400 underline">Dirty Work</span></h1>
-            <p class="text-xl mb-8 max-w-2xl">Plymouth's premier exterior cleaning and landscaping specialists. From pressure washing to complete garden transformations.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#book" class="bg-brand-green text-white px-10 py-4 rounded-lg text-lg font-bold hover:scale-105 transition transform">BOOK A VISIT</a>
-                <a href="#services" class="glass px-10 py-4 rounded-lg text-lg font-bold hover:bg-white hover:text-black transition">VIEW SERVICES</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="bg-yellow-400 py-3 text-center font-bold text-black uppercase tracking-widest overflow-hidden">
-        <div class="animate-pulse">🔥 SPRING SPECIAL: 20% OFF ALL DRIVEWAY RE-SEALING THIS MONTH! 🔥</div>
-    </div>
-
-    <section id="book" class="py-20 bg-white">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-4xl font-bold mb-6">Schedule Your <span class="text-brand-green">Landscaping Consultation</span></h2>
-                <p class="text-gray-600 mb-6">Select a date and time that works for you. Our specialist Jason Kelland will visit your property for a free, no-obligation quote.</p>
-                <ul class="space-y-4 font-semibold">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i> Free Site Surveys</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i> Professional Measurement</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i> Custom Treatment Plans</li>
-                </ul>
-            </div>
-            <div class="bg-gray-100 p-8 rounded-2xl shadow-xl border-t-4 border-brand-green" data-aos="zoom-in">
-                <div class="text-center py-10 border-2 border-dashed border-gray-300 rounded-lg">
-                    <i class="far fa-calendar-alt text-4xl mb-4 text-brand-green"></i>
-                    <p class="font-bold">Calendly Integration Placeholder</p>
-                    <button class="mt-4 bg-brand-green text-white px-8 py-3 rounded-md">Open Calendar</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-brand-green text-white">
-        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div data-aos="fade-up">
-                <div class="text-4xl font-black mb-2">585+</div>
-                <div class="uppercase text-sm tracking-widest opacity-80">Projects Done</div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="100">
-                <div class="text-4xl font-black mb-2">100%</div>
-                <div class="uppercase text-sm tracking-widest opacity-80">Recommendation</div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <div class="text-4xl font-black mb-2">14</div>
-                <div class="uppercase text-sm tracking-widest opacity-80">Year History</div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="300">
-                <div class="text-4xl font-black mb-2">24/7</div>
-                <div class="uppercase text-sm tracking-widest opacity-80">Support</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-20">
-        <div class="container mx-auto px-6 text-center mb-16">
-            <h2 class="text-4xl font-black uppercase mb-4">Our <span class="text-brand-green">Core Services</span></h2>
-            <div class="flex justify-center gap-4 flex-wrap mt-8">
-                <button class="bg-brand-green text-white px-6 py-2 rounded-full">All</button>
-                <button class="bg-gray-200 px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">uPVC</button>
-                <button class="bg-gray-200 px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">Power Washing</button>
-                <button class="bg-gray-200 px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">Moss Removal</button>
-            </div>
-        </div>
-        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-brand-green group hover:-translate-y-2 transition" data-aos="fade-up">
-                <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-green transition">
-                    <i class="fas fa-home text-2xl text-brand-green group-hover:text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">uPVC Cleaning</h3>
-                <p class="text-gray-600 mb-6">Deep cleaning for Guttering, Fascias, Soffits, and Conservatories.</p>
-                <a href="#" class="font-bold text-brand-green">LEARN MORE →</a>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-brand-green group hover:-translate-y-2 transition" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-green transition">
-                    <i class="fas fa-tint text-2xl text-brand-green group-hover:text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Power Washing</h3>
-                <p class="text-gray-600 mb-6">Driveways, Paths, Patios, and Decking restored to like-new condition.</p>
-                <a href="#" class="font-bold text-brand-green">LEARN MORE →</a>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-brand-green group hover:-translate-y-2 transition" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-green transition">
-                    <i class="fas fa-leaf text-2xl text-brand-green group-hover:text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-4">Moss & Algae Removal</h3>
-                <p class="text-gray-600 mb-6">Specialized treatments for roofs, walls, and chimney stacks.</p>
-                <a href="#" class="font-bold text-brand-green">LEARN MORE →</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase mb-12 text-center">Transformation <span class="text-brand-light-green">Gallery</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <img src="https://images.unsplash.com/photo-1590059235ef9-668b0c80653c?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 1">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 2">
-                <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 3">
-                <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 4">
-                <img src="https://images.unsplash.com/photo-1558905619-17355201bd2c?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 5">
-                <img src="https://images.unsplash.com/photo-1507484467459-0c3090333550?auto=format&fit=crop&q=80&w=500" class="rounded-lg hover:opacity-75 cursor-pointer transition" alt="Service 6">
-            </div>
-            <div class="mt-12 p-8 glass rounded-2xl text-center max-w-2xl mx-auto">
-                <h3 class="text-2xl font-bold mb-4">Happy with your result?</h3>
-                <p class="mb-6">Upload your before/after photos and get 10% off your next maintenance clean!</p>
-                <button class="bg-brand-light-green text-black px-6 py-2 rounded font-bold">Upload Photos</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-black text-center mb-16">VIP <span class="text-brand-green">MAINTENANCE</span> PACKAGES</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="border-2 border-gray-100 p-8 rounded-2xl hover:border-brand-green transition" data-aos="fade-up">
-                    <h3 class="text-2xl font-bold mb-2">Seasonal Care</h3>
-                    <p class="text-4xl font-black mb-6">£19<span class="text-lg font-normal text-gray-500">/mo</span></p>
-                    <ul class="space-y-4 mb-8 text-gray-600">
-                        <li><i class="fas fa-check text-green-500 mr-2"></i> 2 Gutter Cleans per year</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i> 1 Driveway De-grease</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i> Priority Booking</li>
-                    </ul>
-                    <button class="w-full py-4 border-2 border-brand-green text-brand-green font-black rounded-xl hover:bg-brand-green hover:text-white transition">SELECT PLAN</button>
-                </div>
-                <div class="border-2 border-brand-green p-8 rounded-2xl bg-brand-green text-white relative transform scale-105 shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <span class="absolute top-0 right-0 bg-yellow-400 text-black px-4 py-1 text-xs font-bold rounded-bl-lg">POPULAR</span>
-                    <h3 class="text-2xl font-bold mb-2">Estate Manager</h3>
-                    <p class="text-4xl font-black mb-6">£39<span class="text-lg font-normal opacity-70">/mo</span></p>
-                    <ul class="space-y-4 mb-8">
-                        <li><i class="fas fa-check text-yellow-400 mr-2"></i> All Seasonal Care benefits</li>
-                        <li><i class="fas fa-check text-yellow-400 mr-2"></i> Full Roof Moss Treatment</li>
-                        <li><i class="fas fa-check text-yellow-400 mr-2"></i> Quarterly Patio Power Wash</li>
-                    </ul>
-                    <button class="w-full py-4 bg-white text-brand-green font-black rounded-xl hover:bg-black hover:text-white transition">SELECT PLAN</button>
-                </div>
-                <div class="border-2 border-gray-100 p-8 rounded-2xl hover:border-brand-green transition" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-2xl font-bold mb-2">Gift Vouchers</h3>
-                    <p class="text-lg text-gray-600 mb-6">Perfect for new homeowners or busy families.</p>
-                    <i class="fas fa-gift text-6xl text-gray-200 mb-6"></i>
-                    <button class="w-full py-4 border-2 border-gray-400 text-gray-600 font-black rounded-xl hover:bg-black hover:text-white transition">PURCHASE GIFT CARD</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-black mb-12 uppercase">Meet our <span class="text-brand-green">Specialists</span></h2>
-            <div class="max-w-xs mx-auto">
-                <div class="bg-white p-6 rounded-3xl shadow-lg border-2 border-brand-green" data-aos="zoom-in">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300" class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-brand-green mb-4">
-                    <h3 class="text-xl font-bold">Jason Kelland</h3>
-                    <p class="text-brand-green font-bold text-sm uppercase mb-4">Owner / Head Specialist</p>
-                    <p class="text-gray-500 text-sm">15+ years experience in restoration and exterior preservation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16">
-            <div>
-                <h2 class="text-4xl font-black mb-8">FREQUENT <span class="text-brand-green">QUESTIONS</span></h2>
-                <div class="space-y-4">
-                    <details class="group bg-gray-100 p-4 rounded-lg cursor-pointer">
-                        <summary class="font-bold flex justify-between items-center list-none">
-                            How often should gutters be cleaned?
-                            <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
-                        </summary>
-                        <p class="mt-4 text-gray-600">We recommend twice a year—late autumn and spring—to ensure proper drainage and prevent water damage.</p>
-                    </details>
-                    <details class="group bg-gray-100 p-4 rounded-lg cursor-pointer">
-                        <summary class="font-bold flex justify-between items-center list-none">
-                            Is power washing safe for my roof?
-                            <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
-                        </summary>
-                        <p class="mt-4 text-gray-600">We use a "Soft Wash" technique for delicate surfaces like roofs and rendering to ensure no damage occurs.</p>
-                    </details>
-                </div>
-            </div>
-            <div class="bg-brand-green text-white p-10 rounded-3xl">
-                <div class="flex items-center mb-6">
-                    <div class="flex text-yellow-400 mr-2">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <span class="font-bold">100% Google Reviews</span>
-                </div>
-                <div class="text-2xl italic leading-relaxed mb-8">
-                    "Grime 2 Shine transformed our moss-covered driveway in a single afternoon. Professional, clean, and incredible value!"
-                </div>
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-white rounded-full mr-4"></div>
-                    <div>
-                        <p class="font-bold italic">Sarah T.</p>
-                        <p class="text-sm opacity-70">Plymouth Resident</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-100">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12">
-            <div class="rounded-3xl overflow-hidden shadow-2xl h-[400px]">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10178.614352136018!2d-4.1332243!3d50.3785461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486c9343725c88c7%3A0xc647230558b9f71b!2sPlymouth%20PL4%207HW!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <div class="bg-white p-10 rounded-3xl shadow-xl">
-                <h2 class="text-3xl font-black mb-6">VISIT OUR <span class="text-brand-green">BASE</span></h2>
-                <p class="mb-6"><i class="fas fa-map-marker-alt text-brand-green mr-2"></i> Plymouth, PL4 7HW, UK</p>
-                <div class="space-y-3 border-t pt-6">
-                    <div class="flex justify-between"><span>Mon - Fri</span><span class="font-bold">08:00 - 18:00</span></div>
-                    <div class="flex justify-between"><span>Saturday</span><span class="font-bold">09:00 - 14:00</span></div>
-                    <div class="flex justify-between text-red-500"><span>Sunday</span><span class="font-bold text-brand-green italic">Closed</span></div>
-                </div>
-                <a href="tel:07985766282" class="mt-8 block text-center bg-brand-green text-white py-4 rounded-xl font-bold">CALL NOW: 07985 766282</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-6 text-center max-w-2xl">
-            <h2 class="text-3xl font-bold mb-4">Get Maintenance Reminders</h2>
-            <p class="mb-8 opacity-70">Join 500+ homeowners. We'll send you seasonal tips and exclusive discounts.</p>
-            <form class="flex flex-col md:flex-row gap-4">
-                <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-4 rounded-lg bg-gray-800 border-none focus:ring-2 ring-brand-green outline-none">
-                <button class="bg-brand-green px-10 py-4 rounded-lg font-bold hover:bg-green-700 transition">SUBSCRIBE</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="bg-black text-white pt-20 pb-28">
-        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-12 mb-12">
-            <div class="col-span-2">
-                <div class="text-3xl font-black text-brand-light-green mb-6 italic tracking-tighter uppercase">GRIME 2 SHINE</div>
-                <p class="opacity-60 max-w-sm mb-6">Fully trained, uniformed, and professional specialists in uPVC cleaning, power washing, and landscaping restoration.</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-2xl hover:text-brand-green transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-2xl hover:text-brand-green transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-2xl hover:text-brand-green transition"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Contact Us</h4>
-                <p class="mb-2 opacity-70">jason@grime2shineplymouth.com</p>
-                <p class="mb-2 opacity-70">07985 766282</p>
-                <p class="opacity-70">Plymouth, Devon</p>
-            </div>
-            <div>
-                <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Legal</h4>
-                <ul class="opacity-60 space-y-2">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Safety Standards</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="container mx-auto px-6 border-t border-gray-800 pt-8 text-center text-xs opacity-40 uppercase tracking-widest">
-            © 2024 Grime 2 Shine Ltd. All Rights Reserved.
-        </div>
-    </footer>
-
-    <div class="floating-cta md:hidden">
-        <a href="tel:07985766282" class="flex flex-col items-center text-brand-green">
-            <i class="fas fa-phone mb-1"></i>
-            <span class="text-[10px] font-bold">CALL</span>
-        </a>
-        <a href="https://wa.me/447985766282" class="flex flex-col items-center text-green-500">
-            <i class="fab fa-whatsapp mb-1"></i>
-            <span class="text-[10px] font-bold">WHATSAPP</span>
-        </a>
-        <a href="sms:07985766282" class="flex flex-col items-center text-blue-500">
-            <i class="fas fa-comment-alt mb-1"></i>
-            <span class="text-[10px] font-bold">TEXT</span>
-        </a>
-        <a href="#book" class="flex flex-col items-center text-red-500">
-            <i class="fas fa-file-invoice-dollar mb-1"></i>
-            <span class="text-[10px] font-bold">QUOTE</span>
-        </a>
-    </div>
-
-    <div id="exitPopup" class="exit-intent-popup">
-        <div class="bg-white p-12 rounded-3xl max-w-md text-center relative mx-4">
-            <button onclick="closePopup()" class="absolute top-4 right-4 text-2xl">&times;</button>
-            <h2 class="text-3xl font-black mb-4">WAIT! DON'T GO!</h2>
-            <p class="mb-6">Is your driveway looking tired? Get a **FREE** de-greasing session when you book a full clean today.</p>
-            <a href="#book" onclick="closePopup()" class="bg-brand-green text-white px-8 py-3 rounded-lg block font-bold">CLAIM OFFER</a>
+        <div class="image-content">
+            <img src="https://via.placeholder.com/320x240?text=Placeholder+Image+1" alt="Gutter Cleaning Example" class="service-image">
+            <img src="https://via.placeholder.com/320x240?text=Placeholder+Image+2" alt="Conservatory Cleaning" class="service-image">
         </div>
     </div>
+</div>
 
-    <script>
-        AOS.init({ duration: 1000, once: true });
-
-        // Exit intent logic
-        document.addEventListener('mouseleave', e => {
-            if (e.clientY < 0) {
-                document.getElementById('exitPopup').style.display = 'flex';
-            }
-        });
-
-        function closePopup() {
-            document.getElementById('exitPopup').style.display = 'none';
-        }
-    </script>
 </body>
 </html>
