@@ -16,21 +16,21 @@
         :root { --brand-red: #d32f2f; --brand-dark: #0f0f0f; }
         body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; overflow-x: hidden; padding-bottom: 80px; }
         
-        /* 30. Custom Scrollbar */
+        /* 30. Custom Scrollbar & Page Customization */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 10px; }
 
-        /* 18 & 31. Nav & Mobile Menu */
-        .glass-nav { background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        /* 18 & 31. Sticky Nav & Mobile Menu */
+        .glass-nav { background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
         #mobile-menu { clip-path: circle(0% at 100% 0%); transition: all 0.7s cubic-bezier(0.7, 0, 0.3, 1); }
         #mobile-menu.active { clip-path: circle(150% at 100% 0%); }
 
-        /* 1. Hero Swiper */
+        /* 1. Hero Swiper Enhancement */
         .heroSwiper .swiper-slide { opacity: 0 !important; transition: opacity 1s ease; }
         .heroSwiper .swiper-slide-active { opacity: 1 !important; }
         
-        /* 3. FAQ */
+        /* 3. FAQ Accordion */
         .faq-content { max-height: 0; overflow: hidden; transition: all 0.3s ease; }
         .faq-item.active .faq-content { max-height: 200px; padding-top: 1rem; }
         .faq-item.active i { transform: rotate(180deg); }
@@ -38,9 +38,16 @@
         .btn-press:active { transform: scale(0.96); }
         .bottom-dock { box-shadow: 0 -10px 30px rgba(0,0,0,0.15); }
         
-        /* 17 & 29. Gallery Enhancement */
+        /* 17 & 29. Gallery Lightbox & Hover */
         .zoom-parent:hover .zoom-img { transform: scale(1.08); }
         .zoom-img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        
+        /* 9. Before/After Slider */
+        .ba-container { position: relative; overflow: hidden; border-radius: 1rem; }
+        .ba-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 3px solid white; }
+
+        /* 11. Testimonials Slider */
+        .testimonial-swiper { padding: 40px 0; }
     </style>
 </head>
 <body>
@@ -49,9 +56,9 @@
     <div class="bg-white rounded-3xl p-10 max-w-md text-center relative shadow-2xl">
         <button onclick="toggleExitPopup()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-black">&times;</button>
         <div class="w-16 h-16 bg-red-100 text-[#d32f2f] rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-percentage"></i></div>
-        <h3 class="text-3xl font-black mb-2 uppercase">Don't Miss Out!</h3>
-        <p class="mb-6 text-gray-600">Get a <strong>£50 Voucher</strong> towards any full roof replacement if you book your survey in the next 10 minutes.</p>
-        <a href="#booking" onclick="toggleExitPopup()" class="block w-full bg-[#d32f2f] text-white py-4 rounded-xl font-bold uppercase btn-press">Claim My Voucher</a>
+        <h3 class="text-3xl font-black mb-2 uppercase">Wait! Special Offer</h3>
+        <p class="mb-6 text-gray-600">Get <strong>15% OFF</strong> any repair if you book your free inspection today.</p>
+        <a href="#booking" onclick="toggleExitPopup()" class="block w-full bg-[#d32f2f] text-white py-4 rounded-xl font-bold uppercase btn-press">Claim Discount</a>
     </div>
 </div>
 
@@ -61,9 +68,10 @@
         <span class="font-black text-xl tracking-tighter uppercase">C R Roofing</span>
     </div>
     <div class="hidden lg:flex gap-8 items-center text-[11px] font-bold uppercase tracking-widest">
+        <a href="#about" class="hover:text-red-500">About</a>
         <a href="#services" class="hover:text-red-500">Services</a>
-        <a href="#team" class="hover:text-red-500">Foremen</a>
-        <a href="#gallery" class="hover:text-red-500">Work</a>
+        <a href="#gallery" class="hover:text-red-500">Portfolio</a>
+        <a href="#reviews" class="hover:text-red-500">Reviews</a>
         <a href="#booking" class="bg-[#d32f2f] px-6 py-2 rounded-full btn-press">Book Survey</a>
     </div>
     <button onclick="toggleMenu()" class="lg:hidden text-2xl"><i class="fas fa-bars-staggered"></i></button>
@@ -71,9 +79,9 @@
 
 <div id="mobile-menu" class="fixed inset-0 z-[2000] bg-[#0f0f0f] flex flex-col items-center justify-center gap-8 text-white text-3xl font-black uppercase">
     <button onclick="toggleMenu()" class="absolute top-8 right-8 text-4xl">&times;</button>
+    <a href="#about" onclick="toggleMenu()">About Us</a>
     <a href="#services" onclick="toggleMenu()">Services</a>
-    <a href="#team" onclick="toggleMenu()">Our Team</a>
-    <a href="#gallery" onclick="toggleMenu()">Portfolio</a>
+    <a href="#gallery" onclick="toggleMenu()">Our Work</a>
     <a href="#booking" onclick="toggleMenu()" class="text-[#d32f2f]">Book Now</a>
 </div>
 
@@ -81,17 +89,17 @@
     <div class="swiper heroSwiper h-full">
         <div class="swiper-wrapper">
             <div class="swiper-slide relative">
-                <img src="https://images.unsplash.com/photo-1532512888905-09061950c8c6?q=80&w=1470&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Hero">
+                <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?auto=format&fit=crop&q=80&w=2000" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Roofing Work">
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-6">
                     <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter gs-reveal">Elite <span class="text-[#d32f2f]">Roofing</span></h1>
-                    <p class="text-xl md:text-2xl mt-4 mb-10 max-w-2xl font-light gs-reveal">Sheffield's Highest Rated Specialist Contractors.</p>
+                    <p class="text-xl md:text-2xl mt-4 mb-10 max-w-2xl font-light gs-reveal">Specialist Contractors Serving Sheffield & South Yorkshire.</p>
                     <div class="flex flex-col md:flex-row gap-4 gs-reveal">
-                        <a href="#booking" class="bg-[#d32f2f] px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm btn-press">Secure A Date</a>
-                        <a href="#services" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm btn-press">View Services</a>
+                        <a href="#booking" class="bg-[#d32f2f] px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm btn-press">Get Free Quote</a>
+                        <a href="#services" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm btn-press">Our Services</a>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
     </div>
 </section>
 
@@ -99,114 +107,228 @@
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div class="gs-reveal"><div class="text-5xl font-black text-[#d32f2f] counter" data-target="2800">0</div><p class="text-[10px] font-bold uppercase text-gray-400 mt-2">Projects Won</p></div>
         <div class="gs-reveal" data-delay="0.1"><div class="text-5xl font-black text-[#d32f2f] counter" data-target="15">0</div><p class="text-[10px] font-bold uppercase text-gray-400 mt-2">Expert Foremen</p></div>
-        <div class="gs-reveal" data-delay="0.2"><div class="text-5xl font-black text-[#d32f2f]">100%</div><p class="text-[10px] font-bold uppercase text-gray-400 mt-2">Insured</p></div>
+        <div class="gs-reveal" data-delay="0.2"><div class="text-5xl font-black text-[#d32f2f]">100%</div><p class="text-[10px] font-bold uppercase text-gray-400 mt-2">Happy Clients</p></div>
         <div class="gs-reveal" data-delay="0.3"><div class="text-5xl font-black text-[#d32f2f]">25yr</div><p class="text-[10px] font-bold uppercase text-gray-400 mt-2">Guarantees</p></div>
     </div>
 </section>
 
-<section id="team" class="py-24 bg-slate-50 px-6">
+<section id="about" class="py-24 bg-white px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <div class="gs-reveal">
+            <h2 class="text-4xl font-black uppercase mb-6 italic">Built on <span class="text-[#d32f2f]">Integrity</span></h2>
+            <p class="text-gray-600 leading-relaxed mb-6">C R Roofing has been the cornerstone of Sheffield roofing for over two decades. We specialize in high-end residential installations and commercial maintenance, ensuring every tile and slate is laid with surgical precision.</p>
+            <div class="flex gap-4">
+                <div class="bg-slate-100 p-4 rounded-xl text-center"><i class="fas fa-award text-[#d32f2f] block mb-2"></i> <span class="text-[10px] font-bold uppercase">Certified</span></div>
+                <div class="bg-slate-100 p-4 rounded-xl text-center"><i class="fas fa-shield-alt text-[#d32f2f] block mb-2"></i> <span class="text-[10px] font-bold uppercase">Insured</span></div>
+            </div>
+        </div>
+        <div class="rounded-3xl overflow-hidden shadow-2xl gs-reveal">
+            <img src="https://images.unsplash.com/photo-1628413993904-94ecb60f1239?auto=format&fit=crop&q=80&w=800" alt="Team Work">
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-24 bg-slate-50 px-6">
     <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-black uppercase tracking-tighter gs-reveal">Meet Your <span class="text-[#d32f2f]">Foremen</span></h2>
-            <p class="text-gray-500 mt-2 gs-reveal">The hands-on experts leading every project.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div class="text-center group gs-reveal">
-                <div class="relative w-64 h-64 mx-auto mb-6">
-                    <div class="absolute inset-0 rounded-full border-[6px] border-[#d32f2f] scale-105 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div class="w-full h-full rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="John Smith">
-                    </div>
-                </div>
-                <h4 class="text-2xl font-black uppercase">John Smith</h4>
-                <p class="text-xs font-bold text-[#d32f2f] uppercase tracking-widest">Master Roofer (22yrs Exp)</p>
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+                <h2 class="text-4xl font-black uppercase tracking-tighter gs-reveal">Expert <span class="text-[#d32f2f]">Services</span></h2>
+                <p class="text-gray-500 gs-reveal">Select a category to filter our expertise.</p>
             </div>
-            <div class="text-center group gs-reveal" data-delay="0.2">
-                <div class="relative w-64 h-64 mx-auto mb-6">
-                    <div class="absolute inset-0 rounded-full border-[6px] border-gray-300 scale-105 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div class="w-full h-full rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mike Ross">
-                    </div>
-                </div>
-                <h4 class="text-2xl font-black uppercase">Mike Ross</h4>
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Lead Surveyor</p>
-            </div>
-            <div class="text-center group gs-reveal" data-delay="0.4">
-                <div class="relative w-64 h-64 mx-auto mb-6">
-                    <div class="absolute inset-0 rounded-full border-[6px] border-gray-300 scale-105 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div class="w-full h-full rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Dave L">
-                    </div>
-                </div>
-                <h4 class="text-2xl font-black uppercase">Dave Lewis</h4>
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Maintenance Lead</p>
+            <div class="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 gs-reveal">
+                <button class="px-6 py-2 bg-[#d32f2f] text-white rounded-full text-xs font-bold uppercase">All</button>
+                <button class="px-6 py-2 bg-white border rounded-full text-xs font-bold uppercase hover:bg-gray-100">Full Roofs</button>
+                <button class="px-6 py-2 bg-white border rounded-full text-xs font-bold uppercase hover:bg-gray-100">Repairs</button>
             </div>
         </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 group gs-reveal">
+                <div class="w-14 h-14 bg-red-50 text-[#d32f2f] rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-[#d32f2f] group-hover:text-white transition-all"><i class="fas fa-home"></i></div>
+                <h4 class="text-xl font-bold mb-3 uppercase">New Roof Install</h4>
+                <p class="text-gray-500 text-sm mb-6">Complete strip and re-roof using premium slate or clay tiles with 25yr warranty.</p>
+                <a href="#" class="text-xs font-black uppercase text-[#d32f2f] border-b-2 border-[#d32f2f] pb-1">Deposit Payment <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+            </div>
+    </div>
+</section>
+
+<section id="gallery" class="py-24 bg-white px-6">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-black uppercase text-center mb-16 gs-reveal">Recent <span class="text-[#d32f2f]">Projects</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal">
+                <img src="https://images.unsplash.com/photo-1516715667182-c8e2111300f3?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 1">
+            </div>
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.1">
+                <img src="https://images.unsplash.com/photo-1626885930974-4b69aa21bbf9?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 2">
+            </div>
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.2">
+                <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 3">
+            </div>
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal">
+                <img src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 4">
+            </div>
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.1">
+                <img src="https://images.unsplash.com/photo-1605276374104-dee2a0bd3cd6?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 5">
+            </div>
+            <div class="aspect-square rounded-2xl overflow-hidden zoom-parent gs-reveal" data-delay="0.2">
+                <img src="https://images.unsplash.com/photo-1449156001935-d28bc3502f00?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover zoom-img" alt="Roof 6">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-[#0f0f0f] text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-black uppercase mb-12 gs-reveal">The <span class="text-[#d32f2f]">Process</span> In Motion</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="aspect-video bg-gray-800 rounded-3xl overflow-hidden relative group gs-reveal">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-50">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <button class="w-20 h-20 bg-[#d32f2f] rounded-full flex items-center justify-center text-white text-2xl shadow-xl transition-transform hover:scale-110"><i class="fas fa-play ml-1"></i></button>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center gs-reveal">
+                <h4 class="text-2xl font-bold mb-4 uppercase italic">Watch our drone surveys</h4>
+                <p class="text-gray-400">See how we use high-definition drone footage to identify issues before they become disasters.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-white px-6">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+        <h2 class="text-4xl font-black uppercase gs-reveal">The <span class="text-[#d32f2f]">Transformation</span></h2>
+    </div>
+    <div class="max-w-4xl mx-auto ba-container gs-reveal">
+        <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?auto=format&fit=crop&q=80&w=1200" alt="After" class="w-full">
+        <div class="ba-overlay">
+            <img src="https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?auto=format&fit=crop&q=80&w=1200" alt="Before" class="max-w-none h-full" style="width: 100vw;">
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-black px-4 py-2 rounded-full font-bold text-xs uppercase shadow-xl">Slide To View</div>
+    </div>
+</section>
+
+<section id="team" class="py-24 bg-slate-50 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-black uppercase mb-16 gs-reveal">Choose Your <span class="text-[#d32f2f]">Foreman</span></h2>
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="gs-reveal">
+                <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-white shadow-xl mb-6 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover">
+                </div>
+                <h4 class="text-xl font-bold uppercase">John Smith</h4>
+                <p class="text-xs text-red-600 font-bold tracking-widest uppercase">Lead Installer</p>
+            </div>
+            </div>
     </div>
 </section>
 
 <section id="booking" class="py-24 bg-white px-6">
-    <div class="max-w-5xl mx-auto bg-[#0f0f0f] rounded-[3rem] p-10 md:p-20 text-white shadow-2xl gs-reveal">
-        <div class="grid md:grid-cols-2 gap-16">
-            <div>
-                <h2 class="text-4xl font-black uppercase mb-4">Book Your <span class="text-[#d32f2f]">Survey</span></h2>
-                <p class="text-gray-400 mb-8">Choose your required service and a preferred time. We will call you to confirm within 2 hours.</p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-sm text-gray-300"><i class="fas fa-check text-[#d32f2f]"></i> Fully Insured Team</div>
-                    <div class="flex items-center gap-4 text-sm text-gray-300"><i class="fas fa-check text-[#d32f2f]"></i> No-Obligation Quotes</div>
-                    <div class="flex items-center gap-4 text-sm text-gray-300"><i class="fas fa-check text-[#d32f2f]"></i> Drone Inspection Included</div>
-                </div>
+    <div class="max-w-7xl mx-auto bg-[#0f0f0f] rounded-[3rem] overflow-hidden text-white shadow-2xl flex flex-col md:flex-row gs-reveal">
+        <div class="p-10 md:p-20 flex-1">
+            <h2 class="text-4xl font-black uppercase mb-6 italic">Secure Your <span class="text-[#d32f2f]">Date</span></h2>
+            <div class="space-y-3 mb-10">
+                <div class="flex justify-between text-xs border-b border-white/10 pb-2"><span>Mon - Fri</span> <span class="text-green-400">08:00 - 18:00</span></div>
+                <div class="flex justify-between text-xs border-b border-white/10 pb-2"><span>Saturday</span> <span class="text-green-400">09:00 - 14:00</span></div>
+                <div class="flex justify-between text-xs"><span>Sunday</span> <span class="text-red-500 font-bold uppercase">Emergency Only</span></div>
             </div>
             <form class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="First Name" class="bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#d32f2f]">
-                    <input type="text" placeholder="Phone" class="bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#d32f2f]">
-                </div>
-                <select class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#d32f2f] text-gray-400">
-                    <option>Select Service</option>
-                    <option>New Roof Installation</option>
-                    <option>Leak Repair</option>
-                    <option>Guttering / Fascias</option>
-                </select>
-                <input type="date" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#d32f2f] text-gray-400">
-                <button class="w-full bg-[#d32f2f] py-5 rounded-xl font-black uppercase tracking-widest btn-press">Confirm My Request</button>
+                <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-red-500">
+                <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-red-500">
+                <input type="date" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none text-gray-400">
+                <button class="w-full bg-[#d32f2f] py-5 rounded-xl font-black uppercase btn-press">Book Free Survey</button>
             </form>
+        </div>
+        <div class="md:w-1/3 bg-[#d32f2f]/5 p-10 flex flex-col justify-center border-l border-white/5">
+            <h5 class="font-bold uppercase text-xs mb-4">Why Book With Us?</h5>
+            <ul class="space-y-4 text-sm text-gray-400">
+                <li><i class="fas fa-check-circle text-[#d32f2f] mr-2"></i> Real-time Calendar Sync</li>
+                <li><i class="fas fa-check-circle text-[#d32f2f] mr-2"></i> Instant Email Confirmation</li>
+                <li><i class="fas fa-check-circle text-[#d32f2f] mr-2"></i> Drone Survey Included</li>
+            </ul>
         </div>
     </div>
 </section>
 
-<section class="py-24 bg-slate-50 px-6">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-black uppercase text-center mb-12 gs-reveal">Common <span class="text-[#d32f2f]">Questions</span></h2>
-        <div class="space-y-4">
-            <div class="faq-item bg-white p-6 rounded-2xl border cursor-pointer shadow-sm gs-reveal" onclick="this.classList.toggle('active')">
-                <div class="flex justify-between items-center font-bold text-sm uppercase">
-                    <span>Do you offer emergency 24/7 repairs?</span>
-                    <i class="fas fa-chevron-down text-[#d32f2f]"></i>
-                </div>
-                <div class="faq-content text-gray-500 text-sm">
-                    Yes, we have a dedicated rapid-response team available 24/7 for storm damage and major leaks across South Yorkshire.
+<section id="reviews" class="py-24 bg-slate-50 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+            <div class="gs-reveal">
+                <h2 class="text-4xl font-black uppercase tracking-tighter">Google <span class="text-[#d32f2f]">Reviews</span></h2>
+                <div class="flex items-center gap-2 mt-2">
+                    <div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <span class="text-xs font-bold uppercase tracking-widest">4.9 / 5.0 Rating</span>
                 </div>
             </div>
-            <div class="faq-item bg-white p-6 rounded-2xl border cursor-pointer shadow-sm gs-reveal" onclick="this.classList.toggle('active')">
+            <a href="#" class="mt-4 md:mt-0 px-8 py-4 bg-white border rounded-full text-[10px] font-black uppercase tracking-widest hover:shadow-lg transition-all gs-reveal">Write A Review</a>
+        </div>
+        <div class="swiper testimonial-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide bg-white p-10 rounded-3xl border border-gray-100 shadow-sm italic">
+                    <p class="text-gray-600 mb-6">"Absolute perfection. The team stripped my old slate roof and replaced it in 3 days. Cleaner than when they arrived!"</p>
+                    <h5 class="text-sm font-black uppercase">— Sarah Jenkins, Sheffield</h5>
+                </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+        <h2 class="text-4xl font-black uppercase gs-reveal">Follow The <span class="text-[#d32f2f]">Build</span></h2>
+        <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mt-2">Instagram @CR_Roofing_Elite</p>
+    </div>
+    <div class="flex gap-4 animate-scroll whitespace-nowrap">
+        <div class="w-64 aspect-square bg-slate-100 rounded-2xl flex-shrink-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1541888941295-6bc96da19f91?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover"></div>
+        <div class="w-64 aspect-square bg-slate-100 rounded-2xl flex-shrink-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover"></div>
+        <div class="w-64 aspect-square bg-slate-100 rounded-2xl flex-shrink-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover"></div>
+        <div class="w-64 aspect-square bg-slate-100 rounded-2xl flex-shrink-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover"></div>
+    </div>
+</section>
+
+<section class="py-24 bg-slate-50 px-6">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-4xl font-black uppercase text-center mb-12 gs-reveal">Helpful <span class="text-[#d32f2f]">FAQs</span></h2>
+        <div class="space-y-4">
+            <div class="faq-item bg-white p-6 rounded-2xl border cursor-pointer gs-reveal" onclick="this.classList.toggle('active')">
                 <div class="flex justify-between items-center font-bold text-sm uppercase">
-                    <span>Is the work guaranteed?</span>
+                    <span>How long does a full roof replacement take?</span>
                     <i class="fas fa-chevron-down text-[#d32f2f]"></i>
                 </div>
                 <div class="faq-content text-gray-500 text-sm">
-                    Absolutely. All new roof installations come with a 25-year insurance-backed guarantee as standard.
+                    Typically 3-5 days depending on weather and materials. We provide a full timeline during your initial survey.
+                </div>
+            </div>
+            <div class="faq-item bg-white p-6 rounded-2xl border cursor-pointer gs-reveal" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center font-bold text-sm uppercase">
+                    <span>Do you offer emergency storm repairs?</span>
+                    <i class="fas fa-chevron-down text-[#d32f2f]"></i>
+                </div>
+                <div class="faq-content text-gray-500 text-sm">
+                    Yes, we have a dedicated 24/7 team for catastrophic roof failures and wind damage across South Yorkshire.
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="h-96 w-full bg-slate-200 relative">
+    <div class="absolute inset-0 flex items-center justify-center bg-gray-900/10 grayscale">
+        <span class="font-black uppercase text-gray-400">Interactive Google Map Integration</span>
+    </div>
+    <div class="absolute bottom-8 left-8 bg-white p-6 rounded-2xl shadow-xl max-w-xs gs-reveal">
+        <h6 class="font-black uppercase text-[#d32f2f] mb-2">Main Office</h6>
+        <p class="text-xs text-gray-500">123 Sheffield Road, South Yorkshire, S1 2AB</p>
     </div>
 </section>
 
 <section class="py-20 bg-[#d32f2f] text-white px-6">
     <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-black uppercase mb-4 gs-reveal">Join Our Priority List</h2>
-        <p class="mb-8 opacity-80 gs-reveal">Get monthly maintenance tips and exclusive seasonal discounts.</p>
+        <h2 class="text-3xl font-black uppercase mb-4 gs-reveal">Get Maintenance Alerts</h2>
+        <p class="mb-8 opacity-80 gs-reveal">Join 500+ homeowners receiving seasonal roofing tips and VIP discounts.</p>
         <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto gs-reveal">
-            <input type="email" placeholder="Enter Email" class="flex-1 px-6 py-4 rounded-full text-black outline-none">
+            <input type="email" placeholder="Email Address" class="flex-1 px-8 py-4 rounded-full text-black outline-none">
             <button class="bg-black text-white px-10 py-4 rounded-full font-bold uppercase btn-press">Subscribe</button>
         </form>
     </div>
@@ -220,30 +342,36 @@
         <i class="fab fa-whatsapp mb-1 text-lg"></i> WhatsApp
     </a>
     <a href="#booking" class="flex-[2] bg-[#d32f2f] text-white py-4 rounded-2xl text-center text-xs font-black uppercase flex items-center justify-center gap-2">
-        <i class="fas fa-calendar-check"></i> Book Slot
+        <i class="fas fa-calendar-check"></i> Instant Booking
     </a>
 </div>
 
 <footer class="bg-[#0f0f0f] text-white pt-24 pb-40 px-6">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="col-span-2">
-            <h4 class="text-3xl font-black uppercase text-[#d32f2f] mb-4">C R Roofing</h4>
-            <p class="text-gray-500 max-w-sm">Premium residential and commercial roofing contractors. Trusted across Sheffield and beyond since 2004.</p>
+            <h4 class="text-3xl font-black uppercase text-[#d32f2f] mb-4 italic">C R Roofing</h4>
+            <p class="text-gray-500 max-w-sm">Premium contractors delivering structural excellence and aesthetic perfection for every skyline we touch.</p>
+            <div class="flex gap-4 mt-8">
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#d32f2f] transition-all"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#d32f2f] transition-all"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#d32f2f] transition-all"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
         <div>
-            <h5 class="text-xs font-black uppercase text-red-500 mb-6">Explore</h5>
-            <ul class="text-xs text-gray-400 space-y-3">
-                <li><a href="#services">Our Services</a></li>
-                <li><a href="#team">Meet The Team</a></li>
-                <li><a href="#gallery">Portfolio</a></li>
+            <h5 class="text-[10px] font-black uppercase text-red-500 mb-6 tracking-widest">Quick Links</h5>
+            <ul class="text-xs text-gray-400 space-y-3 font-bold uppercase">
+                <li><a href="#about" class="hover:text-white">About Our Story</a></li>
+                <li><a href="#services" class="hover:text-white">Our Roofing Services</a></li>
+                <li><a href="#team" class="hover:text-white">The Foreman Team</a></li>
+                <li><a href="#reviews" class="hover:text-white">Google Reviews</a></li>
             </ul>
         </div>
         <div>
-            <h5 class="text-xs font-black uppercase text-red-500 mb-6">Legal</h5>
+            <h5 class="text-[10px] font-black uppercase text-red-500 mb-6 tracking-widest">Contact Info</h5>
             <ul class="text-xs text-gray-400 space-y-3">
-                <li>Privacy Policy</li>
-                <li>Terms of Service</li>
-                <li>Cookie Policy</li>
+                <li class="flex gap-2"><i class="fas fa-map-marker-alt text-red-500"></i> Sheffield, South Yorkshire</li>
+                <li class="flex gap-2"><i class="fas fa-phone text-red-500"></i> 07472 683623</li>
+                <li class="flex gap-2"><i class="fas fa-envelope text-red-500"></i> info@crroofing.co.uk</li>
             </ul>
         </div>
     </div>
@@ -259,15 +387,15 @@
                 trigger: el,
                 start: "top 90%",
             },
-            y: 50, 
+            y: 30, 
             opacity: 0, 
-            duration: 1.2,
-            ease: "power4.out",
+            duration: 1,
+            ease: "power3.out",
             delay: el.dataset.delay || 0
         });
     });
 
-    // 7. Counter Logic
+    // 7. Animated Stats Counter
     const counters = document.querySelectorAll('.counter');
     counters.forEach(c => {
         ScrollTrigger.create({
@@ -285,13 +413,9 @@
         });
     });
 
-    // 1. Swiper
-    new Swiper('.heroSwiper', {
-        effect: 'fade',
-        autoplay: { delay: 5000 },
-        loop: true,
-        speed: 1000
-    });
+    // 1 & 11. Swiper Initializations
+    new Swiper('.heroSwiper', { effect: 'fade', autoplay: { delay: 4000 }, loop: true });
+    new Swiper('.testimonial-swiper', { slidesPerView: 1, spaceBetween: 30, breakpoints: { 768: { slidesPerView: 2 } }, loop: true });
 
     // 22. Exit Intent Trigger
     let showedPopup = false;
