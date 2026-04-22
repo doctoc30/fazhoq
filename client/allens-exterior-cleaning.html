@@ -2,182 +2,528 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Allen's Exterior Cleaning | Premium Lancashire Property Care</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Allen's Exterior Cleaning | Premium Lancashire Services</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Swiper JS (Testimonials Slider & Hero Slider) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- AOS for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Calendly widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <style>
-        :root {
-            --brand-navy: #002366;
-            --brand-blue: #007BFF;
-            --brand-accent: #FFD700; /* Gold for "Free Quote" */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .bg-brand-gradient { background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%); }
-        .text-brand-blue { color: var(--brand-blue); }
-        .sticky-nav { backdrop-filter: blur(10px); background: rgba(0, 35, 102, 0.9); }
-        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: #1e2a32;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Brand Color: extracted from image (deep teal/navy with orange accent) */
+        :root {
+            --primary: #0F2C39;      /* deep navy/teal from "Allen's" background */
+            --primary-dark: #0A1F28;
+            --accent: #E67E22;       /* warm orange from “EXTERIOR CLEANING” contrast */
+            --accent-light: #F39C12;
+            --gray-light: #F8FAFC;
+            --gray-border: #E2E8F0;
+            --text-dark: #0F172A;
+            --text-muted: #475569;
+        }
+
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--brand-navy); }
-        ::-webkit-scrollbar-thumb { background: var(--brand-blue); border-radius: 5px; }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e9ecef;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 44, 57, 0.96);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: var(--accent);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+        /* Fullscreen Hamburger Menu (mobile) */
+        .fullscreen-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            z-index: 2000;
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        .fullscreen-menu.active {
+            left: 0;
+        }
+        .fullscreen-menu a {
+            color: white;
+            font-size: 1.8rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .close-menu {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .menu-icon { display: block; }
+            .sticky-nav { padding: 1rem; }
+        }
+
+        /* Hero Swiper */
+        .hero-swiper {
+            width: 100%;
+            height: 85vh;
+            min-height: 500px;
+        }
+        .hero-swiper .swiper-slide {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+        .hero-overlay h1 {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+        .cta-btn {
+            background: var(--accent);
+            padding: 12px 32px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            border: none;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .cta-btn:hover { background: #d35400; transform: scale(1.02);}
+
+        /* Section containers */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            width: 70px;
+            height: 4px;
+            background: var(--accent);
+            display: block;
+            margin-top: 8px;
+        }
+        .grid-6 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+        .service-card, .gallery-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .service-card img, .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .service-card:hover img { transform: scale(1.03);}
+        .service-card h3 { padding: 1rem 1rem 0; }
+        .service-card p { padding: 0 1rem 1rem; color: var(--text-muted);}
+
+        /* Stats counter */
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            background: var(--gray-light);
+            padding: 3rem;
+            border-radius: 32px;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 3rem; font-weight: 800; color: var(--accent); }
+
+        /* testimonial swiper */
+        .testimonial-swiper .swiper-slide {
+            background: white;
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Bottom CTA Dock */
+        .bottom-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 60px;
+            display: flex;
+            gap: 1.5rem;
+            z-index: 1100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .dock-item {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .dock-item i { font-size: 1.3rem; }
+        @media (max-width: 600px) {
+            .bottom-dock { gap: 1rem; padding: 8px 16px; }
+            .dock-item span { display: none; }
+            .dock-item i { font-size: 1.5rem; margin: 0 5px; }
+        }
+
+        /* lightbox gallery */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-img { max-width: 90%; max-height: 80%; }
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+
+        /* Exit Intent */
+        .exit-popup {
+            position: fixed;
+            bottom: 0; left:0; right:0;
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            z-index: 4000;
+            transform: translateY(150%);
+            transition: 0.3s;
+        }
+        .exit-popup.show { transform: translateY(0); bottom: 20%;}
+        .popup-offer { background: var(--accent); color: white; border-radius: 16px;}
+
+        footer {
+            background: var(--primary-dark);
+            color: #cbd5e1;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .social-icons a { color: white; margin: 0 10px; font-size: 1.5rem; }
+        button, .btn-pay { background: var(--accent); border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; }
+        iframe.map { width:100%; height: 300px; border-radius: 24px; border:0;}
     </style>
 </head>
-<body class="bg-slate-50">
+<body>
 
-    <nav class="fixed top-0 w-full z-50 sticky-nav text-white py-4 px-6 flex justify-between items-center">
-        <div class="text-2xl font-bold italic">Allen's <span class="text-blue-400">Exterior</span></div>
-        <div class="hidden md:flex space-x-8 font-medium">
-            <a href="#services" class="hover:text-blue-400 transition">Services</a>
-            <a href="#gallery" class="hover:text-blue-400 transition">Gallery</a>
-            <a href="#reviews" class="hover:text-blue-400 transition">Reviews</a>
-            <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+<!-- Sticky Nav -->
+<div class="sticky-nav">
+    <div class="logo">Allen's <span>Exterior</span></div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#quote">Get Quote</a></li>
+    </ul>
+    <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
+</div>
+<!-- Fullscreen Mobile Menu -->
+<div class="fullscreen-menu" id="fullMenu">
+    <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#team">Team</a>
+    <a href="#quote">Get Quote</a>
+</div>
+
+<!-- Hero Slider -->
+<div class="swiper hero-swiper" id="heroSlider">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/104/1600/900');">
+            <div class="hero-overlay"><h1>Jet Washing Excellence</h1><p>Driveways, patios, roofs</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Free Quote</button></div>
         </div>
-        <a href="tel:07398810401" class="bg-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-500 transition">Call Now</a>
-    </nav>
-
-    <section class="relative h-screen flex items-center justify-center text-white overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover brightness-50" alt="Clean Driveway">
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/96/1600/900');">
+            <div class="hero-overlay"><h1>Gutter & Fascia Cleaning</h1><p>Protect your home</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Book Now</button></div>
         </div>
-        <div class="relative z-10 text-center px-4 max-w-4xl">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Premium Exterior Cleaning in <span class="text-blue-400">Lancashire</span></h1>
-            <p class="text-xl mb-8">Bring your property back to life with Allen's expert jet washing and roof care.</p>
-            
-            <div class="bg-white p-2 rounded-lg shadow-2xl flex flex-col md:flex-row gap-2 max-w-2xl mx-auto">
-                <input type="text" placeholder="Your Postcode" class="flex-1 p-4 text-black rounded-md outline-none">
-                <button class="bg-brand-navy px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-700 transition">Get My Free Quote</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-12 bg-brand-navy text-white">
-        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div><div class="text-4xl font-bold text-blue-400">1,500+</div><p>Projects Done</p></div>
-            <div><div class="text-4xl font-bold text-blue-400">100%</div><p>Satisfaction</p></div>
-            <div><div class="text-4xl font-bold text-blue-400">5 Star</div><p>Google Rating</p></div>
-            <div><div class="text-4xl font-bold text-blue-400">24hr</div><p>Quote Response</p></div>
-        </div>
-    </section>
-
-    <section id="services" class="py-20 container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-16 text-slate-800">Our Landscaping & Cleaning Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-lg hover:-translate-y-2 transition duration-300 border-b-4 border-blue-600">
-                <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-water"></i></div>
-                <h3 class="text-2xl font-bold mb-2">Jet Washing</h3>
-                <p class="text-gray-600">High-pressure cleaning for driveways, patios, and block paving. Includes re-sanding.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg hover:-translate-y-2 transition duration-300 border-b-4 border-blue-600">
-                <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-home"></i></div>
-                <h3 class="text-2xl font-bold mb-2">Roof & Gutter Care</h3>
-                <p class="text-gray-600">Safe moss removal and gutter clearing to protect your home's structural integrity.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg hover:-translate-y-2 transition duration-300 border-b-4 border-blue-600">
-                <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-leaf"></i></div>
-                <h3 class="text-2xl font-bold mb-2">Full Landscaping</h3>
-                <p class="text-gray-600">From turfing to patio installations, we transform your outdoor living space.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="py-20 bg-slate-100">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-12">Visual Results</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-                <img src="https://images.unsplash.com/photo-1590059392265-4f7f637f94ca?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-                <img src="https://images.unsplash.com/photo-1558905619-17154231c94a?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-                <img src="https://images.unsplash.com/photo-1605117815706-608478947e8f?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-                <img src="https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=500" class="rounded-lg shadow-md cursor-pointer hover:opacity-90">
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="py-20 bg-brand-navy text-white">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center mb-4 text-yellow-400">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="text-2xl italic max-w-3xl mx-auto mb-8">"Allen did an amazing job on our driveway. It looks brand new! Highly recommend his service to anyone in Lancashire."</p>
-            <p class="font-bold">— Sarah T., Preston</p>
-        </div>
-    </section>
-
-    <section class="py-20 container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold mb-8">Business Hours</h2>
-        <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6">
-            <ul class="space-y-3">
-                <li class="flex justify-between border-b pb-2"><span>Monday - Friday</span> <span>08:00 - 18:00</span></li>
-                <li class="flex justify-between border-b pb-2"><span>Saturday</span> <span>09:00 - 14:00</span></li>
-                <li class="flex justify-between text-red-500"><span>Sunday</span> <span>Closed</span></li>
-            </ul>
-        </div>
-    </section>
-
-    <footer class="bg-slate-900 text-white py-12 px-6">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-                <h3 class="text-xl font-bold mb-4">Allen's Exterior Cleaning</h3>
-                <p class="text-gray-400">Friendly local service across Lancashire.</p>
-                <div class="flex space-x-4 mt-6">
-                    <a href="#" class="text-2xl hover:text-blue-400"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-400"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Contact Details</h3>
-                <p>📞 07398 810401</p>
-                <p>📍 Serving Lancashire & Surrounding Areas</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
-                <form class="flex">
-                    <input type="email" placeholder="Email" class="p-2 rounded-l bg-gray-800 border-none outline-none w-full">
-                    <button class="bg-blue-600 px-4 rounded-r font-bold">Join</button>
-                </form>
-            </div>
-        </div>
-    </footer>
-
-    <div class="fixed bottom-0 w-full md:hidden flex bg-white border-t border-gray-200 z-[60]">
-        <a href="tel:07398810401" class="flex-1 py-4 text-center text-brand-navy font-bold border-r">
-            <i class="fas fa-phone mr-2"></i> Call
-        </a>
-        <a href="https://wa.me/447398810401" class="flex-1 py-4 text-center bg-green-500 text-white font-bold">
-            <i class="fab fa-whatsapp mr-2"></i> WhatsApp
-        </a>
-        <a href="#contact" class="flex-1 py-4 text-center bg-brand-blue text-white font-bold">
-            <i class="fas fa-envelope mr-2"></i> Quote
-        </a>
-    </div>
-
-    <div id="offer-popup" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
-        <div class="bg-white p-10 rounded-3xl max-w-md relative text-center">
-            <button onclick="document.getElementById('offer-popup').style.display='none'" class="absolute top-4 right-4 text-2xl">×</button>
-            <h2 class="text-3xl font-black text-brand-navy mb-4">SPRING SPECIAL!</h2>
-            <p class="text-lg mb-6">Get 10% OFF all gutter cleaning bookings made this week.</p>
-            <button class="bg-brand-blue text-white w-full py-4 rounded-xl font-bold text-xl">Claim Discount</button>
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/20/1600/900');">
+            <div class="hero-overlay"><h1>Roof & Moss Removal</h1><p>Lancashire's trusted team</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Get Quote</button></div>
         </div>
     </div>
+    <div class="swiper-pagination"></div>
+</div>
 
-    <script>
-        // Simple scroll animation trigger
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) nav.classList.add('py-2');
-            else nav.classList.remove('py-2');
-        });
+<!-- Quote & Calendar Section (Below Hero) -->
+<section id="quote" class="container" data-aos="fade-up">
+    <div class="section-title">Get a Free Quote — Book Online</div>
+    <div class="grid-6" style="grid-template-columns: 1fr 1fr;">
+        <div>
+            <h3>Quick Estimate</h3>
+            <form id="quickForm">
+                <input type="text" placeholder="Name" style="width:100%; padding:12px; margin:10px 0; border-radius:30px; border:1px solid #ccc;">
+                <input type="email" placeholder="Email" style="width:100%; padding:12px; margin:10px 0; border-radius:30px;">
+                <button type="submit" class="cta-btn">Request Callback</button>
+            </form>
+            <p class="text-muted mt-2">Or schedule a free consultation via calendar</p>
+        </div>
+        <div>
+            <!-- Calendly Integration -->
+            <div class="calendly-inline-widget" data-url="https://calendly.com/allenexterior/30min" style="min-width:320px;height:400px;"></div>
+        </div>
+    </div>
+</section>
 
-        // 22: Exit Intent Simulation
-        document.addEventListener("mouseleave", (e) => {
-            if (e.clientY < 0) {
-                document.getElementById('offer-popup').style.display = 'flex';
-            }
-        });
-    </script>
+<!-- Animated Stats -->
+<section class="container" data-aos="fade-up">
+    <div class="stats-grid">
+        <div class="stat-item"><div class="stat-number" data-target="1250">0</div><p>Homes Cleaned</p></div>
+        <div class="stat-item"><div class="stat-number" data-target="340">0</div><p>Roofs Restored</p></div>
+        <div class="stat-item"><div class="stat-number" data-target="98" data-suffix="%">0%</div><p>Satisfaction Rate</p></div>
+    </div>
+</section>
+
+<!-- Featured Services (27) 6 grid service icons -->
+<section id="services" class="container" data-aos="fade-up">
+    <div class="section-title">Our Premium Exterior Services</div>
+    <div class="grid-6">
+        <div class="service-card"><img src="https://picsum.photos/id/13/400/300"><h3>Jet Washing</h3><p>Driveways & Patios</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/177/400/300"><h3>Roof Cleaning</h3><p>Moss removal & repointing</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/16/400/300"><h3>Gutter Clearing</h3><p>Fascias & Soffits</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/58/400/300"><h3>Conservatory Roof</h3><p>Sparkling clean</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/225/400/300"><h3>Pathways & Walls</h3><p>Re-sanding specialists</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/124/400/300"><h3>Window Cleaning</h3><p>Streak-free shine</p></div>
+    </div>
+</section>
+
+<!-- 6 Grid Photos of exterior work (10) but we add both gallery & beforeafter -->
+<section id="gallery" class="container" data-aos="fade-up">
+    <div class="section-title">Our Work Gallery</div>
+    <div class="grid-6" id="galleryGrid">
+        <!-- 6 images with lightbox -->
+    </div>
+</section>
+
+<!-- Before & After Showcase (9) -->
+<section class="container" data-aos="fade-up">
+    <div class="section-title">Before & After Transformations</div>
+    <div class="grid-6">
+        <div class="service-card"><img src="https://picsum.photos/id/354/400/300"><p>Before: Mossy Driveway</p><p style="color:var(--accent)">After: Jet washed</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/371/400/300"><p>Before: Dark Roof</p><p style="color:var(--accent)">After: Clean & Sealed</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/152/400/300"><p>Before: Clogged Gutter</p><p style="color:var(--accent)">After: Flowing clear</p></div>
+    </div>
+</section>
+
+<!-- Testimonials Slider (Advanced) -->
+<section id="testimonials" class="container" data-aos="fade-up">
+    <div class="section-title">Customer Reviews</div>
+    <div class="swiper testimonial-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Allen's team jet washed my driveway looks brand new!" – Sarah, Preston</div>
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Very professional, gutter clearing and repointing done perfectly." – Mark, Blackburn</div>
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Highly recommend roof cleaning. Local & friendly." – Linda, Chorley</div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<!-- Team / Staff section (24) -->
+<section id="team" class="container" data-aos="fade-up">
+    <div class="section-title">Meet Our Cleaning Experts</div>
+    <div class="grid-6">
+        <div><img src="https://randomuser.me/api/portraits/men/32.jpg" style="border-radius: 50%; width:120px"><h3>Allen Smith</h3><p>Founder, 15yrs exp</p></div>
+        <div><img src="https://randomuser.me/api/portraits/men/45.jpg" style="border-radius: 50%; width:120px"><h3>James Cooper</h3><p>Roof Specialist</p></div>
+        <div><img src="https://randomuser.me/api/portraits/women/68.jpg" style="border-radius: 50%; width:120px"><h3>Natalie Ward</h3><p>Gutter & Fascias</p></div>
+    </div>
+</section>
+
+<!-- FAQ Accordion + VIP packages -->
+<section class="container" data-aos="fade-up">
+    <div class="section-title">Frequently Asked</div>
+    <div class="faq-item" style="margin-bottom:1rem; border-bottom:1px solid #ccc;"><button class="faq-question" style="width:100%; text-align:left; background:none; padding:1rem; font-weight:bold;">How quickly can you quote?</button><div class="faq-answer" style="display:none; padding:0 1rem 1rem;">Within 24 hours, free on-site estimate.</div></div>
+    <div class="faq-item" style="margin-bottom:1rem; border-bottom:1px solid #ccc;"><button class="faq-question" style="width:100%; text-align:left; background:none; padding:1rem;">Do you cover all Lancashire?</button><div class="faq-answer" style="display:none; padding:0 1rem 1rem;">Yes, friendly local service across Lancashire.</div></div>
+    <div class="section-title mt-4">VIP Membership Packages</div>
+    <div class="grid-6"><div class="service-card"><h3>Annual Platinum</h3><p>2x jet wash + gutter + roof inspection</p><button class="btn-pay" onclick="alert('Payment link: https://pay.allensclean.com/platinum')">Buy £299</button></div>
+    <div class="service-card"><h3>Seasonal Gold</h3><p>One full exterior clean & moss treat</p><button class="btn-pay" onclick="alert('Payment link: https://pay.allensclean.com/gold')">Buy £199</button></div></div>
+</section>
+
+<!-- Online Gift Cards -->
+<section class="container" data-aos="fade-up"><div class="section-title">Gift Vouchers</div><div><p>Give the gift of a sparkling home. e-Gift cards available.</p><button class="cta-btn" onclick="alert('Purchase gift card: £50 / £100')">Buy Voucher</button></div></section>
+
+<!-- Location Map + Hours -->
+<section class="container"><div class="section-title">Find Us & Hours</div><iframe class="map" src="https://maps.google.com/maps?q=Lancashire%20UK&t=&z=10&ie=UTF8&iwloc=&output=embed"></iframe><div class="barber-availability"><h3>Opening Hours</h3><p>Mon-Fri: 8am - 6pm | Sat: 9am - 4pm | Sun: Closed</p><p>Emergency gutter clearing available</p></div></section>
+
+<!-- Promotions & Limited offer popup -->
+<div class="exit-popup" id="exitPopup"><div class="popup-offer" style="padding:1rem;"><h3>🔥 15% Off First Clean!</h3><p>Book any jet wash or roof cleaning by end of month.</p><button onclick="document.getElementById('exitPopup').classList.remove('show')">Claim Now</button></div></div>
+
+<!-- Footer -->
+<footer>
+    <div class="social-icons"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+    <p>© 2025 Allen's Exterior Cleaning | 07398 810401 | Friendly local service across Lancashire</p>
+    <p><i class="fas fa-envelope"></i> hello@allenscleaning.co.uk</p>
+    <div><button onclick="window.location.href='#quote'">Get Free Quote</button></div>
+</footer>
+
+<!-- Bottom CTA Dock -->
+<div class="bottom-dock">
+    <a href="tel:07398810401" class="dock-item"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+    <a href="https://wa.me/447398810401" class="dock-item"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+    <a href="sms:07398810401" class="dock-item"><i class="fas fa-sms"></i><span>Text</span></a>
+    <a href="#quote" class="dock-item"><i class="fas fa-file-invoice"></i><span>Get Quote</span></a>
+</div>
+
+<!-- Lightbox div -->
+<div id="lightbox" class="lightbox"><span class="close-lightbox">&times;</span><img class="lightbox-img" id="lightboxImg" src=""></div>
+
+<script>
+    AOS.init({ duration: 800, once: true });
+    // Hero Swiper
+    new Swiper('.hero-swiper', { loop: true, autoplay: { delay: 4000 }, pagination: { el: '.swiper-pagination' } });
+    new Swiper('.testimonial-swiper', { loop: true, slidesPerView: 1, spaceBetween: 20, autoplay: true, pagination: { el: '.swiper-pagination' } });
+
+    // Animated stats
+    const counters = document.querySelectorAll('.stat-number');
+    const animateStats = () => { counters.forEach(c => { const target = parseInt(c.getAttribute('data-target')); let count = 0; const update = () => { count += Math.ceil(target/50); if(count < target) { c.innerText = count; requestAnimationFrame(update); } else { c.innerText = target + (c.getAttribute('data-suffix')||''); } }; update(); }); };
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { animateStats(); observer.disconnect(); } }); }, { threshold: 0.5 });
+    observer.observe(document.querySelector('.stats-grid'));
+
+    // Gallery Lightbox
+    const galleryImgs = ['https://picsum.photos/id/106/400/300','https://picsum.photos/id/26/400/300','https://picsum.photos/id/28/400/300','https://picsum.photos/id/52/400/300','https://picsum.photos/id/169/400/300','https://picsum.photos/id/155/400/300'];
+    const galleryDiv = document.getElementById('galleryGrid');
+    galleryImgs.forEach(src => { const imgDiv = document.createElement('div'); imgDiv.classList.add('gallery-item'); const img = document.createElement('img'); img.src = src; img.style.cursor='pointer'; img.onclick = () => { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }; imgDiv.appendChild(img); galleryDiv.appendChild(imgDiv); });
+    document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').classList.remove('active');
+    
+    // FAQ toggles
+    document.querySelectorAll('.faq-question').forEach(btn => { btn.addEventListener('click', () => { const ans = btn.nextElementSibling; ans.style.display = ans.style.display === 'none' ? 'block' : 'none'; }); });
+    // mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const fullMenu = document.getElementById('fullMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    menuToggle.onclick = () => fullMenu.classList.add('active');
+    closeMenu.onclick = () => fullMenu.classList.remove('active');
+    document.querySelectorAll('.fullscreen-menu a').forEach(link => link.addEventListener('click', () => fullMenu.classList.remove('active')));
+
+    // exit intent
+    let exitShown = false;
+    document.addEventListener('mouseleave', (e) => { if(e.clientY <= 0 && !exitShown) { document.getElementById('exitPopup').classList.add('show'); exitShown = true; setTimeout(()=>document.getElementById('exitPopup').classList.remove('show'), 8000); } });
+    // online payment demo (product link)
+    // seasonal promotions highlight
+    const promoDiv = document.createElement('div'); promoDiv.className = 'container'; promoDiv.innerHTML = `<div class="section-title">🔥 Seasonal Offer: Spring Refresh</div><div class="stats-grid"><p>20% off all roof cleaning & repointing - book before May</p><button class="cta-btn" onclick="location.href='#quote'">Grab Deal</button></div>`;
+    document.querySelector('#gallery').insertAdjacentElement('afterend', promoDiv);
+    // Google reviews display (simulated)
+    const googleDiv = document.createElement('div'); googleDiv.className='container'; googleDiv.innerHTML = `<div class="section-title">Google Reviews ★ 4.9</div><p>"Best exterior cleaners in Lancashire!" - 120+ reviews</p>`;
+    document.querySelector('#testimonials').insertAdjacentElement('afterend', googleDiv);
+</script>
 </body>
 </html>
