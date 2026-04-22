@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Allen's Exterior Cleaning | Premium Lancashire Services</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Allen's Exterior Cleaning | Professional Lancashire Services</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Swiper JS (Testimonials Slider & Hero Slider) -->
+    <!-- Swiper JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- AOS for scroll animations -->
+    <!-- AOS Scroll Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Calendly widget -->
+    <!-- Calendly -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <style>
@@ -22,65 +22,49 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #FFFFFF;
-            color: #1e2a32;
-            scroll-behavior: smooth;
+            color: #1A2C3A;
             overflow-x: hidden;
         }
-
-        /* Brand Color: extracted from image (deep teal/navy with orange accent) */
+        /* EXACT BRAND COLORS from the image: Deep Navy background for headers + vibrant Orange accent */
         :root {
-            --primary: #0F2C39;      /* deep navy/teal from "Allen's" background */
-            --primary-dark: #0A1F28;
-            --accent: #E67E22;       /* warm orange from “EXTERIOR CLEANING” contrast */
-            --accent-light: #F39C12;
-            --gray-light: #F8FAFC;
-            --gray-border: #E2E8F0;
-            --text-dark: #0F172A;
+            --brand-navy: #0A2B36;     /* Deep teal/navy from "Allen's" background */
+            --brand-orange: #E67E22;   /* Warm orange from "EXTERIOR CLEANING" */
+            --brand-orange-light: #F39C12;
+            --brand-dark: #06212A;
+            --gray-bg: #F7F9FC;
+            --text-dark: #1E293B;
             --text-muted: #475569;
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e9ecef;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
+        /* Custom scrollbar premium */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E8F0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-navy); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-orange); }
 
         /* Sticky Navigation */
         .sticky-nav {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(15, 44, 57, 0.96);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            background: var(--brand-navy);
+            backdrop-filter: blur(0px);
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
+            font-size: 1.9rem;
+            font-weight: 900;
             letter-spacing: -0.5px;
+            color: white;
         }
-        .logo span {
-            color: var(--accent);
-        }
+        .logo span { color: var(--brand-orange); }
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -89,104 +73,106 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: 0.2s;
+            font-size: 0.95rem;
         }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover { color: var(--brand-orange); }
         .menu-icon {
             display: none;
             font-size: 1.8rem;
             color: white;
             cursor: pointer;
         }
-        /* Fullscreen Hamburger Menu (mobile) */
+        /* Fullscreen Hamburger Menu (elegant) */
         .fullscreen-menu {
             position: fixed;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--primary-dark);
+            background: var(--brand-dark);
             z-index: 2000;
-            transition: 0.4s ease;
+            transition: 0.4s ease-in-out;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 2rem;
         }
-        .fullscreen-menu.active {
-            left: 0;
-        }
+        .fullscreen-menu.active { left: 0; }
         .fullscreen-menu a {
             color: white;
             font-size: 1.8rem;
-            text-decoration: none;
             font-weight: 600;
+            text-decoration: none;
+            font-family: 'Inter',sans-serif;
         }
         .close-menu {
             position: absolute;
             top: 30px;
             right: 40px;
             font-size: 2.5rem;
-            color: white;
+            color: var(--brand-orange);
             cursor: pointer;
         }
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .nav-links { display: none; }
             .menu-icon { display: block; }
-            .sticky-nav { padding: 1rem; }
+            .sticky-nav { padding: 1rem 1.5rem; }
         }
 
-        /* Hero Swiper */
+        /* Hero Slider */
         .hero-swiper {
             width: 100%;
             height: 85vh;
-            min-height: 500px;
+            min-height: 480px;
         }
         .hero-swiper .swiper-slide {
             background-size: cover;
-            background-position: center;
+            background-position: center 30%;
             position: relative;
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.55);
+            background: linear-gradient(135deg, rgba(10,43,54,0.75) 0%, rgba(0,0,0,0.5) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             color: white;
             text-align: center;
+            padding: 1rem;
         }
         .hero-overlay h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
         .cta-btn {
-            background: var(--accent);
-            padding: 12px 32px;
-            border-radius: 40px;
+            background: var(--brand-orange);
+            padding: 14px 36px;
+            border-radius: 50px;
             color: white;
-            font-weight: bold;
+            font-weight: 700;
             border: none;
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
+            font-size: 1rem;
         }
-        .cta-btn:hover { background: #d35400; transform: scale(1.02);}
+        .cta-btn:hover { background: #D35400; transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
 
-        /* Section containers */
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 4rem 1.8rem;
         }
         .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--brand-navy);
             margin-bottom: 2rem;
             position: relative;
         }
@@ -194,66 +180,70 @@
             content: '';
             width: 70px;
             height: 4px;
-            background: var(--accent);
+            background: var(--brand-orange);
             display: block;
             margin-top: 8px;
+            border-radius: 4px;
         }
         .grid-6 {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
+            gap: 2rem;
         }
-        .service-card, .gallery-item {
+        .service-card, .gallery-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
-        .service-card img, .gallery-item img {
+        .service-card img, .gallery-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
             transition: transform 0.4s;
         }
-        .service-card:hover img { transform: scale(1.03);}
-        .service-card h3 { padding: 1rem 1rem 0; }
-        .service-card p { padding: 0 1rem 1rem; color: var(--text-muted);}
+        .service-card:hover img { transform: scale(1.03); }
+        .service-card h3 { padding: 1.2rem 1.2rem 0; font-size: 1.3rem; }
+        .service-card p { padding: 0 1.2rem 1.2rem; color: var(--text-muted); }
 
-        /* Stats counter */
+        /* Stats */
         .stats-grid {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            background: var(--gray-light);
-            padding: 3rem;
-            border-radius: 32px;
+            background: var(--gray-bg);
+            padding: 3rem 2rem;
+            border-radius: 48px;
+            gap: 2rem;
         }
         .stat-item { text-align: center; }
-        .stat-number { font-size: 3rem; font-weight: 800; color: var(--accent); }
+        .stat-number { font-size: 3.2rem; font-weight: 800; color: var(--brand-orange); }
 
-        /* testimonial swiper */
+        /* Testimonial Swiper */
         .testimonial-swiper .swiper-slide {
             background: white;
             padding: 2rem;
-            border-radius: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
-        /* Bottom CTA Dock */
+        /* Floating Action Bar */
         .bottom-dock {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--primary);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
+            background: var(--brand-navy);
+            padding: 12px 24px;
             border-radius: 60px;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.8rem;
             z-index: 1100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            backdrop-filter: blur(4px);
         }
         .dock-item {
             color: white;
@@ -265,13 +255,13 @@
             font-size: 0.9rem;
         }
         .dock-item i { font-size: 1.3rem; }
-        @media (max-width: 600px) {
-            .bottom-dock { gap: 1rem; padding: 8px 16px; }
+        @media (max-width: 550px) {
+            .bottom-dock { gap: 1.2rem; padding: 10px 18px; }
             .dock-item span { display: none; }
-            .dock-item i { font-size: 1.5rem; margin: 0 5px; }
+            .dock-item i { font-size: 1.5rem; margin: 0 4px; }
         }
 
-        /* lightbox gallery */
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -279,53 +269,62 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.92);
             z-index: 3000;
             justify-content: center;
             align-items: center;
         }
         .lightbox.active { display: flex; }
-        .lightbox-img { max-width: 90%; max-height: 80%; }
+        .lightbox-img { max-width: 90%; max-height: 80%; border-radius: 16px; }
         .close-lightbox {
             position: absolute;
             top: 20px;
-            right: 40px;
+            right: 35px;
             color: white;
             font-size: 3rem;
             cursor: pointer;
         }
 
-        /* Exit Intent */
+        /* Exit Popup */
         .exit-popup {
             position: fixed;
-            bottom: 0; left:0; right:0;
+            bottom: 0; left: 0; right: 0;
             background: white;
             max-width: 400px;
             margin: auto;
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 2rem;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
             z-index: 4000;
             transform: translateY(150%);
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
         }
-        .exit-popup.show { transform: translateY(0); bottom: 20%;}
-        .popup-offer { background: var(--accent); color: white; border-radius: 16px;}
+        .exit-popup.show { transform: translateY(0); bottom: 20%; }
+        .popup-offer { background: var(--brand-orange); color: white; border-radius: 20px; padding: 1rem; text-align: center;}
 
         footer {
-            background: var(--primary-dark);
-            color: #cbd5e1;
-            padding: 3rem 2rem;
+            background: var(--brand-dark);
+            color: #CBD5E1;
+            padding: 3rem 1.5rem;
             text-align: center;
         }
-        .social-icons a { color: white; margin: 0 10px; font-size: 1.5rem; }
-        button, .btn-pay { background: var(--accent); border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; }
-        iframe.map { width:100%; height: 300px; border-radius: 24px; border:0;}
+        .social-icons a { color: white; margin: 0 12px; font-size: 1.6rem; transition: 0.2s; display: inline-block; }
+        .social-icons a:hover { color: var(--brand-orange); transform: translateY(-3px);}
+        .btn-pay { background: var(--brand-orange); border: none; padding: 10px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; color: white;}
+        .map-frame { width:100%; height: 300px; border-radius: 28px; border:0; margin-top: 1rem; }
+        .faq-item { background: var(--gray-bg); margin-bottom: 1rem; border-radius: 20px; overflow: hidden;}
+        .faq-question { width:100%; text-align:left; background: none; border: none; padding: 1.2rem; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between;}
+        .faq-answer { padding: 0 1.2rem 1.2rem; display: none; color: var(--text-muted);}
+        @media (max-width: 768px) {
+            .hero-overlay h1 { font-size: 2rem; }
+            .container { padding: 2.5rem 1.2rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+        .team-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem; border: 3px solid var(--brand-orange);}
     </style>
 </head>
 <body>
 
-<!-- Sticky Nav -->
 <div class="sticky-nav">
     <div class="logo">Allen's <span>Exterior</span></div>
     <ul class="nav-links">
@@ -334,11 +333,11 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#team">Team</a></li>
-        <li><a href="#quote">Get Quote</a></li>
+        <li><a href="#quote">Free Quote</a></li>
     </ul>
     <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
 </div>
-<!-- Fullscreen Mobile Menu -->
+
 <div class="fullscreen-menu" id="fullMenu">
     <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
     <a href="#home">Home</a>
@@ -352,178 +351,185 @@
 <!-- Hero Slider -->
 <div class="swiper hero-swiper" id="heroSlider">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/104/1600/900');">
-            <div class="hero-overlay"><h1>Jet Washing Excellence</h1><p>Driveways, patios, roofs</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Free Quote</button></div>
-        </div>
-        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/96/1600/900');">
-            <div class="hero-overlay"><h1>Gutter & Fascia Cleaning</h1><p>Protect your home</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Book Now</button></div>
-        </div>
-        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/20/1600/900');">
-            <div class="hero-overlay"><h1>Roof & Moss Removal</h1><p>Lancashire's trusted team</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView()">Get Quote</button></div>
-        </div>
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/104/1600/800');"><div class="hero-overlay"><h1>Jet Washing & Driveways</h1><p>Professional exterior cleaning across Lancashire</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'})">Free Quote</button></div></div>
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/96/1600/800');"><div class="hero-overlay"><h1>Roof & Moss Removal</h1><p>Fascias, soffits & gutter clearing</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'})">Book Now</button></div></div>
+        <div class="swiper-slide" style="background-image: url('https://picsum.photos/id/20/1600/800');"><div class="hero-overlay"><h1>Conservatory & Pathways</h1><p>Re-sanding & repointing experts</p><button class="cta-btn" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'})">Get Quote</button></div></div>
     </div>
     <div class="swiper-pagination"></div>
 </div>
 
-<!-- Quote & Calendar Section (Below Hero) -->
+<!-- Quote + Calendar Integration -->
 <section id="quote" class="container" data-aos="fade-up">
-    <div class="section-title">Get a Free Quote — Book Online</div>
-    <div class="grid-6" style="grid-template-columns: 1fr 1fr;">
+    <div class="section-title">Get a Free Quote — Online Booking</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="responsive-grid">
         <div>
-            <h3>Quick Estimate</h3>
-            <form id="quickForm">
-                <input type="text" placeholder="Name" style="width:100%; padding:12px; margin:10px 0; border-radius:30px; border:1px solid #ccc;">
-                <input type="email" placeholder="Email" style="width:100%; padding:12px; margin:10px 0; border-radius:30px;">
-                <button type="submit" class="cta-btn">Request Callback</button>
+            <h3 style="margin-bottom: 1rem;">Request a callback</h3>
+            <form id="leadForm">
+                <input type="text" placeholder="Full name" style="width:100%; padding: 14px; margin: 10px 0; border-radius: 50px; border:1px solid #E2E8F0;">
+                <input type="tel" placeholder="Phone number" style="width:100%; padding: 14px; margin: 10px 0; border-radius: 50px; border:1px solid #E2E8F0;">
+                <button type="submit" class="cta-btn" style="width:100%">Send Request</button>
             </form>
-            <p class="text-muted mt-2">Or schedule a free consultation via calendar</p>
+            <p class="text-muted" style="margin-top: 1rem;">Or schedule directly via calendar →</p>
         </div>
         <div>
-            <!-- Calendly Integration -->
-            <div class="calendly-inline-widget" data-url="https://calendly.com/allenexterior/30min" style="min-width:320px;height:400px;"></div>
+            <div class="calendly-inline-widget" data-url="https://calendly.com/allenexterior/30min" style="min-width:280px;height:420px;"></div>
         </div>
     </div>
 </section>
 
-<!-- Animated Stats -->
+<!-- Animated Stats Counter -->
 <section class="container" data-aos="fade-up">
     <div class="stats-grid">
-        <div class="stat-item"><div class="stat-number" data-target="1250">0</div><p>Homes Cleaned</p></div>
-        <div class="stat-item"><div class="stat-number" data-target="340">0</div><p>Roofs Restored</p></div>
-        <div class="stat-item"><div class="stat-number" data-target="98" data-suffix="%">0%</div><p>Satisfaction Rate</p></div>
+        <div class="stat-item"><div class="stat-number" data-target="1580">0</div><p>Homes Exterior Cleaned</p></div>
+        <div class="stat-item"><div class="stat-number" data-target="470">0</div><p>Roofs Restored</p></div>
+        <div class="stat-item"><div class="stat-number" data-target="99" data-suffix="%">0%</div><p>Satisfaction Rate</p></div>
     </div>
 </section>
 
-<!-- Featured Services (27) 6 grid service icons -->
+<!-- Featured Services (exact business list) -->
 <section id="services" class="container" data-aos="fade-up">
-    <div class="section-title">Our Premium Exterior Services</div>
+    <div class="section-title">Our Exterior Cleaning Services</div>
     <div class="grid-6">
         <div class="service-card"><img src="https://picsum.photos/id/13/400/300"><h3>Jet Washing</h3><p>Driveways & Patios</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/177/400/300"><h3>Roof Cleaning</h3><p>Moss removal & repointing</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/16/400/300"><h3>Gutter Clearing</h3><p>Fascias & Soffits</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/58/400/300"><h3>Conservatory Roof</h3><p>Sparkling clean</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/58/400/300"><h3>Roof Cleaning</h3><p>Moss Removal & Repointing</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/177/400/300"><h3>Gutter Clearing</h3><p>Fascias & Soffits</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/28/400/300"><h3>Conservatory Roof</h3><p>Streak-free cleaning</p></div>
         <div class="service-card"><img src="https://picsum.photos/id/225/400/300"><h3>Pathways & Walls</h3><p>Re-sanding specialists</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/124/400/300"><h3>Window Cleaning</h3><p>Streak-free shine</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/124/400/300"><h3>Window Cleaning</h3><p>Crystal clear finish</p></div>
     </div>
 </section>
 
-<!-- 6 Grid Photos of exterior work (10) but we add both gallery & beforeafter -->
+<!-- 6 Grid Photos (gallery lightbox) -->
 <section id="gallery" class="container" data-aos="fade-up">
-    <div class="section-title">Our Work Gallery</div>
-    <div class="grid-6" id="galleryGrid">
-        <!-- 6 images with lightbox -->
-    </div>
+    <div class="section-title">Project Gallery</div>
+    <div class="grid-6" id="galleryGrid"></div>
 </section>
 
-<!-- Before & After Showcase (9) -->
+<!-- Before & After Showcase + submission form -->
 <section class="container" data-aos="fade-up">
     <div class="section-title">Before & After Transformations</div>
     <div class="grid-6">
-        <div class="service-card"><img src="https://picsum.photos/id/354/400/300"><p>Before: Mossy Driveway</p><p style="color:var(--accent)">After: Jet washed</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/371/400/300"><p>Before: Dark Roof</p><p style="color:var(--accent)">After: Clean & Sealed</p></div>
-        <div class="service-card"><img src="https://picsum.photos/id/152/400/300"><p>Before: Clogged Gutter</p><p style="color:var(--accent)">After: Flowing clear</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/354/400/300"><p><strong>Before:</strong> Moss & Algae</p><p style="color:var(--brand-orange)"><strong>After:</strong> Jetwashed pristine</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/371/400/300"><p><strong>Before:</strong> Dark Roof Tiles</p><p style="color:var(--brand-orange)"><strong>After:</strong> Deep cleaned</p></div>
+        <div class="service-card"><img src="https://picsum.photos/id/152/400/300"><p><strong>Before:</strong> Clogged Gutters</p><p style="color:var(--brand-orange)"><strong>After:</strong> Cleared & flowing</p></div>
+    </div>
+    <div style="margin-top: 2rem; background: var(--gray-bg); padding: 2rem; border-radius: 32px;">
+        <h3>📸 Submit Your Before/After</h3>
+        <form id="submissionForm"><input type="file" accept="image/*"><button class="cta-btn" style="margin-top:10px">Upload & Share</button><p style="font-size:12px;">We'll feature your clean home!</p></form>
     </div>
 </section>
 
-<!-- Testimonials Slider (Advanced) -->
+<!-- Advanced Testimonials Slider -->
 <section id="testimonials" class="container" data-aos="fade-up">
-    <div class="section-title">Customer Reviews</div>
+    <div class="section-title">Customer Reviews ★ 4.9</div>
     <div class="swiper testimonial-swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Allen's team jet washed my driveway looks brand new!" – Sarah, Preston</div>
-            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Very professional, gutter clearing and repointing done perfectly." – Mark, Blackburn</div>
-            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Highly recommend roof cleaning. Local & friendly." – Linda, Chorley</div>
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Allen's team jet washed my driveway – looks brand new! Friendly & efficient." – Sarah, Preston</div>
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Roof cleaning and gutter clearing done perfectly. Excellent local service." – Mark, Blackburn</div>
+            <div class="swiper-slide">⭐️⭐️⭐️⭐️⭐️ "Conservatory roof sparkling, great price. Highly recommend!" – Linda, Chorley</div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
+    <!-- Google Reviews Display -->
+    <div style="margin-top: 1.5rem; text-align: center; background: #FFF3E0; padding: 1rem; border-radius: 60px;"><i class="fab fa-google"></i> Google rating: 4.9 (157 reviews) – "Lancashire's most trusted exterior cleaners"</div>
 </section>
 
-<!-- Team / Staff section (24) -->
+<!-- Team Section (Barbers -> exterior experts) -->
 <section id="team" class="container" data-aos="fade-up">
-    <div class="section-title">Meet Our Cleaning Experts</div>
+    <div class="section-title">Meet The Experts</div>
     <div class="grid-6">
-        <div><img src="https://randomuser.me/api/portraits/men/32.jpg" style="border-radius: 50%; width:120px"><h3>Allen Smith</h3><p>Founder, 15yrs exp</p></div>
-        <div><img src="https://randomuser.me/api/portraits/men/45.jpg" style="border-radius: 50%; width:120px"><h3>James Cooper</h3><p>Roof Specialist</p></div>
-        <div><img src="https://randomuser.me/api/portraits/women/68.jpg" style="border-radius: 50%; width:120px"><h3>Natalie Ward</h3><p>Gutter & Fascias</p></div>
+        <div style="text-align:center"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="team-img"><h3>Allen Smith</h3><p>Founder, 15+ years</p></div>
+        <div style="text-align:center"><img src="https://randomuser.me/api/portraits/men/45.jpg" class="team-img"><h3>James Cooper</h3><p>Roof & Gutter Specialist</p></div>
+        <div style="text-align:center"><img src="https://randomuser.me/api/portraits/women/68.jpg" class="team-img"><h3>Natalie Ward</h3><p>Jet Wash & Driveways</p></div>
     </div>
 </section>
 
-<!-- FAQ Accordion + VIP packages -->
+<!-- FAQ Accordion + VIP Packages / Loyalty -->
 <section class="container" data-aos="fade-up">
-    <div class="section-title">Frequently Asked</div>
-    <div class="faq-item" style="margin-bottom:1rem; border-bottom:1px solid #ccc;"><button class="faq-question" style="width:100%; text-align:left; background:none; padding:1rem; font-weight:bold;">How quickly can you quote?</button><div class="faq-answer" style="display:none; padding:0 1rem 1rem;">Within 24 hours, free on-site estimate.</div></div>
-    <div class="faq-item" style="margin-bottom:1rem; border-bottom:1px solid #ccc;"><button class="faq-question" style="width:100%; text-align:left; background:none; padding:1rem;">Do you cover all Lancashire?</button><div class="faq-answer" style="display:none; padding:0 1rem 1rem;">Yes, friendly local service across Lancashire.</div></div>
-    <div class="section-title mt-4">VIP Membership Packages</div>
-    <div class="grid-6"><div class="service-card"><h3>Annual Platinum</h3><p>2x jet wash + gutter + roof inspection</p><button class="btn-pay" onclick="alert('Payment link: https://pay.allensclean.com/platinum')">Buy £299</button></div>
-    <div class="service-card"><h3>Seasonal Gold</h3><p>One full exterior clean & moss treat</p><button class="btn-pay" onclick="alert('Payment link: https://pay.allensclean.com/gold')">Buy £199</button></div></div>
+    <div class="section-title">FAQ</div>
+    <div class="faq-item"><button class="faq-question">How soon can you provide a free quote? <i class="fas fa-chevron-down"></i></button><div class="faq-answer">We respond within 24h, free on-site estimate across Lancashire.</div></div>
+    <div class="faq-item"><button class="faq-question">Do you cover all Lancashire? <i class="fas fa-chevron-down"></i></button><div class="faq-answer">Yes! Friendly local service across Lancashire including Preston, Blackburn, Chorley.</div></div>
+    <div class="faq-item"><button class="faq-question">Are you insured and reliable? <i class="fas fa-chevron-down"></i></button><div class="faq-answer">Fully insured, public liability, and trusted by hundreds.</div></div>
+    <div class="section-title mt-4">🌟 VIP Loyalty Membership</div>
+    <div class="grid-6"><div class="service-card"><h3>Platinum Annual Plan</h3><p>2x jet wash + roof inspection + gutter clear</p><button class="btn-pay" onclick="alert('Secure payment: £349 - Visit payment portal')">Join £349</button></div><div class="service-card"><h3>Gold Seasonal</h3><p>One full exterior clean & moss treatment</p><button class="btn-pay" onclick="alert('Pay £199 via Stripe')">Buy Now</button></div></div>
+    <div class="stats-grid" style="margin-top:2rem"><p>🏆 Loyalty Rewards: 10% off for returning customers + refer a friend get £20 credit</p></div>
 </section>
 
-<!-- Online Gift Cards -->
-<section class="container" data-aos="fade-up"><div class="section-title">Gift Vouchers</div><div><p>Give the gift of a sparkling home. e-Gift cards available.</p><button class="cta-btn" onclick="alert('Purchase gift card: £50 / £100')">Buy Voucher</button></div></section>
+<!-- Gift Cards + Interactive Map & Availability -->
+<section class="container" data-aos="fade-up">
+    <div class="section-title">Gift Vouchers & Online Payments</div>
+    <p>Give the gift of a pristine home. E-vouchers available.</p>
+    <button class="cta-btn" onclick="alert('Purchase gift card: £25 / £50 / £100')">Buy Gift Card</button>
+    <div style="margin-top: 2rem;"><div class="section-title">Location & Hours</div><iframe class="map-frame" src="https://maps.google.com/maps?q=Lancashire+UK&t=&z=9&ie=UTF8&iwloc=&output=embed"></iframe><div style="margin-top:1rem;"><h3>Opening Hours</h3><p>Monday - Friday: 8am – 6pm | Saturday: 9am – 4pm | Sunday: Closed</p><p>Emergency gutter clearing available 24/7</p></div></div>
+</section>
 
-<!-- Location Map + Hours -->
-<section class="container"><div class="section-title">Find Us & Hours</div><iframe class="map" src="https://maps.google.com/maps?q=Lancashire%20UK&t=&z=10&ie=UTF8&iwloc=&output=embed"></iframe><div class="barber-availability"><h3>Opening Hours</h3><p>Mon-Fri: 8am - 6pm | Sat: 9am - 4pm | Sun: Closed</p><p>Emergency gutter clearing available</p></div></section>
+<!-- Seasonal Promotions / Highlighted Offers -->
+<section class="container" data-aos="fade-up" id="promo">
+    <div class="section-title">🔥 Limited Spring Offer</div>
+    <div class="stats-grid"><p><strong>20% OFF</strong> on roof cleaning & repointing. Book before May 31st.</p><button class="cta-btn" onclick="location.href='#quote'">Claim Offer</button></div>
+</section>
 
-<!-- Promotions & Limited offer popup -->
-<div class="exit-popup" id="exitPopup"><div class="popup-offer" style="padding:1rem;"><h3>🔥 15% Off First Clean!</h3><p>Book any jet wash or roof cleaning by end of month.</p><button onclick="document.getElementById('exitPopup').classList.remove('show')">Claim Now</button></div></div>
+<!-- Popup Limited-Time Offer (auto) -->
+<div class="exit-popup" id="exitPopup"><div class="popup-offer"><h3>⚡ 15% Off First Clean</h3><p>Any jet wash, roof or driveway service.</p><button class="cta-btn" style="background:white; color:var(--brand-navy);" onclick="document.getElementById('exitPopup').classList.remove('show')">Grab Deal</button></div></div>
 
-<!-- Footer -->
+<!-- Footer Branded -->
 <footer>
-    <div class="social-icons"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div>
-    <p>© 2025 Allen's Exterior Cleaning | 07398 810401 | Friendly local service across Lancashire</p>
-    <p><i class="fas fa-envelope"></i> hello@allenscleaning.co.uk</p>
-    <div><button onclick="window.location.href='#quote'">Get Free Quote</button></div>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p style="margin: 1.5rem 0;">📞 07398 810401 | hello@allenscleaning.co.uk</p>
+    <p>© 2025 Allen's Exterior Cleaning — Friendly local service across Lancashire</p>
+    <button class="cta-btn" style="margin-top: 1.5rem;" onclick="window.location.href='#quote'">Get Free Quote</button>
 </footer>
 
-<!-- Bottom CTA Dock -->
 <div class="bottom-dock">
     <a href="tel:07398810401" class="dock-item"><i class="fas fa-phone-alt"></i><span>Call</span></a>
     <a href="https://wa.me/447398810401" class="dock-item"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
     <a href="sms:07398810401" class="dock-item"><i class="fas fa-sms"></i><span>Text</span></a>
-    <a href="#quote" class="dock-item"><i class="fas fa-file-invoice"></i><span>Get Quote</span></a>
+    <a href="#quote" class="dock-item"><i class="fas fa-file-invoice"></i><span>Quote</span></a>
 </div>
 
-<!-- Lightbox div -->
 <div id="lightbox" class="lightbox"><span class="close-lightbox">&times;</span><img class="lightbox-img" id="lightboxImg" src=""></div>
 
 <script>
-    AOS.init({ duration: 800, once: true });
-    // Hero Swiper
-    new Swiper('.hero-swiper', { loop: true, autoplay: { delay: 4000 }, pagination: { el: '.swiper-pagination' } });
+    AOS.init({ duration: 700, once: true });
+    new Swiper('.hero-swiper', { loop: true, autoplay: { delay: 4500 }, pagination: { el: '.swiper-pagination', clickable: true } });
     new Swiper('.testimonial-swiper', { loop: true, slidesPerView: 1, spaceBetween: 20, autoplay: true, pagination: { el: '.swiper-pagination' } });
 
-    // Animated stats
+    // Stats counter
     const counters = document.querySelectorAll('.stat-number');
-    const animateStats = () => { counters.forEach(c => { const target = parseInt(c.getAttribute('data-target')); let count = 0; const update = () => { count += Math.ceil(target/50); if(count < target) { c.innerText = count; requestAnimationFrame(update); } else { c.innerText = target + (c.getAttribute('data-suffix')||''); } }; update(); }); };
-    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { animateStats(); observer.disconnect(); } }); }, { threshold: 0.5 });
-    observer.observe(document.querySelector('.stats-grid'));
+    const animateNumbers = () => { counters.forEach(c => { const target = parseInt(c.dataset.target); let count = 0; const update = () => { count += Math.ceil(target/55); if(count < target) { c.innerText = count; requestAnimationFrame(update); } else { c.innerText = target + (c.dataset.suffix || ''); } }; update(); }); };
+    const statsObserver = new IntersectionObserver((entries) => { if(entries[0].isIntersecting) { animateNumbers(); statsObserver.disconnect(); } }, { threshold: 0.3 });
+    statsObserver.observe(document.querySelector('.stats-grid'));
 
-    // Gallery Lightbox
-    const galleryImgs = ['https://picsum.photos/id/106/400/300','https://picsum.photos/id/26/400/300','https://picsum.photos/id/28/400/300','https://picsum.photos/id/52/400/300','https://picsum.photos/id/169/400/300','https://picsum.photos/id/155/400/300'];
-    const galleryDiv = document.getElementById('galleryGrid');
-    galleryImgs.forEach(src => { const imgDiv = document.createElement('div'); imgDiv.classList.add('gallery-item'); const img = document.createElement('img'); img.src = src; img.style.cursor='pointer'; img.onclick = () => { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }; imgDiv.appendChild(img); galleryDiv.appendChild(imgDiv); });
+    // Gallery Lightbox with 6 images
+    const galleryImages = ['https://picsum.photos/id/106/400/300','https://picsum.photos/id/26/400/300','https://picsum.photos/id/28/400/300','https://picsum.photos/id/52/400/300','https://picsum.photos/id/169/400/300','https://picsum.photos/id/155/400/300'];
+    const galleryContainer = document.getElementById('galleryGrid');
+    galleryImages.forEach(src => { const div = document.createElement('div'); div.classList.add('gallery-card'); const img = document.createElement('img'); img.src = src; img.style.cursor = 'pointer'; img.onclick = () => { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }; div.appendChild(img); galleryContainer.appendChild(div); });
     document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').classList.remove('active');
-    
-    // FAQ toggles
-    document.querySelectorAll('.faq-question').forEach(btn => { btn.addEventListener('click', () => { const ans = btn.nextElementSibling; ans.style.display = ans.style.display === 'none' ? 'block' : 'none'; }); });
-    // mobile menu
-    const menuToggle = document.getElementById('menuToggle');
-    const fullMenu = document.getElementById('fullMenu');
-    const closeMenu = document.getElementById('closeMenu');
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => { btn.addEventListener('click', () => { const ans = btn.nextElementSibling; ans.style.display = ans.style.display === 'none' ? 'block' : 'none'; btn.querySelector('i')?.classList.toggle('fa-chevron-up'); }); });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle'), fullMenu = document.getElementById('fullMenu'), closeMenu = document.getElementById('closeMenu');
     menuToggle.onclick = () => fullMenu.classList.add('active');
     closeMenu.onclick = () => fullMenu.classList.remove('active');
-    document.querySelectorAll('.fullscreen-menu a').forEach(link => link.addEventListener('click', () => fullMenu.classList.remove('active')));
+    document.querySelectorAll('.fullscreen-menu a').forEach(a => a.addEventListener('click', () => fullMenu.classList.remove('active')));
 
-    // exit intent
+    // Exit Intent
     let exitShown = false;
-    document.addEventListener('mouseleave', (e) => { if(e.clientY <= 0 && !exitShown) { document.getElementById('exitPopup').classList.add('show'); exitShown = true; setTimeout(()=>document.getElementById('exitPopup').classList.remove('show'), 8000); } });
-    // online payment demo (product link)
-    // seasonal promotions highlight
-    const promoDiv = document.createElement('div'); promoDiv.className = 'container'; promoDiv.innerHTML = `<div class="section-title">🔥 Seasonal Offer: Spring Refresh</div><div class="stats-grid"><p>20% off all roof cleaning & repointing - book before May</p><button class="cta-btn" onclick="location.href='#quote'">Grab Deal</button></div>`;
-    document.querySelector('#gallery').insertAdjacentElement('afterend', promoDiv);
-    // Google reviews display (simulated)
-    const googleDiv = document.createElement('div'); googleDiv.className='container'; googleDiv.innerHTML = `<div class="section-title">Google Reviews ★ 4.9</div><p>"Best exterior cleaners in Lancashire!" - 120+ reviews</p>`;
-    document.querySelector('#testimonials').insertAdjacentElement('afterend', googleDiv);
+    document.addEventListener('mouseleave', (e) => { if(e.clientY <= 0 && !exitShown) { document.getElementById('exitPopup').classList.add('show'); exitShown = true; setTimeout(() => document.getElementById('exitPopup').classList.remove('show'), 8000); } });
+
+    // simple form alerts
+    document.getElementById('leadForm')?.addEventListener('submit', (e) => { e.preventDefault(); alert("Thanks! Allen will call you within 24h."); });
+    document.getElementById('submissionForm')?.addEventListener('submit', (e) => { e.preventDefault(); alert("Thank you! We'll review your before/after photo."); });
+    // multiple store locations: additional note
+    const storesDiv = document.createElement('div'); storesDiv.className = 'container'; storesDiv.innerHTML = `<div class="section-title">Our Coverage Areas</div><div class="stats-grid"><p>📍 Preston • Blackburn • Chorley • Burnley • Lancaster</p><p>We cover whole Lancashire with mobile teams</p></div>`;
+    document.querySelector('#team').insertAdjacentElement('afterend', storesDiv);
 </script>
 </body>
 </html>
