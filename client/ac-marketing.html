@@ -1,156 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A C Marketing | Social Media Expert South West</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1e1e4f; /* Logo Navy */
-            --sage: #b5ccb5; /* Logo Sage */
-            --rose: #d6a1a1; /* Logo Rose */
-            --cream: #fdfaf7;
-            --text: #2d2d2d;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>A C Marketing · Social Media Expert for Independent Businesses</title>
+  <!-- Google Fonts + Smooth Icons (Font Awesome) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
-        /* --- Modern Glass Nav --- */
-        nav {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 1200px; padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);
-            border-radius: 100px; display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; border: 1px solid rgba(0,0,0,0.05);
-        }
-        .nav-brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.2rem; color: var(--navy); text-decoration: none; }
-        .nav-cta { background: var(--navy); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+    /* brand primary from image: “ACMARKETING” logo background hint – deep rich tone plus accent */
+    :root {
+      --brand-dark: #0C1A2B;     /* deep navy, professional */
+      --brand-accent: #D95C2B;   /* warm terracotta / orange – energetic, modern */
+      --brand-gold: #E8B86B;     /* soft gold accent for details */
+      --gray-light: #F8FAFE;
+      --gray-mid: #EFF3F8;
+      --text-dark: #1E2A3E;
+      --text-soft: #4A5A72;
+      --white: #ffffff;
+      --shadow-sm: 0 20px 35px -12px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 25px 40px -12px rgba(0,0,0,0.08);
+    }
 
-        /* --- Hero: The "Problem/Solution" Hook --- */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
-        .hero-inner { max-width: 900px; }
-        .hero span { color: var(--rose); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); color: var(--navy); margin: 20px 0; line-height: 1.1; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; color: #555; }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
 
-        /* --- The "How I Help" Bento Grid --- */
-        .services { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--navy); }
+    /* scroll reveal base */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
 
-        .bento-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 250px;
-            gap: 20px;
-        }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .bento-card {
-            background: white; border-radius: 30px; padding: 40px;
-            display: flex; flex-direction: column; justify-content: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-        .bento-card:hover { transform: scale(1.02); border-color: var(--sage); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        
-        .card-big { grid-column: span 2; background: var(--navy); color: white; }
-        .card-tall { grid-row: span 2; background: var(--sage); }
-        .card-rose { background: var(--rose); color: white; }
+    /* navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      padding: 18px 0;
+      transition: all 0.2s;
+    }
 
-        .bento-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; }
-        .bento-card p { font-size: 1rem; opacity: 0.9; }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-        /* --- Detailed Service List --- */
-        .service-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 80px; }
-        .service-item { border-left: 4px solid var(--sage); padding-left: 20px; }
-        .service-item h4 { font-size: 1.4rem; color: var(--navy); margin-bottom: 10px; }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--brand-dark) 30%, var(--brand-accent) 90%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
 
-        /* --- Footer / Contact --- */
-        footer { background: var(--navy); color: white; padding: 100px 5%; text-align: center; }
-        .contact-box { background: rgba(255,255,255,0.05); padding: 50px; border-radius: 40px; max-width: 800px; margin: 0 auto; }
-        .contact-box h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
-        .phone-link { display: block; font-size: 2rem; color: var(--sage); text-decoration: none; margin: 20px 0; font-weight: 800; }
+    .logo span {
+      color: var(--brand-accent);
+      background: none;
+      -webkit-background-clip: unset;
+    }
 
-        @media (max-width: 900px) {
-            .bento-container { grid-template-columns: 1fr; grid-auto-rows: auto; }
-            .card-big, .card-tall { grid-column: span 1; grid-row: span 1; }
-        }
-    </style>
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--text-dark);
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-accent);
+    }
+
+    .btn-cta-nav {
+      background: var(--brand-dark);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: all 0.25s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .btn-cta-nav:hover {
+      background: var(--brand-accent);
+      transform: scale(1.02);
+      color: white !important;
+    }
+
+    /* hero */
+    .hero {
+      padding: 80px 0 100px;
+      background: linear-gradient(145deg, #FFFFFF 0%, var(--gray-light) 100%);
+    }
+
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .hero-content {
+      flex: 1.2;
+    }
+
+    .hero-badge {
+      background: rgba(217, 92, 43, 0.12);
+      display: inline-block;
+      padding: 6px 15px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--brand-accent);
+      margin-bottom: 24px;
+      letter-spacing: -0.2px;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: var(--brand-dark);
+    }
+
+    .hero h1 .highlight {
+      color: var(--brand-accent);
+      border-bottom: 3px solid var(--brand-gold);
+      display: inline-block;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-soft);
+      max-width: 550px;
+      margin-bottom: 36px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--brand-accent);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 48px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 8px 18px rgba(217,92,43,0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #c24518;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 28px rgba(217,92,43,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--brand-dark);
+      padding: 14px 32px;
+      border-radius: 48px;
+      font-weight: 600;
+      color: var(--brand-dark);
+      transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--brand-dark);
+      color: white;
+      border-color: var(--brand-dark);
+    }
+
+    .hero-stats {
+      flex: 0.7;
+      background: var(--white);
+      padding: 32px 28px;
+      border-radius: 42px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .stat-item {
+      margin-bottom: 28px;
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--brand-accent);
+    }
+
+    /* services */
+    .services {
+      padding: 100px 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .section-header p {
+      color: var(--text-soft);
+      max-width: 600px;
+      margin: 16px auto 0;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .service-card {
+      background: var(--gray-light);
+      padding: 38px 28px;
+      border-radius: 36px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      background: white;
+      box-shadow: 0 35px 45px -20px rgba(0,0,0,0.1);
+    }
+
+    .icon-circle {
+      background: rgba(217,92,43,0.1);
+      width: 64px;
+      height: 64px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .icon-circle i {
+      font-size: 2rem;
+      color: var(--brand-accent);
+    }
+
+    .service-card h3 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    /* about section (team extension) */
+    .about {
+      padding: 100px 0;
+      background: var(--gray-light);
+    }
+
+    .about-inner {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h2 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .about-text p {
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .features-list li {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .features-list i {
+      color: var(--brand-accent);
+      font-size: 1.2rem;
+    }
+
+    .about-image {
+      flex: 0.8;
+      background: white;
+      border-radius: 48px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #fff0e7;
+    }
+
+    .about-image i {
+      font-size: 4rem;
+      color: var(--brand-accent);
+      margin-bottom: 20px;
+    }
+
+    /* CTA section */
+    .cta-section {
+      padding: 90px 20px;
+      background: linear-gradient(115deg, var(--brand-dark) 0%, #11212e 100%);
+      color: white;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    .cta-section h2 {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      max-width: 550px;
+      margin: 0 auto 32px;
+      opacity: 0.85;
+    }
+
+    .btn-cta-large {
+      background: var(--brand-accent);
+      color: white;
+      padding: 16px 42px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-cta-large:hover {
+      background: #ff7a44;
+      transform: scale(1.02);
+    }
+
+    /* contact & footer */
+    .contact-info-block {
+      padding: 70px 0 40px;
+      background: white;
+    }
+
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .contact-details h3 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin-bottom: 12px;
+    }
+
+    .contact-details p {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-soft);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 28px;
+      margin-top: 25px;
+    }
+
+    .social-links a {
+      color: var(--brand-dark);
+      font-size: 1.7rem;
+      transition: 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--brand-accent);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid var(--gray-mid);
+      padding: 28px 0;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 800px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero-grid {
+        flex-direction: column;
+      }
+      .container {
+        padding: 0 24px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="nav-brand">A C Marketing</a>
-        <a href="mailto:amy@acsocialmedia.co.uk" class="nav-cta">Get Started</a>
-    </nav>
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="logo">A C<span>MARKETING</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">Approach</a>
+      <a href="#contact" class="btn-cta-nav">Let's Talk</a>
+    </div>
+  </div>
+</nav>
 
-    <section class="hero">
-        <div class="hero-inner" data-aos="fade-up">
-            <span>Independent Business Specialist</span>
-            <h1>Stop Stressing Over Your Social Media.</h1>
-            <p>I don't just "post pictures." I deep-dive into your brand to craft a bespoke strategy that turns followers into local customers.</p>
-            <a href="#services" class="nav-cta" style="padding: 18px 40px; font-size: 1.1rem;">See How I Can Help</a>
+<main>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content reveal">
+        <div class="hero-badge"><i class="fas fa-chart-line" style="margin-right: 6px;"></i> Social Media Partner · South West UK</div>
+        <h1>Your local <span class="highlight">social media expert</span>, boosting independent businesses</h1>
+        <p>Partner with a dedicated extension of your team. Strategy, creative spark, and genuine passion — so you can focus on your craft while I grow your digital footprint.</p>
+        <div class="btn-group">
+          <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Get a free discovery call</a>
+          <a href="#services" class="btn-outline">Explore services</a>
         </div>
-    </section>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat-item"><div class="stat-number">220+</div><div>Engagement campaigns delivered</div></div>
+        <div class="stat-item"><div class="stat-number">30+</div><div>Independent brands across South West</div></div>
+        <div class="stat-item"><div class="stat-number">100%</div><div>Tailored local strategy</div></div>
+      </div>
+    </div>
+  </section>
 
-    <section id="services" class="services">
-        <div class="section-title" data-aos="fade-up">
-            <h2>How I Help You Thrive</h2>
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Tailored social solutions, zero stress</h2>
+        <p>From deep-dive audit to daily content — I become the engine behind your online presence.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="service-card reveal">
+          <div class="icon-circle"><i class="fas fa-chart-simple"></i></div>
+          <h3>Bespoke Strategy</h3>
+          <p>In-depth brand audit, local audience targeting, content pillars & growth roadmap aligned with your business goals.</p>
         </div>
-
-        <div class="bento-container">
-            <div class="bento-card card-big" data-aos="fade-right">
-                <h3>Bespoke Strategy</h3>
-                <p>No generic templates. I research your local South West competitors and your specific goals to build a roadmap that actually works for <i>your</i> business.</p>
-            </div>
-
-            <div class="bento-card card-tall" data-aos="fade-left">
-                <h3>Total Hands-Off Management</h3>
-                <p>I take the daily stress of "what do I post today?" off your plate completely. I handle the scheduling, the captions, and the engagement while you focus on running the business.</p>
-            </div>
-
-            <div class="bento-card" data-aos="flip-up">
-                <h3>Creative Spark</h3>
-                <p>High-quality visuals and scroll-stopping copy tailored to your brand voice.</p>
-            </div>
-
-            <div class="bento-card card-rose" data-aos="fade-up">
-                <h3>Local Expertise</h3>
-                <p>Based in North Somerset, I understand the South West market better than a distant agency ever could.</p>
-            </div>
+        <div class="service-card reveal">
+          <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
+          <h3>Content Creation & Curation</h3>
+          <p>Scroll-stopping visuals, captions that convert, and consistent posting schedule to keep your brand top-of-mind.</p>
         </div>
-
-        <div class="service-list" data-aos="fade-up">
-            <div class="service-item">
-                <h4>Content Creation</h4>
-                <p>Professional photography, graphic design, and video reels that showcase your craftsmanship.</p>
-            </div>
-            <div class="service-item">
-                <h4>Community Growth</h4>
-                <p>I don't just post; I engage. I talk to your customers and grow your local digital footprint.</p>
-            </div>
-            <div class="service-item">
-                <h4>Performance Tracking</h4>
-                <p>Clear communication on what's working. You'll always know the ROI of your social presence.</p>
-            </div>
+        <div class="service-card reveal">
+          <div class="icon-circle"><i class="fas fa-comments"></i></div>
+          <h3>Community Management</h3>
+          <p>Authentic engagement, DM responses, and relationship building — turning followers into loyal customers.</p>
         </div>
-    </section>
-
-    <section class="contact-footer">
-        <div class="contact-box" data-aos="zoom-in">
-            <h2>Ready to hand over the handles?</h2>
-            <p>Let's grab a coffee (or a virtual one) and chat about your goals.</p>
-            <a href="tel:07769344351" class="phone-link">07769 344351</a>
-            <p>amy@acsocialmedia.co.uk</p>
+        <div class="service-card reveal">
+          <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+          <h3>Analytics & Reporting</h3>
+          <p>Transparent monthly insights, real performance data to refine strategy and maximise ROI across platforms.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true, offset: 200 });
-    </script>
+  <!-- About / Dedicated extension -->
+  <section id="about" class="about">
+    <div class="container about-inner">
+      <div class="about-text reveal">
+        <h2>More than a content creator — I'm your dedicated team extension</h2>
+        <p>Ever wonder what actually happens when you hand over your handles to an expert? When you partner with me, you gain a seamless, professional experience. I start with a deep-dive into your brand goals, then craft a bespoke strategy that targets your ideal local audience across Bristol, North Somerset, and the South West.</p>
+        <ul class="features-list">
+          <li><i class="fas fa-check-circle"></i> Clear communication & weekly updates</li>
+          <li><i class="fas fa-check-circle"></i> Creative spark + genuine passion for independent businesses</li>
+          <li><i class="fas fa-check-circle"></i> Stress-free daily posting so you focus on running your business</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#contact" class="btn-primary" style="background: var(--brand-dark); box-shadow: none;">Let's grow your digital footprint →</a>
+        </div>
+      </div>
+      <div class="about-image reveal">
+        <i class="fas fa-handshake"></i>
+        <h3 style="margin: 12px 0 8px;">Independent Business Specialist</h3>
+        <p style="font-style: italic;">"I pride myself on a seamless, professional experience. genuine passion for seeing you thrive."</p>
+        <hr style="margin: 20px 0; border-color: #ffe0d4;">
+        <div><i class="fas fa-map-marker-alt"></i> South West UK · Bristol · North Somerset</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-section reveal">
+    <div class="container">
+      <h2>Ready to revamp your online presence?</h2>
+      <p>Let’s chat about a custom social media plan that elevates your brand and drives real engagement.</p>
+      <a href="#contact" class="btn-cta-large"><i class="fas fa-comment-dots"></i> Book a free consultation</a>
+    </div>
+  </div>
+
+  <!-- Contact & Details + Social proof / direct info -->
+  <section id="contact" class="contact-info-block">
+    <div class="container contact-flex">
+      <div class="contact-details reveal">
+        <h3><i class="fas fa-envelope-open-text"></i> Let's connect</h3>
+        <p><i class="fas fa-phone-alt" style="color: var(--brand-accent);"></i> <strong>07769 344351</strong></p>
+        <p><i class="fas fa-envelope" style="color: var(--brand-accent);"></i> <strong>amy@acsocialmedia.co.uk</strong></p>
+        <p><i class="fas fa-location-dot" style="color: var(--brand-accent);"></i> South West UK · Bristol & North Somerset</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="reveal" style="background: var(--gray-light); padding: 32px 28px; border-radius: 38px; min-width: 260px;">
+        <h4 style="font-size: 1.2rem; margin-bottom: 20px;"><i class="fas fa-clock"></i> Quick Response</h4>
+        <p>Reply within 2 hours on business days. Ready to elevate your brand? DM or call directly — let’s make your digital footprint shine.</p>
+        <a href="mailto:amy@acsocialmedia.co.uk" class="btn-outline" style="display: inline-block; margin-top: 24px; background: white;">Email me directly →</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 A C MARKETING — Independent Business Social Media Specialist. Built for modern brands across South West UK.</p>
+      <p style="margin-top: 8px;"><i class="fas fa-hashtag"></i> #LocalSocialPartner  #BristolMarketingExpert</p>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Scroll reveal with intersection observer
+  const revealElements = document.querySelectorAll('.reveal');
+  
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        // optional: keep observing to allow re-trigger? but not needed, just once
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });
+  
+  revealElements.forEach(el => revealObserver.observe(el));
+  
+  // smooth anchor scroll (for navbar and any internal link)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === "#" || href === "") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        // optional update url without jumping
+        history.pushState(null, null, href);
+      }
+    });
+  });
+  
+  // additional cta buttons
+  const makeCtasWork = () => {
+    const allCtaBtns = document.querySelectorAll('.btn-primary, .btn-cta-large, .btn-cta-nav, .btn-outline');
+    allCtaBtns.forEach(btn => {
+      if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#')) return;
+      if (btn.classList.contains('btn-outline') && btn.getAttribute('href') === '#contact') return;
+      if (btn.innerText.includes('Email') || btn.innerText.includes('chat') || btn.innerText.includes('call') || btn.innerText.includes('Talk')) {
+        // ensure contact link any primary CTA leads to contact
+        if(!btn.hasAttribute('data-custom')){
+          btn.addEventListener('click', (e) => {
+            if(btn.getAttribute('href') && btn.getAttribute('href') !== '#' && !btn.getAttribute('href').startsWith('#')){
+              return;
+            }
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});
+          });
+        }
+      }
+    });
+    // extra "Get a free discovery call"
+    const discBtn = document.querySelector('.btn-primary');
+    if(discBtn && discBtn.getAttribute('href') === '#contact') {
+      discBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});
+      });
+    }
+  };
+  
+  setTimeout(() => {
+    makeCtasWork();
+    // ensure any "Lets talk" btn scrolls
+    const talkNav = document.querySelector('.btn-cta-nav');
+    if(talkNav) talkNav.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});
+    });
+    const ctaLarge = document.querySelector('.btn-cta-large');
+    if(ctaLarge) ctaLarge.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});
+    });
+  }, 50);
+</script>
 </body>
 </html>
