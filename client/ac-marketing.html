@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A C Marketing | Social Media Expert South West</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1e1e4f; /* Logo Navy */
+            --sage: #b5ccb5; /* Logo Sage */
+            --rose: #d6a1a1; /* Logo Rose */
+            --cream: #fdfaf7;
+            --text: #2d2d2d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+
+        /* --- Modern Glass Nav --- */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1200px; padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);
+            border-radius: 100px; display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.2rem; color: var(--navy); text-decoration: none; }
+        .nav-cta { background: var(--navy); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+
+        /* --- Hero: The "Problem/Solution" Hook --- */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
+        .hero-inner { max-width: 900px; }
+        .hero span { color: var(--rose); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); color: var(--navy); margin: 20px 0; line-height: 1.1; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; color: #555; }
+
+        /* --- The "How I Help" Bento Grid --- */
+        .services { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--navy); }
+
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 250px;
+            gap: 20px;
+        }
+
+        .bento-card {
+            background: white; border-radius: 30px; padding: 40px;
+            display: flex; flex-direction: column; justify-content: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .bento-card:hover { transform: scale(1.02); border-color: var(--sage); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        
+        .card-big { grid-column: span 2; background: var(--navy); color: white; }
+        .card-tall { grid-row: span 2; background: var(--sage); }
+        .card-rose { background: var(--rose); color: white; }
+
+        .bento-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; }
+        .bento-card p { font-size: 1rem; opacity: 0.9; }
+
+        /* --- Detailed Service List --- */
+        .service-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 80px; }
+        .service-item { border-left: 4px solid var(--sage); padding-left: 20px; }
+        .service-item h4 { font-size: 1.4rem; color: var(--navy); margin-bottom: 10px; }
+
+        /* --- Footer / Contact --- */
+        footer { background: var(--navy); color: white; padding: 100px 5%; text-align: center; }
+        .contact-box { background: rgba(255,255,255,0.05); padding: 50px; border-radius: 40px; max-width: 800px; margin: 0 auto; }
+        .contact-box h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .phone-link { display: block; font-size: 2rem; color: var(--sage); text-decoration: none; margin: 20px 0; font-weight: 800; }
+
+        @media (max-width: 900px) {
+            .bento-container { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .card-big, .card-tall { grid-column: span 1; grid-row: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-brand">A C Marketing</a>
+        <a href="mailto:amy@acsocialmedia.co.uk" class="nav-cta">Get Started</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner" data-aos="fade-up">
+            <span>Independent Business Specialist</span>
+            <h1>Stop Stressing Over Your Social Media.</h1>
+            <p>I don't just "post pictures." I deep-dive into your brand to craft a bespoke strategy that turns followers into local customers.</p>
+            <a href="#services" class="nav-cta" style="padding: 18px 40px; font-size: 1.1rem;">See How I Can Help</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-title" data-aos="fade-up">
+            <h2>How I Help You Thrive</h2>
+        </div>
+
+        <div class="bento-container">
+            <div class="bento-card card-big" data-aos="fade-right">
+                <h3>Bespoke Strategy</h3>
+                <p>No generic templates. I research your local South West competitors and your specific goals to build a roadmap that actually works for <i>your</i> business.</p>
+            </div>
+
+            <div class="bento-card card-tall" data-aos="fade-left">
+                <h3>Total Hands-Off Management</h3>
+                <p>I take the daily stress of "what do I post today?" off your plate completely. I handle the scheduling, the captions, and the engagement while you focus on running the business.</p>
+            </div>
+
+            <div class="bento-card" data-aos="flip-up">
+                <h3>Creative Spark</h3>
+                <p>High-quality visuals and scroll-stopping copy tailored to your brand voice.</p>
+            </div>
+
+            <div class="bento-card card-rose" data-aos="fade-up">
+                <h3>Local Expertise</h3>
+                <p>Based in North Somerset, I understand the South West market better than a distant agency ever could.</p>
+            </div>
+        </div>
+
+        <div class="service-list" data-aos="fade-up">
+            <div class="service-item">
+                <h4>Content Creation</h4>
+                <p>Professional photography, graphic design, and video reels that showcase your craftsmanship.</p>
+            </div>
+            <div class="service-item">
+                <h4>Community Growth</h4>
+                <p>I don't just post; I engage. I talk to your customers and grow your local digital footprint.</p>
+            </div>
+            <div class="service-item">
+                <h4>Performance Tracking</h4>
+                <p>Clear communication on what's working. You'll always know the ROI of your social presence.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-footer">
+        <div class="contact-box" data-aos="zoom-in">
+            <h2>Ready to hand over the handles?</h2>
+            <p>Let's grab a coffee (or a virtual one) and chat about your goals.</p>
+            <a href="tel:07769344351" class="phone-link">07769 344351</a>
+            <p>amy@acsocialmedia.co.uk</p>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true, offset: 200 });
+    </script>
+</body>
+</html>
