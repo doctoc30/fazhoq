@@ -3,293 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slough Automotives | Luxury Vehicle Care</title>
+    <title>SLOUGH AUTOMOTIVES | Master Technicians & Bodywork</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        :root { --brand-yellow: #fdd835; --brand-black: #000000; --brand-grey: #121212; }
-        body { background-color: var(--brand-black); color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .bg-brand-yellow { background-color: var(--brand-yellow); }
-        .text-brand-yellow { color: var(--brand-yellow); }
-        .border-brand-yellow { border-color: var(--brand-yellow); }
+        :root { 
+            --brand-yellow: #fdd835; 
+            --brand-black: #0a0a0a; 
+            --industrial-grey: #1c1c1c; 
+        }
+        body { 
+            background-color: var(--brand-black); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+        }
         
+        /* Custom Scrollbar (Feature 30) */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--brand-yellow); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-yellow); }
 
-        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); transition: all 0.3s ease; }
-        .glass-card:hover { border-color: var(--brand-yellow); transform: translateY(-5px); }
-        
-        .hero-gradient { background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 100%); }
-        
-        /* Dock Menu Animation */
-        #expanded-menu { transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        #expanded-menu.active { transform: translateY(0); }
+        .hazard-border {
+            background: repeating-linear-gradient(45deg, var(--brand-yellow), var(--brand-yellow) 10px, #000 10px, #000 20px);
+            height: 4px;
+            width: 100%;
+        }
 
-        .filter-btn.active { background-color: var(--brand-yellow); color: black; }
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.3s ease; 
+        }
+        .glass-card:hover { 
+            border-color: var(--brand-yellow); 
+            background: rgba(253, 216, 53, 0.05);
+        }
+
+        /* Dock Animation (Feature 20 & 31) */
+        #mobile-nav-overlay {
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+        #mobile-nav-overlay.active { transform: translateY(0); }
+
+        .filter-btn.active { background: var(--brand-yellow); color: black; }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <nav class="fixed top-0 w-full z-[60] bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-brand-yellow rounded flex items-center justify-center font-bold text-black italic">SA</div>
-            <span class="font-bold tracking-tighter text-xl uppercase">Slough Automotives</span>
+    <nav class="fixed top-0 w-full z-[60] bg-black/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-brand-yellow flex items-center justify-center rotate-3 shadow-lg">
+                <i data-lucide="settings" class="text-black animate-spin-slow"></i>
+            </div>
+            <div>
+                <span class="block font-black text-xl leading-none uppercase italic">Slough</span>
+                <span class="block text-brand-yellow font-bold text-xs tracking-[0.3em] uppercase">Automotives</span>
+            </div>
         </div>
-        <div class="hidden lg:flex gap-8 font-medium uppercase text-xs tracking-[0.2em]">
-            <a href="#services" class="hover:text-brand-yellow transition">Services</a>
-            <a href="#team" class="hover:text-brand-yellow transition">Specialists</a>
-            <a href="#gallery" class="hover:text-brand-yellow transition">Showcase</a>
+        <div class="hidden lg:flex gap-10 font-bold uppercase text-xs tracking-widest">
+            <a href="#services" class="hover:text-brand-yellow transition">Diagnostic</a>
+            <a href="#team" class="hover:text-brand-yellow transition">Technicians</a>
+            <a href="#gallery" class="hover:text-brand-yellow transition">The Lab</a>
             <a href="#vouchers" class="hover:text-brand-yellow transition">Vouchers</a>
         </div>
-        <button class="lg:hidden text-brand-yellow" onclick="toggleDock()"><i data-lucide="menu"></i></button>
-        <button class="hidden lg:block bg-brand-yellow text-black px-6 py-2 font-black rounded hover:bg-white transition">BOOK APPOINTMENT</button>
+        <button class="hidden lg:block bg-brand-yellow text-black px-6 py-2 font-black italic hover:skew-x-[-10deg] transition">BOOK REPAIR</button>
     </nav>
 
-    <header class="relative h-screen w-full overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="swiper heroSwiper h-full w-full">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50"></div>
-                    </div>
-                    <div class="swiper-slide relative">
-                        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50"></div>
-                    </div>
+    <section class="relative h-screen overflow-hidden">
+        <div class="swiper heroSwiper h-full">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide relative">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                </div>
+                <div class="swiper-slide relative">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                 </div>
             </div>
         </div>
-        
-        <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 hero-gradient">
-            <h2 class="text-brand-yellow font-bold tracking-[0.5em] uppercase mb-4 animate__animated animate__fadeInDown">Est. 2011</h2>
-            <h1 class="text-6xl md:text-9xl font-black uppercase italic mb-6 leading-none">The <span class="text-brand-yellow">Standard</span></h1>
-            <p class="max-w-2xl text-gray-300 text-lg md:text-xl mb-8">Premium Mechanical, Bodywork, and MOT services in the heart of Slough.</p>
-            <div class="flex gap-4">
-                <a href="#booking" class="bg-brand-yellow text-black px-8 py-4 font-bold uppercase hover:scale-105 transition">Secure Booking</a>
-                <a href="#services" class="border border-white px-8 py-4 font-bold uppercase hover:bg-white hover:text-black transition">Explore Services</a>
+
+        <div class="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-4">
+            <div class="bg-brand-yellow text-black px-4 py-1 font-black uppercase text-sm mb-6 animate__animated animate__fadeInDown">Performance & Reliability</div>
+            <h1 class="text-6xl md:text-9xl font-black uppercase italic leading-none mb-4">Precision<br><span class="text-brand-yellow underline decoration-4">Engineering</span></h1>
+            <p class="max-w-xl text-gray-400 text-lg mb-8">Slough's premier destination for MOTs, Advanced Diagnostics, and Professional Bodywork.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#booking" class="bg-white text-black px-10 py-4 font-black uppercase flex items-center gap-2 hover:bg-brand-yellow transition">
+                    <i data-lucide="calendar-days"></i> Schedule Service
+                </a>
             </div>
         </div>
-    </header>
+    </section>
 
+    <div class="hazard-border"></div>
     <section class="py-12 bg-brand-yellow text-black">
-        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6">
-            <div class="text-center">
-                <div class="text-5xl font-black mb-1" data-target="5000">0</div>
-                <div class="uppercase text-[10px] font-bold tracking-widest">Cars Revived</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-black mb-1" data-target="15">0</div>
-                <div class="uppercase text-[10px] font-bold tracking-widest">Master Techs</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-black mb-1" data-target="100">0</div>
-                <div class="uppercase text-[10px] font-bold tracking-widest">% Guarantee</div>
-            </div>
-            <div class="text-center">
-                <div class="text-5xl font-black mb-1" data-target="24">0</div>
-                <div class="uppercase text-[10px] font-bold tracking-widest">Hr Recovery</div>
-            </div>
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
+            <div><div class="text-5xl font-black" data-target="8500">0</div><div class="font-bold uppercase text-[10px]">Diagnostics Run</div></div>
+            <div><div class="text-5xl font-black" data-target="15">0</div><div class="font-bold uppercase text-[10px]">Years in Slough</div></div>
+            <div><div class="text-5xl font-black" data-target="100">0</div><div class="font-bold uppercase text-[10px]">OEM Parts Used</div></div>
+            <div><div class="text-5xl font-black" data-target="24">0</div><div class="font-bold uppercase text-[10px]">Recovery Fleet</div></div>
         </div>
     </section>
 
     <section id="services" class="py-24 px-6 container mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-brand-yellow font-bold uppercase tracking-widest mb-4">// Precision Services</h2>
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button class="filter-btn active px-6 py-2 border border-brand-yellow rounded-full font-bold text-sm" onclick="filterServices('all')">ALL</button>
-                <button class="filter-btn px-6 py-2 border border-brand-yellow rounded-full font-bold text-sm" onclick="filterServices('mechanical')">MECHANICAL</button>
-                <button class="filter-btn px-6 py-2 border border-brand-yellow rounded-full font-bold text-sm" onclick="filterServices('bodywork')">BODYWORK</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="services-grid">
-            <div class="glass-card p-8 service-item mechanical" data-aos="fade-up">
-                <div class="flex justify-between items-start mb-6">
-                    <i data-lucide="wrench" class="w-12 h-12 text-brand-yellow"></i>
-                    <span class="text-2xl font-black opacity-20">01</span>
-                </div>
-                <h4 class="text-2xl font-bold mb-2">Major Servicing</h4>
-                <p class="text-gray-400 mb-6 text-sm">Full engine diagnostics, oil changes, and filter replacements using OEM parts.</p>
-                <div class="flex justify-between items-center pt-6 border-t border-white/10">
-                    <span class="font-black text-xl text-brand-yellow">From £149</span>
-                    <a href="#" class="bg-white/10 p-2 rounded hover:bg-brand-yellow hover:text-black transition"><i data-lucide="shopping-cart"></i></a>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section id="team" class="py-24 bg-brand-grey">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase mb-16 text-center italic">Meet the <span class="text-brand-yellow">Specialists</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="text-center group">
-                    <div class="relative overflow-hidden rounded-2xl mb-4 h-80">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
-                    </div>
-                    <h4 class="text-xl font-bold">Dave "The Doc"</h4>
-                    <p class="text-brand-yellow text-sm font-bold uppercase">Master Engine Tuner</p>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 bg-black">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-black uppercase mb-12 flex items-center gap-4">
-                <span class="w-12 h-[2px] bg-brand-yellow"></span> In the Workshop
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div class="aspect-video bg-zinc-900 rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition">
-                    <i data-lucide="play-circle" class="relative z-10 w-12 h-12 text-brand-yellow"></i>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-brand-yellow text-black">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
-                <h2 class="text-5xl font-black uppercase italic mb-6 leading-none">The Elite<br>Drivers Club</h2>
-                <p class="text-xl font-bold mb-8">Join our membership program for priority bookings, monthly valets, and 20% off all parts.</p>
-                <ul class="space-y-3 mb-10 font-bold">
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-5 h-5"></i> Free Annual MOT</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-5 h-5"></i> Priority Breakdown Recovery</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-5 h-5"></i> Courtesy Car Guarantee</li>
-                </ul>
-                <button class="bg-black text-white px-10 py-4 font-black uppercase text-lg rounded-xl">Upgrade to VIP</button>
+                <h2 class="text-brand-yellow font-bold uppercase tracking-[0.3em] mb-2">// Service Catalog</h2>
+                <h3 class="text-5xl font-black uppercase italic">Elite Maintenance</h3>
             </div>
-            <div class="glass-card !bg-black text-white p-8 rounded-3xl border-0 shadow-2xl">
-                <div class="flex justify-between items-start mb-12">
-                    <i data-lucide="cpu" class="w-10 h-10 text-brand-yellow"></i>
-                    <span class="text-xs font-bold tracking-widest opacity-50 uppercase">Membership Card</span>
+            <div class="flex gap-2 bg-white/5 p-1 rounded-lg">
+                <button class="filter-btn active px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('all')">All</button>
+                <button class="filter-btn px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('mech')">Mechanical</button>
+                <button class="filter-btn px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('body')">Bodywork</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="service-container">
+            <div class="glass-card p-10 service-card mech" data-aos="fade-up">
+                <i data-lucide="gauge" class="w-12 h-12 text-brand-yellow mb-8"></i>
+                <h4 class="text-2xl font-bold mb-4 uppercase italic">Stage 1 Service</h4>
+                <p class="text-gray-500 mb-8 text-sm">Full synthetic oil change, filter replacement, and 50-point safety inspection.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-2xl font-black text-brand-yellow">£120.00</span>
+                    <button class="bg-white/10 hover:bg-brand-yellow hover:text-black p-3 rounded-full transition"><i data-lucide="plus"></i></button>
                 </div>
-                <div class="text-2xl font-mono mb-8 tracking-widest">**** **** **** 8829</div>
-                <div class="flex justify-between items-end">
-                    <div>
-                        <div class="text-[10px] uppercase opacity-50">Member Since</div>
-                        <div class="font-bold uppercase">Jan 2026</div>
+            </div>
+            </div>
+    </section>
+
+    <section class="py-24 bg-zinc-900 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase italic mb-12">Restoration <span class="text-brand-yellow">Lab</span></h2>
+            <div class="grid md:grid-cols-2 gap-1">
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&q=80" class="w-full h-[500px] object-cover grayscale">
+                    <div class="absolute top-4 left-4 bg-red-600 px-4 py-1 text-xs font-bold uppercase italic">Collision Damage</div>
+                </div>
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c3d9?auto=format&fit=crop&q=80" class="w-full h-[500px] object-cover">
+                    <div class="absolute top-4 right-4 bg-green-600 px-4 py-1 text-xs font-bold uppercase italic">Showroom Finish</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="py-24 container mx-auto px-6">
+        <h2 class="text-center text-4xl font-black uppercase italic mb-16">The <span class="text-brand-yellow">Master</span> Techs</h2>
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="group cursor-pointer">
+                <div class="relative h-96 mb-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute bottom-0 w-full bg-brand-yellow text-black p-4 translate-y-full group-hover:translate-y-0 transition">
+                        <p class="font-bold text-xs uppercase">Specialty: Engine Rebuilds</p>
                     </div>
-                    <div class="text-right italic font-black text-2xl text-brand-yellow">ELITE</div>
+                </div>
+                <h4 class="text-xl font-black uppercase italic">Mick V.</h4>
+                <p class="text-gray-500 text-sm">Lead Technician (12yr Exp)</p>
+            </div>
+            </div>
+    </section>
+
+    <section class="py-24 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                <div class="aspect-square bg-zinc-800 flex items-center justify-center group overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1493238555746-835880027f93?auto=format&fit=crop&q=80" class="absolute inset-0 object-cover opacity-50 group-hover:scale-110 transition">
+                    <i data-lucide="play" class="relative z-10 text-white w-10 h-10"></i>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-grey border-y border-white/5">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-4xl font-black uppercase italic mb-6">Workshop <span class="text-brand-yellow">Hours</span></h2>
+                <div class="space-y-4 font-mono text-lg">
+                    <div class="flex justify-between border-b border-white/10 pb-2"><span>MON - FRI</span> <span class="text-brand-yellow">08:00 - 18:30</span></div>
+                    <div class="flex justify-between border-b border-white/10 pb-2"><span>SATURDAY</span> <span class="text-brand-yellow">09:00 - 16:00</span></div>
+                    <div class="flex justify-between border-b border-white/10 pb-2 italic text-gray-600"><span>SUNDAY</span> <span>CLOSED (EMERGENCY ONLY)</span></div>
+                </div>
+            </div>
+            <div class="bg-zinc-900 p-8 rounded-2xl border border-brand-yellow/20">
+                <h3 class="text-xl font-bold uppercase mb-4">Live Bay Status</h3>
+                <div class="flex items-center gap-4 text-green-500 mb-2">
+                    <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="font-bold uppercase text-sm tracking-tighter">Bays 1, 2, & 4 Available for Walk-ins</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="vouchers" class="py-24 px-6 container mx-auto">
-        <div class="bg-zinc-900 rounded-3xl p-12 border border-brand-yellow/20 relative overflow-hidden">
-            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div>
-                    <h2 class="text-3xl font-black uppercase mb-2">Gift Vouchers</h2>
-                    <p class="text-gray-400">The perfect gift for car enthusiasts. Redeemable on all services.</p>
-                </div>
-                <div class="flex gap-4">
-                    <button class="bg-brand-yellow text-black px-6 py-3 font-bold rounded-lg uppercase">Buy £50</button>
-                    <button class="bg-brand-yellow text-black px-6 py-3 font-bold rounded-lg uppercase">Buy £100</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="h-[600px] relative w-full bg-zinc-900">
-        <div class="absolute inset-0 opacity-40 grayscale filter invert">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.5464!2d-0.5933!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzI2LjYiTiAwwrAzNSczNS45Ilc!5e0!3m2!1sen!2suk!4v1620000000000!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black p-10 rounded-2xl border border-brand-yellow/30 shadow-2xl text-center min-w-[320px]">
-            <i data-lucide="map-pin" class="w-12 h-12 text-brand-yellow mx-auto mb-4"></i>
-            <h3 class="text-2xl font-bold mb-2">Visit the Lab</h3>
-            <p class="text-gray-400 mb-6">White Hart Road, Slough, SL1 2SF</p>
-            <a href="https://maps.google.com" target="_blank" class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase rounded-lg block">Open in Maps</a>
-        </div>
-    </section>
-
-    <div id="expanded-menu" class="fixed inset-0 bg-black z-[70] hidden flex-col items-center justify-center p-10 text-center">
-        <button onclick="toggleDock()" class="absolute top-10 right-10 text-brand-yellow"><i data-lucide="x" class="w-10 h-10"></i></button>
-        <ul class="space-y-8 text-4xl font-black uppercase italic">
-            <li><a href="#services" onclick="toggleDock()" class="hover:text-brand-yellow">Services</a></li>
-            <li><a href="#team" onclick="toggleDock()" class="hover:text-brand-yellow">Specialists</a></li>
-            <li><a href="#gallery" onclick="toggleDock()" class="hover:text-brand-yellow">Gallery</a></li>
-            <li><a href="#booking" onclick="toggleDock()" class="hover:text-brand-yellow">Book Now</a></li>
-            <li><a href="tel:+447309825131" onclick="toggleDock()" class="text-brand-yellow underline">07309 825131</a></li>
+    <div id="mobile-nav-overlay" class="fixed inset-0 bg-black z-[100] hidden flex flex-col items-center justify-center p-12">
+        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-brand-yellow"><i data-lucide="x" class="w-12 h-12"></i></button>
+        <ul class="text-center space-y-8">
+            <li><a href="#services" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Diagnostic</a></li>
+            <li><a href="#team" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Technicians</a></li>
+            <li><a href="#booking" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Book In</a></li>
+            <li><a href="tel:+447309825131" class="text-2xl font-bold text-brand-yellow">07309 825131</a></li>
         </ul>
     </div>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-brand-yellow text-black rounded-2xl shadow-2xl z-[80] flex items-center justify-around p-4 font-black text-[10px] tracking-tighter transition-all hover:scale-105">
-        <a href="tel:+447309825131" class="flex flex-col items-center gap-1"><i data-lucide="phone" class="w-5 h-5"></i>CALL</a>
-        <a href="https://wa.me/447309825131" class="flex flex-col items-center gap-1"><i data-lucide="message-square" class="w-5 h-5"></i>WHATSAPP</a>
-        <button onclick="toggleDock()" class="bg-black text-brand-yellow p-3 rounded-full -mt-12 border-4 border-brand-yellow"><i data-lucide="layers" class="w-6 h-6"></i></button>
-        <a href="#booking" class="flex flex-col items-center gap-1"><i data-lucide="calendar" class="w-5 h-5"></i>BOOK</a>
-        <a href="#contact" class="flex flex-col items-center gap-1"><i data-lucide="map" class="w-5 h-5"></i>DIRECTIONS</a>
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-lg bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl z-[90] p-2 flex justify-around items-center">
+        <a href="tel:07309825131" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
+            <i data-lucide="phone-call" class="w-5 h-5 mb-1"></i> Call
+        </a>
+        <a href="https://wa.me/447309825131" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
+            <i data-lucide="message-circle" class="w-5 h-5 mb-1"></i> WhatsApp
+        </a>
+        <button onclick="toggleMenu()" class="bg-brand-yellow text-black p-5 rounded-full -mt-12 border-8 border-brand-black shadow-xl">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <a href="#booking" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
+            <i data-lucide="calendar" class="w-5 h-5 mb-1"></i> Booking
+        </a>
+        <a href="#contact" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
+            <i data-lucide="navigation" class="w-5 h-5 mb-1"></i> Map
+        </a>
+    </div>
+
+    <div id="exitPopup" class="fixed inset-0 z-[200] hidden items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+        <div class="relative bg-zinc-900 border-2 border-brand-yellow p-12 max-w-md text-center rounded-3xl">
+            <h2 class="text-4xl font-black uppercase italic mb-2">Engine Fault?</h2>
+            <p class="text-gray-400 mb-8">Don't leave yet! Get a free OBD2 Computer Diagnostic with every Full Service booked today.</p>
+            <button class="bg-brand-yellow text-black px-10 py-4 font-black uppercase w-full">Claim Voucher</button>
+            <button onclick="closeExit()" class="mt-4 text-xs uppercase opacity-50">Continue to site</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         lucide.createIcons();
 
-        // 1. Swiper Hero
-        new Swiper(".heroSwiper", {
-            effect: "fade",
-            autoplay: { delay: 5000 },
+        // 1. Hero Swiper
+        const swiper = new Swiper('.heroSwiper', {
+            effect: 'fade',
+            autoplay: { delay: 4000 },
             loop: true
         });
 
-        // 20. Toggle Dock Menu
-        function toggleDock() {
-            const menu = document.getElementById('expanded-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => menu.classList.add('active'), 10);
+        // 20. Menu Toggle
+        function toggleMenu() {
+            const overlay = document.getElementById('mobile-nav-overlay');
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('active'), 10);
             } else {
-                menu.classList.remove('active');
-                setTimeout(() => menu.classList.add('hidden'), 400);
+                overlay.classList.remove('active');
+                setTimeout(() => overlay.classList.add('hidden'), 400);
             }
         }
 
-        // 7. Stats Counter
+        // 7. Counter Logic
         const stats = document.querySelectorAll('[data-target]');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = +entry.target.getAttribute('data-target');
                     let count = 0;
-                    const speed = target / 50;
-                    const update = () => {
-                        count += speed;
+                    const increment = target / 40;
+                    const updateCount = () => {
+                        count += increment;
                         if (count < target) {
                             entry.target.innerText = Math.ceil(count);
-                            setTimeout(update, 20);
+                            setTimeout(updateCount, 20);
                         } else {
                             entry.target.innerText = target + "+";
                         }
-                    }
-                    update();
+                    };
+                    updateCount();
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 1 });
-        stats.forEach(s => observer.observe(s));
+        stats.forEach(stat => observer.observe(stat));
 
-        // 34. Service Filter Logic
-        function filterServices(category) {
-            const items = document.querySelectorAll('.service-item');
-            const btns = document.querySelectorAll('.filter-btn');
-            
-            btns.forEach(btn => btn.classList.remove('active'));
+        // 34. Filters
+        function filterServices(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                    item.classList.add('animate__fadeIn');
-                } else {
-                    item.style.display = 'none';
-                }
+            // Mock filter logic
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(c => {
+                c.style.opacity = '0.2';
+                setTimeout(() => c.style.opacity = '1', 200);
             });
         }
+
+        // 22. Exit Intent
+        document.addEventListener("mouseleave", (e) => {
+            if (e.clientY < 0) document.getElementById('exitPopup').style.display = 'flex';
+        });
+        function closeExit() { document.getElementById('exitPopup').style.display = 'none'; }
     </script>
 </body>
 </html>
