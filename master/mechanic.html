@@ -2,304 +2,252 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLOUGH AUTOMOTIVES | Master Technicians & Bodywork</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Slough Automotives | Elite Vehicle Care & Detailing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <!-- Swiper JS for testimonials & gallery -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Lightbox (simple) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     <style>
-        :root { 
-            --brand-yellow: #fdd835; 
-            --brand-black: #0a0a0a; 
-            --industrial-grey: #1c1c1c; 
+        :root {
+            --brand-yellow: #fdd835;
+            --brand-black: #000000;
+            --brand-grey: #1a1a1a;
         }
-        body { 
-            background-color: var(--brand-black); 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-            scroll-behavior: smooth; 
+        body { background-color: var(--brand-black); color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .bg-brand-yellow { background-color: var(--brand-yellow); }
+        .text-brand-yellow { color: var(--brand-yellow); }
+        .border-brand-yellow { border-color: var(--brand-yellow); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-yellow); border-radius: 5px; }
+        .sticky-nav { backdrop-filter: blur(12px); background: rgba(0,0,0,0.85); transition: all 0.3s; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(2px); }
+        .hero-slide { transition: opacity 1s ease-in-out; position: absolute; inset: 0; opacity: 0; object-fit: cover; width: 100%; height: 100%; }
+        .hero-slide.active { opacity: 1; }
+        .counter-number { font-feature-settings: "tnum"; }
+        /* bottom dock menu */
+        .bottom-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 8px 20px;
+            display: flex;
+            gap: 28px;
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
         }
-        
-        /* Custom Scrollbar (Feature 30) */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--brand-yellow); }
-
-        .hazard-border {
-            background: repeating-linear-gradient(45deg, var(--brand-yellow), var(--brand-yellow) 10px, #000 10px, #000 20px);
-            height: 4px;
-            width: 100%;
+        .dock-item { display: flex; flex-direction: column; align-items: center; color: #ccc; transition: 0.2s; cursor: pointer; }
+        .dock-item:hover, .dock-item.active { color: var(--brand-yellow); transform: translateY(-4px); }
+        .dock-label { font-size: 10px; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
+        @media (max-width: 640px) { .bottom-dock { gap: 20px; padding: 6px 16px; } .dock-label { display: none; } }
+        .menu-panel {
+            position: fixed;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: #0f0f0f;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 32px;
+            width: 320px;
+            padding: 20px;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 25px 40px -12px black;
         }
-
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.3s ease; 
+        .menu-panel.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
         }
-        .glass-card:hover { 
-            border-color: var(--brand-yellow); 
-            background: rgba(253, 216, 53, 0.05);
-        }
-
-        /* Dock Animation (Feature 20 & 31) */
-        #mobile-nav-overlay {
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-        }
-        #mobile-nav-overlay.active { transform: translateY(0); }
-
-        .filter-btn.active { background: var(--brand-yellow); color: black; }
+        .menu-panel a { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: white; font-weight: 500; transition: 0.2s; }
+        .menu-panel a:hover { color: var(--brand-yellow); padding-left: 6px; }
+        .count-up { font-size: 2rem; font-weight: 900; }
+        .service-filter-btn.active { background: var(--brand-yellow); color: black; border-color: var(--brand-yellow); }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <nav class="fixed top-0 w-full z-[60] bg-black/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-brand-yellow flex items-center justify-center rotate-3 shadow-lg">
-                <i data-lucide="settings" class="text-black animate-spin-slow"></i>
-            </div>
-            <div>
-                <span class="block font-black text-xl leading-none uppercase italic">Slough</span>
-                <span class="block text-brand-yellow font-bold text-xs tracking-[0.3em] uppercase">Automotives</span>
-            </div>
-        </div>
-        <div class="hidden lg:flex gap-10 font-bold uppercase text-xs tracking-widest">
-            <a href="#services" class="hover:text-brand-yellow transition">Diagnostic</a>
-            <a href="#team" class="hover:text-brand-yellow transition">Technicians</a>
-            <a href="#gallery" class="hover:text-brand-yellow transition">The Lab</a>
-            <a href="#vouchers" class="hover:text-brand-yellow transition">Vouchers</a>
-        </div>
-        <button class="hidden lg:block bg-brand-yellow text-black px-6 py-2 font-black italic hover:skew-x-[-10deg] transition">BOOK REPAIR</button>
-    </nav>
-
-    <section class="relative h-screen overflow-hidden">
-        <div class="swiper heroSwiper h-full">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                </div>
-                <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-4">
-            <div class="bg-brand-yellow text-black px-4 py-1 font-black uppercase text-sm mb-6 animate__animated animate__fadeInDown">Performance & Reliability</div>
-            <h1 class="text-6xl md:text-9xl font-black uppercase italic leading-none mb-4">Precision<br><span class="text-brand-yellow underline decoration-4">Engineering</span></h1>
-            <p class="max-w-xl text-gray-400 text-lg mb-8">Slough's premier destination for MOTs, Advanced Diagnostics, and Professional Bodywork.</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#booking" class="bg-white text-black px-10 py-4 font-black uppercase flex items-center gap-2 hover:bg-brand-yellow transition">
-                    <i data-lucide="calendar-days"></i> Schedule Service
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div class="hazard-border"></div>
-    <section class="py-12 bg-brand-yellow text-black">
-        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
-            <div><div class="text-5xl font-black" data-target="8500">0</div><div class="font-bold uppercase text-[10px]">Diagnostics Run</div></div>
-            <div><div class="text-5xl font-black" data-target="15">0</div><div class="font-bold uppercase text-[10px]">Years in Slough</div></div>
-            <div><div class="text-5xl font-black" data-target="100">0</div><div class="font-bold uppercase text-[10px]">OEM Parts Used</div></div>
-            <div><div class="text-5xl font-black" data-target="24">0</div><div class="font-bold uppercase text-[10px]">Recovery Fleet</div></div>
-        </div>
-    </section>
-
-    <section id="services" class="py-24 px-6 container mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
-                <h2 class="text-brand-yellow font-bold uppercase tracking-[0.3em] mb-2">// Service Catalog</h2>
-                <h3 class="text-5xl font-black uppercase italic">Elite Maintenance</h3>
-            </div>
-            <div class="flex gap-2 bg-white/5 p-1 rounded-lg">
-                <button class="filter-btn active px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('all')">All</button>
-                <button class="filter-btn px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('mech')">Mechanical</button>
-                <button class="filter-btn px-6 py-2 font-bold text-xs uppercase" onclick="filterServices('body')">Bodywork</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="service-container">
-            <div class="glass-card p-10 service-card mech" data-aos="fade-up">
-                <i data-lucide="gauge" class="w-12 h-12 text-brand-yellow mb-8"></i>
-                <h4 class="text-2xl font-bold mb-4 uppercase italic">Stage 1 Service</h4>
-                <p class="text-gray-500 mb-8 text-sm">Full synthetic oil change, filter replacement, and 50-point safety inspection.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-black text-brand-yellow">£120.00</span>
-                    <button class="bg-white/10 hover:bg-brand-yellow hover:text-black p-3 rounded-full transition"><i data-lucide="plus"></i></button>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section class="py-24 bg-zinc-900 overflow-hidden">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase italic mb-12">Restoration <span class="text-brand-yellow">Lab</span></h2>
-            <div class="grid md:grid-cols-2 gap-1">
-                <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&q=80" class="w-full h-[500px] object-cover grayscale">
-                    <div class="absolute top-4 left-4 bg-red-600 px-4 py-1 text-xs font-bold uppercase italic">Collision Damage</div>
-                </div>
-                <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c3d9?auto=format&fit=crop&q=80" class="w-full h-[500px] object-cover">
-                    <div class="absolute top-4 right-4 bg-green-600 px-4 py-1 text-xs font-bold uppercase italic">Showroom Finish</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="py-24 container mx-auto px-6">
-        <h2 class="text-center text-4xl font-black uppercase italic mb-16">The <span class="text-brand-yellow">Master</span> Techs</h2>
-        <div class="grid md:grid-cols-4 gap-8">
-            <div class="group cursor-pointer">
-                <div class="relative h-96 mb-4 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <div class="absolute bottom-0 w-full bg-brand-yellow text-black p-4 translate-y-full group-hover:translate-y-0 transition">
-                        <p class="font-bold text-xs uppercase">Specialty: Engine Rebuilds</p>
-                    </div>
-                </div>
-                <h4 class="text-xl font-black uppercase italic">Mick V.</h4>
-                <p class="text-gray-500 text-sm">Lead Technician (12yr Exp)</p>
-            </div>
-            </div>
-    </section>
-
-    <section class="py-24 bg-black">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-                <div class="aspect-square bg-zinc-800 flex items-center justify-center group overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1493238555746-835880027f93?auto=format&fit=crop&q=80" class="absolute inset-0 object-cover opacity-50 group-hover:scale-110 transition">
-                    <i data-lucide="play" class="relative z-10 text-white w-10 h-10"></i>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-brand-grey border-y border-white/5">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-20">
-            <div>
-                <h2 class="text-4xl font-black uppercase italic mb-6">Workshop <span class="text-brand-yellow">Hours</span></h2>
-                <div class="space-y-4 font-mono text-lg">
-                    <div class="flex justify-between border-b border-white/10 pb-2"><span>MON - FRI</span> <span class="text-brand-yellow">08:00 - 18:30</span></div>
-                    <div class="flex justify-between border-b border-white/10 pb-2"><span>SATURDAY</span> <span class="text-brand-yellow">09:00 - 16:00</span></div>
-                    <div class="flex justify-between border-b border-white/10 pb-2 italic text-gray-600"><span>SUNDAY</span> <span>CLOSED (EMERGENCY ONLY)</span></div>
-                </div>
-            </div>
-            <div class="bg-zinc-900 p-8 rounded-2xl border border-brand-yellow/20">
-                <h3 class="text-xl font-bold uppercase mb-4">Live Bay Status</h3>
-                <div class="flex items-center gap-4 text-green-500 mb-2">
-                    <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                    <span class="font-bold uppercase text-sm tracking-tighter">Bays 1, 2, & 4 Available for Walk-ins</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="mobile-nav-overlay" class="fixed inset-0 bg-black z-[100] hidden flex flex-col items-center justify-center p-12">
-        <button onclick="toggleMenu()" class="absolute top-10 right-10 text-brand-yellow"><i data-lucide="x" class="w-12 h-12"></i></button>
-        <ul class="text-center space-y-8">
-            <li><a href="#services" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Diagnostic</a></li>
-            <li><a href="#team" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Technicians</a></li>
-            <li><a href="#booking" onclick="toggleMenu()" class="text-4xl font-black uppercase italic hover:text-brand-yellow">Book In</a></li>
-            <li><a href="tel:+447309825131" class="text-2xl font-bold text-brand-yellow">07309 825131</a></li>
-        </ul>
+<!-- Sticky Navigation (Feature 18) -->
+<nav class="fixed top-0 w-full z-50 sticky-nav border-b border-white/10 px-6 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-brand-yellow rounded flex items-center justify-center font-bold text-black">SA</div>
+        <span class="font-bold tracking-tighter text-xl uppercase">Slough Automotives</span>
     </div>
-
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[95%] max-w-lg bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl z-[90] p-2 flex justify-around items-center">
-        <a href="tel:07309825131" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
-            <i data-lucide="phone-call" class="w-5 h-5 mb-1"></i> Call
-        </a>
-        <a href="https://wa.me/447309825131" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
-            <i data-lucide="message-circle" class="w-5 h-5 mb-1"></i> WhatsApp
-        </a>
-        <button onclick="toggleMenu()" class="bg-brand-yellow text-black p-5 rounded-full -mt-12 border-8 border-brand-black shadow-xl">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-        <a href="#booking" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
-            <i data-lucide="calendar" class="w-5 h-5 mb-1"></i> Booking
-        </a>
-        <a href="#contact" class="flex flex-col items-center p-3 text-[10px] font-black uppercase text-gray-400 hover:text-brand-yellow">
-            <i data-lucide="navigation" class="w-5 h-5 mb-1"></i> Map
-        </a>
+    <div class="hidden md:flex gap-8 font-medium uppercase text-sm tracking-widest">
+        <a href="#services" class="hover:text-brand-yellow transition">Services</a><a href="#team" class="hover:text-brand-yellow transition">Team</a><a href="#gallery" class="hover:text-brand-yellow transition">Work</a><a href="#offers" class="hover:text-brand-yellow transition">Offers</a><a href="#contact" class="hover:text-brand-yellow transition">Contact</a>
     </div>
+    <button class="bg-brand-yellow text-black px-5 py-2 font-bold rounded-full hover:scale-105 transition" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">BOOK NOW</button>
+</nav>
 
-    <div id="exitPopup" class="fixed inset-0 z-[200] hidden items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
-        <div class="relative bg-zinc-900 border-2 border-brand-yellow p-12 max-w-md text-center rounded-3xl">
-            <h2 class="text-4xl font-black uppercase italic mb-2">Engine Fault?</h2>
-            <p class="text-gray-400 mb-8">Don't leave yet! Get a free OBD2 Computer Diagnostic with every Full Service booked today.</p>
-            <button class="bg-brand-yellow text-black px-10 py-4 font-black uppercase w-full">Claim Voucher</button>
-            <button onclick="closeExit()" class="mt-4 text-xs uppercase opacity-50">Continue to site</button>
+<!-- 1. Hero Slider (animated) -->
+<section class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img class="hero-slide active" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80" alt="Slide 1">
+        <img class="hero-slide" src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80" alt="Slide 2">
+        <img class="hero-slide" src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?auto=format&fit=crop&q=80" alt="Slide 3">
+    </div>
+    <div class="relative z-10 animate__animated animate__fadeInUp">
+        <h1 class="text-5xl md:text-8xl font-black uppercase italic mb-4">Precision <span class="text-brand-yellow">Automotive</span></h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-200">MOT • Servicing • Bodywork • Detailing • Performance</p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="#booking-section" class="bg-brand-yellow text-black px-10 py-4 font-black text-xl uppercase rounded-full hover:bg-white transition">Book Appointment</a>
+            <a href="tel:+447309825131" class="border-2 border-white px-10 py-4 font-black text-xl uppercase rounded-full hover:bg-white hover:text-black transition">Call: 07309 825131</a>
         </div>
     </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        lucide.createIcons();
+<!-- 7. Animated Stats Counter -->
+<section class="py-12 bg-brand-yellow text-black">
+    <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
+        <div><div class="text-4xl font-black counter-number" data-target="5200">0</div><div class="font-bold uppercase text-xs">MOTs Completed</div></div>
+        <div><div class="text-4xl font-black counter-number" data-target="18">0</div><div class="font-bold uppercase text-xs">Years Experience</div></div>
+        <div><div class="text-4xl font-black counter-number" data-target="100">0</div><div class="font-bold uppercase text-xs">Satisfaction Rate</div><span>%</span></div>
+        <div><div class="text-4xl font-black counter-number" data-target="847">0</div><div class="font-bold uppercase text-xs">Full Restorations</div></div>
+    </div>
+</section>
 
-        // 1. Hero Swiper
-        const swiper = new Swiper('.heroSwiper', {
-            effect: 'fade',
-            autoplay: { delay: 4000 },
-            loop: true
-        });
+<!-- 34. Interactive Service Filters + 27 Featured Services+ 15 Products Link Payment -->
+<section id="services" class="py-20 px-6 container mx-auto">
+    <div class="text-center mb-12"><h2 class="text-brand-yellow font-bold uppercase tracking-widest">// Premium Care</h2><h3 class="text-4xl font-black uppercase">Our Services</h3></div>
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button class="service-filter-btn active px-6 py-2 rounded-full border border-brand-yellow bg-black text-white hover:bg-brand-yellow hover:text-black transition" data-filter="all">All</button>
+        <button class="service-filter-btn px-6 py-2 rounded-full border border-white/30" data-filter="mot">MOT & Servicing</button>
+        <button class="service-filter-btn px-6 py-2 rounded-full border border-white/30" data-filter="body">Bodyworks</button>
+        <button class="service-filter-btn px-6 py-2 rounded-full border border-white/30" data-filter="performance">Performance</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="services-container">
+        <div class="service-card glass-card p-8 group hover:border-brand-yellow transition" data-category="mot"><i data-lucide="shield-check" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">MOT Testing</h4><p class="text-gray-400 mb-4">Class 4 & 7 certified.</p><a href="#" class="text-brand-yellow font-bold flex items-center gap-2 pay-online-link" data-service="MOT Test">PAY ONLINE <i data-lucide="credit-card"></i></a></div>
+        <div class="service-card glass-card p-8" data-category="mot"><i data-lucide="wrench" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">Full Servicing</h4><p class="text-gray-400 mb-4">Interim, Full, Major service.</p><a href="#" class="text-brand-yellow font-bold pay-online-link" data-service="Full Service">BOOK & PAY <i data-lucide="arrow-right"></i></a></div>
+        <div class="service-card glass-card p-8" data-category="body"><i data-lucide="paint-bucket" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">Body Repair</h4><p class="text-gray-400 mb-4">Scratch, dent, accident repair.</p><a href="#" class="text-brand-yellow font-bold pay-online-link" data-service="Bodywork Quote">GET QUOTE <i data-lucide="arrow-right"></i></a></div>
+        <div class="service-card glass-card p-8" data-category="performance"><i data-lucide="gauge" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">Performance Tuning</h4><p class="text-gray-400 mb-4">ECU Remap, exhaust systems.</p><a href="#" class="text-brand-yellow font-bold pay-online-link" data-service="Performance Package">PAY DEPOSIT</a></div>
+        <div class="service-card glass-card p-8" data-category="body"><i data-lucide="spray-can" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">Smart Repair & Paint</h4><p class="text-gray-400 mb-4">Alloy refurb, colour match.</p><a href="#" class="text-brand-yellow font-bold">BOOK SMART REPAIR</a></div>
+        <div class="service-card glass-card p-8" data-category="mot"><i data-lucide="car" class="w-12 h-12 text-brand-yellow mb-6"></i><h4 class="text-2xl font-bold mb-2">AA / RAC Pre-purchase</h4><p class="text-gray-400 mb-4">Used car inspection.</p><a href="#" class="text-brand-yellow font-bold">INSPECT NOW</a></div>
+    </div>
+</section>
 
-        // 20. Menu Toggle
-        function toggleMenu() {
-            const overlay = document.getElementById('mobile-nav-overlay');
-            if (overlay.classList.contains('hidden')) {
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.add('active'), 10);
-            } else {
-                overlay.classList.remove('active');
-                setTimeout(() => overlay.classList.add('hidden'), 400);
-            }
-        }
+<!-- 2. Large Booking with Calendar (Calendly iframe mockup) + 8. VIP Packages + 23 Loyalty Program -->
+<section id="booking-section" class="py-20 bg-brand-grey">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div><h2 class="text-4xl font-black uppercase mb-4">Secure Your <span class="text-brand-yellow">Slot</span></h2><p class="text-gray-400 mb-6">Real-time availability – choose date & time.</p><div class="space-y-2"><div class="flex justify-between border-b border-white/10 pb-2"><span>Mon-Fri</span><span class="text-brand-yellow">09:00 - 18:00</span></div><div class="flex justify-between border-b border-white/10 pb-2"><span>Saturday</span><span class="text-brand-yellow">10:00 - 16:00</span></div><div class="flex justify-between"><span>Sunday</span><span class="text-red-400">Closed</span></div></div><div class="mt-8 glass-card p-6"><h3 class="font-bold text-xl">⭐ VIP Membership Club</h3><p>Unlock 15% off services, free MOT retest, annual interior valet. <span class="text-brand-yellow font-bold">Join for £49/yr</span></p><button class="mt-3 bg-brand-yellow text-black px-5 py-2 rounded-full font-bold">JOIN LOYALTY (23)</button></div></div>
+        <div class="bg-white/5 rounded-2xl p-4 min-h-[450px] flex flex-col items-center justify-center border border-white/20"><iframe src="https://calendar.google.com/calendar/embed?src=example%40gmail.com&ctz=Europe%2FLondon" style="border: 0; width: 100%; height: 400px;" frameborder="0" class="rounded-xl"></iframe><p class="text-xs mt-2 text-gray-400">📅 Integrated booking (Calendly demo)</p></div>
+    </div>
+</section>
 
-        // 7. Counter Logic
-        const stats = document.querySelectorAll('[data-target]');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = +entry.target.getAttribute('data-target');
-                    let count = 0;
-                    const increment = target / 40;
-                    const updateCount = () => {
-                        count += increment;
-                        if (count < target) {
-                            entry.target.innerText = Math.ceil(count);
-                            setTimeout(updateCount, 20);
-                        } else {
-                            entry.target.innerText = target + "+";
-                        }
-                    };
-                    updateCount();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 1 });
-        stats.forEach(stat => observer.observe(stat));
+<!-- 9. Before & After Car Showcase + 29 Gallery Lightbox & Video Section -->
+<section id="gallery" class="py-20 container mx-auto px-6">
+    <h2 class="text-center text-4xl font-black uppercase mb-6">Restoration <span class="text-brand-yellow">Showcase</span></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <a href="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=800" data-lightbox="gallery" class="block overflow-hidden rounded-xl"><img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=600" class="w-full h-48 object-cover hover:scale-105 transition"></a>
+        <a href="https://images.unsplash.com/photo-1549399542-7e3f8b79c3d9?auto=format&fit=crop&w=800" data-lightbox="gallery"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c3d9?auto=format&fit=crop&w=600" class="w-full h-48 object-cover"></a>
+        <a href="https://images.unsplash.com/photo-1580274455191-1c62238fa333?auto=format&fit=crop&w=800" data-lightbox="gallery"><img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?auto=format&fit=crop&w=600" class="w-full h-48 object-cover"></a>
+        <a href="https://images.unsplash.com/photo-1593941707882-ef12d9f3e9e0?auto=format&fit=crop&w=800" data-lightbox="gallery"><img src="https://images.unsplash.com/photo-1593941707882-ef12d9f3e9e0?auto=format&fit=crop&w=600" class="w-full h-48 object-cover"></a>
+    </div>
+    <!-- 10. Video Section -->
+    <div class="mt-12"><h3 class="text-3xl font-bold mb-6 text-brand-yellow">🎥 Workshop in Action</h3><div class="grid md:grid-cols-2 gap-6"><iframe width="100%" height="250" src="https://www.youtube.com/embed/6mDZ6V-lJL0?si=example" title="YouTube video" frameborder="0" allowfullscreen class="rounded-xl"></iframe><iframe width="100%" height="250" src="https://www.youtube.com/embed/2zDn-o53V2U?si=test" class="rounded-xl" allowfullscreen></iframe></div></div>
+</section>
 
-        // 34. Filters
-        function filterServices(cat) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            // Mock filter logic
-            const cards = document.querySelectorAll('.service-card');
-            cards.forEach(c => {
-                c.style.opacity = '0.2';
-                setTimeout(() => c.style.opacity = '1', 200);
-            });
-        }
+<!-- 11. Advanced Testimonials Slider + 35 Google Reviews Display -->
+<section class="py-20 bg-brand-grey">
+    <div class="container mx-auto px-6"><h2 class="text-3xl font-black text-center mb-12">⭐ Customer Reviews <span class="text-brand-yellow">(Google 4.9⭐)</span></h2>
+    <div class="swiper testimonial-swiper overflow-hidden"><div class="swiper-wrapper">
+        <div class="swiper-slide glass-card p-8 text-center"><i data-lucide="star" class="text-brand-yellow fill-current"></i><p class="mt-4 italic">“Incredible bodywork repair, looks brand new!”</p><p class="font-bold mt-2">— James T.</p><div class="text-brand-yellow text-sm">★★★★★</div></div>
+        <div class="swiper-slide glass-card p-8 text-center"><i data-lucide="star"></i><p class="mt-4 italic">“Fast MOT, honest team. Highly recommend Slough Automotives.”</p><p class="font-bold">— Priya K.</p><div class="text-brand-yellow">★★★★★</div></div>
+        <div class="swiper-slide glass-card p-8 text-center"><i data-lucide="star"></i><p class="mt-4 italic">“They transformed my classic car. Perfection.”</p><p class="font-bold">— Marcus D.</p><div class="text-brand-yellow">★★★★★</div></div>
+    </div><div class="swiper-pagination mt-6"></div></div></div>
+</section>
 
-        // 22. Exit Intent
-        document.addEventListener("mouseleave", (e) => {
-            if (e.clientY < 0) document.getElementById('exitPopup').style.display = 'flex';
-        });
-        function closeExit() { document.getElementById('exitPopup').style.display = 'none'; }
-    </script>
+<!-- 24 Team / Mechanics Section -->
+<section id="team" class="py-20 container mx-auto px-6"><h2 class="text-4xl font-black uppercase text-center mb-12">Master <span class="text-brand-yellow">Technicians</span></h2><div class="grid md:grid-cols-3 gap-8"><div class="glass-card p-6 text-center"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-32 h-32 rounded-full mx-auto border-4 border-brand-yellow"><h3 class="text-xl font-bold mt-4">David Carter</h3><p class="text-brand-yellow">Master Mechanic (15yrs)</p><p>Diagnostics & Engine specialist</p></div><div class="glass-card p-6 text-center"><img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-32 h-32 rounded-full mx-auto border-4 border-brand-yellow"><h3 class="text-xl font-bold mt-4">Sarah Johal</h3><p class="text-brand-yellow">Bodywork & Paint Lead</p><p>Accredited SMART repairer</p></div><div class="glass-card p-6 text-center"><img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-32 h-32 rounded-full mx-auto border-4 border-brand-yellow"><h3 class="text-xl font-bold mt-4">Leo Fernandez</h3><p class="text-brand-yellow">Performance Tuner</p><p>Remap & rolling road expert</p></div></div></section>
+
+<!-- 16 Promotions + 28 Seasonal Offers + 26 Gift Vouchers -->
+<section id="offers" class="py-20 bg-black"><div class="container mx-auto px-6"><div class="grid md:grid-cols-2 gap-8"><div class="glass-card p-8 text-center border-l-8 border-brand-yellow"><h3 class="text-3xl font-black">🔥 Summer Brake Special</h3><p class="text-2xl text-brand-yellow mt-2">20% OFF brake pads + discs</p><p>Valid until 31st August</p><button class="mt-4 bg-brand-yellow text-black px-6 py-2 rounded-full font-bold">BOOK NOW</button></div><div class="glass-card p-8 text-center"><h3 class="text-2xl font-bold">🎁 e-Gift Voucher</h3><p>Give the gift of professional care. Buy online any amount.</p><button class="mt-3 bg-white/10 px-5 py-2 rounded-full font-bold text-brand-yellow">PURCHASE GIFT CARD (£25-£500)</button><p class="text-xs mt-2">Instant email delivery</p></div></div></div></section>
+
+<!-- 25 Client Before/After Submission Form -->
+<section class="py-16"><div class="container mx-auto px-6 max-w-2xl glass-card p-8"><h3 class="text-2xl font-bold mb-4">📸 Share Your Transformation</h3><p>Upload a before/after of your vehicle – win a free valet!</p><form class="space-y-4 mt-4"><input type="text" placeholder="Your Name" class="w-full p-3 bg-black border border-white/20 rounded"><input type="file" accept="image/*" class="w-full p-2 bg-black border"><textarea placeholder="Tell us about your repair" class="w-full p-3 bg-black border rounded"></textarea><button class="bg-brand-yellow text-black font-bold py-2 rounded w-full">SUBMIT FOR GALLERY</button></form></div></section>
+
+<!-- FAQ Section (3) -->
+<section class="py-16 container mx-auto max-w-3xl px-6"><h2 class="text-3xl font-black mb-8 text-center">Frequently Asked <span class="text-brand-yellow">Questions</span></h2><div class="space-y-4"><details class="glass-card p-5"><summary class="font-bold cursor-pointer">How long does an MOT take?</summary><p class="mt-2 text-gray-300">Approx 45-60 minutes. Same-day available</p></details><details class="glass-card p-5"><summary class="font-bold cursor-pointer">Do you offer courtesy car?</summary><p class="mt-2 text-gray-300">Yes, subject to availability, please request at booking</p></details><details class="glass-card p-5"><summary class="font-bold cursor-pointer">Payment plans available?</summary><p class="mt-2 text-gray-300">Finance via PayPal Pay in 3 available online</p></details></div></section>
+
+<!-- 12 Interactive Location Map, 21 Multiple store (Slough & Langley) -->
+<section id="contact" class="py-12 px-6"><div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"><div class="glass-card p-6"><h3 class="text-2xl font-bold mb-4">📍 Slough (Main)</h3><p>White Hart Road, Slough, SL1 2SF</p><a href="https://maps.google.com/?q=White+Hart+Road+Slough+SL1+2SF" target="_blank" class="text-brand-yellow flex items-center gap-1 mt-2"><i data-lucide="map-pin"></i> Get Directions</a><div class="mt-4"><iframe width="100%" height="200" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=White+Hart+Road+Slough+SL1+2SF"></iframe></div></div><div class="glass-card p-6"><h3 class="text-2xl font-bold mb-4">📍 Langley Service Point</h3><p>Station Road, Langley, SL3 8BY (by appointment)</p><button class="mt-2 border border-brand-yellow px-4 py-1 rounded">Book at Langley</button></div></div></section>
+
+<!-- 6 Newsletter Subscribe Form + 19 Branded Footer -->
+<footer class="bg-brand-black border-t border-white/10 py-16 px-6"><div class="container mx-auto grid md:grid-cols-4 gap-12"><div><h3 class="text-2xl font-black text-brand-yellow">Slough Automotives</h3><p class="text-gray-400 mt-2">Precision repairs & integrity</p></div><div><h4 class="font-bold mb-4">Subscribe</h4><div class="flex"><input type="email" id="newsEmail" placeholder="Email" class="bg-white/5 border px-4 py-2 rounded-l w-full"><button onclick="alert('Thanks for subscribing! (demo integration)')" class="bg-brand-yellow text-black px-4 py-2 rounded-r">→</button></div></div><div><h4 class="font-bold mb-4">Quick Links</h4><ul class="text-gray-400 space-y-1"><li><a href="#">Privacy</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Loyalty</a></li></ul></div><div><h4 class="font-bold mb-4">Socials</h4><div class="flex gap-4"><i data-lucide="instagram" class="hover:text-brand-yellow cursor-pointer"></i><i data-lucide="facebook"></i><i data-lucide="twitter"></i></div></div></div><div class="text-center mt-12 text-gray-600 text-sm">© 2026 Slough Automotives – All Rights Reserved. 24/7 Recovery & Support</div></footer>
+
+<!-- 14 CTA + 32 Hero Call to action Banners already present -->
+<!-- 33 Social Media Showcase (simple) -->
+<div class="py-8 text-center bg-brand-grey/50"><p class="text-brand-yellow text-sm">📸 Follow our builds on Instagram @SloughAuto | #SloughAutomotives</p></div>
+
+<!-- 20 Bottom CTA Dock & Extra Menu Dock (click open) -->
+<div class="bottom-dock">
+    <div class="dock-item" id="menu-toggle"><i data-lucide="menu" class="w-6 h-6"></i><span class="dock-label">Menu</span></div>
+    <div class="dock-item" onclick="window.location.href='tel:+447309825131'"><i data-lucide="phone"></i><span class="dock-label">Call</span></div>
+    <div class="dock-item" onclick="window.location.href='https://wa.me/447309825131'"><i data-lucide="message-circle"></i><span class="dock-label">WhatsApp</span></div>
+    <div class="dock-item" onclick="window.location.href='#booking-section'"><i data-lucide="calendar"></i><span class="dock-label">Book</span></div>
+    <div class="dock-item" onclick="window.location.href='#offers'"><i data-lucide="gift"></i><span class="dock-label">Offers</span></div>
+</div>
+<!-- Floating menu panel (opens on click) -->
+<div id="floating-menu" class="menu-panel">
+    <a href="#services"><i data-lucide="settings"></i> All Services</a>
+    <a href="#gallery"><i data-lucide="image"></i> Restoration Gallery</a>
+    <a href="#team"><i data-lucide="users"></i> Our Mechanics</a>
+    <a href="#offers"><i data-lucide="percent"></i> VIP Offers & Vouchers</a>
+    <a href="#booking-section"><i data-lucide="calendar-check"></i> Book Appointment</a>
+    <a href="#contact"><i data-lucide="map"></i> Locations & Map</a>
+    <a href="#" onclick="document.getElementById('offerPopup').style.display='flex'"><i data-lucide="ticket"></i> Exit Offer</a>
+</div>
+
+<!-- 5 Exit-Intent Popup -->
+<div id="offerPopup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/80"><div class="bg-brand-yellow text-black p-8 rounded-2xl text-center max-w-md"><button onclick="closePopup()" class="float-right">✖</button><h2 class="text-3xl font-black">🚗 10% OFF First Service!</h2><p>Enter code: AUTO10 at checkout</p><button onclick="closePopup()" class="mt-4 bg-black text-white px-6 py-2 rounded-full">Claim Now</button></div></div>
+
+<script>
+    lucide.createIcons();
+    // Hero Slider (feature 1)
+    let slides = document.querySelectorAll('.hero-slide'), idx = 0;
+    setInterval(() => { slides[idx].classList.remove('active'); idx = (idx+1)%slides.length; slides[idx].classList.add('active'); }, 5000);
+    // Service Filter (34)
+    const filterBtns = document.querySelectorAll('.service-filter-btn');
+    const cards = document.querySelectorAll('.service-card');
+    filterBtns.forEach(btn => { btn.addEventListener('click', () => { filterBtns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); let filter = btn.dataset.filter; cards.forEach(card=>{ if(filter==='all' || card.dataset.category===filter) card.style.display = 'block'; else card.style.display = 'none'; }); }); });
+    // Animated Counters (7)
+    const counters = document.querySelectorAll('.counter-number');
+    const animateCounters = () => { counters.forEach(c => { let target = +c.dataset.target, current = +c.innerText, increment = target/40; if(current < target) { c.innerText = Math.ceil(current + increment); setTimeout(animateCounters, 20); } else c.innerText = target; }); };
+    const observerCount = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { animateCounters(); observerCount.unobserve(entry.target); } }); }, {threshold:0.5});
+    document.querySelectorAll('.counter-number').forEach(el => observerCount.observe(el));
+    // Testimonials Swiper (11)
+    new Swiper('.testimonial-swiper', { loop: true, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 4000 } });
+    // Lightbox reload
+    lightbox.option({ resizeDuration: 200, wrapAround: true });
+    // bottom dock menu panel toggle (click menu icon)
+    const menuToggle = document.getElementById('menu-toggle');
+    const floatingMenu = document.getElementById('floating-menu');
+    menuToggle.addEventListener('click', (e) => { e.stopPropagation(); floatingMenu.classList.toggle('open'); });
+    document.addEventListener('click', function(event) { if (!floatingMenu.contains(event.target) && !menuToggle.contains(event.target)) floatingMenu.classList.remove('open'); });
+    // exit intent popup (5)
+    function closePopup() { document.getElementById('offerPopup').style.display = 'none'; }
+    document.addEventListener("mouseleave", (e) => { if (e.clientY < 0 && !document.getElementById('offerPopup').style.display === 'flex') document.getElementById('offerPopup').style.display = 'flex'; });
+    // pay online links simulation (15)
+    document.querySelectorAll('.pay-online-link').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Payment portal: ${link.dataset.service || 'service'} - Demo integration`); }); });
+    // Scroll Animations (4)
+    const scrollObs = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('animate__animated', 'animate__fadeInUp'); }); }, {threshold:0.1});
+    document.querySelectorAll('.glass-card, .service-card, .team-card').forEach(el => scrollObs.observe(el));
+    // final lucide update
+    lucide.createIcons();
+</script>
 </body>
 </html>
