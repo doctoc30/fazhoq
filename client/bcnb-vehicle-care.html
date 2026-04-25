@@ -8,165 +8,166 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --bcnb-blue: #0056b3;
-            --bcnb-dark: #000b18;
-            --bcnb-accent: #1e90ff;
-        }
-        body { background-color: var(--bcnb-dark); color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .bg-bcnb-gradient { background: linear-gradient(135deg, #001a33 0%, #0056b3 100%); }
-        .glass-nav { background: rgba(0, 11, 24, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .custom-scrollbar::-webkit-scrollbar { width: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #000b18; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--bcnb-blue); border-radius: 5px; }
-        .text-glow { text-shadow: 0 0 15px rgba(30, 144, 255, 0.5); }
-        .hero-clip { clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); }
-        .shimmer { overflow: hidden; position: relative; }
-        .shimmer::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shimmer 3s infinite; }
-        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        :root { --bcnb-blue: #0056b3; --bcnb-dark: #000b18; --bcnb-navy: #001a33; }
+        body { background-color: var(--bcnb-dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .bg-bcnb { background-color: var(--bcnb-blue); }
+        .text-bcnb { color: var(--bcnb-blue); }
+        /* 30. Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bcnb-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--bcnb-blue); border-radius: 10px; }
+        .glass { background: rgba(0, 26, 51, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .hero-gradient { background: linear-gradient(180deg, rgba(0,11,24,0) 0%, rgba(0,11,24,1) 100%); }
+        .modal-active { display: flex !important; }
     </style>
 </head>
-<body class="custom-scrollbar selection:bg-blue-500">
+<body>
 
     <!-- 18. Sticky Navigation & 31. Elegant Mobile Menu -->
-    <nav class="fixed w-full z-[100] glass-nav px-6 py-4 transition-all duration-500">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-white rounded flex items-center justify-center">
-                    <i data-lucide="wrench" class="text-blue-700"></i>
-                </div>
-                <span class="text-2xl font-black tracking-tighter uppercase italic">BCNB <span class="text-blue-500">Care</span></span>
-            </div>
-            <div class="hidden lg:flex space-x-8 text-xs font-bold uppercase tracking-widest">
-                <a href="#services" class="hover:text-blue-400 transition">Services</a>
-                <a href="#gallery" class="hover:text-blue-400 transition">Work Portfolio</a>
-                <a href="#reviews" class="hover:text-blue-400 transition">Reviews</a>
-                <a href="#booking" class="bg-blue-600 px-6 py-2 rounded shimmer">Book Specialist</a>
-            </div>
-            <button class="lg:hidden text-white"><i data-lucide="menu"></i></button>
+    <nav class="fixed w-full z-[100] glass px-6 py-4 flex justify-between items-center border-b border-white/10">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-white rounded flex items-center justify-center"><i data-lucide="wrench" class="text-blue-700"></i></div>
+            <span class="text-xl font-black italic uppercase tracking-tighter">BCNB <span class="text-blue-500">Vehicle Care</span></span>
         </div>
+        <div class="hidden lg:flex space-x-8 text-xs font-bold uppercase tracking-widest">
+            <a href="#services" class="hover:text-blue-400 transition">Services</a>
+            <a href="#team" class="hover:text-blue-400 transition">Specialists</a>
+            <a href="#gallery" class="hover:text-blue-400 transition">Work</a>
+            <a href="#booking" class="bg-blue-600 px-6 py-2 rounded-full hover:bg-blue-500 transition">Book Now</a>
+        </div>
+        <button class="lg:hidden" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
     </nav>
 
-    <!-- 1. Top Section Hero Slider (High-End Concept) -->
-    <section class="relative h-[95vh] flex items-center justify-center hero-clip overflow-hidden">
+    <!-- 1. Hero Slider (Conceptual) & 32. Hero CTA -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1486006396193-471068589dcb?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-30 scale-105 animate-pulse">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#000b18] via-transparent to-[#000b18]/50"></div>
+            <img src="https://images.unsplash.com/photo-1486006396193-471068589dcb?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 hero-gradient"></div>
         </div>
-        <div class="relative z-10 text-center px-4" data-aos="fade-up" data-aos-duration="1500">
-            <h2 class="text-blue-500 font-bold uppercase tracking-[0.5em] text-sm mb-4">Elite Mobile Mechanics</h2>
-            <h1 class="text-6xl md:text-8xl font-black uppercase italic mb-6 leading-none">WE COME <br><span class="text-white underline decoration-blue-600 underline-offset-8">TO YOU!</span></h1>
-            <p class="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl font-light mb-10">Premium diagnostics, repairs, and servicing at your home, work, or roadside.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <!-- 32. Highlighted Hero CTA -->
-                <a href="#booking" class="bg-white text-blue-900 px-10 py-5 rounded font-black uppercase tracking-wider hover:bg-blue-500 hover:text-white transition-all transform hover:-translate-y-1">Book Your Mechanic</a>
-                <a href="tel:07584510837" class="border border-white/20 px-10 py-5 rounded font-black uppercase tracking-wider hover:bg-white/5 transition-all flex items-center justify-center">
-                    <i data-lucide="phone-call" class="mr-2 w-5"></i> 07584 510837
-                </a>
+        <div class="relative z-10 text-center px-4" data-aos="zoom-out" data-aos-duration="1500">
+            <h1 class="text-6xl md:text-8xl font-black uppercase italic leading-none mb-6">WE COME <br><span class="text-blue-500">TO YOU!</span></h1>
+            <p class="max-w-xl mx-auto text-gray-300 mb-8">Professional vehicle servicing, diagnostics, and repairs at your doorstep.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#booking" class="bg-blue-600 px-10 py-4 rounded font-bold uppercase tracking-widest hover:scale-105 transition">Book Appointment</a>
+                <a href="tel:07584510837" class="border border-white/20 px-10 py-4 rounded font-bold uppercase tracking-widest hover:bg-white/10 transition">Emergency Call-Out</a>
             </div>
         </div>
     </section>
 
-    <!-- 2. Get a Quote Section -->
-    <section id="booking" class="py-20 px-6 relative z-20 -mt-10">
-        <div class="max-w-6xl mx-auto bg-[#001a33] rounded-2xl shadow-2xl border border-white/5 p-8 md:p-12">
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-3xl font-bold mb-4 italic uppercase">Request a <span class="text-blue-500">Premium Quote</span></h3>
-                    <p class="text-gray-400 mb-8">Fast response, professional service, and honest pricing. No garage queues, no hidden fees.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 p-4 bg-white/5 rounded">
-                            <i data-lucide="calendar" class="text-blue-500"></i>
-                            <span>Calendly Integration: Pick your preferred date</span>
-                        </div>
-                        <div class="flex items-center space-x-4 p-4 bg-white/5 rounded italic font-bold">
-                            <i data-lucide="map-pin" class="text-blue-500"></i>
-                            <span>Home • Work • Roadside</span>
-                        </div>
-                    </div>
-                </div>
-                <form class="grid grid-cols-1 gap-4">
-                    <input type="text" placeholder="Vehicle Registration (Plate)" class="bg-white/5 border border-white/10 p-4 rounded focus:border-blue-500 outline-none uppercase font-bold">
-                    <input type="text" placeholder="Your Location" class="bg-white/5 border border-white/10 p-4 rounded focus:border-blue-500 outline-none">
-                    <select class="bg-white/5 border border-white/10 p-4 rounded text-gray-400 outline-none">
-                        <option>Select Required Service</option>
-                        <option>Full Major Service</option>
-                        <option>Diagnostics & Electrical</option>
+    <!-- 2. Get a Quote / Calendly Integration -->
+    <section id="booking" class="py-20 px-6 bg-bcnb-navy" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto glass p-10 rounded-2xl">
+            <h2 class="text-3xl font-black uppercase italic mb-8 text-center">Get a <span class="text-blue-500">Quote</span></h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <input type="text" placeholder="License Plate" class="w-full bg-white/5 border border-white/10 p-4 rounded focus:border-blue-500 outline-none uppercase font-bold">
+                    <select class="w-full bg-white/5 border border-white/10 p-4 rounded outline-none text-gray-400">
+                        <option>Select Service Type</option>
+                        <option>Full Service</option>
                         <option>Brakes & Suspension</option>
-                        <option>MOT Prep</option>
+                        <option>Diagnostics</option>
                     </select>
-                    <button class="bg-blue-600 py-4 rounded font-bold uppercase tracking-widest hover:bg-blue-500 transition shadow-lg shadow-blue-900/40">Request Instant Callback</button>
-                </form>
+                    <button class="w-full bg-blue-600 py-4 rounded font-bold uppercase">Check Availability</button>
+                </div>
+                <div class="bg-black/50 rounded-xl p-6 flex flex-col justify-center items-center border border-dashed border-white/20">
+                    <i data-lucide="calendar" class="w-12 h-12 text-blue-500 mb-4"></i>
+                    <p class="text-sm text-center text-gray-400">Or use our interactive calendar to pick a specific time for your repair.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 7. Animated Stats Counter -->
-    <section class="py-16 bg-[#000b18]">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center" data-aos="fade-up">
+    <section class="py-20 bg-black border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up">
                 <div class="text-5xl font-black text-blue-500 mb-2">5,000+</div>
-                <div class="text-xs uppercase tracking-widest text-gray-500">Repairs Completed</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Vehicles Serviced</div>
             </div>
-            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                <div class="text-5xl font-black text-blue-500 mb-2">5★</div>
-                <div class="text-xs uppercase tracking-widest text-gray-500">Google Reviews</div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="text-5xl font-black text-blue-500 mb-2">15+</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Years Experience</div>
             </div>
-            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-5xl font-black text-blue-500 mb-2">30m</div>
-                <div class="text-xs uppercase tracking-widest text-gray-500">Avg. Response Time</div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="text-5xl font-black text-blue-500 mb-2">5/5</div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Google Rating</div>
             </div>
-            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+            <div data-aos="fade-up" data-aos-delay="300">
                 <div class="text-5xl font-black text-blue-500 mb-2">100%</div>
                 <div class="text-xs uppercase tracking-widest text-gray-500">Fully Insured</div>
             </div>
         </div>
     </section>
 
-    <!-- 27. Featured Services Section & 34. Interactive Filters -->
-    <section id="services" class="py-24 px-6 bg-gradient-to-b from-[#000b18] to-[#001a33]">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-black italic uppercase">Specialist <span class="text-blue-500">Services</span></h2>
-                    <p class="text-gray-400 mt-2 font-light">Dealer-level diagnostics brought to your doorstep.</p>
+    <!-- 27. Featured Services & 34. Interactive Service Filters -->
+    <section id="services" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-5xl font-black italic uppercase mb-4">Elite <span class="text-blue-500">Care</span></h2>
+            <div class="flex justify-center gap-4 mt-8">
+                <button class="text-xs font-bold uppercase border-b-2 border-blue-500 pb-1">All Repairs</button>
+                <button class="text-xs font-bold uppercase text-gray-500 hover:text-white transition">Engine</button>
+                <button class="text-xs font-bold uppercase text-gray-500 hover:text-white transition">Electrical</button>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- 15. Service Item with Link to Payment -->
+            <div class="bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition transform hover:-translate-y-2 group" data-aos="fade-up">
+                <i data-lucide="activity" class="text-blue-500 w-10 h-10 mb-6 group-hover:scale-110 transition"></i>
+                <h3 class="text-2xl font-bold mb-4 uppercase italic">Advanced Diagnostics</h3>
+                <p class="text-gray-400 mb-6">Dealer-level software to identify complex electrical and engine faults on-site.</p>
+                <a href="#payment" class="bg-white/10 block text-center py-2 rounded text-xs font-bold uppercase hover:bg-blue-600 transition">Pay Deposit</a>
+            </div>
+            <div class="bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition transform hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
+                <i data-lucide="shield-check" class="text-blue-500 w-10 h-10 mb-6 group-hover:scale-110 transition"></i>
+                <h3 class="text-2xl font-bold mb-4 uppercase italic">MOT Preparation</h3>
+                <p class="text-gray-400 mb-6">Full pre-test inspections to ensure your vehicle passes the first time, every time.</p>
+                <a href="#booking" class="bg-white/10 block text-center py-2 rounded text-xs font-bold uppercase hover:bg-blue-600 transition">Book Prep</a>
+            </div>
+            <div class="bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition transform hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
+                <i data-lucide="tool" class="text-blue-500 w-10 h-10 mb-6 group-hover:scale-110 transition"></i>
+                <h3 class="text-2xl font-bold mb-4 uppercase italic">Mechanical Repairs</h3>
+                <p class="text-gray-400 mb-6">Brakes, discs, suspension, and steering repairs carried out at your convenience.</p>
+                <a href="#booking" class="bg-white/10 block text-center py-2 rounded text-xs font-bold uppercase hover:bg-blue-600 transition">Get Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Membership / VIP Packages -->
+    <section class="py-24 bg-blue-900/20 px-6">
+        <div class="max-w-5xl mx-auto glass p-12 rounded-3xl border-2 border-blue-500/30">
+            <div class="text-center mb-10">
+                <span class="bg-blue-600 text-[10px] px-3 py-1 rounded-full uppercase font-black">23. Loyalty Program</span>
+                <h2 class="text-4xl font-black italic uppercase mt-4">BCNB <span class="text-blue-500">Elite Pass</span></h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-gray-300 mb-6 text-lg">Join our priority membership for businesses and high-mileage drivers.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-blue-500 w-5"></i> Priority Emergency Response</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-blue-500 w-5"></i> 15% Off All Replacement Parts</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="text-blue-500 w-5"></i> Free Quarterly Fluid Health Check</li>
+                    </ul>
                 </div>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button class="bg-blue-600 text-xs px-6 py-2 rounded-full font-bold uppercase">All Services</button>
-                    <button class="bg-white/5 text-xs px-6 py-2 rounded-full font-bold uppercase hover:bg-white/10 transition">Diagnostics</button>
-                    <button class="bg-white/5 text-xs px-6 py-2 rounded-full font-bold uppercase hover:bg-white/10 transition">Maintenance</button>
+                <div class="text-center bg-black/40 p-8 rounded-2xl">
+                    <div class="text-5xl font-black mb-2">£19<span class="text-lg">/mo</span></div>
+                    <button class="w-full bg-blue-600 py-3 rounded-lg font-bold mt-4 uppercase tracking-widest">Upgrade to VIP</button>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="group bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up">
-                    <div class="w-16 h-16 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
-                        <i data-lucide="cpu" class="text-blue-500 group-hover:text-white w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase italic">Advanced Diagnostics</h3>
-                    <ul class="text-gray-400 space-y-2 mb-8 text-sm">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Dealer Level Software</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Electrical Fault Tracing</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> DPF Issues & Regens</li>
-                    </ul>
-                    <a href="#booking" class="text-blue-500 font-bold uppercase tracking-widest text-xs border-b-2 border-blue-500 pb-1">Enquire Now</a>
+    <!-- 9. Before & After / 10. 6 Grid Photos / 17. & 29. Gallery Enhancements -->
+    <section id="gallery" class="py-24 px-6">
+        <h2 class="text-center text-4xl font-black italic uppercase mb-16">Work <span class="text-blue-500">Showcase</span></h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-7xl mx-auto">
+            <!-- Grid Items -->
+            <div class="group relative overflow-hidden rounded-lg aspect-square cursor-pointer" onclick="openLightbox('img1')">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                    <span class="text-xs font-bold uppercase tracking-widest border border-white px-4 py-2">View Task</span>
                 </div>
-
-                <!-- Service 2 -->
-                <div class="group bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
-                        <i data-lucide="cog" class="text-blue-500 group-hover:text-white w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase italic">Mechanical Repairs</h3>
-                    <ul class="text-gray-400 space-y-2 mb-8 text-sm">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Brakes, Discs & Pads</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Suspension & Steering</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Clutch Replacement</li>
-                    </ul>
-                    <a href="#booking" class="text-blue-500 font-bold uppercase tracking-widest text-xs border-b-2 border-blue-500 pb-1">Enquire Now</a>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="group bg-white/5 p-8 rounded-xl border border-white/5 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 bg-blue-600/20 rounded-lg flex items-center justify-center mb
+            </div>
+            <!-- Repeat for 6 grid photos -->
+            <div class="group relative overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+            <div class="group relative overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="https://images.unsplash.com/photo-1562141982-c5c79ac8c811?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+            <div class="group relative overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="https://images.unsplash.com/photo-1517524008436-bbdb53c50118?auto
