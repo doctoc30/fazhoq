@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCNB Vehicle Care | Premium Mobile Mechanic & EV Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/628080f55a.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bcnb-blue: #0056b3;
+            --bcnb-dark: #0a0a0a;
+            --bcnb-light-blue: #00a0e3;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        .bg-bcnb-blue { background-color: var(--bcnb-blue); }
+        .text-bcnb-blue { color: var(--bcnb-blue); }
+        .custom-scrollbar::-webkit-scrollbar { width: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--bcnb-dark); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--bcnb-blue); border-radius: 5px; }
+        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .floating-cta { transition: all 0.3s ease; }
+        .floating-cta:hover { transform: translateY(-5px); }
+        .service-card:hover .service-icon { transform: scale(1.2) rotate(10deg); }
+        /* Exit Intent Modal Style */
+        #exit-modal { display: none; }
+    </style>
+</head>
+<body class="custom-scrollbar">
+
+    <nav class="fixed w-full z-50 glass text-white px-6 py-4 flex justify-between items-center animate__animated animate__fadeInDown">
+        <div class="flex items-center gap-2">
+            <div class="bg-white p-1 rounded-full w-10 h-10 flex items-center justify-center">
+                <i class="fas fa-tools text-bcnb-blue"></i>
+            </div>
+            <span class="text-2xl font-black tracking-tighter">BCNB <span class="text-blue-400">VEHICLE CARE</span></span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-semibold uppercase text-sm tracking-widest">
+            <a href="#services" class="hover:text-blue-400 transition">Services</a>
+            <a href="#about" class="hover:text-blue-400 transition">About</a>
+            <a href="#gallery" class="hover:text-blue-400 transition">Gallery</a>
+            <a href="#reviews" class="hover:text-blue-400 transition">Reviews</a>
+            <a href="#booking" class="bg-blue-600 px-5 py-2 rounded-full hover:bg-blue-700 transition">Book Now</a>
+        </div>
+        <button class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <section class="hero-gradient h-screen flex items-center justify-center text-center text-white px-4">
+        <div class="max-w-4xl" data-aos="zoom-in">
+            <h2 class="text-blue-400 font-bold tracking-widest mb-4">YOUR 5★ MOBILE MECHANIC</h2>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">WE COME <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">TO YOU!</span></h1>
+            <p class="text-xl mb-10 text-gray-300">18+ Years Experience | EV Certified | Honest & Reliable Service</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#booking" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-lg text-lg font-bold transition-all transform hover:scale-105 shadow-2xl">GET A QUOTE NOW</a>
+                <a href="https://wa.me/447584510837" class="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-lg text-lg font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-2xl"></i> WHATSAPP US
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold mb-6">Book Your Appointment</h2>
+                    <p class="text-gray-600 mb-8 text-lg">Select a time that suits you. Our mobile van is fully equipped for diagnostics, repairs, and servicing at your home or workplace.</p>
+                    <div class="border-2 border-gray-100 rounded-2xl p-4 shadow-xl h-96 flex items-center justify-center bg-gray-50">
+                        <p class="text-gray-400"><i class="far fa-calendar-alt text-4xl mb-4 block"></i> [Calendly Integration Placeholder]</p>
+                    </div>
+                </div>
+                <form class="bg-gray-900 p-10 rounded-3xl text-white shadow-2xl" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6">Quick Quote Request</h3>
+                    <div class="space-y-4">
+                        <input type="text" placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="text" placeholder="Vehicle Reg Number" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-lg">
+                        <select class="w-full bg-gray-800 border border-gray-700 p-4 rounded-lg">
+                            <option>Full Service</option>
+                            <option>Diagnostics</option>
+                            <option>Brakes/Suspension</option>
+                            <option>EV Specific Repair</option>
+                        </select>
+                        <textarea placeholder="Describe the issue" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-lg h-32"></textarea>
+                        <button class="w-full bg-blue-600 p-4 rounded-lg font-bold hover:bg-blue-700 transition">SUBMIT REQUEST</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-bcnb-blue py-16 text-white overflow-hidden">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up">
+                <div class="text-5xl font-black mb-2">18+</div>
+                <div class="uppercase tracking-widest text-sm">Years Exp</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="text-5xl font-black mb-2">5,000+</div>
+                <div class="uppercase tracking-widest text-sm">Cars Fixed</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="text-5xl font-black mb-2">100%</div>
+                <div class="uppercase tracking-widest text-sm">Mobile Service</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <div class="text-5xl font-black mb-2">EV</div>
+                <div class="uppercase tracking-widest text-sm">Certified Tech</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4" data-aos="fade-up">Expert Services</h2>
+            <div class="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="service-card p-10 bg-white shadow-xl rounded-3xl transition-all border-b-4 border-transparent hover:border-blue-600" data-aos="zoom-in">
+                    <div class="service-icon mb-6 inline-block text-5xl text-blue-600 transition-all"><i class="fas fa-car-battery"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Diagnostics</h3>
+                    <p class="text-gray-500">Dealer-level diagnostic equipment to find electrical faults and dashboard lights quickly.</p>
+                    <a href="#booking" class="mt-6 inline-block font-bold text-blue-600">BOOK FROM £49 →</a>
+                </div>
+                <div class="service-card p-10 bg-white shadow-xl rounded-3xl transition-all border-b-4 border-transparent hover:border-blue-600" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="service-icon mb-6 inline-block text-5xl text-blue-600 transition-all"><i class="fas fa-oil-can"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Full Servicing</h3>
+                    <p class="text-gray-500">Mobile servicing for cars, vans, and trucks at your driveway without the garage queues.</p>
+                    <a href="#booking" class="mt-6 inline-block font-bold text-blue-600">BOOK FROM £99 →</a>
+                </div>
+                <div class="service-card p-10 bg-white shadow-xl rounded-3xl transition-all border-b-4 border-transparent hover:border-blue-600" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="service-icon mb-6 inline-block text-5xl text-blue-600 transition-all"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-bold mb-4">EV Specialist</h3>
+                    <p class="text-gray-500">Certified technician for Electric and Hybrid vehicles. Safety first, expert repairs.</p>
+                    <a href="#booking" class="mt-6 inline-block font-bold text-blue-600">ENQUIRE NOW →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Work Showcase</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <img src="https://images.unsplash.com/photo-1530046339160-ce3e5b0c7a2f?auto=format&fit=crop&q=80" alt="Engine Work" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+                <img src="https://images.unsplash.com/photo-1507702553912-a15641e527c8?auto=format&fit=crop&q=80" alt="Brakes" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+                <img src="https://images.unsplash.com/photo-1625047509168-a7026f36ae04?auto=format&fit=crop&q=80" alt="EV Repair" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+                <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&q=80" alt="Diagnostic" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+                <img src="https://images.unsplash.com/photo-1517524008436-bbdb53c54434?auto=format&fit=crop&q=80" alt="Van" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80" alt="Fleet" class="rounded-xl h-64 w-full object-cover shadow-lg hover:opacity-90 cursor-pointer transition">
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center mb-4 text-yellow-400">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <h2 class="text-4xl font-bold mb-12">What Our Clients Say</h2>
+            <div class="max-w-4xl mx-auto italic text-2xl text-gray-600" data-aos="fade-up">
+                "BCNB is my go-to for all my vehicle needs. Being EV certified gave me the confidence to trust them with my Tesla. Honest, fast, and came right to my office!"
+                <div class="mt-6 not-italic font-bold text-gray-900 text-lg">— David L., Slough</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-6">Service Areas</h2>
+                    <ul class="grid grid-cols-2 gap-4 text-gray-400">
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Slough</li>
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Windsor</li>
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Ascot</li>
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> High Wycombe</li>
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Bracknell</li>
+                        <li><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Langley Marish</li>
+                    </ul>
+                </div>
+                <div class="h-64 bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-700" data-aos="fade-left">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <p class="text-gray-500 uppercase tracking-widest"><i class="fas fa-satellite-dish mr-2"></i> Map Integration Area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-xl mx-auto shadow-2xl rounded-3xl overflow-hidden border">
+            <div class="bg-bcnb-blue p-6 text-white text-center font-bold">AVAILABILITY</div>
+            <div class="p-8 space-y-4">
+                <div class="flex justify-between border-b pb-2"><span>Monday - Friday</span><span class="font-bold">08:00 - 18:00</span></div>
+                <div class="flex justify-between border-b pb-2"><span>Saturday</span><span class="font-bold">09:00 - 15:00</span></div>
+                <div class="flex justify-between text-red-500 font-bold italic"><span>Sunday / Bank Holiday</span><span>Emergency Only</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-white p-6 rounded-xl shadow-md group cursor-pointer">
+                    <summary class="font-bold list-none flex justify-between">Do you charge for travel? <i class="fas fa-chevron-down transition group-open:rotate-180"></i></summary>
+                    <p class="mt-4 text-gray-600">Travel within our core service areas (Slough, Windsor, etc.) is included in our quote. No hidden travel fees!</p>
+                </details>
+                <details class="bg-white p-6 rounded-xl shadow-md group cursor-pointer">
+                    <summary class="font-bold list-none flex justify-between">Are you fully insured? <i class="fas fa-chevron-down transition group-open:rotate-180"></i></summary>
+                    <p class="mt-4 text-gray-600">Yes, BCNB Vehicle Care is fully insured and all work is guaranteed for your peace of mind.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-20 pb-28 px-6">
+        <div class="container mx-auto grid md:grid-cols-4 gap-12">
+            <div>
+                <h3 class="text-2xl font-black mb-6">BCNB</h3>
+                <p class="text-gray-400">Your local mobile Mechanic with 18+ years experience. Reliable, honest, and expert service delivered to your door.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-blue-500 uppercase">Contact</h4>
+                <p class="text-gray-400">Phone: 07584 510837</p>
+                <p class="text-gray-400">WhatsApp: +44 7584 510837</p>
+                <p class="text-gray-400 mt-4">Slough & Surrounding Areas</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-blue-500 uppercase">Social</h4>
+                <div class="flex gap-4 text-2xl">
+                    <a href="#" class="hover:text-blue-500"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-blue-500 uppercase">Newsletter</h4>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="Email" class="bg-gray-800 p-3 rounded-lg w-full focus:outline-none">
+                    <button class="bg-blue-600 p-3 rounded-lg"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-0 w-full bg-white/90 backdrop-blur-md p-4 grid grid-cols-4 gap-2 md:hidden z-50 border-t">
+        <a href="tel:07584510837" class="flex flex-col items-center text-xs font-bold text-gray-700">
+            <div class="bg-blue-100 p-3 rounded-full mb-1 text-blue-600"><i class="fas fa-phone"></i></div> CALL
+        </a>
+        <a href="https://wa.me/447584510837" class="flex flex-col items-center text-xs font-bold text-gray-700">
+            <div class="bg-green-100 p-3 rounded-full mb-1 text-green-600"><i class="fab fa-whatsapp"></i></div> WA
+        </a>
+        <a href="sms:07584510837" class="flex flex-col items-center text-xs font-bold text-gray-700">
+            <div class="bg-yellow-100 p-3 rounded-full mb-1 text-yellow-600"><i class="fas fa-sms"></i></div> TEXT
+        </a>
+        <a href="#booking" class="flex flex-col items-center text-xs font-bold text-gray-700">
+            <div class="bg-gray-100 p-3 rounded-full mb-1 text-black"><i class="fas fa-calendar-check"></i></div> QUOTE
+        </a>
+    </div>
+
+    <div id="exit-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4">
+        <div class="bg-white p-10 rounded-3xl max-w-lg text-center relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-black">&times;</button>
+            <h2 class="text-3xl font-bold mb-4">WAIT! Don't Go.</h2>
+            <p class="text-gray-600 mb-6">Need a quote fast? Text us your registration number and issue now for a **£10 discount** on your first service!</p>
+            <a href="sms:07584510837" class="bg-blue-600 text-white block py-4 rounded-xl font-bold hover:bg-blue-700">CLAIM £10 OFF VIA SMS</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Exit Intent Logic
+        document.addEventListener('mouseleave', e => {
+            if (e.clientY < 0) {
+                document.getElementById('exit-modal').style.display = 'flex';
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('exit-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
