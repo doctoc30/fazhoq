@@ -55,6 +55,7 @@
             transform: translate3d(100%, 0, 0);
             transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
             visibility: hidden;
+            background-color: var(--primary-light); /* Consistent background for all cards */
         }
 
         section.active {
@@ -215,7 +216,7 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .process-text { font-weight: 700; font-size: 1.1rem; line-height: 1.3; }
+        .process-text { font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--text); }
 
         /* FINGER POINTER */
         .finger-pointer {
@@ -260,6 +261,7 @@
             <a href="#" class="menu-item" onclick="goToSlide(0); toggleMenu()">HOME</a>
             <a href="#" class="menu-item" onclick="goToSlide(1); toggleMenu()">ABOUT</a>
             <a href="#" class="menu-item" onclick="goToSlide(2); toggleMenu()">PROCESS</a>
+            <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="menu-item" style="color: var(--primary);">CONCEPTS</a>
             <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
     </div>
@@ -290,31 +292,31 @@
             </div>
         </section>
 
-        <section style="background-color: #121212;">
+        <section>
             <div class="text-wrap">
-                <h2 class="category-header" style="color: var(--primary);">Zero-Risk Offer</h2>
-                <h2 class="huge-text" style="color: #fff; text-transform:uppercase">TEST IT FOR<br><span style="color: var(--primary);">1 MONTH.</span></h2>
+                <h2 class="category-header">Zero-Risk Offer</h2>
+                <h2 class="huge-text" style="text-transform:uppercase">TEST IT FOR<br><span class="black">1 MONTH.</span></h2>
                 <div style="margin-top: 40px; width: 100%; display: flex; flex-direction: column; align-items: center;">
                     <div class="process-item">
                         <div class="process-num">1</div>
-                        <p class="process-text" style="color: #fff;">I build & customize your complete site. The risk is <span style="color: var(--primary);">100% on me.</span></p>
+                        <p class="process-text">I build & customize your complete site. The risk is <span style="color: var(--primary);">100% on me.</span></p>
                     </div>
                     <div class="process-item">
                         <div class="process-num">2</div>
-                        <p class="process-text" style="color: #fff;">You test the website live for <span style="color: var(--primary);">one full month.</span></p>
+                        <p class="process-text">You test the website live for <span style="color: var(--primary);">one full month.</span></p>
                     </div>
                     <div class="process-item">
                         <div class="process-num">3</div>
-                        <p class="process-text" style="color: #fff;">Zero obligation. If you don't love it, you walk away.</p>
+                        <p class="process-text">Zero obligation. If you don't love it, you walk away.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section style="background-color: #000;">
+        <section>
             <div class="text-wrap">
-                <h2 class="huge-text" style="text-transform:uppercase; color: #fff;">READY TO<br><span style="color: var(--primary);">DRIVE?</span></h2>
-                <p style="color: #fff; font-weight: 700; margin-top: 30px; font-size: 1.3rem;">Contact me via any method below</p>
+                <h2 class="huge-text" style="text-transform:uppercase;">READY TO<br><span class="black">DRIVE?</span></h2>
+                <p style="font-weight: 700; margin-top: 30px; font-size: 1.3rem;">Contact me via any method below</p>
                 <div class="finger-pointer">
                     <i class="fa-solid fa-hand-point-down"></i>
                 </div>
@@ -324,7 +326,7 @@
 
     <div class="app-dock">
         <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="dock-btn">
-            <i class="fa-solid fa-rocket"></i>
+            <i class="fa-solid fa-layer-group"></i>
             <span>CONCEPTS</span>
         </a>
         <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
