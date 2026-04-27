@@ -255,14 +255,17 @@
 
         /* CTA ICON ANIMATION */
         .finger-pointer {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary);
             animation: pointDown 1.5s infinite;
-            margin-top: 20px;
+            margin-top: 30px;
+            /* Rotate to face down */
+            transform: rotate(90deg); 
+            display: inline-block;
         }
         @keyframes pointDown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(15px); }
+            0%, 100% { transform: rotate(90deg) translateX(0); }
+            50% { transform: rotate(90deg) translateX(15px); }
         }
     </style>
 </head>
@@ -357,7 +360,6 @@
     </div>
 
     <script>
-        // Tasks: Removed Automatic/Manual from nicheWords
         const nicheWords = ["Driving Schools", "Solo Instructors", "ADI / PDI's"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
 
