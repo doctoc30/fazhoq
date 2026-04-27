@@ -29,9 +29,10 @@
             background-color: var(--primary-light);
             color: var(--text);
             overflow-x: hidden;
+            width: 100%;
         }
 
-        /* EXACT HEADER FROM INDEX */
+        /* HEADER */
         .faz-nav {
             position: fixed;
             top: 0;
@@ -49,7 +50,6 @@
             font-weight: 900;
             letter-spacing: -1.5px;
             color: var(--primary);
-            cursor: pointer;
             text-decoration: none;
         }
         .faz-logo span { color: #000; }
@@ -62,7 +62,7 @@
             cursor: pointer;
         }
 
-        /* MENU LAYER FROM INDEX */
+        /* MENU LAYER */
         #app-menu-layer {
             position: fixed;
             inset: 0;
@@ -77,31 +77,30 @@
         #app-menu-layer.active { transform: translateY(0); }
         .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
 
-        /* CONTENT AREA */
+        /* RESPONSIVE IMAGE DISPLAY */
         .content-main {
-            padding-top: 120px;
+            padding-top: 100px;
             padding-bottom: 120px;
         }
 
         .hero-section {
             text-align: center;
-            padding: 20px 25px 40px;
+            padding: 20px 25px 30px;
         }
 
         .huge-text {
-            font-size: clamp(2.5rem, 10vmin, 3.5rem);
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
             font-weight: 900;
             line-height: 0.9;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             color: var(--primary);
             text-transform: uppercase;
         }
 
-        /* FULL HEIGHT PORTRAIT CONCEPTS */
         .concepts-container {
             display: flex;
             flex-direction: column;
-            gap: 60px;
+            width: 100%;
         }
 
         .concept-card {
@@ -109,30 +108,36 @@
             display: flex;
             flex-direction: column;
             background: #fff;
+            margin-bottom: 2px; /* Thin visual separator */
         }
 
         .concept-image-wrap {
             width: 100%;
-            height: 75vh; /* Large portrait height */
-            background: #eee;
+            position: relative;
+            /* Height is responsive based on viewport, ensuring the "Long Portrait" feel */
+            height: 70vh; 
             overflow: hidden;
+            background: #f0f0f0;
         }
 
         .concept-image-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: block;
+            object-fit: cover; /* Ensures image covers area without stretching */
+            object-position: top center;
         }
 
         .concept-footer {
-            padding: 30px 25px;
+            padding: 20px 25px 30px;
             text-align: center;
+            background: #fff;
         }
 
         .select-btn {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
+            max-width: 500px;
+            padding: 18px;
             background: var(--primary);
             color: #fff;
             border-radius: 50px;
@@ -140,19 +145,18 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+            box-shadow: 0 8px 15px rgba(255, 107, 0, 0.2);
         }
 
         .concept-code {
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: 900;
-            color: #ccc;
+            color: #bbb;
             letter-spacing: 2px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
 
-        /* DOCK FROM INDEX */
+        /* DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -164,13 +168,11 @@
             align-items: center;
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
-            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
         .dock-btn {
             font-size: 1.8rem;
             color: #FFFFFF;
-            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -183,6 +185,7 @@
             text-transform: uppercase;
         }
 
+        /* PAGINATION */
         .pagination-nav {
             display: flex;
             justify-content: center;
@@ -200,8 +203,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
             border: none;
+        }
+
+        /* Desktop Grid Support */
+        @media (min-width: 768px) {
+            .concepts-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .concept-image-wrap {
+                height: 500px;
+            }
         }
     </style>
 </head>
@@ -222,7 +235,6 @@
         <div class="flex flex-col flex-1 justify-center">
             <a href="index.html" class="menu-item">HOME</a>
             <a href="index.html" class="menu-item">ABOUT</a>
-            <a href="index.html" class="menu-item">PROCESS</a>
             <a href="concepts.html" class="menu-item" style="color: var(--primary);">CONCEPTS</a>
             <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
@@ -230,7 +242,7 @@
 
     <main class="content-main">
         <div class="hero-section">
-            <h1 class="huge-text">Design<br><span style="color: #000;">Concepts.</span></h1>
+            <h1 class="huge-text">Choose Your<br><span style="color: #000;">Design.</span></h1>
         </div>
 
         <div class="concepts-container" id="conceptsGrid">
@@ -254,13 +266,13 @@
     </div>
 
     <script>
-        const concepts = Array.from({length: 40}, (_, i) => ({
-            code: `CONCEPT-${i + 101}`,
-            image: `https://picsum.photos/seed/faz${i+20}/800/1200`
+        const concepts = Array.from({length: 20}, (_, i) => ({
+            code: `LIB-${i + 301}`,
+            image: `https://picsum.photos/seed/design${i+5}/800/1200`
         }));
 
         let currentPage = 1;
-        const perPage = 5;
+        const perPage = 4;
 
         function toggleMenu() { 
             document.getElementById('app-menu-layer').classList.toggle('active'); 
@@ -274,17 +286,17 @@
             grid.innerHTML = items.map(item => `
                 <div class="concept-card">
                     <div class="concept-image-wrap">
-                        <img src="${item.image}" alt="Driving School Design" loading="lazy">
+                        <img src="${item.image}" alt="Driving School Template" loading="lazy">
                     </div>
                     <div class="concept-footer">
-                        <button class="select-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Selected Concept ${item.code}'">Select Concept</button>
-                        <div class="concept-code">REF: ${item.code}</div>
+                        <button class="select-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Selected Concept ${item.code}'">Select This Design</button>
+                        <div class="concept-code">REFERENCE: ${item.code}</div>
                     </div>
                 </div>
             `).join('');
             
             document.getElementById('pageNumber').innerText = currentPage;
-            window.scrollTo(0,0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function changePage(dir) {
