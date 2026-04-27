@@ -2,360 +2,202 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DriveElite 2026 | Premium London Driving Excellence</title>
-    
-    <!-- Tailwind + Premium Fonts + GSAP + Swiper + Font Awesome -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS Driving School | Premium Learner Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
         :root {
-            --brand-light: #f0f9ff;
-            --brand-main: #0ea5e9;
-            --brand-dark: #0369a1;
+            --ds-yellow: #FFD700;
+            --ds-blue: #00A8E8;
+            --ds-dark: #1A1A1B;
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--brand-light); }
-        ::-webkit-scrollbar-thumb { background: var(--brand-main); border-radius: 10px; }
-        
-        /* glass morphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        .glass-dark {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        /* sticky nav transition */
-        nav.sticky-nav { transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-        nav.scrolled { 
-            padding: 0.6rem 2rem; 
-            background: rgba(255, 255, 255, 0.96); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            backdrop-filter: blur(20px);
-        }
-        /* floating call-back tab (rotated) */
-        .callback-tab {
-            position: fixed;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%) rotate(-90deg) translateX(50%);
-            transform-origin: right center;
-            z-index: 1000;
-            transition: all 0.25s ease;
-        }
-        .callback-tab:hover {
-            transform: translateY(-50%) rotate(-90deg) translateX(45%);
-            background-color: #0ea5e9 !important;
-        }
-        /* hero overlay gradient */
-        .hero-slide {
-            height: 85vh;
-            background-size: cover;
-            background-position: center 30%;
-        }
-        /* bottom dock (mobile) */
-        .bottom-dock {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1100;
-            box-shadow: 0 -8px 25px rgba(0,0,0,0.12);
-            border-radius: 20px 20px 0 0;
-        }
-        /* custom card hovers */
-        .course-card {
-            transition: all 0.3s ease;
-        }
-        .course-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
-        }
-        .instructor-card .hover-reveal {
-            transition: opacity 0.3s ease;
-        }
-        /* for scroll reveal root */
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: none;
-        }
-        /* faq smooth */
-        .faq-content {
-            transition: all 0.25s ease-out;
-        }
-        input:focus, button:focus {
-            outline: none;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .hero-gradient { background: linear-gradient(135deg, var(--ds-yellow) 0%, #fff 100%); }
+        .sticky-cta { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-10px); transition: 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--ds-yellow); border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="custom-scrollbar">
 
-    <!-- EXIT POPUP (22) -->
-    <div id="exit-popup" class="fixed inset-0 z-[3000] hidden items-center justify-center bg-black/60 backdrop-blur-md transition-all duration-300">
-        <div class="bg-white p-8 md:p-10 rounded-3xl max-w-md text-center relative mx-4 shadow-2xl border border-sky-100 animate-[fadeInScale_0.3s_ease]">
-            <button onclick="toggleExitPopup()" class="absolute top-5 right-5 text-3xl text-slate-400 hover:text-slate-700 transition">&times;</button>
-            <div class="w-20 h-20 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-5">
-                <i class="fa-solid fa-car-side text-3xl text-sky-600"></i>
+    <nav class="fixed top-0 w-full z-50 glass border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-3xl font-black text-black">DS<span class="text-blue-500">.</span></div>
+            <div class="hidden md:flex space-x-8 font-semibold uppercase text-sm">
+                <a href="#courses" class="hover:text-blue-500">Courses</a>
+                <a href="#instructors" class="hover:text-blue-500">Instructors</a>
+                <a href="#reviews" class="hover:text-blue-500">Success Stories</a>
+                <a href="#about" class="hover:text-blue-500">Our Heritage</a>
             </div>
-            <h2 class="text-3xl font-extrabold text-sky-700">Wait! Don't Stall...</h2>
-            <p class="mt-3 text-slate-600 font-medium">Get <span class="font-black text-sky-600">10% off</span> your first intensive block if you book in the next 24 hours.</p>
-            <input type="email" placeholder="Enter your best email" class="w-full mt-6 p-4 border border-slate-200 rounded-xl outline-none focus:border-sky-400 transition bg-slate-50">
-            <button class="w-full mt-5 bg-sky-600 hover:bg-sky-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-md">Claim My Discount →</button>
-            <p class="text-xs text-slate-400 mt-4">No spam, just one-time offer</p>
-        </div>
-    </div>
-
-    <!-- STICKY NAV (18) -->
-    <nav class="sticky-nav fixed top-0 w-full z-[100] px-6 md:px-10 py-5 flex justify-between items-center glass rounded-b-2xl md:rounded-b-none">
-        <div class="text-2xl md:text-3xl font-black tracking-tighter">
-            <span class="text-sky-600">DriveElite</span> <span class="text-slate-800">2026</span>
-        </div>
-        <div class="hidden lg:flex space-x-10 font-semibold text-slate-700">
-            <a href="#courses" class="hover:text-sky-600 transition duration-200">Courses</a>
-            <a href="#instructors" class="hover:text-sky-600 transition duration-200">Instructors</a>
-            <a href="#vouchers" class="hover:text-sky-600 transition duration-200">Vouchers</a>
-            <a href="#locations" class="hover:text-sky-600 transition duration-200">Locations</a>
-            <a href="#faq" class="hover:text-sky-600 transition duration-200">FAQs</a>
-        </div>
-        <div class="flex items-center gap-4">
-            <button class="bg-sky-600 text-white px-6 py-2.5 rounded-full font-bold hover:bg-sky-700 transition shadow-md hidden sm:block">Book Lesson →</button>
-            <div class="lg:hidden text-2xl cursor-pointer" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars-staggered"></i></div>
+            <button class="bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-blue-600 transition">BOOK LESSON</button>
         </div>
     </nav>
 
-    <!-- MOBILE MENU (hidden) -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-xl z-[200] hidden flex-col items-center justify-center space-y-8 text-2xl font-bold text-slate-800">
-        <button onclick="toggleMobileMenu()" class="absolute top-7 right-7 text-3xl"><i class="fa-solid fa-xmark"></i></button>
-        <a href="#courses" onclick="toggleMobileMenu()">Courses</a>
-        <a href="#instructors" onclick="toggleMobileMenu()">Instructors</a>
-        <a href="#locations" onclick="toggleMobileMenu()">Locations</a>
-        <a href="#faq" onclick="toggleMobileMenu()">FAQs</a>
-        <button class="bg-sky-600 text-white px-8 py-3 rounded-full">Get Started</button>
-    </div>
+    <section class="hero-gradient pt-32 pb-20 px-6">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="animate-content">
+                <span class="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-bold">EST. 2001 - 25 YEARS OF EXCELLENCE</span>
+                <h1 class="text-6xl font-black mt-6 leading-tight">Master the Road with <span class="text-blue-500">Confidence.</span></h1>
+                <p class="text-xl text-gray-600 mt-6">Premium driving tuition in London with 2026 AI-assisted learning paths and guaranteed pass courses.</p>
+                
+                <div class="mt-10 bg-white p-2 rounded-2xl shadow-xl flex flex-col md:flex-row gap-4">
+                    <input type="text" placeholder="Enter your postcode (e.g. SW1A)" class="flex-grow p-4 outline-none text-lg">
+                    <button class="bg-yellow-400 text-black px-8 py-4 rounded-xl font-bold hover:bg-black hover:text-white transition">FIND INSTRUCTOR</button>
+                </div>
+            </div>
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1000" alt="Learner Driver" class="rounded-3xl shadow-2xl">
+                <div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-2xl animate-bounce">
+                    <p class="text-4xl font-black text-blue-500">98%</p>
+                    <p class="text-sm font-bold text-gray-500 uppercase">First Time Pass Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- FLOATING CALLBACK TAB (41) -->
-    <div class="callback-tab hidden lg:block bg-slate-900 text-white px-6 py-3 font-bold rounded-t-xl cursor-pointer hover:bg-sky-600 transition" onclick="alert('📞 Request a callback: our team will reach you within 1 hour.')">
-        📞 Request a Call Back
-    </div>
+    <section id="courses" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="card-hover p-8 rounded-3xl bg-yellow-50 border-2 border-yellow-200 cursor-pointer">
+                    <i class="fa-solid fa-bolt text-3xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-bold">Crash Courses</h3>
+                    <p class="text-sm text-gray-600 mt-2">Pass in as little as 1 week with our intensive tracks.</p>
+                </div>
+                <div class="card-hover p-8 rounded-3xl bg-blue-50 border-2 border-blue-200 cursor-pointer">
+                    <i class="fa-solid fa-shield-check text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold">Guaranteed Pass</h3>
+                    <p class="text-sm text-gray-600 mt-2">Unlimited lessons until you get your license.</p>
+                </div>
+                <div class="card-hover p-8 rounded-3xl bg-gray-50 border-2 border-gray-200 cursor-pointer">
+                    <i class="fa-solid fa-car text-3xl text-gray-800 mb-4"></i>
+                    <h3 class="text-xl font-bold">Show Me, Tell Me</h3>
+                    <p class="text-sm text-gray-600 mt-2">Visual guides & 2026 test prep video bank.</p>
+                </div>
+                <div class="card-hover p-8 rounded-3xl bg-green-50 border-2 border-green-200 cursor-pointer">
+                    <i class="fa-solid fa-leaf text-3xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold">EV Specialist</h3>
+                    <p class="text-sm text-gray-600 mt-2">Learn in modern Tesla & Electric vehicles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- HERO SWIPER (1) -->
-    <section class="relative mt-0">
-        <div class="swiper heroSwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide hero-slide flex items-center" style="background-image: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 100%), url('https://images.unsplash.com/photo-1449960232330-79ea08d4b313?auto=format&fit=crop&q=80&w=2000');">
-                    <div class="container mx-auto px-6 md:px-12 text-white">
-                        <h1 class="text-6xl md:text-7xl lg:text-8xl font-black max-w-4xl leading-[1.1]">2026 Electric <br><span class="text-sky-300">Mastery.</span></h1>
-                        <p class="mt-6 text-xl max-w-xl font-medium leading-relaxed">Premium driving tuition in Tesla & Audi EV fleets across London. First-time pass guarantee.</p>
-                        <div class="mt-8 flex flex-wrap gap-4">
-                            <button class="bg-white text-sky-700 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-slate-100 transition">Start Today</button>
-                            <button class="bg-white/20 backdrop-blur-sm border border-white/40 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/30 transition">Watch Demo <i class="fa-regular fa-circle-play ml-2"></i></button>
+    <section id="instructors" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-12 text-center">Elite London Instructors</h2>
+            <div class="flex overflow-x-auto pb-10 space-x-6 no-scrollbar">
+                <div class="min-w-[300px] bg-white rounded-3xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold">David S.</h4>
+                        <p class="text-blue-500 font-medium">Senior ADI (Grade A)</p>
+                        <div class="flex mt-2 text-yellow-400 text-xs">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="ml-2 text-gray-400">(142 Reviews)</span>
                         </div>
+                        <button class="w-full mt-4 border-2 border-black py-2 rounded-xl font-bold hover:bg-black hover:text-white transition">VIEW CALENDAR</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- floating postcode bar (absolute) -->
-        <div class="absolute bottom-[-45px] left-1/2 -translate-x-1/2 z-20 w-full max-w-4xl px-4">
-            <div class="bg-white rounded-3xl shadow-2xl border border-sky-100 p-3 flex flex-col md:flex-row gap-3 items-center">
-                <div class="flex-1 flex items-center gap-3 px-4 w-full">
-                    <i class="fa-solid fa-location-dot text-sky-500 text-xl"></i>
-                    <input type="text" placeholder="Enter London Postcode (e.g. SW1A, E14)" class="w-full py-4 text-lg outline-none font-medium placeholder:text-slate-400">
                 </div>
-                <button class="w-full md:w-auto bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold hover:bg-sky-600 transition duration-200">Find Instructor</button>
-            </div>
         </div>
     </section>
 
-    <!-- SECTION: 25 YEARS + STATS (Counters) -->
-    <section class="pt-32 pb-20 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        <div class="reveal-up">
-            <span class="text-sky-600 font-bold tracking-wider text-sm uppercase bg-sky-100 px-4 py-1.5 rounded-full">Established 2001</span>
-            <h2 class="text-4xl md:text-5xl font-bold mt-5 leading-tight">Celebrating 25 Years of Driving Excellence.</h2>
-            <p class="mt-6 text-slate-600 text-lg leading-relaxed">Since founding in 2001, DriveElite has evolved into London’s premium academy. We don’t just teach you to pass — we prepare you for the future of 2026 urban mobility, EVs, and autonomous readiness.</p>
-            <div class="grid grid-cols-2 gap-8 mt-10">
-                <div>
-                    <span class="text-4xl md:text-5xl font-black text-sky-600 count" data-target="15280">0</span><span class="text-4xl font-black text-sky-600">+</span>
-                    <p class="font-semibold text-slate-500 uppercase text-sm mt-1">Students Passed</p>
-                </div>
-                <div>
-                    <span class="text-4xl md:text-5xl font-black text-sky-600 count" data-target="98">0</span><span class="text-4xl font-black text-sky-600">%</span>
-                    <p class="font-semibold text-slate-500 uppercase text-sm mt-1">First Time Pass Rate</p>
-                </div>
-            </div>
-            <div class="mt-8 flex gap-2 text-sm text-slate-500"><i class="fa-solid fa-star text-sky-400"></i> Rated 4.98/5 from 6,200+ reviews</div>
-        </div>
-        <div class="relative reveal-up">
-            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1000" class="rounded-[40px] shadow-2xl object-cover w-full" alt="Driving tuition London">
-            <div class="absolute -bottom-8 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-sky-50 hidden md:block">
-                <p class="text-sky-600 font-black text-3xl">500+</p>
-                <p class="text-slate-600 font-medium">5-star reviews this month</p>
-            </div>
-        </div>
-    </section>
+    <div class="fixed right-6 bottom-32 z-50 md:block hidden">
+        <button class="bg-blue-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition">
+            <i class="fa-solid fa-phone-volume"></i>
+        </button>
+    </div>
 
-    <!-- COURSES SECTION -->
-    <section id="courses" class="py-20 bg-gradient-to-br from-sky-50 to-white px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-4xl md:text-5xl font-extrabold mb-6">Courses for the 2026 Road</h2>
-            <p class="text-center text-slate-500 max-w-2xl mx-auto mb-16">Choose from intensive, EV-focused, and guaranteed pass packages — all taught in modern vehicles.</p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-7">
-                <div class="bg-white p-8 rounded-[2rem] shadow-md course-card border border-gray-100">
-                    <div class="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mb-5 text-sky-600 text-2xl"><i class="fa-solid fa-shield-check"></i></div>
-                    <h3 class="text-2xl font-bold mb-3">Guaranteed Pass</h3>
-                    <p class="text-slate-500 mb-5">Unlimited lessons & test fees covered until you hold your licence. Zero risk.</p>
-                    <span class="text-sky-600 font-bold inline-flex items-center gap-1">View Details →</span>
+    <div class="fixed bottom-0 w-full glass z-[60] grid grid-cols-4 border-t border-gray-200 md:hidden">
+        <button class="p-4 flex flex-col items-center text-xs font-bold"><i class="fa-solid fa-phone text-lg mb-1"></i>Call</button>
+        <button class="p-4 flex flex-col items-center text-xs font-bold text-green-500"><i class="fa-brands fa-whatsapp text-lg mb-1"></i>WhatsApp</button>
+        <button class="p-4 flex flex-col items-center text-xs font-bold text-blue-500"><i class="fa-solid fa-envelope text-lg mb-1"></i>Quote</button>
+        <button class="p-4 flex flex-col items-center text-xs font-bold text-yellow-600"><i class="fa-solid fa-calendar-check text-lg mb-1"></i>Book</button>
+    </div>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="rounded-3xl overflow-hidden h-[400px] relative shadow-inner">
+                <div class="absolute top-10 left-10 z-10 bg-white p-6 rounded-2xl shadow-xl max-w-xs">
+                    <h3 class="text-2xl font-bold">London Wide</h3>
+                    <p class="text-gray-600 mt-2">From Croydon to Enfield, our 150+ instructors cover every London postcode.</p>
                 </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-md course-card border border-gray-100">
-                    <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-5 text-orange-500 text-2xl"><i class="fa-solid fa-bolt"></i></div>
-                    <h3 class="text-2xl font-bold mb-3">Crash Course</h3>
-                    <p class="text-slate-500 mb-5">Intensive 1-week bootcamp for fast results. Perfect for urgent deadlines.</p>
-                    <span class="text-orange-500 font-bold inline-flex items-center gap-1">View Details →</span>
-                </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-md course-card border border-gray-100">
-                    <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-5 text-green-600 text-2xl"><i class="fa-solid fa-video"></i></div>
-                    <h3 class="text-2xl font-bold mb-3">Show Me, Tell Me</h3>
-                    <p class="text-slate-500 mb-5">AR-powered digital course to master vehicle safety & under-bonnet checks.</p>
-                    <span class="text-green-600 font-bold inline-flex items-center gap-1">View Details →</span>
-                </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-md course-card border border-gray-100">
-                    <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-5 text-purple-600 text-2xl"><i class="fa-solid fa-leaf"></i></div>
-                    <h3 class="text-2xl font-bold mb-3">Eco-Drive Pro</h3>
-                    <p class="text-slate-500 mb-5">Master EV regen, range management & urban efficiency in electric fleet.</p>
-                    <span class="text-purple-600 font-bold inline-flex items-center gap-1">View Details →</span>
+                <div class="w-full h-full bg-blue-50 flex items-center justify-center">
+                    <p class="text-blue-300 font-bold italic">[Interactive Google Map API Loaded Here]</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BOOKING SECTION (Calendar Integration) -->
-    <section class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="bg-slate-900 rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
-            <div class="p-10 md:p-14 lg:w-1/2 text-white">
-                <h2 class="text-4xl md:text-5xl font-bold leading-tight">Book Your First Lesson Instantly.</h2>
-                <p class="mt-5 text-slate-300 text-lg">Sync with your instructor's real-time 2026 calendar. No phone calls needed.</p>
-                <div class="mt-10 space-y-5">
-                    <div class="flex justify-between border-b border-slate-700 pb-3 text-lg"><span class="text-slate-300">Mon - Fri</span><span class="font-bold">07:00 – 21:00</span></div>
-                    <div class="flex justify-between border-b border-slate-700 pb-3 text-lg"><span class="text-slate-300">Sat - Sun</span><span class="font-bold">09:00 – 18:00</span></div>
-                    <div class="pt-4 text-sky-300 text-sm"><i class="fa-regular fa-clock mr-2"></i> Same-day slots available</div>
-                </div>
-            </div>
-            <div class="lg:w-1/2 bg-white flex items-center justify-center p-10 min-h-[380px]">
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-sky-50 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-calendar-check text-3xl text-sky-600"></i></div>
-                    <p class="text-slate-500 font-medium">2026 LIVE Calendar API ready</p>
-                    <button class="mt-6 bg-sky-600 hover:bg-sky-700 text-white px-10 py-4 rounded-xl font-bold transition shadow">Open Scheduler →</button>
-                </div>
-            </div>
+    <section id="about" class="py-20 bg-black text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-8">25 Years of Putting You in Control</h2>
+            <p class="max-w-3xl mx-auto text-gray-400 text-lg leading-relaxed">
+                Founded in 2001, DS Driving School has evolved from a single-car operation to the UK's most technologically advanced driving institution. In 2026, we integrate AI road-hazard prediction with traditional Grade-A instruction to ensure you don't just pass the test, you become a driver for life.
+            </p>
         </div>
     </section>
 
-    <!-- INSTRUCTORS SECTION (Dynamic 5 cards) -->
-    <section id="instructors" class="py-20 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-wrap justify-between items-end mb-14 gap-5">
-                <div><h2 class="text-4xl md:text-5xl font-bold">Meet Your Elite Team</h2><p class="text-slate-500 mt-2 text-lg">ADI Grade A specialists ready to mentor you</p></div>
-                <div class="flex gap-3"><button class="bg-sky-600 text-white px-6 py-2.5 rounded-full font-semibold shadow">Manual</button><button class="bg-slate-100 text-slate-700 px-6 py-2.5 rounded-full font-semibold hover:bg-slate-200">Automatic</button></div>
+    <footer class="bg-gray-100 pt-20 pb-32">
+        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-12">
+            <div>
+                <div class="text-3xl font-black mb-6">DS.</div>
+                <p class="text-gray-500">The future of driving education. Premium cars, expert instructors, guaranteed results.</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                <div class="instructor-card group cursor-pointer"><div class="relative overflow-hidden rounded-3xl aspect-[4/5]"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-5 transition"><p class="text-white text-sm">"SE London test routes specialist"</p></div></div><h4 class="mt-4 text-xl font-bold">Marcus V.</h4><p class="text-sky-600 text-sm font-semibold">ADI Grade A | 12 yrs exp</p></div>
-                <div class="instructor-card group cursor-pointer"><div class="relative overflow-hidden rounded-3xl aspect-[4/5]"><img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-full object-cover group-hover:scale-105 transition"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-5"><p class="text-white text-sm">"Patient with anxious learners"</p></div></div><h4 class="mt-4 text-xl font-bold">Sarah L.</h4><p class="text-sky-600 text-sm font-semibold">ADI Grade A | EV Specialist</p></div>
-                <div class="instructor-card group cursor-pointer"><div class="relative overflow-hidden rounded-3xl aspect-[4/5]"><img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-full h-full object-cover group-hover:scale-105 transition"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-5"><p class="text-white text-sm">"Passionate about intensive courses"</p></div></div><h4 class="mt-4 text-xl font-bold">Daniel O.</h4><p class="text-sky-600 text-sm font-semibold">ADI Grade B+ | 8 yrs</p></div>
-                <div class="instructor-card group cursor-pointer"><div class="relative overflow-hidden rounded-3xl aspect-[4/5]"><img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-full h-full object-cover group-hover:scale-105 transition"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-5"><p class="text-white text-sm">"Croydon & Bromley test routes"</p></div></div><h4 class="mt-4 text-xl font-bold">Elena R.</h4><p class="text-sky-600 text-sm font-semibold">Grade A | Fleet trainer</p></div>
-                <div class="instructor-card group cursor-pointer"><div class="relative overflow-hidden rounded-3xl aspect-[4/5]"><img src="https://randomuser.me/api/portraits/men/52.jpg" class="w-full h-full object-cover group-hover:scale-105 transition"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-5"><p class="text-white text-sm">"Top rated for first-time passes"</p></div></div><h4 class="mt-4 text-xl font-bold">James K.</h4><p class="text-sky-600 text-sm font-semibold">ADI Grade A | 15 yrs</p></div>
+            <div>
+                <h4 class="font-bold mb-6">Courses</h4>
+                <ul class="space-y-4 text-gray-600">
+                    <li><a href="#">Automatic Lessons</a></li>
+                    <li><a href="#">Manual Lessons</a></li>
+                    <li><a href="#">Intensive Courses</a></li>
+                    <li><a href="#">Pass Plus</a></li>
+                </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- GALLERY / TRANSFORMATION + VOUCHER hint -->
-    <section class="py-20 px-6 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto text-center mb-12"><h2 class="text-4xl font-bold">The Transformation</h2><p class="text-slate-300 mt-2">From L‑Plates to pink license in record time.</p></div>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="relative group overflow-hidden rounded-3xl"><img src="https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&q=80&w=800" class="w-full h-80 object-cover"><div class="absolute inset-0 bg-sky-700/85 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition p-6 text-center"><i class="fa-solid fa-circle-check text-4xl mb-2"></i><h4 class="text-2xl font-bold">James W.</h4><p>Passed at Hither Green with zero minors — only 15hrs tuition.</p></div></div>
-            <div class="relative group overflow-hidden rounded-3xl"><img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800" class="w-full h-80 object-cover"><div class="absolute inset-0 bg-sky-700/85 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition p-6 text-center"><i class="fa-solid fa-circle-check text-4xl mb-2"></i><h4 class="text-2xl font-bold">Elena R.</h4><p>Intensive 1-week course, cleared Croydon test first time.</p></div></div>
-            <div class="relative group overflow-hidden rounded-3xl"><img src="https://images.unsplash.com/photo-1593950315186-76a92975b60c?auto=format&fit=crop&q=80&w=800" class="w-full h-80 object-cover"><div class="absolute inset-0 bg-sky-700/85 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition p-6 text-center"><i class="fa-solid fa-circle-check text-4xl mb-2"></i><h4 class="text-2xl font-bold">Kevin T.</h4><p>First time pass after perfecting eco-driving module.</p></div></div>
-        </div>
-    </section>
-
-    <!-- FAQ SECTION (ID=faq) -->
-    <section id="faq" class="py-24 bg-white px-6">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Driver's Briefing <span class="text-sky-600">(FAQ)</span></h2>
-            <div class="space-y-5">
-                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm"><button class="w-full p-6 text-left font-bold flex justify-between items-center hover:bg-sky-50" onclick="toggleFaq(this)"><span>💰 How much do lessons cost in 2026?</span><i class="fa-solid fa-plus"></i></button><div class="faq-content hidden p-6 pt-0 text-slate-600 bg-white">Standard lessons start at £45/hr, but we offer discounts on intensive blocks and EV-only packages. Guaranteed Pass plans available.</div></div>
-                <div class="border border-slate-200 rounded-2xl overflow-hidden"><button class="w-full p-6 text-left font-bold flex justify-between items-center hover:bg-sky-50" onclick="toggleFaq(this)"><span>⚡ Do you offer electric vehicle tuition?</span><i class="fa-solid fa-plus"></i></button><div class="faq-content hidden p-6 pt-0 text-slate-600">Absolutely! Our entire fleet includes Tesla Model 3 and Audi Q4 e-tron. Master regen braking and EV specific techniques.</div></div>
-                <div class="border border-slate-200 rounded-2xl overflow-hidden"><button class="w-full p-6 text-left font-bold flex justify-between items-center hover:bg-sky-50" onclick="toggleFaq(this)"><span>📍 Which test centres do you cover?</span><i class="fa-solid fa-plus"></i></button><div class="faq-content hidden p-6 pt-0 text-slate-600">All major London test centres: Hither Green, Croydon, Enfield, Hendon, Tolworth, Barnet, and more. We tailor routes.</div></div>
+            <div>
+                <h4 class="font-bold mb-6">Company</h4>
+                <ul class="space-y-4 text-gray-600">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Instructor Training</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
             </div>
-            <div class="mt-10 bg-sky-50 rounded-2xl p-6 text-center"><p class="font-medium">Still have questions? <a href="#" class="text-sky-600 font-bold underline">Chat 24/7 with our support</a></p></div>
-        </div>
-    </section>
-
-    <!-- LOCATIONS SECTION WITH MAP IMAGE -->
-    <section id="locations" class="h-[550px] w-full bg-slate-200 relative overflow-hidden">
-        <div class="absolute top-8 left-6 md:top-12 md:left-12 z-10 glass p-6 md:p-8 rounded-[2rem] shadow-2xl max-w-sm backdrop-blur-md">
-            <h3 class="text-2xl font-bold mb-3">Every Borough Covered</h3>
-            <p class="text-slate-700 mb-5">From Richmond to Romford, our instructor network spans Greater London & surrounding areas.</p>
-            <button class="bg-slate-900 text-white w-full py-4 rounded-xl font-bold hover:bg-sky-600 transition">See Local Availability →</button>
-        </div>
-        <img src="https://images.unsplash.com/photo-1524850011238-e3d235c7d419?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover" alt="London map view">
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-white pt-20 pb-32 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <div><div class="text-2xl font-black text-sky-400 uppercase">DriveElite</div><p class="mt-5 text-slate-400">London's premium choice for driver education. Est. 2001 — shaping 2026 mobility.</p><div class="flex gap-5 mt-6 text-xl"><i class="fa-brands fa-instagram hover:text-sky-400 cursor-pointer"></i><i class="fa-brands fa-facebook hover:text-sky-400 cursor-pointer"></i><i class="fa-brands fa-tiktok hover:text-sky-400 cursor-pointer"></i></div></div>
-            <div><h4 class="font-bold text-xl mb-5">Quick Links</h4><ul class="space-y-3 text-slate-300"><li><a href="#" class="hover:text-white transition">Instructor Login</a></li><li><a href="#" class="hover:text-white transition">Pass Guarantee</a></li><li><a href="#" class="hover:text-white transition">Terms & Privacy</a></li></ul></div>
-            <div><h4 class="font-bold text-xl mb-5">Support</h4><p class="text-slate-300">📞 0800 123 4567</p><p class="text-slate-300 mt-1">✉️ support@driveelite2026.co.uk</p><p class="text-slate-400 text-sm mt-3"><i class="fa-brands fa-whatsapp"></i> 24/7 WhatsApp support</p></div>
-            <div><h4 class="font-bold text-xl mb-5">The Driver's Seat</h4><p class="text-slate-400 text-sm mb-4">Monthly tips for passing your test & EV insights.</p><div class="flex gap-2"><input type="email" placeholder="Email address" class="bg-slate-800 border-none p-4 rounded-xl w-full text-white outline-none focus:ring-1 focus:ring-sky-500"><button class="bg-sky-600 px-5 rounded-xl"><i class="fa-solid fa-paper-plane"></i></button></div></div>
+            <div>
+                <h4 class="font-bold mb-6">Support</h4>
+                <ul class="space-y-4 text-gray-600">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Booking Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 
-    <!-- BOTTOM DOCK (mobile CTA) -->
-    <div class="bottom-dock lg:hidden bg-white/95 backdrop-blur-lg p-2 flex gap-2 rounded-t-2xl">
-        <a href="tel:0800123456" class="flex-1 bg-sky-50 text-sky-700 flex flex-col items-center py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-phone text-lg mb-1"></i> Call</a>
-        <a href="#" class="flex-1 bg-green-50 text-green-700 flex flex-col items-center py-2 rounded-xl text-xs font-bold"><i class="fa-brands fa-whatsapp text-lg mb-1"></i> Chat</a>
-        <a href="#" class="flex-[3] bg-sky-600 text-white flex items-center justify-center py-3 rounded-xl font-bold uppercase tracking-wide">Get a Quote →</a>
-    </div>
-
     <script>
-        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
-        function toggleExitPopup() { document.getElementById('exit-popup').classList.toggle('hidden'); }
-        function toggleFaq(btn) { const content = btn.nextElementSibling; const icon = btn.querySelector('i'); content.classList.toggle('hidden'); icon.classList.toggle('fa-plus'); icon.classList.toggle('fa-minus'); }
-        // Sticky nav scroll
-        window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if (window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
-        // Counters observer
-        const counters = document.querySelectorAll('.count');
-        const countObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { const target = +entry.target.getAttribute('data-target'); let count = 0; const update = () => { const inc = target / 80; if(count < target) { count += inc; entry.target.innerText = Math.floor(count); setTimeout(update, 20); } else entry.target.innerText = target; }; update(); } }); }, { threshold: 0.3 });
-        counters.forEach(c => countObserver.observe(c));
-        // GSAP + ScrollTrigger reveals
+        // 4: Scroll Animations
         gsap.registerPlugin(ScrollTrigger);
-        document.querySelectorAll('.reveal-up').forEach(el => { gsap.fromTo(el, { opacity: 0, y: 45 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" } }); });
-        // Hero Swiper
-        new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 5500 }, effect: 'fade', fadeEffect: { crossFade: true } });
-        // Exit intent (mouseleave)
-        let exitShown = false;
-        document.addEventListener('mouseleave', (e) => { if (!exitShown && e.clientY < 0) { exitShown = true; toggleExitPopup(); } });
-        // additional hover class for bottom dock smoothness
+
+        gsap.utils.toArray('.card-hover').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: card,
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                delay: i * 0.1
+            });
+        });
+
+        // 22: Exit Intent
+        document.addEventListener('mouseleave', e => {
+            if (e.clientY < 0) {
+                alert("Wait! Get 10% off your first block booking before you go! Use code: DRIVE10");
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
