@@ -51,6 +51,7 @@
             letter-spacing: -1.5px;
             color: var(--primary);
             text-decoration: none;
+            cursor: pointer;
         }
         .faz-logo span { color: #000; }
 
@@ -77,9 +78,9 @@
         #app-menu-layer.active { transform: translateY(0); }
         .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
 
-        /* RESPONSIVE IMAGE DISPLAY */
+        /* CONTENT MAIN */
         .content-main {
-            padding-top: 100px;
+            padding-top: 110px;
             padding-bottom: 120px;
         }
 
@@ -103,19 +104,19 @@
             width: 100%;
         }
 
+        /* FULL HEIGHT PORTRAIT CARDS */
         .concept-card {
             width: 100%;
             display: flex;
             flex-direction: column;
             background: #fff;
-            margin-bottom: 2px; /* Thin visual separator */
+            margin-bottom: 4px;
         }
 
         .concept-image-wrap {
             width: 100%;
             position: relative;
-            /* Height is responsive based on viewport, ensuring the "Long Portrait" feel */
-            height: 70vh; 
+            height: 75vh; /* Increased height for full portrait impact */
             overflow: hidden;
             background: #f0f0f0;
         }
@@ -124,12 +125,12 @@
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; /* Ensures image covers area without stretching */
+            object-fit: cover;
             object-position: top center;
         }
 
         .concept-footer {
-            padding: 20px 25px 30px;
+            padding: 25px 25px 35px;
             text-align: center;
             background: #fff;
         }
@@ -137,7 +138,7 @@
         .select-btn {
             width: 100%;
             max-width: 500px;
-            padding: 18px;
+            padding: 20px;
             background: var(--primary);
             color: #fff;
             border-radius: 50px;
@@ -145,18 +146,18 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
-            box-shadow: 0 8px 15px rgba(255, 107, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.2);
         }
 
         .concept-code {
-            margin-top: 10px;
+            margin-top: 12px;
             font-weight: 900;
             color: #bbb;
             letter-spacing: 2px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
 
-        /* DOCK */
+        /* EXACT INDEX DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -168,15 +169,18 @@
             align-items: center;
             z-index: 2500;
             padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
         .dock-btn {
             font-size: 1.8rem;
             color: #FFFFFF;
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
+            flex: 1;
         }
         .dock-btn span {
             font-size: 0.65rem;
@@ -190,13 +194,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             padding: 40px 0;
         }
 
         .page-arrow {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: #000;
             color: #fff;
@@ -204,16 +208,17 @@
             align-items: center;
             justify-content: center;
             border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
-        /* Desktop Grid Support */
         @media (min-width: 768px) {
             .concepts-container {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
             }
             .concept-image-wrap {
-                height: 500px;
+                height: 600px;
             }
         }
     </style>
@@ -245,24 +250,32 @@
             <h1 class="huge-text">Choose Your<br><span style="color: #000;">Design.</span></h1>
         </div>
 
-        <div class="concepts-container" id="conceptsGrid">
-            </div>
+        <div class="concepts-container" id="conceptsGrid"></div>
 
         <div class="pagination-nav">
             <button class="page-arrow" onclick="changePage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <span id="pageNumber" style="font-weight: 900; font-size: 1.2rem;">1</span>
+            <span id="pageNumber" style="font-weight: 900; font-size: 1.4rem;">1</span>
             <button class="page-arrow" onclick="changePage(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </main>
 
     <div class="app-dock">
-        <a href="index.html" class="dock-btn">
-            <i class="fa-solid fa-house"></i>
-            <span>HOME</span>
+        <a href="concepts.html" class="dock-btn">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>CONCEPTS</span>
         </a>
-        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
-        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+        <a href="https://wa.me/447706345874" class="dock-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WHATSAPP</span>
+        </a>
+        <a href="sms:07706345874" class="dock-btn">
+            <i class="fa-solid fa-comment"></i>
+            <span>TEXT</span>
+        </a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>EMAIL</span>
+        </a>
     </div>
 
     <script>
@@ -289,7 +302,7 @@
                         <img src="${item.image}" alt="Driving School Template" loading="lazy">
                     </div>
                     <div class="concept-footer">
-                        <button class="select-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Selected Concept ${item.code}'">Select This Design</button>
+                        <button class="select-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Selected Concept ${item.code}'">Select Design</button>
                         <div class="concept-code">REFERENCE: ${item.code}</div>
                     </div>
                 </div>
