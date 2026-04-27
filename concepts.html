@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | Concept Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --bg: #FFFFFF;
+            --text: #121212;
+            --border: rgba(255, 107, 0, 0.1);
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+            --standard-green: #2E7D32;
+            --premium-blue: #1565C0;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body, html {
+            background-color: var(--primary-light);
+            color: var(--text);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            min-height: 100%;
+            height: 100%;
+        }
+
+        header {
+            padding: calc(var(--safe-top) + 20px) 25px 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 800;
+        }
+        
+        .app-logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px; color: var(--primary); }
+        .app-logo span { color: #000000; }
+
+        .content-container { padding: 100px 15px 100px; min-height: 100vh; display: flex; flex-direction: column; }
+
+        .hero-section { text-align: center; margin: 40px 0; }
+        .hero-section h1 {
+            font-size: 3.2rem; font-weight: 900; line-height: 0.9;
+            letter-spacing: -3px; color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .concepts-grid { 
+            display: grid; grid-template-columns: 1fr; gap: 30px; 
+            margin-bottom: 40px; width: 100%; 
+        }
+
+        @media (min-width: 768px) { .concepts-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .concepts-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .concept-card {
+            background: #fff; border-radius: 35px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease; display: flex; flex-direction: column;
+        }
+
+        .concept-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(255,107,0,0.15); }
+
+        .concept-image-wrap { width: 100%; height: 350px; background: #eee; overflow: hidden; }
+        .concept-image-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+
+        .concept-details { padding: 25px 20px; text-align: center; background: #fff; flex: 1; }
+
+        .tier-section { margin-bottom: 20px; }
+        .tier-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; color: #888; }
+        .tier-label.standard i { color: var(--standard-green); }
+        .tier-label.premium i { color: var(--premium-blue); }
+        
+        .vibz-btn {
+            width: 100%; padding: 14px; border-radius: 20px; border: 1px solid var(--border);
+            background: #fff; color: var(--text); font-size: 0.9rem; font-weight: 800;
+            margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; display: block;
+        }
+        
+        .vibz-btn.primary { background: var(--primary); color: #fff; border: none; }
+
+        .code-display { font-size: 0.8rem; font-weight: 900; color: #A0A0A0; letter-spacing: 2px; margin-top: 12px; }
+
+        /* APP DOCK */
+        .app-dock {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            height: 70px; display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid var(--border); z-index: 2000; padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .dock-btn { display: flex; flex-direction: column; align-items: center; color: #A0A0A0; text-decoration: none; flex: 1; }
+        .dock-btn.active { color: var(--primary); }
+        .dock-btn i { font-size: 1.3rem; }
+        .dock-btn span { font-size: 0.6rem; font-weight: 800; }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center; z-index: 3000; padding: 20px;
+        }
+        .modal-card { background: #fff; width: 100%; max-width: 350px; padding: 30px; border-radius: 32px; text-align: center; }
+
+        .pagination { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 40px 0; }
+        .page-btn { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 900; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="app-logo">FAZ HOQ<span>.</span></div>
+        <i class="fa-solid fa-circle-user" style="font-size: 1.8rem; color: #ccc;"></i>
+    </header>
+
+    <main class="content-container">
+        <section class="hero-section">
+            <h1>Driving School<br>Concepts<span>.</span></h1>
+        </section>
+
+        <div class="concepts-grid" id="conceptsGrid"></div>
+        <div class="pagination" id="paginationControls"></div>
+    </main>
+
+    <nav class="app-dock">
+        <a href="index.html" class="dock-btn"><i class="fa-solid fa-house"></i><span>HOME</span></a>
+        <a href="#" class="dock-btn active"><i class="fa-solid fa-layer-group"></i><span>LIBRARY</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+    </nav>
+
+    <div class="modal-overlay" id="selectionModal">
+        <div class="modal-card">
+            <i class="fa-solid fa-check-circle" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h2 style="font-weight:900; color:var(--primary);">CONCEPT SAVED</h2>
+            <p id="modalText" style="font-weight:600; margin: 12px 0;"></p>
+            <button class="vibz-btn primary" onclick="window.location.href='mailto:Fazhoq1977@gmail.com'">Email My Choice</button>
+            <button class="vibz-btn" onclick="closeModal()">Back to Designs</button>
+        </div>
+    </div>
+
+    <script>
+        const concepts = Array.from({length: 50}, (_, i) => ({
+            code: `DRIVE-${i+1}`,
+            image: `https://picsum.photos/seed/drive${i}/600/800`
+        }));
+
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        function renderConcepts() {
+            const grid = document.getElementById('conceptsGrid');
+            grid.innerHTML = "";
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = concepts.slice(start, end);
+
+            pageItems.forEach(item => {
+                grid.innerHTML += `
+                    <div class="concept-card">
+                        <div class="concept-image-wrap">
+                            <img src="${item.image}" alt="Driving School Design" loading="lazy">
+                        </div>
+                        <div class="concept-details">
+                            <div class="tier-section">
+                                <div class="tier-label standard"><i class="fa-solid fa-check-circle"></i> STANDARD SITE</div>
+                                <button class="vibz-btn" onclick="window.open('#', '_blank')">Live Demo</button>
+                                <button class="vibz-btn primary" onclick="selectDesign('${item.code}', 'Standard')">Select Concept</button>
+                            </div>
+                            <div class="tier-section">
+                                <div class="tier-label premium"><i class="fa-solid fa-crown"></i> PREMIUM APP-LIKE</div>
+                                <button class="vibz-btn" onclick="window.open('#', '_blank')">Live Demo</button>
+                                <button class="vibz-btn primary" onclick="selectDesign('${item.code}', 'Premium')">Select Concept</button>
+                            </div>
+                            <div class="code-display">CODE: ${item.code}</div>
+                        </div>
+                    </div>`;
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const controls = document.getElementById('paginationControls');
+            const totalPages = Math.ceil(concepts.length / itemsPerPage);
+            controls.innerHTML = `
+                <div style="display:flex; gap:10px;">
+                    <button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">PREV</button>
+                    <button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">NEXT</button>
+                </div>
+                <div style="font-weight:900; margin-top:10px;">Page ${currentPage} of ${totalPages}</div>
+            `;
+        }
+
+        function changePage(p) { currentPage = p; window.scrollTo(0,0); renderConcepts(); }
+
+        function selectDesign(code, tier) {
+            document.getElementById('modalText').innerHTML = `<strong>${code}</strong><br>Tier: ${tier}`;
+            document.getElementById('selectionModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('selectionModal').style.display = 'none'; }
+
+        window.onload = renderConcepts;
+    </script>
+</body>
+</html>
