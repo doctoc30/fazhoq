@@ -3,218 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Shiels School of Motoring | Kirton Lindsey</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tony Shiels | Premier Driving School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
-            --electric-blue: #0099de; /* The car body color */
-            --tony-navy: #1a2b56;    /* "TONY" and branding text */
-            --pure-white: #ffffff;
+            --primary-blue: #0099e5; /* From your car */
+            --navy-dark: #0a1128;
+            --accent-red: #e63946;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        body { 
-            background-color: var(--pure-white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* STAGE 1: HEADER CUSTOM STYLES */
-        .header-container {
-            background: linear-gradient(to bottom, #f0f9ff 0%, #ffffff 100%);
-            padding: 20px;
+        body {
+            background-color: #ffffff;
+            color: var(--navy-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- STAGE 1: HEADER --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 12px 5%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #f1f5f9;
         }
 
-        .logo-text-group {
+        .logo {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Mirroring the Rooftop Sign Typography */
-        .logo-main {
-            font-size: 24px;
+        .logo-box {
+            background: #000;
+            color: #fff;
+            padding: 5px 10px;
             font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 4px;
+        }
+
+        .logo-text {
             line-height: 1;
+        }
+
+        .logo-text .brand-name {
+            display: block;
+            font-weight: 900;
+            font-size: 1.3rem;
             letter-spacing: -0.5px;
-            text-transform: uppercase;
-            font-style: italic;
         }
 
-        .text-tony { color: var(--tony-navy); }
-        .text-shiels { color: var(--electric-blue); }
-
-        .logo-sub {
-            font-size: 10px;
-            font-weight: 800;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 2px;
-        }
-
-        .logo-phone {
-            font-size: 11px;
+        .logo-text .brand-sub {
+            font-size: 0.6rem;
             font-weight: 700;
-            color: var(--tony-navy);
-            margin-top: 2px;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
-        .menu-circle-widget {
-            width: 50px;
-            height: 50px;
+        .menu-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--primary-blue); /* Theme color icon */
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--tony-navy) 0%, var(--electric-blue) 100%);
-            border: 2px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        /* STAGE 2: HERO CUSTOM STYLES */
-        .hero-section {
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 90px);
-            text-align: center;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 153, 229, 0.3);
+            border: none;
         }
 
-        .hero-headline {
-            color: var(--electric-blue);
-            font-size: 56px;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-top: 40px;
+        .menu-btn span {
+            width: 20px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
         }
 
-        .hero-subheadline {
-            color: var(--tony-navy);
-            font-weight: 700;
-            font-size: 18px;
-            margin-top: 4px;
-        }
-
-        .car-container {
-            flex-grow: 1;
+        /* --- STAGE 2: HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            text-align: center;
+            padding: 120px 20px 0 20px;
+            background: linear-gradient(180deg, #fff 0%, #f0f8ff 100%);
+            overflow: hidden;
         }
 
-        .car-img {
-            max-width: 90%;
-            height: auto;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+        .hero-title-area {
+            z-index: 5;
+            margin-bottom: -20px;
         }
 
-        /* The Signature Blue Curve Footer Block */
-        .blue-curve-block {
-            background-color: var(--electric-blue);
-            height: 220px;
-            border-top-left-radius: 50% 20px;
-            border-top-right-radius: 50% 20px;
+        .premier-label {
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            font-weight: 900;
+            color: var(--primary-blue);
+            line-height: 0.9;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .sub-label {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-image-container {
             position: relative;
-            margin-top: 20px;
+            width: 100%;
+            max-width: 750px;
+            z-index: 4;
+            margin: 20px 0;
         }
 
-        .floating-cta-wrap {
+        .hero-car {
+            width: 100%;
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.15));
+            animation: floatCar 5s ease-in-out infinite;
+        }
+
+        @keyframes floatCar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        /* The Curved Graphic from Image 2 */
+        .hero-curve {
             position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+            z-index: 2;
+        }
+
+        .hero-curve svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ACTION BAR --- */
+        .action-bar {
+            position: absolute;
+            bottom: 50px;
+            display: flex;
+            gap: 15px;
             width: 90%;
             max-width: 500px;
-            display: flex;
-            gap: 12px;
+            z-index: 10;
         }
 
-        .black-btn-widget {
+        .btn {
             flex: 1;
-            background: #000000;
-            color: white;
-            padding: 16px;
-            border-radius: 8px;
-            text-align: center;
+            padding: 18px 20px;
+            border-radius: 12px;
             font-weight: 800;
-            text-transform: uppercase;
-            font-size: 12px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            text-decoration: none;
+            gap: 10px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            text-transform: uppercase;
         }
 
-        .bottom-gradient-widget {
+        .btn-call {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-offers {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: var(--navy-dark);
+        }
+
+        /* Trust Widget (Bottom of Hero) */
+        .trust-widget {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            background: white;
-            padding: 14px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 800;
-            color: var(--tony-navy);
-            text-transform: uppercase;
-            border: 3px solid;
-            border-image: linear-gradient(to right, var(--electric-blue), var(--tony-navy)) 1;
+            bottom: -30px;
+            background: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 2px solid #f0f0f0;
+            z-index: 11;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trust-widget b {
+            color: var(--primary-blue);
+        }
+
+        /* Mobile Specifics */
+        @media (max-width: 600px) {
+            .premier-label { font-size: 3.2rem; }
+            .action-bar { bottom: 60px; flex-direction: row; }
+            .hero { padding-top: 100px; }
+            .trust-widget { width: 85%; padding: 12px 20px; font-size: 0.85rem; bottom: -25px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header-container">
-        <div class="logo-text-group">
-            <div class="logo-main italic">
-                <span class="text-tony">TONY</span> 
-                <span class="text-shiels">SHIELS</span>
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-box">TS</div>
+            <div class="logo-text">
+                <span class="brand-name">TONY SHIELS</span>
+                <span class="brand-sub">School of Motoring</span>
             </div>
-            <div class="logo-sub">School of Motoring</div>
-            <div class="logo-phone">+44 7752 892178</div>
         </div>
-
-        <div class="menu-circle-widget">
-            <i class="fas fa-bars text-xl"></i>
-        </div>
+        
+        <button class="menu-btn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
-    <main class="hero-section">
-        <div>
-            <h1 class="hero-headline">PREMIER</h1>
-            <p class="hero-subheadline italic">Driving School in Kirton Lindsey</p>
+    <section class="hero">
+        <div class="hero-title-area">
+            <h1 class="premier-label">PREMIER</h1>
+            <p class="sub-label">Driving School in East London</p>
         </div>
 
-        <div class="car-container">
-            <img src="https://i.ibb.co/VWV0p0p/blue-car-side.png" alt="Tony Shiels Car" class="car-img">
+        <div class="hero-image-container">
+            <img src="https://i.ibb.co/XfS7rYn/blue-car-placeholder.png" alt="Tony Shiels Driving Car" class="hero-car">
         </div>
 
-        <div class="blue-curve-block">
-            <div class="floating-cta-wrap">
-                <a href="tel:+447752892178" class="black-btn-widget">
-                    <i class="fas fa-phone-alt"></i>
-                    <span>Call Tony</span>
-                </a>
-                <a href="#" class="black-btn-widget">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>View Offers</span>
-                </a>
-            </div>
-
-            <div class="bottom-gradient-widget">
-                Manual Driving Specialist
-            </div>
+        <div class="hero-curve">
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+                <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: var(--primary-blue);"></path>
+            </svg>
         </div>
-    </main>
+
+        <div class="action-bar">
+            <a href="tel:+447752892178" class="btn btn-call">
+                <i class="fas fa-phone-alt"></i> CALL US
+            </a>
+            <a href="#offers" class="btn btn-offers">
+                VIEW OFFERS
+            </a>
+        </div>
+
+        <div class="trust-widget">
+            <span>London's most <b>Trusted</b> Driving School</span>
+            <i class="fas fa-chevron-right" style="font-size: 0.7rem; color: #ccc;"></i>
+        </div>
+    </section>
 
 </body>
 </html>
