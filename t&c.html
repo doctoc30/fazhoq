@@ -47,14 +47,14 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: transparent;
+    background: var(--primary-light); /* Added background to prevent text overlap */
     pointer-events: none;
 }
 
 .faz-logo {
-    font-size: 2.2rem;
+    font-size: 1.8rem; /* Slightly smaller for better mobile fit */
     font-weight: 900;
-    letter-spacing: -1.5px;
+    letter-spacing: -1px;
     color: var(--primary);
     text-decoration: none;
     line-height: 1;
@@ -66,7 +66,7 @@ html, body {
 }
 
 #menu-btn {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--text);
     background: none;
     border: none;
@@ -79,64 +79,65 @@ html, body {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: calc(var(--safe-top) + 130px) 25px 60px;
+    padding: calc(var(--safe-top) + 100px) 25px 120px; /* Added more bottom padding for dock clearance */
 }
 
 .content-main {
-    max-width: 850px;
+    max-width: 650px; /* Narrower width improves readability */
     margin: 0 auto;
 }
 
-/* HEADER FIX */
+/* HEADER */
 .policy-header {
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 .policy-sub {
     font-weight: 900;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--primary);
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 h1 {
-    font-size: 3.2rem;
+    font-size: 2.5rem;
     font-weight: 900;
-    line-height: 1;
-    margin-bottom: 25px;
-    color: var(--primary);
-    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--text);
+    letter-spacing: -1px;
     text-transform: uppercase;
 }
 
 .last-updated {
     display: block;
-    font-weight: 900;
-    font-size: 0.75rem;
+    font-weight: 700;
+    font-size: 0.7rem;
     color: #000;
-    opacity: 0.35;
-    letter-spacing: 2px;
+    opacity: 0.5;
+    letter-spacing: 1px;
 }
 
-/* CONTENT */
+/* CONTENT SPACING FIXES */
 h2 {
-    margin-top: 100px;
-    margin-bottom: 40px;
-    font-size: 1.5rem;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: #000;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 p {
-    margin-bottom: 80px;
-    line-height: 2.3;
-    font-size: 1.15rem;
-    color: #333;
+    margin-bottom: 25px; /* Reduced from 80px to stop "disconnected" look */
+    line-height: 1.6;    /* Standard comfortable reading height */
+    font-size: 1.05rem;
+    color: #444;
+    max-width: 95%;     /* Prevents text from hitting edges too hard */
 }
 
 strong {
@@ -151,42 +152,16 @@ a {
     text-underline-offset: 4px;
 }
 
-/* MENU */
-#app-menu-layer {
-    position: fixed;
-    inset: 0;
-    background: var(--primary-light);
-    z-index: 9500;
-    display: flex;
-    flex-direction: column;
-    padding: calc(var(--safe-top) + 20px) 25px;
-    transform: translateY(100%);
-    transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-#app-menu-layer.active {
-    transform: translateY(0);
-}
-
-.menu-item {
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--text);
-    text-decoration: none;
-    text-align: center;
-    margin: 10px 0;
-}
-
 /* DOCK */
 .app-dock {
     background: var(--primary);
-    height: 85px !important;
+    height: 75px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     z-index: 9999;
     padding-bottom: var(--safe-bottom);
-    box-shadow: 0 -10px 40px rgba(255,107,0,0.4);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
     flex-shrink: 0;
 }
 
@@ -197,20 +172,35 @@ a {
     align-items: center;
     text-decoration: none;
     flex: 1;
-    height: 100%;
-    justify-content: center;
 }
 
 .dock-btn i {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
 }
 
 .dock-btn span {
-    font-size: 0.65rem;
-    font-weight: 800;
-    margin-top: 6px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-top: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* MENU LAYER */
+#app-menu-layer {
+    position: fixed;
+    inset: 0;
+    background: var(--primary-light);
+    z-index: 9500;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--safe-top) + 20px) 25px;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+#app-menu-layer.active {
+    transform: translateY(0);
 }
 </style>
 </head>
@@ -227,105 +217,78 @@ a {
 <div id="app-menu-layer">
     <div class="flex justify-between items-center mb-10">
         <div class="faz-logo">FAZ HOQ<span>.</span></div>
-        <div onclick="toggleMenu()" class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl cursor-pointer">
+        <div onclick="toggleMenu()" class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center text-lg cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-
     <div class="flex flex-col flex-1 justify-center">
-        <a href="index.html" class="menu-item">HOME</a>
-        <a href="index.html" class="menu-item">ABOUT</a>
-        <a href="concepts.html" class="menu-item">CONCEPTS</a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
+        <a href="index.html" class="menu-item text-4xl font-black mb-6 text-center">HOME</a>
+        <a href="index.html" class="menu-item text-4xl font-black mb-6 text-center">ABOUT</a>
+        <a href="concepts.html" class="menu-item text-4xl font-black mb-6 text-center">CONCEPTS</a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="menu-item text-4xl font-black mb-6 text-center">CONTACT</a>
     </div>
 </div>
 
 <div class="scroll-wrapper">
     <main class="content-main">
 
-        <!-- HEADER -->
         <div class="policy-header">
             <span class="policy-sub">LEGAL</span>
-
-            <h1>
-                Terms<br>
-                & Conditions
-            </h1>
-
-            <span class="last-updated">LAST UPDATED: APRIL 2026</span>
+            <h1>Terms & Conditions</h1>
+            <span class="last-updated">UPDATED: APRIL 2026</span>
         </div>
 
         <p>
-            These terms protect both the client and the developer.
-            <br><br>
-            By working with FAZ HOQ, you agree to the terms below.
+            These terms protect both the client and the developer. By working with FAZ HOQ, you agree to the terms below.
         </p>
 
         <h2>1. One-Time Purchase Websites</h2>
         <p>
-            A one-time purchase includes the agreed website design,
-            mobile responsiveness, features, functionality,
-            and final delivery of completed files.
+            A one-time purchase includes the agreed website design, mobile responsiveness, features, functionality, and final delivery of completed files.
         </p>
 
         <h2>2. Hosting & Upload Responsibility</h2>
         <p>
-            Clients are responsible for uploading files to their own hosting provider unless agreed otherwise.
-            <br><br>
-            Hosting fees, domain costs, and third-party subscriptions are not included unless clearly stated.
+            Clients are responsible for uploading files to their own hosting provider unless agreed otherwise. Hosting fees, domain costs, and third-party subscriptions are not included unless clearly stated.
         </p>
 
         <h2>3. One-Month Aftercare</h2>
         <p>
-            Includes technical fixes, bug fixes, and layout issues caused by development.
+            Includes technical fixes, bug fixes, and layout issues caused by development for 30 days post-delivery.
         </p>
 
         <h2>4. Monthly Website Plans</h2>
         <p>
-            Includes maintenance, monitoring, and technical support.
+            Includes ongoing maintenance, monitoring, and technical support for the duration of the subscription.
         </p>
 
         <h2>5. Monthly Revisions</h2>
         <p>
-            Up to 5 monthly content or layout revisions. Unused revisions do not roll over.
+            Up to 5 monthly content or layout revisions. Unused revisions do not roll over to the following month.
         </p>
 
         <h2>6. Free Trial Website Offer</h2>
         <p>
-            Trial websites are preview-only and remain developer-owned unless paid.
+            Trial websites are preview-only and remain developer-owned until the full purchase is completed.
         </p>
 
-        <h2>7. Payments</h2>
+        <h2>7. Ownership & Payments</h2>
         <p>
-            Deposits are non-refundable once work begins.
+            Deposits are non-refundable once work begins. Ownership of all assets transfers to the client only after full payment is received.
         </p>
 
-        <h2>8. Ownership</h2>
+        <h2>8. Refund Policy</h2>
         <p>
-            Ownership transfers after full payment is received.
+            All payments are non-refundable once project work has commenced. Clients agree to contact FAZ HOQ directly before initiating any disputes or chargebacks.
         </p>
 
-        <h2>9. Refund Policy</h2>
+        <h2>9. Contact</h2>
         <p>
-            All payments are non-refundable once work has started.
-        </p>
-
-        <h2>10. Chargebacks</h2>
-        <p>
-            Clients agree to contact directly before disputes.
-        </p>
-
-        <h2>11. Communication Records</h2>
-        <p>
-            Communication may be stored for project clarity and protection.
-        </p>
-
-        <h2>12. Contact</h2>
-        <p>
+            For questions regarding these terms: <br>
             <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a>
         </p>
 
-        <div style="padding-top: 60px; opacity: 0.3; font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; text-align: center;">
+        <div style="padding-top: 40px; opacity: 0.3; font-weight: 700; font-size: 0.65rem; letter-spacing: 1px; text-align: center;">
             © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
         </div>
 
@@ -337,17 +300,14 @@ a {
         <i class="fa-solid fa-layer-group"></i>
         <span>CONCEPTS</span>
     </a>
-
     <a href="https://wa.me/447706345874" class="dock-btn">
         <i class="fa-brands fa-whatsapp"></i>
         <span>WHATSAPP</span>
     </a>
-
     <a href="sms:07706345874" class="dock-btn">
         <i class="fa-solid fa-comment"></i>
         <span>TEXT</span>
     </a>
-
     <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn">
         <i class="fa-solid fa-paper-plane"></i>
         <span>EMAIL</span>
