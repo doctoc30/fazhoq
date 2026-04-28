@@ -1,275 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FAZ HOQ | Privacy Policy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | Privacy Policy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --text: #121212;
+            --text-muted: #4a4a4a;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
 
-<style>
-:root {
-    --primary: #FF6B00;
-    --primary-light: #FFF5EE;
-    --text: #121212;
-    --text-muted: #4a4a4a;
-    --safe-top: env(safe-area-inset-top);
-    --safe-bottom: env(safe-area-inset-bottom);
-}
+        html, body {
+            background: var(--primary-light);
+            color: var(--text);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    font-family: 'Inter', sans-serif;
-}
+        /* NAVBAR - Exactly as index.html */
+        .faz-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2500;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-html, body {
-    background: var(--primary-light);
-    color: var(--text);
-    width: 100%;
-    height: 100dvh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+        .faz-logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .faz-logo span { color: #000; }
 
-/* NAV */
-.faz-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 2500;
-    padding: calc(var(--safe-top) + 20px) 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--primary-light);
-    pointer-events: none;
-}
+        #menu-btn {
+            font-size: 1.8rem;
+            color: var(--text);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-.faz-logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: -1px;
-    color: var(--primary);
-    text-decoration: none;
-    line-height: 1;
-    pointer-events: auto;
-}
+        /* SCROLL AREA */
+        .scroll-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: calc(var(--safe-top) + 120px) 25px 140px;
+        }
 
-.faz-logo span { color: #000; }
+        .content-main {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-#menu-btn {
-    font-size: 1.5rem;
-    color: var(--text);
-    background: none;
-    border: none;
-    cursor: pointer;
-    pointer-events: auto;
-}
+        /* HEADER */
+        .policy-header { margin-bottom: 50px; }
+        .policy-sub {
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
 
-/* SCROLL AREA */
-.scroll-wrapper {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: calc(var(--safe-top) + 110px) 25px 140px;
-}
+        h1 {
+            font-size: clamp(2.5rem, 10vmin, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--primary);
+            letter-spacing: -3px;
+            text-transform: uppercase;
+        }
 
-.content-main {
-    max-width: 600px;
-    margin: 0 auto;
-}
+        /* TERM CARDS */
+        .term-card {
+            margin-bottom: 35px;
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+        }
 
-/* HEADER */
-.policy-header { margin-bottom: 50px; }
-.policy-sub {
-    font-weight: 900;
-    font-size: 0.75rem;
-    color: var(--primary);
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 12px;
-}
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
 
-h1 {
-    font-size: 2.8rem;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: var(--text);
-    letter-spacing: -1.5px;
-    text-transform: uppercase;
-}
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
 
-/* SECTIONING */
-.term-card {
-    margin-bottom: 35px;
-    border-left: 3px solid var(--primary);
-    padding-left: 20px;
-}
+        .last-updated {
+            display: block;
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: #000;
+            opacity: 0.3;
+            letter-spacing: 2px;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
 
-h2 {
-    font-size: 1.1rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text);
-    margin-bottom: 10px;
-}
+        /* APP DOCK - Exactly as index.html */
+        .app-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0; right: 0;
+            background: var(--primary);
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .dock-btn {
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            flex: 1;
+        }
 
-p {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-}
+        .dock-btn i { font-size: 1.8rem; }
+        .dock-btn span {
+            font-size: 0.65rem;
+            font-weight: 800;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
 
-.last-updated {
-    display: block;
-    font-weight: 700;
-    font-size: 0.7rem;
-    color: #000;
-    opacity: 0.4;
-    letter-spacing: 1px;
-    margin-top: 40px;
-}
-
-/* DOCK */
-.app-dock {
-    background: var(--primary);
-    height: 75px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 9999;
-    padding-bottom: var(--safe-bottom);
-    box-shadow: 0 -5px 25px rgba(255, 107, 0, 0.3);
-}
-
-.dock-btn {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    flex: 1;
-}
-
-.dock-btn i { font-size: 1.3rem; }
-.dock-btn span {
-    font-size: 0.6rem;
-    font-weight: 700;
-    margin-top: 4px;
-    text-transform: uppercase;
-}
-
-/* MENU */
-#app-menu-layer {
-    position: fixed; inset: 0; background: var(--primary-light); z-index: 9500;
-    display: flex; flex-direction: column; padding: calc(var(--safe-top) + 20px) 25px;
-    transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-}
-#app-menu-layer.active { transform: translateY(0); }
-</style>
+        /* MENU LAYER - Exactly as index.html */
+        #app-menu-layer {
+            position: fixed;
+            inset: 0;
+            background: var(--primary-light);
+            z-index: 9500;
+            display: flex;
+            flex-direction: column;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active { transform: translateY(0); }
+        .menu-item { 
+            font-size: 3.5rem; 
+            font-weight: 900; 
+            color: var(--text); 
+            text-decoration: none; 
+            text-align: center; 
+            margin: 10px 0; 
+        }
+    </style>
 </head>
 <body>
 
-<nav class="faz-nav">
-    <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
-    <button id="menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars-staggered"></i>
-    </button>
-</nav>
-
-<div id="app-menu-layer">
-    <div class="flex justify-between items-center mb-10">
-        <div class="faz-logo">FAZ HOQ<span>.</span></div>
-        <div onclick="toggleMenu()" class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center cursor-pointer">
-            <i class="fa-solid fa-xmark"></i>
+    <div id="app-menu-layer">
+        <div class="flex justify-between items-center mb-10">
+            <div class="faz-logo">FAZ HOQ<span>.</span></div>
+            <div onclick="toggleMenu()" class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 justify-center">
+            <a href="index.html" class="menu-item">HOME</a>
+            <a href="index.html" class="menu-item">ABOUT</a>
+            <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="menu-item" style="color: var(--primary);">CONCEPTS</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
     </div>
-    <div class="flex flex-col flex-1 justify-center items-center">
-        <a href="index.html" class="text-4xl font-black mb-8">HOME</a>
-        <a href="concepts.html" class="text-4xl font-black mb-8">CONCEPTS</a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-4xl font-black mb-8">CONTACT</a>
+
+    <nav class="faz-nav">
+        <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
+        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+
+    <div class="scroll-wrapper">
+        <main class="content-main">
+
+            <div class="policy-header">
+                <span class="policy-sub">Legal</span>
+                <h1>Privacy<br>Policy</h1>
+                <p style="font-weight: 700; margin-top: 15px; color: var(--text);">Your privacy matters here. I keep this website simple, clean, and private.</p>
+            </div>
+
+            <div class="term-card">
+                <h2>1. No Data Collection</h2>
+                <p>You can browse this website freely without an account or forms. No personal information is collected or tracked while you browse.</p>
+            </div>
+
+            <div class="term-card">
+                <h2>2. Direct Contact Only</h2>
+                <p>If you contact me via WhatsApp, SMS, or Email, you are sharing details directly. This is only used to reply to your message and is never sold for marketing.</p>
+            </div>
+
+            <div class="term-card">
+                <h2>3. No Cookies or Analytics</h2>
+                <p>This website does not use cookies, tracking pixels, or analytics tools. Your visit remains completely private.</p>
+            </div>
+
+            <div class="term-card">
+                <h2>4. Third-Party Apps</h2>
+                <p>Clicking WhatsApp or Email links will take you to external platforms. Please review their specific privacy policies once you leave this site.</p>
+            </div>
+
+            <div class="term-card">
+                <h2>5. Contact</h2>
+                <p>Questions about privacy? Contact me directly at:<br>
+                <a href="mailto:Fazhoq1977@gmail.com" style="color: var(--primary); font-weight: 900; text-decoration: underline;">Fazhoq1977@gmail.com</a></p>
+            </div>
+
+            <span class="last-updated">Last Updated: April 2026</span>
+
+            <div style="padding-top: 60px; opacity: 0.2; font-size: 0.7rem; text-align: center; font-weight: 900; letter-spacing: 2px;">
+                © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
+            </div>
+
+        </main>
     </div>
-</div>
 
-<div class="scroll-wrapper">
-    <main class="content-main">
+    <div class="app-dock">
+        <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="dock-btn">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>CONCEPTS</span>
+        </a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+    </div>
 
-        <div class="policy-header">
-            <span class="policy-sub">PRIVACY</span>
-            <h1>Policy</h1>
-            <p style="font-weight: 600; margin-top: 15px;">Your privacy matters here. I keep this website simple, clean, and private.</p>
-        </div>
-
-        <div class="term-card">
-            <h2>1. No Data Collection</h2>
-            <p>You can browse this website freely without an account or forms. No personal information is collected or tracked while you browse.</p>
-        </div>
-
-        <div class="term-card">
-            <h2>2. Direct Contact Only</h2>
-            <p>If you contact me via WhatsApp, SMS, or Email, you are sharing details directly. This is only used to reply to your message and is never sold for marketing.</p>
-        </div>
-
-        <div class="term-card">
-            <h2>3. No Cookies or Analytics</h2>
-            <p>This website does not use cookies, tracking pixels, or analytics tools. Your visit remains completely private.</p>
-        </div>
-
-        <div class="term-card">
-            <h2>4. Third-Party Apps</h2>
-            <p>Clicking WhatsApp or Email links will take you to external platforms. Please review their specific privacy policies once you leave this site.</p>
-        </div>
-
-        <div class="term-card">
-            <h2>5. Contact</h2>
-            <p>Questions about privacy? Contact me directly at:<br>
-            <a href="mailto:Fazhoq1977@gmail.com" style="color: var(--primary); font-weight: 700;">Fazhoq1977@gmail.com</a></p>
-        </div>
-
-        <span class="last-updated">LAST UPDATED: APRIL 2026</span>
-
-        <div style="padding-top: 60px; opacity: 0.2; font-size: 0.7rem; text-align: center; font-weight: 800;">
-            © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
-        </div>
-
-    </main>
-</div>
-
-<div class="app-dock">
-    <a href="concepts.html" class="dock-btn">
-        <i class="fa-solid fa-layer-group"></i>
-        <span>CONCEPTS</span>
-    </a>
-    <a href="https://wa.me/447706345874" class="dock-btn">
-        <i class="fa-brands fa-whatsapp"></i>
-        <span>WHATSAPP</span>
-    </a>
-    <a href="sms:07706345874" class="dock-btn">
-        <i class="fa-solid fa-comment"></i>
-        <span>TEXT</span>
-    </a>
-    <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn">
-        <i class="fa-solid fa-paper-plane"></i>
-        <span>EMAIL</span>
-    </a>
-</div>
-
-<script>
-function toggleMenu() {
-    document.getElementById("app-menu-layer").classList.toggle("active");
-}
-</script>
-
+    <script>
+        function toggleMenu() { 
+            document.getElementById('app-menu-layer').classList.toggle('active'); 
+        }
+    </script>
 </body>
 </html>
