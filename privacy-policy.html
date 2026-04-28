@@ -16,6 +16,7 @@
             --safe-bottom: env(safe-area-inset-bottom);
         }
 
+        /* LOCK BODY TO PREVENT DOCK SQUEEZE */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
         
         html, body { 
@@ -23,12 +24,13 @@
             color: var(--text); 
             width: 100%;
             height: 100%;
-            overscroll-behavior-y: none; /* Prevents rubber-banding that squeezes fixed elements */
+            overflow: hidden; /* Stops the whole page/dock from shifting */
+            position: fixed;
         }
 
         /* HEADER: FRAMELESS & TRANSPARENT */
         .faz-nav {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 2500;
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 2500;
             padding: calc(var(--safe-top) + 20px) 25px;
             display: flex; justify-content: space-between; align-items: center;
             background: transparent; pointer-events: none;
@@ -37,47 +39,44 @@
         .faz-logo span { color: #000; }
         #menu-btn { font-size: 1.8rem; color: var(--text); background: none; border: none; cursor: pointer; line-height: 1; pointer-events: auto; }
 
-        /* RIGID NON-SQUEEZE DOCK */
+        /* INDEPENDENT SCROLL CONTAINER */
+        .scroll-wrapper {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 85px; /* Ends exactly at the dock start */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 140px 25px 60px;
+        }
+
+        /* RIGID DOCK */
         .app-dock {
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
+            position: absolute; 
+            bottom: 0; left: 0; right: 0; 
             width: 100%;
             background: var(--primary); 
-            height: 85px !important; /* Slightly taller for better thumb reach */
+            height: 85px !important; 
             display: flex; 
             justify-content: space-around; 
             align-items: center;
             z-index: 9999; 
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 40px rgba(255,107,0,0.4);
-            flex-shrink: 0 !important; /* Forces it not to squeeze */
-            pointer-events: auto;
         }
         
         .dock-btn { color: #FFFFFF; display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; height: 100%; justify-content: center; }
         .dock-btn i { font-size: 1.6rem; }
         .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* MAIN CONTENT */
-        .content-main { 
-            padding-top: 140px; 
-            padding-bottom: 160px; /* Extra room so last text isn't hidden by dock */
-            padding-left: 25px; 
-            padding-right: 25px; 
-            max-width: 850px; 
-            margin: 0 auto;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
+        /* CONTENT STYLING */
+        .content-main { max-width: 850px; margin: 0 auto; }
 
         h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 8px; color: var(--primary); letter-spacing: -2px; text-transform: uppercase; }
         .policy-sub { font-weight: 900; font-size: 1.1rem; color: var(--primary); display: block; margin-bottom: 5px; letter-spacing: 1px; }
-        .last-updated { font-weight: 900; font-size: 0.85rem; color: #000; margin-bottom: 50px; display: block; opacity: 0.4; }
+        .last-updated { font-weight: 900; font-size: 0.85rem; color: #000; margin-bottom: 60px; display: block; opacity: 0.4; }
 
-        h2 { margin-top: 50px; margin-bottom: 20px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #000; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
-        p { margin-bottom: 32px; line-height: 1.8; font-size: 1.1rem; color: #333; }
+        /* VISUAL SPACING (NO LINES) */
+        h2 { margin-top: 60px; margin-bottom: 25px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #000; }
+        p { margin-bottom: 35px; line-height: 1.8; font-size: 1.15rem; color: #333; }
         
         strong { color: #000; font-weight: 800; }
         a { color: var(--primary); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
@@ -110,35 +109,37 @@
         </div>
     </div>
 
-    <main class="content-main">
-        <span class="policy-sub">PRIVACY</span>
-        <h1>Policy</h1>
-        <span class="last-updated">LAST UPDATED: MARCH 2026</span>
+    <div class="scroll-wrapper">
+        <main class="content-main">
+            <span class="policy-sub">PRIVACY</span>
+            <h1>Policy</h1>
+            <span class="last-updated">LAST UPDATED: MARCH 2026</span>
 
-        <p>This website is operated by <strong>Faz Hoq</strong>. Your privacy is protected, and this policy explains how your information is handled during your visit.</p>
+            <p>This website is operated by <strong>Faz Hoq</strong>. Your privacy is protected, and this policy explains how your information is handled during your visit.</p>
 
-        <h2>1. Information Collected</h2>
-        <p>This website is designed for browsing. You are not required to create an account, submit any forms, or provide personal data to view the content.</p>
-        
-        <p>If you choose to reach out via the <strong>WhatsApp, SMS, or Email</strong> links provided, you voluntarily share your contact details so that I may respond to you.</p>
+            <h2>1. Information Collected</h2>
+            <p>This website is designed for browsing. You are not required to create an account, submit any forms, or provide personal data to view the content.</p>
+            
+            <p>If you choose to reach out via the <strong>WhatsApp, SMS, or Email</strong> links provided, you voluntarily share your contact details so that I may respond to you.</p>
 
-        <h2>2. Use of Information</h2>
-        <p>Any details shared via direct contact are used exclusively to handle your enquiry. I do not sell, trade, or share your personal data with third parties for marketing purposes.</p>
+            <h2>2. Use of Information</h2>
+            <p>Any details shared via direct contact are used exclusively to handle your enquiry. I do not sell, trade, or share your personal data with third parties for marketing purposes.</p>
 
-        <h2>3. Third-Party Services</h2>
-        <p>When clicking communication links (WhatsApp/SMS), you are using external platforms. Their own privacy terms will apply once you leave this site.</p>
+            <h2>3. Third-Party Services</h2>
+            <p>When clicking communication links (WhatsApp/SMS), you are using external platforms. Their own privacy terms will apply once you leave this site.</p>
 
-        <h2>4. Cookies</h2>
-        <p>This site is currently tracker-free. There are no analytics, pixels, or cookies used to monitor your behavior.</p>
+            <h2>4. Cookies</h2>
+            <p>This site is currently tracker-free. There are no analytics, pixels, or cookies used to monitor your behavior.</p>
 
-        <h2>5. Contact</h2>
-        <p>For any questions regarding this policy, reach out directly at:<br>
-        <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a></p>
-        
-        <div style="padding-top: 60px; opacity: 0.3; font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; text-align: center;">
-            © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
-        </div>
-    </main>
+            <h2>5. Contact</h2>
+            <p>For any questions regarding this policy, reach out directly at:<br>
+            <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a></p>
+            
+            <div style="padding-top: 60px; opacity: 0.3; font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; text-align: center;">
+                © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
+            </div>
+        </main>
+    </div>
 
     <div class="app-dock">
         <a href="concepts.html" class="dock-btn">
