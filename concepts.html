@@ -281,16 +281,16 @@
     </div>
 
     <script>
-        // GENERATE 50 CONCEPTS WITH SPECIFIC LINKS
+        // GENERATE DATA FOR ALL 50 CONCEPTS
         const concepts = Array.from({length: 50}, (_, i) => {
             const num = i + 1;
             return {
                 code: `D${num}`,
-                // D1 gets your specific image, others get placeholders
+                // D1 uses your requested GitHub image, others use placeholders
                 image: (num === 1) 
-                    ? "https://doctoc30.github.io/fazhoq/images/IMG_2973.png" 
+                    ? "https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/1.jpg" 
                     : `https://picsum.photos/seed/concept${num}/800/1200`,
-                // Link follows the concept-X.html pattern
+                // Every concept button redirects to its specific page
                 url: `https://doctoc30.github.io/fazhoq/driving-school/concept-${num}.html`
             };
         });
@@ -308,7 +308,7 @@
             grid.innerHTML = items.map(item => `
                 <div class="concept-card">
                     <div class="concept-image-wrap">
-                        <img src="${item.image}" alt="Concept ${item.code}" loading="lazy">
+                        <img src="${item.image}" alt="Concept ${item.code}" onerror="this.src='https://via.placeholder.com/800x1200?text=Concept+Image+Coming+Soon'" loading="lazy">
                     </div>
                     <div class="concept-footer">
                         <button class="view-btn" onclick="window.location.href='${item.url}'">View Concept</button>
