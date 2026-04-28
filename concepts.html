@@ -30,33 +30,35 @@
             color: var(--text);
             overflow-x: hidden;
             width: 100%;
-            height: 100%; /* Ensures stable viewport */
+            height: 100%;
         }
 
-        /* HEADER */
+        /* THINNER HEADER FIXED */
         .faz-nav {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 2500;
-            padding: calc(var(--safe-top) + 20px) 25px;
+            /* Reduced padding to thin out the header */
+            padding: calc(var(--safe-top) + 10px) 20px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--primary-light);
+            height: 70px; /* Locked height for consistency */
         }
 
         .faz-logo {
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* Slightly smaller to fit thinner header */
             font-weight: 900;
-            letter-spacing: -1.5px;
+            letter-spacing: -1.2px;
             color: var(--primary);
             text-decoration: none;
         }
         .faz-logo span { color: #000; }
 
         #menu-btn {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--text);
             background: none;
             border: none;
@@ -76,24 +78,24 @@
             transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
         #app-menu-layer.active { transform: translateY(0); }
-        .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
+        .menu-item { font-size: 3rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
 
         /* CONTENT AREA */
         .content-main {
-            padding-top: 110px;
-            padding-bottom: 120px; /* Space for the dock */
+            padding-top: 85px; /* Adjusted for thinner header */
+            padding-bottom: 120px; 
         }
 
         .hero-section {
             text-align: center;
-            padding: 20px 25px 30px;
+            padding: 10px 25px 25px;
         }
 
         .huge-text {
-            font-size: clamp(2.2rem, 8vw, 3.5rem);
+            font-size: clamp(2rem, 7vw, 3rem);
             font-weight: 900;
             line-height: 0.9;
-            letter-spacing: -2px;
+            letter-spacing: -1.5px;
             color: var(--primary);
             text-transform: uppercase;
         }
@@ -109,20 +111,20 @@
         /* MOBILE FRAME DESIGN */
         .concept-card {
             width: 100%;
-            max-width: 360px; 
+            max-width: 350px; 
             display: flex;
             flex-direction: column;
             background: #fff;
-            margin-bottom: 60px;
-            border-radius: 40px; 
+            margin-bottom: 50px;
+            border-radius: 35px; 
             border: 10px solid #1a1a1a; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.18);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
             overflow: hidden;
         }
 
         .concept-image-wrap {
             width: 100%;
-            height: 65vh; 
+            height: 60vh; 
             overflow: hidden;
             background: #f0f0f0;
         }
@@ -136,47 +138,46 @@
         }
 
         .concept-footer {
-            padding: 25px 20px 30px;
+            padding: 20px 15px 25px;
             text-align: center;
             background: #fff;
         }
 
         .view-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: var(--primary);
             color: #fff;
             border-radius: 40px;
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
         }
 
         .concept-code-label {
-            margin-top: 12px;
+            margin-top: 10px;
             font-weight: 900;
             color: #ccc;
             letter-spacing: 2px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
-        /* FIXED RIGID DOCK - PREVENTS SQUEEZING */
+        /* STABLE RIGID DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: var(--primary);
-            height: 85px; /* Explicit height */
+            height: 80px; 
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 9000;
             padding-bottom: var(--safe-bottom);
-            flex-shrink: 0; /* Prevents compression */
-            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+            box-shadow: 0 -8px 25px rgba(255,107,0,0.25);
         }
         
         .dock-btn {
@@ -186,14 +187,12 @@
             align-items: center;
             text-decoration: none;
             flex: 1;
-            height: 100%;
-            justify-content: center;
         }
-        .dock-btn i { font-size: 1.8rem; height: 30px; }
+        .dock-btn i { font-size: 1.6rem; }
         .dock-btn span {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 800;
-            margin-top: 6px;
+            margin-top: 5px;
             text-transform: uppercase;
         }
 
@@ -202,13 +201,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
-            padding-bottom: 60px;
+            gap: 20px;
+            padding-bottom: 40px;
         }
 
         .page-arrow {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: #000;
             color: #fff;
@@ -216,7 +215,7 @@
             align-items: center;
             justify-content: center;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         @media (min-width: 768px) {
@@ -224,7 +223,7 @@
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 40px;
-                max-width: 1000px;
+                max-width: 900px;
                 margin: 0 auto;
             }
         }
@@ -261,7 +260,7 @@
 
         <div class="pagination-nav">
             <button class="page-arrow" onclick="changePage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <span id="pageNumber" style="font-weight: 900; font-size: 1.4rem;">1</span>
+            <span id="pageNumber" style="font-weight: 900; font-size: 1.2rem;">1</span>
             <button class="page-arrow" onclick="changePage(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </main>
