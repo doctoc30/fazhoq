@@ -259,10 +259,18 @@
             opacity: 0.7;
         }
 
-        /* FINAL SLIDE PRIVACY HINT */
-        .privacy-hint {
+        /* FINAL SLIDE LEGAL WRAPPER */
+        .legal-links-wrapper {
             position: absolute;
             bottom: 105px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+            pointer-events: none;
+        }
+
+        .legal-link {
             font-size: 0.65rem;
             font-weight: 900;
             color: #000;
@@ -270,6 +278,7 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -289,7 +298,7 @@
             <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="menu-item" style="color: var(--primary);">CONCEPTS</a>
             <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
-        <a href="privacy.html" class="menu-privacy">PRIVACY POLICY</a>
+        <a href="https://doctoc30.github.io/fazhoq/privacy-policy" class="menu-privacy">PRIVACY POLICY</a>
     </div>
 
     <nav class="faz-nav">
@@ -347,7 +356,10 @@
                     <i class="fa-solid fa-hand-point-down"></i>
                 </div>
             </div>
-            <a href="privacy.html" class="privacy-hint">Legal & Privacy</a>
+            <div class="legal-links-wrapper">
+                <a href="https://doctoc30.github.io/fazhoq/privacy-policy" class="legal-link">Privacy Policy</a>
+                <a href="https://doctoc30.github.io/fazhoq/t&c" class="legal-link">T&Cs</a>
+            </div>
         </section>
     </div>
 
