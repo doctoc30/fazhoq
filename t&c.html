@@ -1,278 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FAZ HOQ | Terms & Conditions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | Terms & Conditions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --text: #121212;
+            --text-muted: #4a4a4a;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
 
-<style>
-:root {
-    --primary: #FF6B00;
-    --primary-light: #FFF5EE;
-    --text: #121212;
-    --text-muted: #4a4a4a;
-    --safe-top: env(safe-area-inset-top);
-    --safe-bottom: env(safe-area-inset-bottom);
-}
+        html, body {
+            background: var(--primary-light);
+            color: var(--text);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    font-family: 'Inter', sans-serif;
-}
+        /* NAVBAR - Exactly as index.html */
+        .faz-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2500;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-html, body {
-    background: var(--primary-light);
-    color: var(--text);
-    width: 100%;
-    height: 100dvh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+        .faz-logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .faz-logo span { color: #000; }
 
-/* NAV */
-.faz-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 2500;
-    padding: calc(var(--safe-top) + 20px) 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--primary-light);
-    pointer-events: none;
-}
+        #menu-btn {
+            font-size: 1.8rem;
+            color: var(--text);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-.faz-logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: -1px;
-    color: var(--primary);
-    text-decoration: none;
-    line-height: 1;
-    pointer-events: auto;
-}
+        /* SCROLL AREA */
+        .scroll-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: calc(var(--safe-top) + 120px) 25px 140px;
+        }
 
-.faz-logo span { color: #000; }
+        .content-main {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-#menu-btn {
-    font-size: 1.5rem;
-    color: var(--text);
-    background: none;
-    border: none;
-    cursor: pointer;
-    pointer-events: auto;
-}
+        /* HEADER */
+        .policy-header { margin-bottom: 50px; }
+        .policy-sub {
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
 
-/* SCROLL WRAPPER */
-.scroll-wrapper {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: calc(var(--safe-top) + 110px) 25px 140px;
-}
+        h1 {
+            font-size: clamp(2.5rem, 10vmin, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--primary);
+            letter-spacing: -3px;
+            text-transform: uppercase;
+        }
 
-.content-main {
-    max-width: 600px;
-    margin: 0 auto;
-}
+        /* CATEGORY BLOCKS */
+        .category-block {
+            margin-bottom: 45px;
+        }
 
-/* HEADER */
-.policy-header { margin-bottom: 50px; }
-.policy-sub {
-    font-weight: 900;
-    font-size: 0.75rem;
-    color: var(--primary);
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 12px;
-}
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
 
-h1 {
-    font-size: 2.8rem;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: var(--text);
-    letter-spacing: -1.5px;
-    text-transform: uppercase;
-}
+        .sub-term {
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 2px solid rgba(0,0,0,0.1);
+        }
 
-/* SECTIONING */
-.category-block {
-    margin-bottom: 45px;
-}
+        h2 {
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
 
-.category-title {
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 8px;
-    display: inline-block;
-}
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
 
-.sub-term {
-    margin-bottom: 25px;
-    padding-left: 15px;
-    border-left: 2px solid rgba(0,0,0,0.1);
-}
+        .last-updated {
+            display: block;
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: #000;
+            opacity: 0.3;
+            letter-spacing: 2px;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
 
-h2 {
-    font-size: 1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: var(--text);
-    margin-bottom: 6px;
-}
+        /* APP DOCK - Exactly as index.html */
+        .app-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0; right: 0;
+            background: var(--primary);
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2500;
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .dock-btn {
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            flex: 1;
+        }
 
-p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-}
+        .dock-btn i { font-size: 1.8rem; }
+        .dock-btn span {
+            font-size: 0.65rem;
+            font-weight: 800;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
 
-/* DOCK & MENU (Standard) */
-#app-menu-layer {
-    position: fixed; inset: 0; background: var(--primary-light); z-index: 9500;
-    display: flex; flex-direction: column; padding: calc(var(--safe-top) + 20px) 25px;
-    transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-}
-#app-menu-layer.active { transform: translateY(0); }
-
-.app-dock {
-    background: var(--primary); height: 75px; display: flex; justify-content: space-around;
-    align-items: center; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
-    padding-bottom: var(--safe-bottom); box-shadow: 0 -5px 25px rgba(255, 107, 0, 0.3);
-}
-.dock-btn { color: #fff; display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; }
-.dock-btn i { font-size: 1.3rem; }
-.dock-btn span { font-size: 0.6rem; font-weight: 700; margin-top: 4px; text-transform: uppercase; }
-</style>
+        /* MENU LAYER - Exactly as index.html */
+        #app-menu-layer {
+            position: fixed;
+            inset: 0;
+            background: var(--primary-light);
+            z-index: 9500;
+            display: flex;
+            flex-direction: column;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #app-menu-layer.active { transform: translateY(0); }
+        .menu-item { 
+            font-size: 3.5rem; 
+            font-weight: 900; 
+            color: var(--text); 
+            text-decoration: none; 
+            text-align: center; 
+            margin: 10px 0; 
+        }
+    </style>
 </head>
-
 <body>
 
-<nav class="faz-nav">
-    <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
-    <button id="menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars-staggered"></i>
-    </button>
-</nav>
-
-<div id="app-menu-layer">
-    <div class="flex justify-between items-center mb-10">
-        <div class="faz-logo">FAZ HOQ<span>.</span></div>
-        <div onclick="toggleMenu()" class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center cursor-pointer">
-            <i class="fa-solid fa-xmark"></i>
+    <div id="app-menu-layer">
+        <div class="flex justify-between items-center mb-10">
+            <div class="faz-logo">FAZ HOQ<span>.</span></div>
+            <div onclick="toggleMenu()" class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 justify-center">
+            <a href="index.html" class="menu-item">HOME</a>
+            <a href="index.html" class="menu-item">ABOUT</a>
+            <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="menu-item" style="color: var(--primary);">CONCEPTS</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
         </div>
     </div>
-    <div class="flex flex-col flex-1 justify-center items-center">
-        <a href="index.html" class="text-4xl font-black mb-8">HOME</a>
-        <a href="concepts.html" class="text-4xl font-black mb-8">CONCEPTS</a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="text-4xl font-black mb-8">CONTACT</a>
+
+    <nav class="faz-nav">
+        <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
+        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+
+    <div class="scroll-wrapper">
+        <main class="content-main">
+
+            <div class="policy-header">
+                <span class="policy-sub">Legal</span>
+                <h1>Terms &<br>Conditions</h1>
+            </div>
+
+            <div class="category-block">
+                <div class="category-title">1. One-Time Purchase</div>
+                
+                <div class="sub-term">
+                    <h2>Included Services</h2>
+                    <p>Includes website design, mobile responsiveness, features, functionality, and final delivery of completed project files.</p>
+                </div>
+
+                <div class="sub-term">
+                    <h2>Hosting & Uploads</h2>
+                    <p>Clients are responsible for their own hosting provider. Hosting fees, domain costs, and third-party subscriptions are not included.</p>
+                </div>
+
+                <div class="sub-term">
+                    <h2>One-Month Aftercare</h2>
+                    <p>Includes technical fixes, bug fixes, and layout issues caused by development for 30 days post-delivery.</p>
+                </div>
+            </div>
+
+            <div class="category-block">
+                <div class="category-title">2. Monthly Plans</div>
+                
+                <div class="sub-term">
+                    <h2>Maintenance</h2>
+                    <p>Includes ongoing maintenance, security monitoring, and technical support for the duration of the subscription.</p>
+                </div>
+
+                <div class="sub-term">
+                    <h2>Revisions</h2>
+                    <p>Up to 5 content or layout revisions per month. Unused revisions do not roll over to the following month.</p>
+                </div>
+            </div>
+
+            <div class="category-block">
+                <div class="category-title">3. General Policies</div>
+
+                <div class="sub-term">
+                    <h2>Trial Offers</h2>
+                    <p>Trial websites are preview-only and remain developer property until the full purchase is completed.</p>
+                </div>
+
+                <div class="sub-term">
+                    <h2>Ownership & Refunds</h2>
+                    <p>Ownership transfers after full payment. Deposits and work-in-progress payments are non-refundable.</p>
+                </div>
+            </div>
+
+            <span class="last-updated">Updated: April 2026</span>
+
+            <div style="padding-top: 60px; opacity: 0.2; font-size: 0.7rem; text-align: center; font-weight: 900; letter-spacing: 2px;">
+                © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
+            </div>
+
+        </main>
     </div>
-</div>
 
-<div class="scroll-wrapper">
-    <main class="content-main">
+    <div class="app-dock">
+        <a href="https://doctoc30.github.io/fazhoq/concepts.html" class="dock-btn">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>CONCEPTS</span>
+        </a>
+        <a href="https://wa.me/447706345874" class="dock-btn"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
+        <a href="sms:07706345874" class="dock-btn"><i class="fa-solid fa-comment"></i><span>TEXT</span></a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn"><i class="fa-solid fa-paper-plane"></i><span>EMAIL</span></a>
+    </div>
 
-        <div class="policy-header">
-            <span class="policy-sub">LEGAL</span>
-            <h1>Terms & Conditions</h1>
-        </div>
-
-        <div class="category-block">
-            <div class="category-title">1. One-Time Purchase</div>
-            
-            <div class="sub-term">
-                <h2>Included Services</h2>
-                <p>Includes website design, mobile responsiveness, features, functionality, and final delivery of completed project files.</p>
-            </div>
-
-            <div class="sub-term">
-                <h2>Hosting & Uploads</h2>
-                <p>Clients are responsible for their own hosting provider. Hosting fees, domain costs, and third-party subscriptions are not included.</p>
-            </div>
-
-            <div class="sub-term">
-                <h2>One-Month Aftercare</h2>
-                <p>Includes technical fixes, bug fixes, and layout issues caused by development for 30 days post-delivery.</p>
-            </div>
-        </div>
-
-        <div class="category-block">
-            <div class="category-title">2. Monthly Plans</div>
-            
-            <div class="sub-term">
-                <h2>Maintenance</h2>
-                <p>Includes ongoing maintenance, security monitoring, and technical support for the duration of the subscription.</p>
-            </div>
-
-            <div class="sub-term">
-                <h2>Revisions</h2>
-                <p>Up to 5 content or layout revisions per month. Unused revisions do not roll over to the following month.</p>
-            </div>
-        </div>
-
-        <div class="category-block">
-            <div class="category-title">3. General Policies</div>
-
-            <div class="sub-term">
-                <h2>Trial Offers</h2>
-                <p>Trial websites are preview-only and remain developer property until the full purchase is completed.</p>
-            </div>
-
-            <div class="sub-term">
-                <h2>Ownership & Refunds</h2>
-                <p>Ownership transfers after full payment. Deposits and work-in-progress payments are non-refundable.</p>
-            </div>
-        </div>
-
-        <div style="padding-top: 40px; opacity: 0.3; font-size: 0.7rem; text-align: center; font-weight: 800; letter-spacing: 1px;">
-            UPDATED APRIL 2026<br><br>
-            © FAZ HOQ. ALL RIGHTS RESERVED.
-        </div>
-
-    </main>
-</div>
-
-<div class="app-dock">
-    <a href="concepts.html" class="dock-btn">
-        <i class="fa-solid fa-layer-group"></i>
-        <span>CONCEPTS</span>
-    </a>
-    <a href="https://wa.me/447706345874" class="dock-btn">
-        <i class="fa-brands fa-whatsapp"></i>
-        <span>WHATSAPP</span>
-    </a>
-    <a href="sms:07706345874" class="dock-btn">
-        <i class="fa-solid fa-comment"></i>
-        <span>TEXT</span>
-    </a>
-    <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn">
-        <i class="fa-solid fa-paper-plane"></i>
-        <span>EMAIL</span>
-    </a>
-</div>
-
-<script>
-function toggleMenu() {
-    document.getElementById("app-menu-layer").classList.toggle("active");
-}
-</script>
-
+    <script>
+        function toggleMenu() { 
+            document.getElementById('app-menu-layer').classList.toggle('active'); 
+        }
+    </script>
 </body>
 </html>
