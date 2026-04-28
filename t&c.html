@@ -14,6 +14,7 @@
     --primary: #FF6B00;
     --primary-light: #FFF5EE;
     --text: #121212;
+    --text-muted: #4a4a4a;
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
 }
@@ -47,12 +48,12 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--primary-light); /* Added background to prevent text overlap */
+    background: var(--primary-light);
     pointer-events: none;
 }
 
 .faz-logo {
-    font-size: 1.8rem; /* Slightly smaller for better mobile fit */
+    font-size: 1.8rem;
     font-weight: 900;
     letter-spacing: -1px;
     color: var(--primary);
@@ -74,16 +75,16 @@ html, body {
     pointer-events: auto;
 }
 
-/* SCROLL */
+/* SCROLL WRAPPER */
 .scroll-wrapper {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: calc(var(--safe-top) + 100px) 25px 120px; /* Added more bottom padding for dock clearance */
+    padding: calc(var(--safe-top) + 110px) 25px 140px;
 }
 
 .content-main {
-    max-width: 650px; /* Narrower width improves readability */
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -102,13 +103,44 @@ html, body {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 20px;
     color: var(--text);
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
     text-transform: uppercase;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+/* SECTIONING FOR CLARITY */
+.term-card {
+    margin-bottom: 35px;
+    border-left: 3px solid var(--primary);
+    padding-left: 20px;
+}
+
+h2 {
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-muted);
 }
 
 .last-updated {
@@ -116,74 +148,9 @@ h1 {
     font-weight: 700;
     font-size: 0.7rem;
     color: #000;
-    opacity: 0.5;
+    opacity: 0.4;
     letter-spacing: 1px;
-}
-
-/* CONTENT SPACING FIXES */
-h2 {
-    margin-top: 45px;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #000;
-    line-height: 1.4;
-}
-
-p {
-    margin-bottom: 25px; /* Reduced from 80px to stop "disconnected" look */
-    line-height: 1.6;    /* Standard comfortable reading height */
-    font-size: 1.05rem;
-    color: #444;
-    max-width: 95%;     /* Prevents text from hitting edges too hard */
-}
-
-strong {
-    color: #000;
-    font-weight: 800;
-}
-
-a {
-    color: var(--primary);
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-/* DOCK */
-.app-dock {
-    background: var(--primary);
-    height: 75px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 9999;
-    padding-bottom: var(--safe-bottom);
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-    flex-shrink: 0;
-}
-
-.dock-btn {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    flex: 1;
-}
-
-.dock-btn i {
-    font-size: 1.3rem;
-}
-
-.dock-btn span {
-    font-size: 0.6rem;
-    font-weight: 700;
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    margin-top: 40px;
 }
 
 /* MENU LAYER */
@@ -202,6 +169,40 @@ a {
 #app-menu-layer.active {
     transform: translateY(0);
 }
+
+/* DOCK */
+.app-dock {
+    background: var(--primary);
+    height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding-bottom: var(--safe-bottom);
+    box-shadow: 0 -5px 25px rgba(255, 107, 0, 0.3);
+}
+
+.dock-btn {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    flex: 1;
+}
+
+.dock-btn i { font-size: 1.3rem; }
+.dock-btn span {
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 </style>
 </head>
 
@@ -210,7 +211,7 @@ a {
 <nav class="faz-nav">
     <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
     <button id="menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-bars-staggered"></i>
     </button>
 </nav>
 
@@ -221,11 +222,10 @@ a {
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-    <div class="flex flex-col flex-1 justify-center">
-        <a href="index.html" class="menu-item text-4xl font-black mb-6 text-center">HOME</a>
-        <a href="index.html" class="menu-item text-4xl font-black mb-6 text-center">ABOUT</a>
-        <a href="concepts.html" class="menu-item text-4xl font-black mb-6 text-center">CONCEPTS</a>
-        <a href="mailto:Fazhoq1977@gmail.com" class="menu-item text-4xl font-black mb-6 text-center">CONTACT</a>
+    <div class="flex flex-col flex-1 justify-center items-center">
+        <a href="index.html" class="text-4xl font-black mb-8">HOME</a>
+        <a href="concepts.html" class="text-4xl font-black mb-8">CONCEPTS</a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="text-4xl font-black mb-8">CONTACT</a>
     </div>
 </div>
 
@@ -235,60 +235,54 @@ a {
         <div class="policy-header">
             <span class="policy-sub">LEGAL</span>
             <h1>Terms & Conditions</h1>
-            <span class="last-updated">UPDATED: APRIL 2026</span>
+            <p class="intro-text">
+                These terms protect both the client and the developer. By working with <strong>FAZ HOQ</strong>, you agree to the conditions outlined below.
+            </p>
         </div>
 
-        <p>
-            These terms protect both the client and the developer. By working with FAZ HOQ, you agree to the terms below.
-        </p>
+        <div class="term-card">
+            <h2>1. One-Time Purchase</h2>
+            <p>Includes agreed website design, mobile responsiveness, features, functionality, and final delivery of completed project files.</p>
+        </div>
 
-        <h2>1. One-Time Purchase Websites</h2>
-        <p>
-            A one-time purchase includes the agreed website design, mobile responsiveness, features, functionality, and final delivery of completed files.
-        </p>
+        <div class="term-card">
+            <h2>2. Hosting & Uploads</h2>
+            <p>Clients are responsible for their own hosting provider. Hosting fees, domain costs, and third-party subscriptions are not included unless specified.</p>
+        </div>
 
-        <h2>2. Hosting & Upload Responsibility</h2>
-        <p>
-            Clients are responsible for uploading files to their own hosting provider unless agreed otherwise. Hosting fees, domain costs, and third-party subscriptions are not included unless clearly stated.
-        </p>
+        <div class="term-card">
+            <h2>3. One-Month Aftercare</h2>
+            <p>Includes technical fixes, bug fixes, and layout issues caused by development for 30 days post-delivery.</p>
+        </div>
 
-        <h2>3. One-Month Aftercare</h2>
-        <p>
-            Includes technical fixes, bug fixes, and layout issues caused by development for 30 days post-delivery.
-        </p>
+        <div class="term-card">
+            <h2>4. Monthly Website Plans</h2>
+            <p>Includes ongoing maintenance, security monitoring, and technical support for the duration of your subscription.</p>
+        </div>
 
-        <h2>4. Monthly Website Plans</h2>
-        <p>
-            Includes ongoing maintenance, monitoring, and technical support for the duration of the subscription.
-        </p>
+        <div class="term-card">
+            <h2>5. Monthly Revisions</h2>
+            <p>Up to 5 content or layout revisions per month. Unused revisions do not roll over to the following month.</p>
+        </div>
 
-        <h2>5. Monthly Revisions</h2>
-        <p>
-            Up to 5 monthly content or layout revisions. Unused revisions do not roll over to the following month.
-        </p>
+        <div class="term-card">
+            <h2>6. Trial Offers</h2>
+            <p>Trial websites are preview-only. They remain the property of the developer until full payment is made.</p>
+        </div>
 
-        <h2>6. Free Trial Website Offer</h2>
-        <p>
-            Trial websites are preview-only and remain developer-owned until the full purchase is completed.
-        </p>
+        <div class="term-card">
+            <h2>7. Ownership & Rights</h2>
+            <p>Full ownership and rights transfer to the client once the final balance is paid in full. Deposits are non-refundable.</p>
+        </div>
 
-        <h2>7. Ownership & Payments</h2>
-        <p>
-            Deposits are non-refundable once work begins. Ownership of all assets transfers to the client only after full payment is received.
-        </p>
+        <div class="term-card">
+            <h2>8. Disputes</h2>
+            <p>Clients agree to contact FAZ HOQ directly to resolve issues before initiating chargebacks or bank disputes.</p>
+        </div>
 
-        <h2>8. Refund Policy</h2>
-        <p>
-            All payments are non-refundable once project work has commenced. Clients agree to contact FAZ HOQ directly before initiating any disputes or chargebacks.
-        </p>
+        <span class="last-updated">LAST UPDATED: APRIL 2026</span>
 
-        <h2>9. Contact</h2>
-        <p>
-            For questions regarding these terms: <br>
-            <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a>
-        </p>
-
-        <div style="padding-top: 40px; opacity: 0.3; font-weight: 700; font-size: 0.65rem; letter-spacing: 1px; text-align: center;">
+        <div style="padding-top: 60px; opacity: 0.2; font-size: 0.7rem; text-align: center; font-weight: 800;">
             © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
         </div>
 
