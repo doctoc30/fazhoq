@@ -16,21 +16,22 @@
             --safe-bottom: env(safe-area-inset-bottom);
         }
 
-        /* LOCK BODY TO PREVENT DOCK SQUEEZE */
+        /* STOPS SQUEEZING: FIXED VIEWPORT HEIGHT */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
         
         html, body { 
             background-color: var(--primary-light); 
             color: var(--text); 
             width: 100%;
-            height: 100%;
-            overflow: hidden; /* Stops the whole page/dock from shifting */
-            position: fixed;
+            height: 100dvh; /* Dynamic viewport height stops shifting */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         /* HEADER: FRAMELESS & TRANSPARENT */
         .faz-nav {
-            position: absolute; top: 0; left: 0; width: 100%; z-index: 2500;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 2500;
             padding: calc(var(--safe-top) + 20px) 25px;
             display: flex; justify-content: space-between; align-items: center;
             background: transparent; pointer-events: none;
@@ -39,20 +40,16 @@
         .faz-logo span { color: #000; }
         #menu-btn { font-size: 1.8rem; color: var(--text); background: none; border: none; cursor: pointer; line-height: 1; pointer-events: auto; }
 
-        /* INDEPENDENT SCROLL CONTAINER */
+        /* SCROLLABLE AREA */
         .scroll-wrapper {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 85px; /* Ends exactly at the dock start */
+            flex: 1;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding: 140px 25px 60px;
+            padding: calc(var(--safe-top) + 130px) 25px 50px;
         }
 
-        /* RIGID DOCK */
+        /* RIGID DOCK: NO SQUEEZE */
         .app-dock {
-            position: absolute; 
-            bottom: 0; left: 0; right: 0; 
-            width: 100%;
             background: var(--primary); 
             height: 85px !important; 
             display: flex; 
@@ -61,22 +58,23 @@
             z-index: 9999; 
             padding-bottom: var(--safe-bottom);
             box-shadow: 0 -10px 40px rgba(255,107,0,0.4);
+            flex-shrink: 0; /* Prevents dock from shrinking */
         }
         
         .dock-btn { color: #FFFFFF; display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; height: 100%; justify-content: center; }
         .dock-btn i { font-size: 1.6rem; }
         .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* CONTENT STYLING */
+        /* CONTENT STYLING WITH CLEAR GRAPH SPACING */
         .content-main { max-width: 850px; margin: 0 auto; }
 
-        h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 8px; color: var(--primary); letter-spacing: -2px; text-transform: uppercase; }
+        h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 12px; color: var(--primary); letter-spacing: -2px; text-transform: uppercase; }
         .policy-sub { font-weight: 900; font-size: 1.1rem; color: var(--primary); display: block; margin-bottom: 5px; letter-spacing: 1px; }
         .last-updated { font-weight: 900; font-size: 0.85rem; color: #000; margin-bottom: 60px; display: block; opacity: 0.4; }
 
-        /* VISUAL SPACING (NO LINES) */
-        h2 { margin-top: 60px; margin-bottom: 25px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #000; }
-        p { margin-bottom: 35px; line-height: 1.8; font-size: 1.15rem; color: #333; }
+        /* INCREASED MARGINS FOR CLEAR GRAPH SPACING */
+        h2 { margin-top: 80px; margin-bottom: 30px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #000; }
+        p { margin-bottom: 50px; line-height: 1.9; font-size: 1.15rem; color: #333; }
         
         strong { color: #000; font-weight: 800; }
         a { color: var(--primary); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
