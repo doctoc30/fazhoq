@@ -1,1 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving School | High Ticket Premium Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #143525; /* Forest Green from Image */
+            --accent: #C89F3C;  /* Mustard Gold from Image */
+            --accent-hover: #b08a32;
+            --text-light: #EAE3D2; /* Cream from Image */
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0b2218; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
+
+        /* 18. Sticky Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(20, 53, 37, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(200, 159, 60, 0.1);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* 1. Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, rgba(200, 159, 60, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-content { width: 55%; z-index: 2; }
+        .hero-content h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .hero-img-container {
+            width: 45%;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* 29. Custom AI Graphics Styled SVG */
+        .hero-car-svg {
+            width: 100%;
+            max-width: 600px;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-1deg); }
+        }
+
+        /* Buttons */
+        .btn-gold {
+            background-color: var(--accent);
+            color: var(--bg-deep);
+            padding: 20px 50px;
+            border: none;
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+            display: inline-block;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--text-light);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 2. Contact Section & Form */
+        .booking-section { padding: 120px 10%; background: rgba(0,0,0,0.1); }
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .contact-info h2 {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        input, textarea, select {
+            width: 100%;
+            padding: 22px;
+            background: var(--input-bg);
+            border: 1px solid rgba(234, 227, 210, 0.15);
+            color: var(--text-light);
+            font-size: 1rem;
+            border-radius: 4px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); }
+
+        /* 7. Stats Counter */
+        .stats-bar {
+            background: #0b2218;
+            padding: 80px 10%;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .stat-item h3 { font-size: 4rem; color: var(--accent); font-weight: 800; margin-bottom: 10px; }
+        .stat-item p { text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; font-weight: 700; }
+
+        /* 27. Featured Services */
+        .services-section { padding: 120px 10%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        
+        .service-card {
+            padding: 60px 40px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(200, 159, 60, 0.05);
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            background: rgba(200, 159, 60, 0.03);
+            transform: translateY(-15px);
+        }
+
+        .service-card i { font-size: 3.5rem; color: var(--accent); margin-bottom: 25px; display: block; }
+        .service-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
+
+        /* 10. 6 Grid Photos & 17. Lightbox */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 10% 120px;
+        }
+
+        .gallery-item {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            filter: grayscale(0.5) brightness(0.8);
+        }
+
+        .gallery-item:hover { filter: grayscale(0) brightness(1); transform: scale(1.02); }
+
+        /* 20. Bottom CTA Dock */
+        .floating-dock {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            padding: 12px 40px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 999;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .floating-dock a {
+            color: var(--bg-deep);
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .floating-dock .divider { width: 1px; height: 30px; background: rgba(0,0,0,0.1); }
+
+        /* 3. FAQ Section */
+        .faq-section { padding: 120px 10%; max-width: 1100px; margin: auto; }
+        .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; }
+        .accordion-header {
+            padding: 30px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.5s ease;
+            opacity: 0;
+            color: rgba(234, 227, 210, 0.7);
+        }
+
+        /* 5. Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-box {
+            background: var(--bg-deep);
+            padding: 60px;
+            border: 2px solid var(--accent);
+            text-align: center;
+            max-width: 600px;
+            position: relative;
+        }
+
+        /* 31. Mobile Menu */
+        .menu-toggle { display: none; color: var(--accent); font-size: 1.5rem; cursor: pointer; }
+
+        @media (max-width: 968px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 150px; }
+            .hero-content, .hero-img-container { width: 100%; }
+            .hero-content h1 { font-size: 4rem; }
+            .form-container { grid-template-columns: 1fr; }
+            .grid-3, .gallery-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Driving School</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#vip">VIP Packages</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-right">
+            <h1>Learn<br>to Drive.</h1>
+            <p style="font-size: 1.3rem; margin-bottom: 40px; color: var(--accent); font-weight: 600; letter-spacing: 1px;">
+                EXECUTIVE INSTRUCTION FOR THE DISCERNING DRIVER.
+            </p>
+            <a href="#booking" class="btn-gold">Get Started</a>
+        </div>
+        <div class="hero-img-container" data-aos="fade-left" data-aos-delay="300">
+            <svg class="hero-car-svg" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#C89F3C;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#b08a32;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <ellipse cx="300" cy="260" rx="250" ry="20" fill="rgba(0,0,0,0.3)" />
+                <path d="M50,220 L550,220 L530,120 C520,100 480,90 450,90 L180,90 C140,90 100,105 80,140 Z" fill="url(#carGrad)" />
+                <path d="M190,105 L300,105 L300,160 L130,160 C145,130 160,105 190,105 Z" fill="#143525" opacity="0.8" />
+                <path d="M320,105 L440,105 C460,105 480,115 490,135 L505,160 L320,160 Z" fill="#143525" opacity="0.8" />
+                <circle cx="150" cy="220" r="45" fill="#0b2218" stroke="#C89F3C" stroke-width="4"/>
+                <circle cx="450" cy="220" r="45" fill="#0b2218" stroke="#C89F3C" stroke-width="4"/>
+                <rect x="470" y="170" width="45" height="35" fill="#EAE3D2" rx="4" />
+                <text x="483" y="196" font-family="Arial" font-size="28" font-weight="900" fill="#cc0000">L</text>
+            </svg>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="stat-item" data-aos="zoom-in">
+            <h3 class="counter" data-target="98">0</h3>
+            <p>Pass Rate %</p>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+            <h3 class="counter" data-target="2450">0</h3>
+            <p>Safe Drivers Graduated</p>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+            <h3 class="counter" data-target="15">0</h3>
+            <p>Premium Fleet Vehicles</p>
+        </div>
+    </section>
+
+    <section id="contact" class="booking-section">
+        <div class="form-container">
+            <div class="contact-info" data-aos="fade-up">
+                <h2>CONTACT US</h2>
+                <p style="margin-bottom: 40px; font-size: 1.1rem; opacity: 0.8;">Contact us today to schedule your first lesson and experience the pinnacle of driving education.</p>
+                
+                <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 30px;">
+                    <div style="background: var(--accent); padding: 25px; border-radius: 50%;">
+                        <i class="fas fa-stopwatch" style="color: var(--bg-deep); font-size: 1.8rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1.4rem;">FAST-TRACK LESSONS</h4>
+                        <p style="opacity: 0.7;">Intensive driving courses available for those in the fast lane.</p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="quoteForm" data-aos="fade-left">
+                <div class="input-group"><input type="text" placeholder="Full Name" required></div>
+                <div class="input-group"><input type="email" placeholder="Email Address" required></div>
+                <div class="input-group"><input type="tel" placeholder="Phone Number" required></div>
+                <div class="input-group">
+                    <select required>
+                        <option value="">Select Service</option>
+                        <option>Intensive Weekly Course</option>
+                        <option>VIP Concierge Training</option>
+                        <option>Automatic Transition</option>
+                        <option>Advanced Defensive Driving</option>
+                    </select>
+                </div>
+                <div class="input-group"><textarea rows="4" placeholder="Message / Specific Requirements"></textarea></div>
+                <button type="submit" class="btn-gold" style="width: 100%;">SEND INQUIRY</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="courses" class="services-section">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h2 style="font-size: 3rem; color: var(--accent);">PREMIUM COURSES</h2>
+        </div>
+        <div class="grid-3">
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-road"></i>
+                <h3>Pass in a Week</h3>
+                <p>Our flagship intensive program designed for rapid results without compromising safety.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-gem"></i>
+                <h3>VIP Executive</h3>
+                <p>Door-to-door concierge service in our premium BMW & Mercedes fleet.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Defensive Pro</h3>
+                <p>Post-license training focusing on hazard perception and advanced road mastery.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="gallery-grid">
+        <div class="gallery-item" data-aos="zoom-in" style="background-image: url('https://images.unsplash.com/photo-1449960232330-7933629403c3?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="gallery-item" data-aos="zoom-in" data-aos-delay="50" style="background-image: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150" style="background-image: url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200" style="background-image: url('https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800')"></div>
+    </div>
+
+    <section class="faq-section">
+        <h2 style="color: var(--accent); margin-bottom: 50px; text-align: center; font-size: 2.5rem;">COMMON INQUIRIES</h2>
+        <div class="accordion-item">
+            <div class="accordion-header">Which vehicles do you use for training? <i class="fas fa-chevron-down"></i></div>
+            <div class="accordion-content">
+                <p style="padding-bottom: 25px;">We exclusively use late-model premium vehicles, including the Mercedes A-Class and BMW 1 Series, all equipped with dual controls and climate control for your comfort.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header">How quickly can I secure a test date? <i class="fas fa-chevron-down"></i></div>
+            <div class="accordion-content">
+                <p style="padding-bottom: 25px;">Our concierge team uses advanced monitoring tools to secure cancellation slots, often getting our students into tests 50% faster than the national average.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header">Are your instructors fully certified? <i class="fas fa-chevron-down"></i></div>
+            <div class="accordion-content">
+                <p style="padding-bottom: 25px;">Every instructor at our academy is a Grade A DVSA-certified professional with a minimum of 10 years of instructional experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-dock">
+        <a href="tel:123456789" title="Call Us"><i class="fas fa-phone"></i></a>
+        <div class="divider"></div>
+        <a href="https://wa.me/123456789" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <div class="divider"></div>
+        <a href="sms:123456789" title="Text Us"><i class="fas fa-comment-alt"></i></a>
+        <div class="divider"></div>
+        <a href="#contact" style="font-size: 0.8rem; font-weight: 800; white-space: nowrap;">GET QUOTE</a>
+    </div>
+
+    <div id="offerPopup" class="modal-overlay">
+        <div class="modal-box">
+            <div onclick="closePopup()" style="position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--accent);"><i class="fas fa-times fa-lg"></i></div>
+            <h2 style="color: var(--accent); font-size: 3rem; margin-bottom: 20px;">EXCLUSIVE OFFER</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Book your assessment lesson in the next 24 hours and get our <b>Theory Master App</b> worth $99 for free.</p>
+            <a href="#contact" class="btn-gold" onclick="closePopup()">CLAIM OFFER</a>
+        </div>
+    </div>
+
+    <footer style="padding: 120px 10% 60px; background: #0b2218; border-top: 1px solid rgba(255,255,255,0.03);">
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;">
+            <div>
+                <a href="#" class="logo">Driving School</a>
+                <p style="margin-top: 25px; opacity: 0.6; max-width: 400px;">The premier choice for executive driver education. We don't just teach people to pass tests; we create masters of the road.</p>
+                <div style="margin-top: 40px; display: flex; gap: 25px;">
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color: var(--accent); margin-bottom: 25px; letter-spacing: 2px;">ACADEMY</h4>
+                <ul style="list-style: none; opacity: 0.7; line-height: 2.5;">
+                    <li>Our Story</li>
+                    <li>The Fleet</li>
+                    <li>Instructors</li>
+                    <li>Test Centers</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: var(--accent); margin-bottom: 25px; letter-spacing: 2px;">CONTACT</h4>
+                <p style="opacity: 0.7; line-height: 1.8;">123 Prestige Boulevard<br>Mayfair, London<br>W1J 7JX</p>
+                <p style="margin-top: 20px; color: var(--accent);">+44 (0) 20 7946 0000</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 100px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.4; font-size: 0.8rem;">
+            &copy; 2026 Driving School Academy. Precision, Safety, Excellence.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 1200, once: true, offset: 100 });
+
+        // 7. Stats Counter Logic
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        
+        const runCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger counters when stats section is in view
+        let counted = false;
+        window.addEventListener('scroll', () => {
+            const statsBar = document.querySelector('.stats-bar');
+            const pos = statsBar.getBoundingClientRect().top;
+            if (pos < window.innerHeight && !counted) {
+                runCounters();
+                counted = true;
+            }
+        });
+
+        // 3. Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('i');
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.style.opacity = 0;
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.opacity = 1;
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // 5. Popup Timer
+        setTimeout(() => {
+            document.getElementById('offerPopup').style.display = 'flex';
+        }, 8000);
+
+        function closePopup() {
+            document.getElementById('offerPopup').style.display = 'none';
+        }
+
+        // 22. Exit Intent
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0) {
+                document.getElementById('offerPopup').style.display = 'flex';
+            }
+        });
+
+        // Sticky Nav Blur Effect on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '15px 10%';
+                nav.style.background = 'rgba(20, 53, 37, 0.98)';
+            } else {
+                nav.style.padding = '25px 10%';
+                nav.style.background = 'rgba(20, 53, 37, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
