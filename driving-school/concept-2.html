@@ -3,309 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Shiels Driving School | Premium Tuition</title>
+    <title>Tony Shiels Driving School</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --car-blue: #0099ff;      /* Electric blue from car body */
-            --car-black: #111111;     /* Wheel & trim black */
-            --car-silver: #f5f5f7;    /* Light silver for backgrounds */
-            --text-dark: #1d1d1f;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --car-blue: #0099ff;
+            --car-black: #111111;
+            --bg-silver: #f8f9fa;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
+            background-color: #fff;
+            color: var(--car-black);
         }
 
-        /* --- HEADER SECTION --- */
+        /* --- HEADER --- */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            position: fixed;
+            position: absolute;
             width: 100%;
             top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-
-        .header.scrolled {
-            padding: 12px 8%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            z-index: 100;
         }
 
         .logo {
-            display: flex;
-            flex-direction: column;
             text-decoration: none;
             color: var(--car-black);
-        }
-
-        .logo .brand-name {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
             line-height: 1;
         }
 
-        .logo .brand-name span {
-            color: var(--car-blue);
-        }
-
-        .logo small {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #666;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+        .logo .brand { font-weight: 900; font-size: 1.2rem; }
+        .logo .brand span { color: var(--car-blue); }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--car-blue);
-        }
-
-        .nav-cta {
-            background: var(--car-black);
-            color: #fff !important;
-            padding: 10px 22px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .nav-cta:hover {
-            background: var(--car-blue) !important;
-            transform: translateY(-2px);
+            color: var(--car-black);
+            font-weight: 700;
+            margin-left: 20px;
+            font-size: 0.9rem;
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            position: relative;
-            min-height: 100vh;
+            padding-top: 80px; /* Space for absolute header */
             display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 100px 8% 0;
-            background: radial-gradient(circle at 70% 30%, #eef8ff 0%, #ffffff 60%);
+            text-align: center;
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-silver) 100%);
+            min-height: 100vh;
             overflow: hidden;
         }
 
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-            z-index: 2;
+        /* THE CAR AT THE TOP */
+        .hero-image-top {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+            perspective: 1000px;
+            z-index: 10;
         }
 
-        .hero-content h1 {
-            font-size: 4.5rem;
+        .hero-image-top img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.12));
+            animation: carFloat 1.2s ease-out forwards;
+        }
+
+        @keyframes carFloat {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* TEXT CONTENT BELOW CAR */
+        .hero-text-bottom {
+            max-width: 800px;
+            padding: 20px 5%;
+            z-index: 5;
+        }
+
+        .hero-text-bottom h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
-            line-height: 1;
-            margin-bottom: 25px;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        .hero-content h1 span {
+        .hero-text-bottom h1 span {
             color: var(--car-blue);
-            display: block;
         }
 
-        .hero-content p {
+        .hero-text-bottom p {
             font-size: 1.2rem;
             color: #555;
-            margin-bottom: 35px;
-            max-width: 450px;
+            margin-bottom: 30px;
+            font-weight: 400;
         }
 
-        .hero-btns {
+        .btn-group {
             display: flex;
             gap: 15px;
-            margin-bottom: 40px;
+            justify-content: center;
         }
 
         .btn {
-            padding: 18px 35px;
-            border-radius: 12px;
+            padding: 16px 32px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
-            transition: var(--transition);
-            display: inline-block;
+            transition: 0.3s;
         }
 
-        .btn-main {
+        .btn-blue {
             background: var(--car-blue);
             color: white;
-            box-shadow: 0 10px 25px rgba(0, 153, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 153, 255, 0.2);
         }
 
-        .btn-main:hover {
-            background: var(--car-black);
-            transform: translateY(-3px);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--car-black);
-            color: var(--car-black);
-        }
-
-        .btn-outline:hover {
+        .btn-dark {
             background: var(--car-black);
             color: white;
         }
 
-        .trust-indicator {
-            display: flex;
+        .btn:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+        /* Trust Bar Overlay */
+        .trust-bar {
+            margin-top: 50px;
+            background: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-weight: 700;
             font-size: 0.9rem;
+            font-weight: 700;
         }
 
-        .stars { color: #ffcc00; font-size: 1.2rem; }
-
-        /* Hero Image - The Car */
-        .hero-visual {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .car-image {
-            width: 140%; /* Large for impact */
-            max-width: 900px;
-            filter: drop-shadow(30px 50px 60px rgba(0,0,0,0.15));
-            transform: translateX(100px);
-            animation: carEntry 1.5s ease-out forwards;
-        }
-
-        @keyframes carEntry {
-            from { opacity: 0; transform: translateX(300px) rotate(2deg); }
-            to { opacity: 1; transform: translateX(50px) rotate(0deg); }
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 1024px) {
-            .hero-content h1 { font-size: 3.5rem; }
-            .car-image { width: 120%; transform: translateX(50px); }
-        }
+        .stars { color: #FFD700; }
 
         @media (max-width: 768px) {
-            .header { padding: 15px 5%; }
-            .nav-links { display: none; } /* Mobile Menu would go here */
-            
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 140px;
-            }
-
-            .hero-content { margin-bottom: 50px; }
-            .hero-content h1 { font-size: 3rem; }
-            .hero-content p { margin: 0 auto 30px; }
-            .hero-btns { justify-content: center; }
-            .trust-indicator { justify-content: center; }
-
-            .car-image {
-                width: 100%;
-                transform: translateX(0);
-                animation: carEntryMobile 1.2s ease-out forwards;
-            }
-        }
-
-        @keyframes carEntryMobile {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+            .hero-text-bottom h1 { letter-spacing: -1px; }
+            .btn-group { flex-direction: column; width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header" id="navbar">
+    <header class="header">
         <a href="#" class="logo">
-            <div class="brand-name">TONY <span>SHIELS</span></div>
-            <small>Driving School</small>
+            <div class="brand">TONY <span>SHIELS</span></div>
+            <small>DRIVING SCHOOL</small>
         </a>
-
         <nav class="nav-links">
-            <a href="#about">About</a>
             <a href="#lessons">Lessons</a>
-            <a href="#reviews">Reviews</a>
-            <a href="tel:+447752892178" class="nav-cta">07752 892178</a>
+            <a href="tel:+447752892178">07752 892178</a>
         </nav>
-
-        <div class="mobile-toggle" style="display:none;">☰</div>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <div class="trust-indicator">
-                <span class="stars">★★★★★</span> 
-                <span>LONDON'S PREMIER CHOICE</span>
-            </div>
-            <h1>Drive with <span>Confidence.</span></h1>
-            <p>
-                Get behind the wheel of our premium fleet. Expert manual and automatic lessons tailored to help you pass the first time.
-            </p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn btn-main">Book First Lesson</a>
-                <a href="#pricing" class="btn btn-outline">Lesson Prices</a>
-            </div>
+        <div class="hero-image-top">
+            <img src="tony-shiels-car-blue.png" alt="Tony Shiels Blue Driving School Car">
         </div>
 
-        <div class="hero-visual">
-            <img src="https://i.postimg.cc/mD8P8z8P/blue-car-tony.png" alt="Tony Shiels Driving School Car" class="car-image">
+        <div class="hero-text-bottom">
+            <h1>Expert <span>Driving</span> Tuition.</h1>
+            <p>Premium manual and automatic lessons in London. Trusted by hundreds of successful students.</p>
+            
+            <div class="btn-group">
+                <a href="#book" class="btn btn-blue">Book Your First Lesson</a>
+                <a href="#prices" class="btn btn-dark">View Price List</a>
+            </div>
+
+            <div class="trust-bar">
+                <span class="stars">★★★★★</span>
+                <span>The highest rated driving school in your area</span>
+            </div>
         </div>
     </section>
 
-    <script>
-        // Change header style on scroll
-        window.onscroll = function() {
-            const nav = document.getElementById('navbar');
-            if (window.pageYOffset > 50) {
-                nav.classList.add("scrolled");
-            } else {
-                nav.classList.remove("scrolled");
-            }
-        };
-
-        // Smooth scroll for links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 </html>
