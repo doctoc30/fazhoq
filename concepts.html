@@ -33,39 +33,40 @@
             height: 100%;
         }
 
-        /* GLASS HEADER - MATCHES INDEX LOGO & PADDING EXACTLY */
+        /* FULLY TRANSPARENT FLOATING HEADER */
         .faz-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 2500;
-            padding: calc(var(--safe-top) + 20px) 25px; /* Exact Index Padding */
+            padding: calc(var(--safe-top) + 20px) 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 245, 238, 0.7); /* Glass Effect */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: transparent; /* No background */
+            pointer-events: none; /* Allows clicks to pass through empty space */
         }
 
         .faz-logo {
-            font-size: 2.2rem; /* Exact Index Size */
+            font-size: 2.2rem;
             font-weight: 900;
             letter-spacing: -1.5px;
             color: var(--primary);
             text-decoration: none;
             line-height: 1;
+            pointer-events: auto; /* Re-enable clicks for logo */
         }
         .faz-logo span { color: #000; }
 
         #menu-btn {
-            font-size: 1.8rem; /* Exact Index Size */
+            font-size: 1.8rem;
             color: var(--text);
             background: none;
             border: none;
             cursor: pointer;
             line-height: 1;
+            pointer-events: auto; /* Re-enable clicks for button */
         }
 
         /* PREVENT SCROLL SQUEEZE ON DOCK */
@@ -76,15 +77,14 @@
             right: 0;
             width: 100%;
             background: var(--primary);
-            height: 80px !important; /* Force fixed height */
+            height: 80px !important; 
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 9000;
             padding-bottom: var(--safe-bottom);
-            flex-shrink: 0; /* Prevents compression */
+            flex-shrink: 0;
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
-            pointer-events: auto;
         }
         
         .dock-btn {
