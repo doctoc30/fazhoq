@@ -1,184 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAZ HOQ | Privacy Policy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FAZ HOQ | Privacy Policy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FFF5EE;
+            --text: #121212;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
+        html, body { background-color: var(--primary-light); color: var(--text); overflow-x: hidden; width: 100%; height: 100%; }
 
-<style>
+        /* HEADER: FRAMELESS & TRANSPARENT */
+        .faz-nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 2500;
+            padding: calc(var(--safe-top) + 20px) 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: transparent; pointer-events: none;
+        }
+        .faz-logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px; color: var(--primary); text-decoration: none; line-height: 1; pointer-events: auto; }
+        .faz-logo span { color: #000; }
+        #menu-btn { font-size: 1.8rem; color: var(--text); background: none; border: none; cursor: pointer; line-height: 1; pointer-events: auto; }
 
-:root{
---primary:#FF6B00;
---bg:#FFF5EE;
---text:#121212;
-}
+        /* RIGID DOCK (Bottom) */
+        .app-dock {
+            position: fixed; bottom: 0; left: 0; right: 0; width: 100%;
+            background: var(--primary); height: 80px !important; 
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 9000; padding-bottom: var(--safe-bottom); flex-shrink: 0;
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+        }
+        .dock-btn { color: #FFFFFF; display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; height: 100%; justify-content: center; }
+        .dock-btn i { font-size: 1.8rem; }
+        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 4px; text-transform: uppercase; }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
+        /* POLICY CONTENT CONTAINER */
+        .content-main { padding-top: 130px; padding-bottom: 120px; padding-left: 20px; padding-right: 20px; display: flex; justify-content: center; }
+        .policy-container { 
+            max-width: 800px; width: 100%; background: white; 
+            padding: 40px 30px; border-radius: 35px; border: 10px solid #1a1a1a;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
 
-body{
-background:var(--bg);
-color:var(--text);
-line-height:1.7;
-}
+        h1 { font-size: 2.6rem; font-weight: 900; line-height: 1; margin-bottom: 10px; color: var(--primary); letter-spacing: -1px; }
+        h2 { margin-top: 30px; margin-bottom: 10px; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        p { margin-bottom: 15px; line-height: 1.6; }
+        .last-updated { font-weight: 900; font-size: 0.75rem; opacity: 0.5; margin-bottom: 30px; display: block; }
+        a { color: var(--primary); font-weight: 700; text-decoration: none; }
 
-.nav{
-padding:30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-max-width:1100px;
-margin:auto;
-}
-
-.logo{
-font-size:2rem;
-font-weight:900;
-color:var(--primary);
-letter-spacing:-1px;
-}
-
-.logo span{
-color:#000;
-}
-
-.policy-container{
-max-width:800px;
-margin:40px auto 120px auto;
-padding:40px;
-background:white;
-border-radius:30px;
-box-shadow:0 20px 40px rgba(0,0,0,0.05);
-}
-
-h1{
-font-size:2.6rem;
-margin-bottom:10px;
-font-weight:900;
-}
-
-h2{
-margin-top:30px;
-margin-bottom:10px;
-font-size:1.3rem;
-font-weight:800;
-}
-
-p{
-margin-bottom:10px;
-}
-
-a{
-color:var(--primary);
-font-weight:700;
-text-decoration:none;
-}
-
-.footer{
-text-align:center;
-font-size:0.8rem;
-margin-top:40px;
-opacity:.6;
-}
-
-</style>
+        /* MENU LAYER */
+        #app-menu-layer { position: fixed; inset: 0; background: var(--primary-light); z-index: 9500; display: flex; flex-direction: column; padding: calc(var(--safe-top) + 20px) 25px; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1); }
+        #app-menu-layer.active { transform: translateY(0); }
+        .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
+    </style>
 </head>
-
 <body>
 
-<nav class="nav">
-<div class="logo">FAZ HOQ<span>.</span></div>
-</nav>
+    <nav class="faz-nav">
+        <a href="index.html" class="faz-logo">FAZ HOQ<span>.</span></a>
+        <button id="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </nav>
 
-<div class="policy-container">
+    <div id="app-menu-layer">
+        <div class="flex justify-between items-center mb-10">
+            <div class="faz-logo">FAZ HOQ<span>.</span></div>
+            <div onclick="toggleMenu()" class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 justify-center">
+            <a href="index.html" class="menu-item">HOME</a>
+            <a href="index.html" class="menu-item">ABOUT</a>
+            <a href="concepts.html" class="menu-item">CONCEPTS</a>
+            <a href="mailto:Fazhoq1977@gmail.com" class="menu-item">CONTACT</a>
+        </div>
+    </div>
 
-<h1>Privacy Policy</h1>
-<p>Last updated: March 2026</p>
+    <main class="content-main">
+        <div class="policy-container">
+            <h1>Privacy Policy</h1>
+            <span class="last-updated">LAST UPDATED: MARCH 2026</span>
 
-<p>This website is operated by <strong>Faz Hoq</strong> (“I”, “me”, or “my”).  
-Your privacy is important and this policy explains how information is handled when you visit this website.</p>
+            <p>This website is operated by <strong>Faz Hoq</strong>. Your privacy is important and this policy explains how information is handled when you visit this website.</p>
 
+            <h2>1. Information Collected</h2>
+            <p>This website does not require you to create an account, submit forms, or provide personal information in order to browse the site.</p>
+            <p>If you choose to contact me directly using the links provided (email, SMS, or WhatsApp), you voluntarily provide information such as your name, phone number, or message content.</p>
 
-<h2>1. Information Collected</h2>
+            <h2>2. How Your Information Is Used</h2>
+            <p>Any information you send when contacting me is only used to respond to your enquiry and discuss potential services. Your information is <strong>never</strong> sold or shared with third parties for marketing purposes.</p>
 
-<p>This website does not require you to create an account, submit forms, or provide personal information in order to browse the site.</p>
+            <h2>3. Third-Party Communication</h2>
+            <p>This website provides links to external platforms like WhatsApp and SMS. When you use these, your information is processed according to their specific privacy policies.</p>
 
-<p>If you choose to contact me directly using the links provided on the website (such as email, SMS, or WhatsApp), you may voluntarily provide information such as your name, phone number, email address, or message content.</p>
+            <h2>4. Cookies and Tracking</h2>
+            <p>This website does not use analytics tools, advertising pixels, or tracking cookies.</p>
 
+            <h2>5. Contact</h2>
+            <p>If you have questions about this policy, please contact:<br>
+            <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a></p>
+        </div>
+    </main>
 
-<h2>2. How Your Information Is Used</h2>
+    <div class="app-dock">
+        <a href="concepts.html" class="dock-btn">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>CONCEPTS</span>
+        </a>
+        <a href="https://wa.me/447706345874" class="dock-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WHATSAPP</span>
+        </a>
+        <a href="sms:07706345874" class="dock-btn">
+            <i class="fa-solid fa-comment"></i>
+            <span>TEXT</span>
+        </a>
+        <a href="mailto:Fazhoq1977@gmail.com" class="dock-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>EMAIL</span>
+        </a>
+    </div>
 
-<p>Any information you send when contacting me may only be used to:</p>
-
-<p>
-• Respond to your enquiry  
-• Discuss potential services or projects  
-• Provide relevant information about the services requested
-</p>
-
-<p>Your information is never sold or shared with third parties for marketing purposes.</p>
-
-
-<h2>3. Third-Party Communication Platforms</h2>
-
-<p>This website provides links to external communication platforms such as:</p>
-
-<p>
-• WhatsApp  
-• SMS messaging  
-• Email providers
-</p>
-
-<p>When you contact me using these platforms, your information may be processed according to the privacy policies of those services.</p>
-
-
-<h2>4. Cookies and Tracking</h2>
-
-<p>This website does not use analytics tools, advertising pixels, or tracking cookies.</p>
-
-<p>If this changes in the future, this policy will be updated accordingly.</p>
-
-
-<h2>5. Server Logs</h2>
-
-<p>Like most websites, basic technical information such as IP address or browser type may be automatically recorded by the web hosting provider for security and operational purposes. This information is not used to personally identify visitors.</p>
-
-
-<h2>6. External Links</h2>
-
-<p>This website may contain links to external websites or services. I am not responsible for the privacy practices or content of those external sites.</p>
-
-
-<h2>7. Data Security</h2>
-
-<p>Reasonable measures are taken to protect communications received via email or messaging platforms. However, no internet communication can be guaranteed to be completely secure.</p>
-
-
-<h2>8. Changes to This Policy</h2>
-
-<p>This privacy policy may be updated from time to time to reflect changes to the website or legal requirements.</p>
-
-
-<h2>9. Contact</h2>
-
-<p>If you have questions about this policy you may contact:</p>
-
-<p>
-<a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a>
-</p>
-
-<div class="footer">
-© 2026 FAZ HOQ
-</div>
-
-</div>
-
+    <script>
+        function toggleMenu() {
+            document.getElementById('app-menu-layer').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
