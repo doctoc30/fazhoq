@@ -44,8 +44,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: transparent; /* No background */
-            pointer-events: none; /* Allows clicks to pass through empty space */
+            background: transparent;
+            pointer-events: none;
         }
 
         .faz-logo {
@@ -55,7 +55,7 @@
             color: var(--primary);
             text-decoration: none;
             line-height: 1;
-            pointer-events: auto; /* Re-enable clicks for logo */
+            pointer-events: auto;
         }
         .faz-logo span { color: #000; }
 
@@ -66,7 +66,7 @@
             border: none;
             cursor: pointer;
             line-height: 1;
-            pointer-events: auto; /* Re-enable clicks for button */
+            pointer-events: auto;
         }
 
         /* PREVENT SCROLL SQUEEZE ON DOCK */
@@ -178,6 +178,7 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
+            cursor: pointer;
         }
 
         .concept-code-label {
@@ -207,6 +208,7 @@
             align-items: center;
             justify-content: center;
             border: none;
+            cursor: pointer;
         }
 
         /* MENU LAYER */
@@ -279,10 +281,19 @@
     </div>
 
     <script>
-        const concepts = Array.from({length: 50}, (_, i) => ({
-            code: `D${i + 1}`,
-            image: `https://picsum.photos/seed/concept${i+50}/800/1200`
-        }));
+        // GENERATE 50 CONCEPTS WITH SPECIFIC LINKS
+        const concepts = Array.from({length: 50}, (_, i) => {
+            const num = i + 1;
+            return {
+                code: `D${num}`,
+                // D1 gets your specific image, others get placeholders
+                image: (num === 1) 
+                    ? "https://doctoc30.github.io/fazhoq/images/IMG_2973.png" 
+                    : `https://picsum.photos/seed/concept${num}/800/1200`,
+                // Link follows the concept-X.html pattern
+                url: `https://doctoc30.github.io/fazhoq/driving-school/concept-${num}.html`
+            };
+        });
 
         let currentPage = 1;
         const perPage = 4;
@@ -293,15 +304,19 @@
             const grid = document.getElementById('conceptsGrid');
             const start = (currentPage - 1) * perPage;
             const items = concepts.slice(start, start + perPage);
+            
             grid.innerHTML = items.map(item => `
                 <div class="concept-card">
-                    <div class="concept-image-wrap"><img src="${item.image}" alt="Concept ${item.code}" loading="lazy"></div>
+                    <div class="concept-image-wrap">
+                        <img src="${item.image}" alt="Concept ${item.code}" loading="lazy">
+                    </div>
                     <div class="concept-footer">
-                        <button class="view-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Enquiry for Concept ${item.code}'">View Concept</button>
+                        <button class="view-btn" onclick="window.location.href='${item.url}'">View Concept</button>
                         <div class="concept-code-label">CODE: ${item.code}</div>
                     </div>
                 </div>
             `).join('');
+            
             document.getElementById('pageNumber').innerText = currentPage;
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
