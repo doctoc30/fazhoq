@@ -30,39 +30,41 @@
             color: var(--text);
             overflow-x: hidden;
             width: 100%;
-            height: 100%;
         }
 
-        /* THINNER HEADER FIXED */
+        /* GLASS HEADER - EXACT MATCH TO INDEX SCALING */
         .faz-nav {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 2500;
-            /* Reduced padding to thin out the header */
-            padding: calc(var(--safe-top) + 10px) 20px; 
+            padding: calc(var(--safe-top) + 20px) 25px; /* Exact Index Padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--primary-light);
-            height: 70px; /* Locked height for consistency */
+            /* Glass Effect */
+            background: rgba(255, 245, 238, 0.8); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .faz-logo {
-            font-size: 1.8rem; /* Slightly smaller to fit thinner header */
+            font-size: 2.2rem; /* Exact Index Size */
             font-weight: 900;
-            letter-spacing: -1.2px;
+            letter-spacing: -1.5px; /* Exact Index Letter Spacing */
             color: var(--primary);
             text-decoration: none;
+            line-height: 1;
         }
         .faz-logo span { color: #000; }
 
         #menu-btn {
-            font-size: 1.5rem;
+            font-size: 1.8rem; /* Exact Index Icon Size */
             color: var(--text);
             background: none;
             border: none;
             cursor: pointer;
+            line-height: 1;
         }
 
         /* MENU LAYER */
@@ -78,24 +80,24 @@
             transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
         #app-menu-layer.active { transform: translateY(0); }
-        .menu-item { font-size: 3rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
+        .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
 
         /* CONTENT AREA */
         .content-main {
-            padding-top: 85px; /* Adjusted for thinner header */
+            padding-top: 130px; /* Adjusted for the thicker header padding */
             padding-bottom: 120px; 
         }
 
         .hero-section {
             text-align: center;
-            padding: 10px 25px 25px;
+            padding: 10px 25px 30px;
         }
 
         .huge-text {
-            font-size: clamp(2rem, 7vw, 3rem);
+            font-size: clamp(2.5rem, 10vmin, 3.5rem); /* Sync with Index huge-text */
             font-weight: 900;
             line-height: 0.9;
-            letter-spacing: -1.5px;
+            letter-spacing: -3px;
             color: var(--primary);
             text-transform: uppercase;
         }
@@ -108,7 +110,7 @@
             padding: 0 20px;
         }
 
-        /* MOBILE FRAME DESIGN */
+        /* CONCEPT CARD - MOBILE FRAME */
         .concept-card {
             width: 100%;
             max-width: 350px; 
@@ -145,12 +147,12 @@
 
         .view-btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: var(--primary);
             color: #fff;
             border-radius: 40px;
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
@@ -164,7 +166,7 @@
             font-size: 0.75rem;
         }
 
-        /* STABLE RIGID DOCK */
+        /* FIXED DOCK */
         .app-dock {
             position: fixed;
             bottom: 0;
@@ -177,7 +179,7 @@
             align-items: center;
             z-index: 9000;
             padding-bottom: var(--safe-bottom);
-            box-shadow: 0 -8px 25px rgba(255,107,0,0.25);
+            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
         .dock-btn {
@@ -188,11 +190,11 @@
             text-decoration: none;
             flex: 1;
         }
-        .dock-btn i { font-size: 1.6rem; }
+        .dock-btn i { font-size: 1.8rem; }
         .dock-btn span {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             font-weight: 800;
-            margin-top: 5px;
+            margin-top: 4px;
             text-transform: uppercase;
         }
 
@@ -285,6 +287,7 @@
     </div>
 
     <script>
+        // Generating D1 to D50
         const concepts = Array.from({length: 50}, (_, i) => ({
             code: `D${i + 1}`,
             image: `https://picsum.photos/seed/concept${i+50}/800/1200`
