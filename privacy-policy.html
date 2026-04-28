@@ -17,7 +17,14 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
-        html, body { background-color: var(--primary-light); color: var(--text); width: 100%; }
+        
+        html, body { 
+            background-color: var(--primary-light); 
+            color: var(--text); 
+            width: 100%;
+            height: 100%;
+            overscroll-behavior-y: none; /* Prevents rubber-banding that squeezes fixed elements */
+        }
 
         /* HEADER: FRAMELESS & TRANSPARENT */
         .faz-nav {
@@ -30,33 +37,50 @@
         .faz-logo span { color: #000; }
         #menu-btn { font-size: 1.8rem; color: var(--text); background: none; border: none; cursor: pointer; line-height: 1; pointer-events: auto; }
 
-        /* RIGID DOCK (Bottom) */
+        /* RIGID NON-SQUEEZE DOCK */
         .app-dock {
-            position: fixed; bottom: 0; left: 0; right: 0; width: 100%;
-            background: var(--primary); height: 80px !important; 
-            display: flex; justify-content: space-around; align-items: center;
-            z-index: 9000; padding-bottom: var(--safe-bottom); flex-shrink: 0;
-            box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            width: 100%;
+            background: var(--primary); 
+            height: 85px !important; /* Slightly taller for better thumb reach */
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center;
+            z-index: 9999; 
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -10px 40px rgba(255,107,0,0.4);
+            flex-shrink: 0 !important; /* Forces it not to squeeze */
+            pointer-events: auto;
         }
+        
         .dock-btn { color: #FFFFFF; display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; height: 100%; justify-content: center; }
-        .dock-btn i { font-size: 1.8rem; }
-        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 4px; text-transform: uppercase; }
+        .dock-btn i { font-size: 1.6rem; }
+        .dock-btn span { font-size: 0.65rem; font-weight: 800; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* MAIN CONTENT - REMOVED FRAME BORDER */
+        /* MAIN CONTENT */
         .content-main { 
-            padding-top: 130px; 
-            padding-bottom: 120px; 
+            padding-top: 140px; 
+            padding-bottom: 160px; /* Extra room so last text isn't hidden by dock */
             padding-left: 25px; 
             padding-right: 25px; 
-            max-width: 900px; 
-            margin: 0 auto; 
+            max-width: 850px; 
+            margin: 0 auto;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        h1 { font-size: 3.5rem; font-weight: 900; line-height: 0.9; margin-bottom: 15px; color: var(--primary); letter-spacing: -2px; text-transform: uppercase; }
-        h2 { margin-top: 40px; margin-bottom: 15px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #000; }
-        p { margin-bottom: 20px; line-height: 1.7; font-size: 1.05rem; color: #333; }
-        .last-updated { font-weight: 900; font-size: 0.8rem; color: #000; margin-bottom: 40px; display: block; opacity: 0.4; }
-        a { color: var(--primary); font-weight: 700; text-decoration: underline; }
+        h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 8px; color: var(--primary); letter-spacing: -2px; text-transform: uppercase; }
+        .policy-sub { font-weight: 900; font-size: 1.1rem; color: var(--primary); display: block; margin-bottom: 5px; letter-spacing: 1px; }
+        .last-updated { font-weight: 900; font-size: 0.85rem; color: #000; margin-bottom: 50px; display: block; opacity: 0.4; }
+
+        h2 { margin-top: 50px; margin-bottom: 20px; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #000; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
+        p { margin-bottom: 32px; line-height: 1.8; font-size: 1.1rem; color: #333; }
+        
+        strong { color: #000; font-weight: 800; }
+        a { color: var(--primary); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 
         /* MENU LAYER */
         #app-menu-layer { position: fixed; inset: 0; background: var(--primary-light); z-index: 9500; display: flex; flex-direction: column; padding: calc(var(--safe-top) + 20px) 25px; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1); }
@@ -87,13 +111,15 @@
     </div>
 
     <main class="content-main">
-        <h1>Privacy<br>Policy</h1>
+        <span class="policy-sub">PRIVACY</span>
+        <h1>Policy</h1>
         <span class="last-updated">LAST UPDATED: MARCH 2026</span>
 
         <p>This website is operated by <strong>Faz Hoq</strong>. Your privacy is protected, and this policy explains how your information is handled during your visit.</p>
 
         <h2>1. Information Collected</h2>
         <p>This website is designed for browsing. You are not required to create an account, submit any forms, or provide personal data to view the content.</p>
+        
         <p>If you choose to reach out via the <strong>WhatsApp, SMS, or Email</strong> links provided, you voluntarily share your contact details so that I may respond to you.</p>
 
         <h2>2. Use of Information</h2>
@@ -109,7 +135,7 @@
         <p>For any questions regarding this policy, reach out directly at:<br>
         <a href="mailto:Fazhoq1977@gmail.com">Fazhoq1977@gmail.com</a></p>
         
-        <div style="padding-top: 40px; opacity: 0.3; font-weight: 900; font-size: 0.7rem; letter-spacing: 2px;">
+        <div style="padding-top: 60px; opacity: 0.3; font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; text-align: center;">
             © 2026 FAZ HOQ. ALL RIGHTS RESERVED.
         </div>
     </main>
