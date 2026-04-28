@@ -8,151 +8,213 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --electric-blue: #0099de; /* Car Body Color */
-            --tony-navy: #1a2b56;    /* Branding Text Color */
+            --electric-blue: #0099de; /* The car body color */
+            --tony-navy: #1a2b56;    /* "TONY" and branding text */
             --pure-white: #ffffff;
-            --soft-gray: #f8fafc;
         }
 
-        body { background-color: var(--pure-white); font-family: 'Inter', sans-serif; }
-
-        /* HEADER: Clean & Professional */
-        .header-bg {
-            background: linear-gradient(to bottom, #e0f2fe 0%, #ffffff 100%);
+        body { 
+            background-color: var(--pure-white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            margin: 0;
+            padding: 0;
         }
 
-        .menu-circle {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            /* Switched from red to a Navy-to-Blue gradient to match the new rules */
-            background: linear-gradient(135deg, var(--tony-navy) 0%, var(--electric-blue) 100%);
-            border: 2px solid var(--pure-white);
-            box-shadow: 0 4px 12px rgba(26, 43, 86, 0.2);
+        /* STAGE 1: HEADER CUSTOM STYLES */
+        .header-container {
+            background: linear-gradient(to bottom, #f0f9ff 0%, #ffffff 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        /* HERO: Using the TS Logo Style */
-        .ts-logo-text {
-            color: var(--tony-navy);
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Mirroring the Rooftop Sign Typography */
+        .logo-main {
+            font-size: 24px;
             font-weight: 900;
-            line-height: 0.9;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            font-style: italic;
         }
 
-        .hero-heading {
+        .text-tony { color: var(--tony-navy); }
+        .text-shiels { color: var(--electric-blue); }
+
+        .logo-sub {
+            font-size: 10px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        .logo-phone {
+            font-size: 11px;
+            font-weight: 700;
             color: var(--tony-navy);
-            letter-spacing: -0.01em;
+            margin-top: 2px;
         }
 
-        /* The Signature Blue Footer Block */
-        .brand-footer-block {
+        .menu-circle-widget {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tony-navy) 0%, var(--electric-blue) 100%);
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* STAGE 2: HERO CUSTOM STYLES */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 90px);
+            text-align: center;
+        }
+
+        .hero-headline {
+            color: var(--electric-blue);
+            font-size: 56px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-top: 40px;
+        }
+
+        .hero-subheadline {
+            color: var(--tony-navy);
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 4px;
+        }
+
+        .car-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .car-img {
+            max-width: 90%;
+            height: auto;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+        }
+
+        /* The Signature Blue Curve Footer Block */
+        .blue-curve-block {
             background-color: var(--electric-blue);
-            height: 240px;
-            border-top-left-radius: 50% 25px;
-            border-top-right-radius: 50% 25px;
+            height: 220px;
+            border-top-left-radius: 50% 20px;
+            border-top-right-radius: 50% 20px;
             position: relative;
+            margin-top: 20px;
         }
 
-        /* Action Widgets - Solid Black as per reference */
-        .cta-container {
+        .floating-cta-wrap {
             position: absolute;
-            top: -28px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 550px;
+            max-width: 500px;
             display: flex;
             gap: 12px;
         }
 
-        .action-widget {
+        .black-btn-widget {
             flex: 1;
             background: #000000;
             color: white;
-            padding: 18px 10px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 8px;
             text-align: center;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 13px;
+            font-size: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            gap: 8px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            text-decoration: none;
         }
 
-        /* Bottom Status Widget with Blue-to-Navy Gradient Border */
-        .status-bar {
+        .bottom-gradient-widget {
             position: absolute;
-            bottom: 35px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 88%;
+            width: 85%;
             background: white;
-            padding: 16px;
+            padding: 14px;
             border-radius: 12px;
             text-align: center;
             font-weight: 800;
             color: var(--tony-navy);
             text-transform: uppercase;
             border: 3px solid;
-            border-image-source: linear-gradient(90deg, var(--electric-blue), var(--tony-navy));
-            border-image-slice: 1;
-        }
-
-        .car-hero-img {
-            max-height: 300px;
-            filter: drop-shadow(0 25px 35px rgba(0,0,0,0.12));
+            border-image: linear-gradient(to right, var(--electric-blue), var(--tony-navy)) 1;
         }
     </style>
 </head>
 <body>
 
-    <header class="header-bg py-5 px-6 flex justify-between items-center relative z-50">
-        <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 border-2 border-slate-200 rounded-full flex flex-col items-center justify-center bg-white">
-                <span class="text-[8px] font-bold text-gray-400 leading-none">Driving</span>
-                <span class="text-xl font-black text-[#1a2b56] leading-none">TS</span>
-                <span class="text-[8px] font-bold text-gray-400 leading-none">School</span>
+    <header class="header-container">
+        <div class="logo-text-group">
+            <div class="logo-main italic">
+                <span class="text-tony">TONY</span> 
+                <span class="text-shiels">SHIELS</span>
             </div>
-            <div>
-                <h2 class="ts-logo-text text-xl italic uppercase">Tony Shiels</h2>
-                <p class="text-[9px] font-bold tracking-widest text-blue-500 uppercase">Kirton Lindsey & Surrounding</p>
-            </div>
+            <div class="logo-sub">School of Motoring</div>
+            <div class="logo-phone">+44 7752 892178</div>
         </div>
 
-        <button class="menu-circle flex items-center justify-center text-white">
-            <i class="fas fa-bars"></i>
-        </button>
+        <div class="menu-circle-widget">
+            <i class="fas fa-bars text-xl"></i>
+        </div>
     </header>
 
-    <section class="flex flex-col min-h-screen">
-        <div class="text-center px-6 pt-10 pb-4">
-            <h1 class="hero-heading text-6xl font-black uppercase">PREMIER</h1>
-            <p class="text-slate-500 font-bold text-lg mt-2 tracking-wide">Approved Driving Instructor (ADI)</p>
+    <main class="hero-section">
+        <div>
+            <h1 class="hero-headline">PREMIER</h1>
+            <p class="hero-subheadline italic">Driving School in Kirton Lindsey</p>
         </div>
 
-        <div class="flex-grow flex items-center justify-center px-6">
-            <img src="https://i.ibb.co/VWV0p0p/blue-car-side.png" alt="Tony Shiels Blue Car" class="car-hero-img object-contain">
+        <div class="car-container">
+            <img src="https://i.ibb.co/VWV0p0p/blue-car-side.png" alt="Tony Shiels Car" class="car-img">
         </div>
 
-        <div class="brand-footer-block mt-8">
-            <div class="cta-container">
-                <a href="tel:+447752892178" class="action-widget">
+        <div class="blue-curve-block">
+            <div class="floating-cta-wrap">
+                <a href="tel:+447752892178" class="black-btn-widget">
                     <i class="fas fa-phone-alt"></i>
                     <span>Call Tony</span>
                 </a>
-                <button class="action-widget">
-                    <i class="fas fa-envelope"></i>
-                    <span>Message</span>
-                </button>
+                <a href="#" class="black-btn-widget">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>View Offers</span>
+                </a>
             </div>
 
-            <div class="status-bar">
-                Manual Driving Lessons Kirton Lindsey
+            <div class="bottom-gradient-widget">
+                Manual Driving Specialist
             </div>
         </div>
-    </section>
+    </main>
 
 </body>
 </html>
