@@ -30,6 +30,7 @@
             color: var(--text);
             overflow-x: hidden;
             width: 100%;
+            height: 100%; /* Ensures stable viewport */
         }
 
         /* HEADER */
@@ -51,7 +52,6 @@
             letter-spacing: -1.5px;
             color: var(--primary);
             text-decoration: none;
-            cursor: pointer;
         }
         .faz-logo span { color: #000; }
 
@@ -78,10 +78,10 @@
         #app-menu-layer.active { transform: translateY(0); }
         .menu-item { font-size: 3.5rem; font-weight: 900; color: var(--text); text-decoration: none; text-align: center; margin: 10px 0; }
 
-        /* CONTENT MAIN */
+        /* CONTENT AREA */
         .content-main {
             padding-top: 110px;
-            padding-bottom: 120px;
+            padding-bottom: 120px; /* Space for the dock */
         }
 
         .hero-section {
@@ -101,22 +101,28 @@
         .concepts-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             width: 100%;
+            padding: 0 20px;
         }
 
-        /* FULL HEIGHT PORTRAIT CARDS */
+        /* MOBILE FRAME DESIGN */
         .concept-card {
             width: 100%;
+            max-width: 360px; 
             display: flex;
             flex-direction: column;
             background: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 60px;
+            border-radius: 40px; 
+            border: 10px solid #1a1a1a; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.18);
+            overflow: hidden;
         }
 
         .concept-image-wrap {
             width: 100%;
-            position: relative;
-            height: 75vh; /* Increased height for full portrait impact */
+            height: 65vh; 
             overflow: hidden;
             background: #f0f0f0;
         }
@@ -130,62 +136,64 @@
         }
 
         .concept-footer {
-            padding: 25px 25px 35px;
+            padding: 25px 20px 30px;
             text-align: center;
             background: #fff;
         }
 
-        .select-btn {
+        .view-btn {
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
+            padding: 18px;
             background: var(--primary);
             color: #fff;
-            border-radius: 50px;
+            border-radius: 40px;
             font-weight: 900;
             font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
-            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.2);
+            cursor: pointer;
         }
 
-        .concept-code {
+        .concept-code-label {
             margin-top: 12px;
             font-weight: 900;
-            color: #bbb;
+            color: #ccc;
             letter-spacing: 2px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
 
-        /* EXACT INDEX DOCK */
+        /* FIXED RIGID DOCK - PREVENTS SQUEEZING */
         .app-dock {
             position: fixed;
             bottom: 0;
-            left: 0; right: 0;
+            left: 0;
+            width: 100%;
             background: var(--primary);
-            height: 80px;
+            height: 85px; /* Explicit height */
             display: flex;
             justify-content: space-around;
             align-items: center;
-            z-index: 2500;
+            z-index: 9000;
             padding-bottom: var(--safe-bottom);
+            flex-shrink: 0; /* Prevents compression */
             box-shadow: 0 -10px 30px rgba(255,107,0,0.3);
         }
         
         .dock-btn {
-            font-size: 1.8rem;
             color: #FFFFFF;
-            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
             flex: 1;
+            height: 100%;
+            justify-content: center;
         }
+        .dock-btn i { font-size: 1.8rem; height: 30px; }
         .dock-btn span {
             font-size: 0.65rem;
             font-weight: 800;
-            margin-top: 4px;
+            margin-top: 6px;
             text-transform: uppercase;
         }
 
@@ -195,7 +203,7 @@
             justify-content: center;
             align-items: center;
             gap: 25px;
-            padding: 40px 0;
+            padding-bottom: 60px;
         }
 
         .page-arrow {
@@ -208,7 +216,6 @@
             align-items: center;
             justify-content: center;
             border: none;
-            cursor: pointer;
             font-size: 1.2rem;
         }
 
@@ -216,9 +223,9 @@
             .concepts-container {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-            }
-            .concept-image-wrap {
-                height: 600px;
+                gap: 40px;
+                max-width: 1000px;
+                margin: 0 auto;
             }
         }
     </style>
@@ -247,7 +254,7 @@
 
     <main class="content-main">
         <div class="hero-section">
-            <h1 class="huge-text">Choose Your<br><span style="color: #000;">Design.</span></h1>
+            <h1 class="huge-text">Design<br><span style="color: #000;">Library.</span></h1>
         </div>
 
         <div class="concepts-container" id="conceptsGrid"></div>
@@ -279,9 +286,9 @@
     </div>
 
     <script>
-        const concepts = Array.from({length: 20}, (_, i) => ({
-            code: `LIB-${i + 301}`,
-            image: `https://picsum.photos/seed/design${i+5}/800/1200`
+        const concepts = Array.from({length: 50}, (_, i) => ({
+            code: `D${i + 1}`,
+            image: `https://picsum.photos/seed/concept${i+50}/800/1200`
         }));
 
         let currentPage = 1;
@@ -299,11 +306,11 @@
             grid.innerHTML = items.map(item => `
                 <div class="concept-card">
                     <div class="concept-image-wrap">
-                        <img src="${item.image}" alt="Driving School Template" loading="lazy">
+                        <img src="${item.image}" alt="Concept Design ${item.code}" loading="lazy">
                     </div>
                     <div class="concept-footer">
-                        <button class="select-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Selected Concept ${item.code}'">Select Design</button>
-                        <div class="concept-code">REFERENCE: ${item.code}</div>
+                        <button class="view-btn" onclick="location.href='mailto:Fazhoq1977@gmail.com?subject=Enquiry for Concept ${item.code}'">View Concept</button>
+                        <div class="concept-code-label">CODE: ${item.code}</div>
                     </div>
                 </div>
             `).join('');
