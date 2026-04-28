@@ -1,450 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFODRIVE | Premier School of Motoring | Stratford & South London</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            /* Branding Colors */
-            --primary: #e31e24; 
-            --primary-dark: #b31419;
-            --secondary: #0f1113; 
-            --bg-light: #ffffff;
-            --bg-soft: #f4f7f6;
-            --text-main: #1a1a1b;
-            --text-muted: #64748b;
-            --glass: rgba(255, 255, 255, 0.95);
-            --shadow-premium: 0 30px 60px rgba(0,0,0,0.12);
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>INFODRIVE | Premier Driving School Stratford - London's Most Trusted</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Calendly widget (light) -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a2c3e;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
 
-        /* --- 1. Navigation --- */
-        nav {
-            position: fixed; top: 0; width: 100%; height: 100px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 6%; z-index: 2000;
-            transition: var(--transition);
-        }
-        .nav-scrolled { 
-            height: 80px; 
-            background: var(--glass); 
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-        }
+    /* BRANDING COLOR EXACT from image: rich deep teal + gold/amber accents */
+    :root {
+      --brand-primary: #0F2F2F;    /* deep teal from image background vibe */
+      --brand-secondary: #D4AF37;  /* premium gold / amber */
+      --brand-accent: #E8B446;
+      --brand-light: #F8F6F0;
+      --brand-gray: #4a5b6e;
+      --brand-white: #ffffff;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-lg: 0 20px 35px -12px rgba(0,0,0,0.1);
+    }
 
-        .logo-box img { height: 50px; width: auto; display: block; }
-        
-        .nav-menu-toggle {
-            width: 55px; height: 55px; background: var(--primary);
-            border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; color: white; cursor: pointer;
-            transition: 0.3s;
-        }
-        .nav-menu-toggle:hover { transform: rotate(90deg); background: var(--secondary); }
+    html {
+      scroll-padding-top: 85px;
+    }
 
-        /* --- 2. THE PREMIER HERO (Cleaned per Example) --- */
-        .hero {
-            position: relative; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            text-align: center;
-            background: #ffffff;
-            overflow: hidden; 
-            padding: 120px 20px 0 20px;
-        }
+    /* sticky navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--brand-white);
+      backdrop-filter: blur(0px);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--brand-primary) 0%, #1f4e4e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      color: var(--brand-secondary);
+      font-weight: 700;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--brand-primary);
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: var(--brand-secondary); }
+    .btn-book-nav {
+      background: var(--brand-primary);
+      color: white !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+    }
+    .menu-icon { display: none; font-size: 1.8rem; cursor: pointer; }
 
-        .hero-header-text { 
-            position: relative;
-            z-index: 10; 
-            margin-bottom: -20px; 
-        }
-        
-        .hero-header-text h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(4rem, 15vw, 9rem);
-            font-weight: 800; 
-            color: var(--primary);
-            letter-spacing: -5px; 
-            line-height: 0.85;
-            text-transform: uppercase;
-            margin: 0;
-        }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+      .nav-container.responsive .nav-links {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+        gap: 1rem;
+        align-items: center;
+      }
+    }
 
-        .hero-header-text p {
-            font-size: clamp(1.1rem, 3vw, 1.8rem);
-            color: #888; 
-            font-weight: 500;
-            margin-top: 15px; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    /* floating dock */
+    .floating-dock {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 47, 47, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.8rem 2rem;
+      z-index: 1200;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+    .dock-item {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    .dock-item i { font-size: 1.2rem; color: var(--brand-secondary); }
+    @media (max-width: 640px) {
+      .floating-dock { gap: 1rem; padding: 0.6rem 1rem; }
+      .dock-item span { display: none; }
+      .dock-item i { margin: 0; }
+    }
 
-        .hero-car-display { 
-            width: 100%; 
-            max-width: 1100px; 
-            margin: 20px auto;
-            position: relative; 
-            z-index: 5; 
-        }
-        
-        .hero-car-display img { 
-            width: 100%; 
-            height: auto;
-            filter: drop-shadow(0 50px 70px rgba(0,0,0,0.18));
-            animation: carHover 5s ease-in-out infinite;
-        }
+    /* sections common */
+    section {
+      padding: 80px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: var(--brand-primary);
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: var(--brand-secondary);
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+    }
 
-        @keyframes carHover { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-25px); } 
-        }
+    /* hero slider */
+    .hero-slider {
+      background: linear-gradient(135deg, #eef3f0, #fff);
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .slider-container {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      background: url('https://placehold.co/1200x600/0F2F2F/D4AF37?text=INFODRIVE+LUXURY+DRIVING+CAR') center/cover no-repeat;
+      background-size: cover;
+    }
+    .slider-overlay {
+      background: rgba(0,0,0,0.55);
+      width: 100%;
+      padding: 3rem;
+      color: white;
+    }
+    .contact-text-slider {
+      background: rgba(0,0,0,0.65);
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .hero-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+    .btn-gold {
+      background: var(--brand-secondary);
+      border: none;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      border-radius: 48px;
+      color: #0F2F2F;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    /* scroll animation */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s ease;
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .hero-action-dock {
-            display: flex; 
-            width: 100%; 
-            max-width: 1000px; 
-            margin-top: -40px; 
-            z-index: 50; 
-            gap: 5px;
-        }
-        
-        .dock-btn {
-            flex: 1; 
-            padding: 28px; 
-            border: none; 
-            font-weight: 800;
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-            font-size: 14px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            gap: 15px; 
-            cursor: pointer; 
-            transition: 0.4s; 
-            text-decoration: none;
-            color: #fff;
-        }
-        
-        .btn-black { background: #111; }
-        .btn-black:hover { background: var(--primary); }
+    /* pricing cards */
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+    .price-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+      border: 1px solid #e9ecef;
+    }
+    .price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--brand-secondary);}
+    .price { font-size: 2rem; font-weight: 800; color: var(--brand-primary);}
+    .buy-btn {
+      background: var(--brand-primary);
+      color: white;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 40px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
 
-        /* --- 3. Section Transitions --- */
-        .red-wave-spacer {
-            height: 160px; width: 100%; background: var(--primary);
-            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-            margin-top: -80px; position: relative; z-index: 20;
-        }
+    /* Stats counter */
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: var(--brand-light);
+      padding: 3rem;
+      border-radius: 2rem;
+    }
+    .stat-item { text-align: center; flex: 1; }
+    .stat-number { font-size: 3rem; font-weight: 800; color: var(--brand-secondary);}
 
-        /* --- 4. Stats Ribbon --- */
-        .stats-ribbon {
-            background: #f8f9fa; 
-            padding: 60px 10%;
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-        .stat-item h2 { font-family: 'Space Grotesk'; font-size: 3rem; color: var(--primary); line-height: 1; }
-        .stat-item p { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #999; margin-top: 10px; }
+    /* gallery lightbox */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+      gap: 1rem;
+    }
+    .gallery-img {
+      background: #ddd;
+      border-radius: 1rem;
+      height: 160px;
+      background-size: cover;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .lightbox {
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      visibility: hidden;
+    }
+    /* testimonials slider */
+    .testimonial-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
+    }
+    .testimonial-card {
+      min-width: 300px;
+      background: white;
+      border-radius: 2rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
 
-        /* --- 5. Pricing Section --- */
-        section { padding: 120px 8%; }
-        .section-title { text-align: center; margin-bottom: 80px; }
-        .section-title h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-family: 'Space Grotesk'; font-weight: 700; }
-        
-        .pricing-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-        }
-        
-        .price-card {
-            background: #fff; padding: 60px 40px; border-radius: 40px;
-            border: 1px solid #eee; transition: 0.5s;
-            position: relative;
-        }
-        .price-card:hover { transform: translateY(-20px); border-color: var(--primary); box-shadow: var(--shadow-premium); }
-        .price-card.hot { background: var(--secondary); color: white; border: none; }
-        .price-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .price-card .cost { font-size: 4rem; font-weight: 800; margin: 30px 0; display: block; }
-        
-        .feature-list { list-style: none; margin-bottom: 40px; }
-        .feature-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 12px; font-size: 15px; }
+    /* FAQ Accordion */
+    .faq-item {
+      background: #f9f9f9;
+      margin-bottom: 1rem;
+      border-radius: 1rem;
+    }
+    .faq-question {
+      padding: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+    .faq-answer { padding: 0 1.2rem 1.2rem; display: none;}
 
-        /* --- 6. About the Instructor --- */
-        .instructor-section { background: var(--bg-soft); display: flex; align-items: center; gap: 80px; flex-wrap: wrap; }
-        .instructor-visual { flex: 1; min-width: 350px; position: relative; }
-        .instructor-visual img { width: 100%; border-radius: 60px; box-shadow: 30px 30px 0 var(--primary); }
-        .instructor-content { flex: 1.2; min-width: 350px; }
-
-        /* --- 7. FAQ Section --- */
-        .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-block { background: #fff; border-radius: 25px; margin-bottom: 15px; overflow: hidden; border: 1px solid #eee; }
-        .faq-head { padding: 30px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; }
-        .faq-body { padding: 0 30px; max-height: 0; overflow: hidden; transition: 0.4s; color: var(--text-muted); }
-        .faq-block.open .faq-body { padding-bottom: 30px; max-height: 300px; }
-
-        /* --- 8. Footer --- */
-        footer { background: var(--secondary); color: white; padding: 100px 8% 40px; }
-        .f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; }
-        .f-col h4 { margin-bottom: 30px; font-size: 1.2rem; font-family: 'Space Grotesk'; }
-        .f-links { list-style: none; opacity: 0.6; }
-        .f-links li { margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
-        .f-links li:hover { color: var(--primary); opacity: 1; }
-
-        /* --- 9. Overlay Modal --- */
-        .exit-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000;
-            display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px);
-        }
-        .modal-inner { background: #fff; padding: 70px; border-radius: 50px; max-width: 550px; text-align: center; }
-
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .hero-action-dock { flex-direction: row; padding: 0 10px; }
-            .dock-btn { padding: 20px; font-size: 11px; }
-            .instructor-section { padding: 60px 5%; }
-            .stats-ribbon { grid-template-columns: 1fr; gap: 40px; }
-            .hero-header-text h1 { font-size: 4.5rem; letter-spacing: -2px; }
-        }
-    </style>
+    footer {
+      background: #0a1f1f;
+      color: #ccc;
+      padding: 3rem 5%;
+      margin-top: 3rem;
+    }
+    button, .btn-payment { cursor: pointer; }
+  </style>
 </head>
 <body>
 
-    <div class="exit-modal" id="popupModal">
-        <div class="modal-inner">
-            <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;">WAIT!</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #555;">Don't leave without your <b>10% Discount Code</b> for your first 10-hour block booking.</p>
-            <button class="dock-btn btn-black" style="width: 100%; border-radius: 20px;" onclick="closeModal()">Claim Discount Now</button>
-        </div>
+<!-- Sticky Navigation -->
+<div class="sticky-nav" id="navbar">
+  <div class="nav-container">
+    <div class="logo"><h1>INFODRIVE<span> PREMIER</span></h1></div>
+    <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#instructor">Instructor</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="btn-book-nav">Book Now</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Hero Slider Section with Contact Text Slider 5 offers -->
+<section id="home" class="scroll-reveal">
+  <div class="hero-slider">
+    <div class="slider-container" style="background-image: url('https://placehold.co/1400x600/0F2F2F/D4AF37?text=LUXURY+DRIVING+AUDI+A3');">
+      <div class="slider-overlay">
+        <div class="contact-text-slider" id="textSlider">⭐ 15 years experience</div>
+        <div class="hero-title">London's Most Premium<br>Driving School</div>
+        <p>DVSA Approved • Manual & Automatic • First Time Pass Experts</p>
+        <button class="btn-gold" onclick="openCalendly()">📅 Book First Lesson →</button>
+      </div>
     </div>
+  </div>
+</section>
 
-    <nav id="nav">
-        <div class="logo-box">
-            <img src="https://infodriveme.co.uk/wp-content/uploads/2021/04/Infodrive-Logo-Black.png" alt="Infodrive Logo">
-        </div>
-        <div class="nav-menu-toggle">
-            <i data-lucide="menu" size="28"></i>
-        </div>
-    </nav>
+<!-- Large Booking Calendly Integration + CTA -->
+<section class="scroll-reveal" style="background: #F8F6F0; border-radius: 2rem;">
+  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;">
+    <div><h2 class="section-title">Reserve Your Slot</h2><p>Instant booking with Calendly, choose your lesson time.</p><button class="btn-gold" onclick="openCalendly()">Start Learning Today</button></div>
+    <div style="background:white; border-radius: 1rem; padding: 1rem;"><i class="fas fa-calendar-alt" style="font-size:3rem; color:var(--brand-primary)"></i> <span>Seamless online booking</span></div>
+  </div>
+</section>
 
-    <section class="hero">
-        <div class="hero-header-text" data-aos="fade-down">
-            <h1>PREMIER</h1>
-            <p>Driving School in Stratford</p>
-        </div>
+<!-- Lesson Packages / Buy Now (Most important) -->
+<section id="packages" class="scroll-reveal">
+  <h2 class="section-title">Buy Lesson Packages</h2>
+  <div class="package-grid" id="packageContainer">
+    <!-- dynamic js will generate, but static for reliability -->
+  </div>
+</section>
 
-        <div class="hero-car-display" data-aos="zoom-in" data-aos-delay="200">
-            <img src="https://www.mazda.co.uk/contentassets/71c35b80983d476686367307223e71d3/all-new-mazda3-hatchback-top-desktop.png" alt="Infodrive Premium Instruction Car">
-        </div>
+<!-- Automatic vs Manual Lessons -->
+<section class="scroll-reveal" id="services">
+  <h2 class="section-title">Automatic vs Manual Lessons</h2>
+  <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+    <div style="flex:1; background:#eef2f1; border-radius: 2rem; padding:2rem; text-align:center"><i class="fas fa-car fa-3x" style="color:var(--brand-primary)"></i><h3>Manual Lessons</h3><p>Full control, traditional driving.</p></div>
+    <div style="flex:1; background:#eef2f1; border-radius: 2rem; padding:2rem; text-align:center"><i class="fas fa-car-side fa-3x" style="color:var(--brand-secondary)"></i><h3>Automatic Lessons</h3><p>Smooth & stress-free, high demand</p></div>
+  </div>
+</section>
 
-        <div class="hero-action-dock">
-            <a href="tel:02080000000" class="dock-btn btn-black">
-                <i data-lucide="phone-call"></i> Call Us
-            </a>
-            <a href="#prices" class="dock-btn btn-black">
-                View Offers
-            </a>
-        </div>
-    </section>
-
-    <div class="red-wave-spacer"></div>
-
-    <div class="stats-ribbon">
-        <div class="stat-item" data-aos="fade-up">
-            <h2 class="count">96%</h2>
-            <p>First Time Pass Rate</p>
-        </div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-            <h2 class="count">15+</h2>
-            <p>Years Excellence</p>
-        </div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="count">5.0</h2>
-            <p>Google Rating</p>
-        </div>
+<!-- Areas Covered + Interactive Map -->
+<section class="scroll-reveal">
+  <h2 class="section-title">Areas Covered</h2>
+  <div style="display: flex; gap: 2rem; flex-wrap:wrap">
+    <ul style="flex:1"><li>✔ Stratford</li><li>✔ Croydon</li><li>✔ Bromley</li><li>✔ Lewisham</li><li>✔ Greenwich</li><li>✔ South London</li></ul>
+    <div style="flex:2; background:#e2e6e9; border-radius: 1rem; height: 200px; position:relative;" id="interactiveMap">
+      <iframe width="100%" height="200" style="border-radius:1rem; border:0" loading="lazy" src="https://maps.google.com/maps?q=Stratford%20London&t=m&z=11&output=embed"></iframe>
     </div>
+  </div>
+</section>
 
-    <section id="prices">
-        <div class="section-title" data-aos="fade-up">
-            <h2 style="color: var(--primary);">Lesson Packages</h2>
-            <p>Transparent pricing with no hidden fees.</p>
-        </div>
+<!-- Instructor Trust Section -->
+<section id="instructor" class="scroll-reveal">
+  <h2 class="section-title">Your DVSA Approved Instructor</h2>
+  <div style="display: flex; gap: 2rem; flex-wrap: wrap; background:#fff; border-radius:2rem; box-shadow:var(--shadow-sm); padding:2rem;">
+    <div style="flex:1; text-align:center"><img src="https://placehold.co/300x300/0F2F2F/white?text=INSTRUCTOR+JOHN" style="border-radius: 50%; width:180px;"></div>
+    <div style="flex:2"><h3>John Mitchell - DVSA Grade A</h3><p>✔ 15+ years experience ✔ Fully Insured ✔ Nervous driver specialist ✔ Calm teaching style ✔ 95% first-time pass rate ✔ Dual controls & modern fleet</p><i class="fas fa-shield-alt"></i> Approved Driving Instructor (ADI)</div>
+  </div>
+</section>
 
-        <div class="pricing-grid">
-            <div class="price-card" data-aos="fade-up">
-                <h3>The Beginner Pack</h3>
-                <span class="cost">£175</span>
-                <p style="margin-top: -20px; font-weight: 700; color: var(--primary);">5 Hours Tuition</p>
-                <hr style="margin: 25px 0; opacity: 0.1;">
-                <ul class="feature-list">
-                    <li><i data-lucide="check" color="var(--primary)"></i> DVSA Grade A Instructor</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Free Theory Training</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Door-to-Door Pickup</li>
-                </ul>
-                <button class="dock-btn btn-black" style="width: 100%; border-radius: 15px;">Book Now</button>
-            </div>
+<!-- Stats Counter animated -->
+<section class="scroll-reveal">
+  <div class="stats-row" id="statsSection">
+    <div class="stat-item"><div class="stat-number" data-target="578">0</div><p>Students Passed</p></div>
+    <div class="stat-item"><div class="stat-number" data-target="18">0</div><p>Years Experience</p></div>
+    <div class="stat-item"><div class="stat-number" data-target="96">0</div><p>First-Time Pass Rate</p></div>
+  </div>
+</section>
 
-            <div class="price-card hot" data-aos="fade-up" data-aos-delay="100">
-                <div style="position: absolute; top: 20px; right: 20px; background: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 10px; font-weight: 900;">BEST VALUE</div>
-                <h3>Intensive Fast-Pass</h3>
-                <span class="cost">£650</span>
-                <p style="margin-top: -20px; font-weight: 700; color: #fff;">20 Hours Tuition</p>
-                <hr style="margin: 25px 0; opacity: 0.1;">
-                <ul class="feature-list">
-                    <li><i data-lucide="check" color="var(--primary)"></i> Pass in 2-4 Weeks</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Mock Test Assessments</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Priority Booking Slots</li>
-                </ul>
-                <button class="dock-btn" style="width: 100%; border-radius: 15px; background: #fff; color: #000;">Inquire Now</button>
-            </div>
+<!-- Pass Gallery Lightbox -->
+<section class="scroll-reveal">
+  <h2 class="section-title">Pass Gallery</h2>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
 
-            <div class="price-card" data-aos="fade-up" data-aos-delay="200">
-                <h3>Automatic Specialist</h3>
-                <span class="cost">£360</span>
-                <p style="margin-top: -20px; font-weight: 700; color: var(--primary);">10 Hours Tuition</p>
-                <hr style="margin: 25px 0; opacity: 0.1;">
-                <ul class="feature-list">
-                    <li><i data-lucide="check" color="var(--primary)"></i> Stress-Free Driving</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Modern Hybrid Fleet</li>
-                    <li><i data-lucide="check" color="var(--primary)"></i> Nervous Learner Expert</li>
-                </ul>
-                <button class="dock-btn btn-black" style="width: 100%; border-radius: 15px;">Book Now</button>
-            </div>
-        </div>
-    </section>
+<!-- Video Section (embed up to 10 demo) -->
+<section class="scroll-reveal">
+  <h2 class="section-title">Lesson Previews & Success</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:1rem;" id="videoGrid"></div>
+</section>
 
-    <section class="instructor-section" id="about">
-        <div class="instructor-visual" data-aos="fade-right">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1200" alt="Professional Instructor">
-        </div>
-        <div class="instructor-content" data-aos="fade-left">
-            <h2 style="font-size: 3rem; font-family: 'Space Grotesk'; line-height: 1.1; margin-bottom: 30px;">
-                Master the Road with <span style="color: var(--primary);">Confidence.</span>
-            </h2>
-            <p style="font-size: 1.2rem; margin-bottom: 40px; color: #555;">
-                Infodrive isn't just a driving school; it's a legacy of success established in 2005. Our Grade A instructors focus on safety-first techniques, ensuring you don't just pass your test, but become a driver for life.
-            </p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                <div style="display: flex; gap: 10px;"><i data-lucide="shield-check" color="var(--primary)"></i> <b>Fully Insured</b></div>
-                <div style="display: flex; gap: 10px;"><i data-lucide="calendar" color="var(--primary)"></i> <b>7 Days A Week</b></div>
-                <div style="display: flex; gap: 10px;"><i data-lucide="smile" color="var(--primary)"></i> <b>Patience Guaranteed</b></div>
-                <div style="display: flex; gap: 10px;"><i data-lucide="map-pin" color="var(--primary)"></i> <b>Stratford & South</b></div>
-            </div>
-        </div>
-    </section>
+<!-- Advanced Testimonials Slider -->
+<section id="reviews" class="scroll-reveal">
+  <h2 class="section-title">Student Love 💬</h2>
+  <div class="testimonial-slider" id="testimonialSlider"></div>
+</section>
 
-    <section id="faq">
-        <div class="section-title">
-            <h2>Frequently Asked</h2>
-        </div>
-        <div class="faq-container">
-            <div class="faq-block">
-                <div class="faq-head">How many lessons do I need? <i data-lucide="plus"></i></div>
-                <div class="faq-body">The DVSA average is 44 hours of tuition. However, our students typically pass 20% faster due to our structured lesson plans.</div>
-            </div>
-            <div class="faq-block">
-                <div class="faq-head">Do you offer weekend slots? <i data-lucide="plus"></i></div>
-                <div class="faq-body">Yes, we operate from 7 AM to 9 PM, Monday through Sunday, to accommodate your busy schedule.</div>
-            </div>
-            <div class="faq-block">
-                <div class="faq-head">Can I switch from manual to auto? <i data-lucide="plus"></i></div>
-                <div class="faq-body">Absolutely. We offer both and can help you decide which path is better for your specific goals.</div>
-            </div>
-        </div>
-    </section>
+<!-- Mock Test + Refresher + Intensive Sections -->
+<section class="scroll-reveal">
+  <h2 class="section-title">Premium Add-On Services</h2>
+  <div class="package-grid">
+    <div class="price-card"><i class="fas fa-chalkboard-user"></i><h3>Mock Driving Test</h3><p>Real exam simulation</p><button class="buy-btn">Book £49</button></div>
+    <div class="price-card"><i class="fas fa-brain"></i><h3>Nervous Driver Specialist</h3><p>Confidence building</p><button class="buy-btn">Start £35</button></div>
+    <div class="price-card"><i class="fas fa-bolt"></i><h3>Intensive Crash Course</h3><p>1-Week Fast Pass</p><button class="buy-btn">£599</button></div>
+    <div class="price-card"><i class="fas fa-gift"></i><h3>Gift Voucher</h3><p>Perfect for learners</p><button class="buy-btn">Buy Voucher</button></div>
+  </div>
+</section>
 
-    <footer>
-        <div class="f-grid">
-            <div class="f-col">
-                <img src="https://infodriveme.co.uk/wp-content/uploads/2021/04/Infodrive-Logo-Black.png" style="filter: brightness(0) invert(1); height: 40px; margin-bottom: 25px;">
-                <p style="opacity: 0.6;">Premier driving instruction since 2005. Trusted by thousands of Londoners to get them on the road safely.</p>
-            </div>
-            <div class="f-col">
-                <h4>Sitemap</h4>
-                <ul class="f-links">
-                    <li>Home</li>
-                    <li>Packages</li>
-                    <li>Instructors</li>
-                    <li>Areas</li>
-                </ul>
-            </div>
-            <div class="f-col">
-                <h4>Contact</h4>
-                <ul class="f-links">
-                    <li>020 8000 0000</li>
-                    <li>info@infodrive.co.uk</li>
-                    <li>Stratford, London</li>
-                </ul>
-            </div>
-            <div class="f-col">
-                <h4>Newsletter</h4>
-                <p style="opacity: 0.5; font-size: 12px; margin-bottom: 20px;">Get driving tips and test alerts.</p>
-                <div style="display: flex; gap: 5px;">
-                    <input type="text" placeholder="Email" style="padding: 12px; border-radius: 8px; border: none; flex: 1;">
-                    <button style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px;">OK</button>
-                </div>
-            </div>
-        </div>
-        <div style="margin-top: 80px; text-align: center; font-size: 12px; opacity: 0.3;">
-            &copy; 2026 INFODRIVE SCHOOL OF MOTORING. ALL RIGHTS RESERVED.
-        </div>
-    </footer>
+<!-- FAQ Accordion -->
+<section id="faq" class="scroll-reveal">
+  <h2 class="section-title">Frequently Asked</h2>
+  <div id="faqContainer"></div>
+</section>
 
-    <script>
-        // Initialize Icons
-        lucide.createIcons();
+<!-- Call to Action Newsletter + Popup offer -->
+<section class="scroll-reveal">
+  <div style="background: var(--brand-primary); color:white; border-radius:2rem; padding:3rem; text-align:center">
+    <h3>First Lesson Only £25 - Limited Offer!</h3>
+    <p>Subscribe for driving tips & exclusive deals</p>
+    <form id="newsletterForm" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap"><input type="email" placeholder="Your email" id="subEmail" required style="padding:1rem; border-radius:40px; border:none; width:260px;"><button type="submit" class="btn-gold">Subscribe</button></form>
+  </div>
+</section>
 
-        // Initialize Animations
-        AOS.init({ duration: 1000, once: true });
+<footer>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div><h3>INFODRIVE PREMIER</h3><p>Call: 020 8123 4567 <br> WhatsApp: 07700 900123<br>Stratford, London E15</p></div>
+    <div><h4>Quick Links</h4><a href="#packages" style="color:gold;">Packages</a><br><a href="#instructor" style="color:gold;">Instructor</a></div>
+    <div><i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-tiktok"></i></div>
+  </div>
+</footer>
 
-        // Navbar Scroll Effect
-        window.onscroll = () => {
-            const nav = document.getElementById('nav');
-            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
-        }
+<!-- Bottom CTA Dock -->
+<div class="floating-dock">
+  <a href="tel:+442081234567" class="dock-item"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+  <a href="https://wa.me/447700900123" class="dock-item"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+  <a href="#" class="dock-item" onclick="openCalendly(); return false;"><i class="fas fa-calendar-check"></i><span>Book Now</span></a>
+</div>
 
-        // FAQ Toggle Logic
-        document.querySelectorAll('.faq-head').forEach(item => {
-            item.addEventListener('click', () => {
-                item.parentElement.classList.toggle('open');
-            });
-        });
+<!-- exit intent popup -->
+<div id="exitPopup" style="position:fixed; bottom:0; right:0; background:white; max-width:320px; border-radius:1rem; box-shadow:var(--shadow-lg); z-index:1300; display:none; padding:1rem;">
+  <p><strong>✨ First Lesson Only £25 ✨</strong><br>Limited slots! Claim now.</p><button onclick="closePopup(); openCalendly()">Claim Offer</button><button onclick="closePopup()">No thanks</button>
+</div>
 
-        // Exit Intent Modal Logic
-        document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 0 && !sessionStorage.getItem('popupShown')) {
-                document.getElementById('popupModal').style.display = 'flex';
-                sessionStorage.setItem('popupShown', 'true');
-            }
-        });
+<script>
+  // Text Slider 5 offers
+  const offers = ["15 years experience", "Established 2005", "Free Theory Test Training", "DVSA Approved", "Pass First Time Guarantee*"];
+  let idx=0;
+  setInterval(()=>{
+    const el = document.getElementById('textSlider');
+    if(el) el.innerText = `⭐ ${offers[idx%offers.length]}`;
+    idx++;
+  }, 2800);
 
-        function closeModal() {
-            document.getElementById('popupModal').style.display = 'none';
-        }
-    </script>
+  // Lesson Packages config
+  const packages = [
+    {name:"Starter Package (1hr)", price:"£35", desc:"Perfect trial lesson"},
+    {name:"Beginner Bundle (5hrs)", price:"£165", desc:"Save £10"},
+    {name:"Intensive Package (10hrs)", price:"£320", desc:"Fast progress"},
+    {name:"Fast Pass (20hrs)", price:"£620", desc:"Test ready"},
+    {name:"Test Preparation", price:"£199", desc:"Including car hire"}
+  ];
+  function renderPackages(){
+    const container = document.getElementById('packageContainer');
+    if(!container) return;
+    container.innerHTML = packages.map(pkg => `
+      <div class="price-card scroll-reveal"><h3>${pkg.name}</h3><div class="price">${pkg.price}</div><p>${pkg.desc}</p><button class="buy-btn" onclick="alert('Secure payment link: Purchase ${pkg.name} for ${pkg.price} - demo checkout.')">Buy Now →</button></div>
+    `).join('');
+  }
+  renderPackages();
+
+  // Gallery Lightbox data
+  const galleryImgs = [
+    "https://placehold.co/400x300/0F2F2F/white?text=PASS+CERTIFICATE+1",
+    "https://placehold.co/400x300/D4AF37/white?text=HAPPY+STUDENT",
+    "https://placehold.co/400x300/0F2F2F/white?text=PASS+PHOTO+2",
+    "https://placehold.co/400x300/e0b354/white?text=SUCCESS+DAY"
+  ];
+  function renderGallery(){
+    const galleryDiv = document.getElementById('galleryGrid');
+    if(galleryDiv){
+      galleryDiv.innerHTML = galleryImgs.map((img,i)=>`<div class="gallery-img" style="background-image:url('${img}'); background-size:cover;" onclick="openLightbox('${img}')"></div>`).join('');
+    }
+  }
+  renderGallery();
+  window.openLightbox = (src)=>{ alert("Lightbox preview: "+src+" (fullscreen gallery ready in production)") };
+
+  // Video section (10 videos)
+  const videoIds = ["dQw4w9WgXcQ","3JZ_D3ELwOQ","6v2L2UGZJAM","jrVbawRPO7I","L_jWHffIx5E","eBShN8qT4lk","9bZkp7q19f0","fJ9rUzIMcZQ","tgbNymZ7vqY","kyLLmj3s9Jk"];
+  function renderVideos(){
+    const vContainer = document.getElementById('videoGrid');
+    if(vContainer){
+      vContainer.innerHTML = videoIds.slice(0,10).map(id => `<div><iframe width="100%" height="160" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe><p>Driving Tip</p></div>`).join('');
+    }
+  }
+  renderVideos();
+
+  // Testimonials slider dynamic
+  const testimonials = ["⭐️⭐️⭐️⭐️⭐️ 'I passed first time thanks to John! Amazing patience' - Sarah","🚗 'Automatic lessons made me confident' - Michael","🏆 'Best driving school in Stratford, 10/10' - Priya","🎉 'Mock test helped me pass quickly' - Tom"];
+  function renderTestimonials(){
+    const slider = document.getElementById('testimonialSlider');
+    if(slider) slider.innerHTML = testimonials.map(t=>`<div class="testimonial-card">${t}</div>`).join('');
+  }
+  renderTestimonials();
+
+  // FAQ accordion
+  const faqs = [
+    {q:"How long are lessons?", a:"Standard 1 hour or 2 hour sessions available. Flexible."},
+    {q:"Do you offer home pickup?", a:"Yes we pickup from home/work within coverage areas."},
+    {q:"Can I pay in installments?", a:"Packages can be split payments upon request."}
+  ];
+  function renderFaq(){
+    const faqDiv = document.getElementById('faqContainer');
+    faqDiv.innerHTML = faqs.map((faq,i)=>`<div class="faq-item"><div class="faq-question" onclick="toggleFaq(${i})">${faq.q} <i class="fas fa-chevron-down"></i></div><div class="faq-answer" id="faqAns${i}">${faq.a}</div></div>`).join('');
+  }
+  renderFaq();
+  window.toggleFaq = (i)=>{ const ans = document.getElementById(`faqAns${i}`); if(ans.style.display==='block') ans.style.display='none'; else ans.style.display='block'; };
+
+  // Stats counter animation with intersection observer
+  const statNumbers = document.querySelectorAll('.stat-number');
+  function animateStats(){
+    statNumbers.forEach(el=>{
+      const target = parseInt(el.getAttribute('data-target'));
+      let current = 0;
+      const increment = target/60;
+      const update = ()=>{
+        current += increment;
+        if(current < target){
+          el.innerText = Math.floor(current);
+          requestAnimationFrame(update);
+        } else { el.innerText = target; }
+      };
+      update();
+    });
+  }
+  const statObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ animateStats(); statObserver.disconnect(); } });
+  }, {threshold:0.5});
+  const statSection = document.querySelector('.stats-row');
+  if(statSection) statObserver.observe(statSection);
+
+  // Scroll Reveal
+  const reveals = document.querySelectorAll('.scroll-reveal');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('revealed'); });
+  }, {threshold:0.1});
+  reveals.forEach(el=>revealObserver.observe(el));
+
+  // Calendly
+  window.openCalendly = ()=>{ alert("Calendly integration ready - Book lesson instantly: calendly.com/infodrive-demo (demo)"); };
+  // Newsletter subscribe alert
+  document.getElementById('newsletterForm')?.addEventListener('submit',(e)=>{ e.preventDefault(); alert("🎉 Subscribed! You'll get driving tips & offers"); document.getElementById('subEmail').value=''; });
+  
+  // Exit intent logic
+  let exitShown=false;
+  document.addEventListener('mouseleave',(e)=>{
+    if(e.clientY<=0 && !exitShown){ exitShown=true; document.getElementById('exitPopup').style.display='block'; setTimeout(()=>{ if(document.getElementById('exitPopup')) document.getElementById('exitPopup').style.display='none'; },7000); }
+  });
+  window.closePopup = ()=>{ document.getElementById('exitPopup').style.display='none'; };
+
+  // Mobile menu toggle
+  window.toggleMenu = function(){ document.querySelector('.nav-container').classList.toggle('responsive'); };
+  
+  // extra mock sections: Instructor availability display static
+  const availabilityDiv = document.createElement('div'); availabilityDiv.className='scroll-reveal'; availabilityDiv.innerHTML = `<h2 class="section-title">Instructor Availability</h2><div>📅 Mon-Fri: 8am - 8pm | Sat: 9am-5pm | Sun: Closed (Evening slots available)</div>`;
+  document.querySelector('#faq').insertAdjacentElement('afterend', availabilityDiv);
+  
+  // Google Reviews showcase live badge
+  const googleDiv = document.createElement('section'); googleDiv.className='scroll-reveal'; googleDiv.innerHTML = `<h2 class="section-title">Google Reviews</h2><div style="background:#f1f3f5; border-radius:1rem; padding:1rem;"><i class="fab fa-google"></i> ⭐ 4.9 (287 reviews) - “Incredible instructor, passed first time!”</div>`;
+  document.querySelector('footer').before(googleDiv);
+  
+  // Referral section
+  const referralDiv = document.createElement('section'); referralDiv.className='scroll-reveal'; referralDiv.innerHTML = `<div style="background:var(--brand-light); border-radius:1rem; padding:2rem; text-align:center"><h3>Refer a Friend & Get 1 Free Lesson!</h3><button class="btn-gold" onclick="alert('Referral link sent to your email demo')">Refer Now</button></div>`;
+  document.querySelector('#reviews').after(referralDiv);
+</script>
 </body>
 </html>
