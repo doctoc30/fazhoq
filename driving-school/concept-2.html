@@ -3,148 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Shiels School of Motoring</title>
+    <title>Tony Shiels School of Motoring | Kirton Lindsey</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --car-blue: #0099de; /* The vibrant electric blue of the car */
-            --tony-navy: #1a2b56; /* The navy blue in "TONY" */
-            --tony-red: #e31e24; /* The red in "SHIELS" */
-            --silver-trim: #cbd5e1; /* The silver trim from the car door */
+            --electric-blue: #0099de; /* Car Body Color */
+            --tony-navy: #1a2b56;    /* Branding Text Color */
+            --pure-white: #ffffff;
+            --soft-gray: #f8fafc;
         }
 
-        body { background-color: #ffffff; }
+        body { background-color: var(--pure-white); font-family: 'Inter', sans-serif; }
 
-        /* HEADER: Mimicking the reference layout with Tony's colors */
+        /* HEADER: Clean & Professional */
         .header-bg {
-            background: linear-gradient(to bottom, #f0f9ff 0%, #ffffff 100%);
+            background: linear-gradient(to bottom, #e0f2fe 0%, #ffffff 100%);
         }
 
         .menu-circle {
-            width: 54px;
-            height: 54px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--tony-red) 0%, #8b0000 100%);
-            border: 3px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            /* Switched from red to a Navy-to-Blue gradient to match the new rules */
+            background: linear-gradient(135deg, var(--tony-navy) 0%, var(--electric-blue) 100%);
+            border: 2px solid var(--pure-white);
+            box-shadow: 0 4px 12px rgba(26, 43, 86, 0.2);
         }
 
-        /* HERO: Layout centered like the reference */
-        .hero-title {
-            color: var(--tony-red);
-            font-weight: 900;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-subtitle {
+        /* HERO: Using the TS Logo Style */
+        .ts-logo-text {
             color: var(--tony-navy);
-            font-weight: 500;
+            font-weight: 900;
+            line-height: 0.9;
         }
 
-        /* The Blue Footer Block from the reference image */
+        .hero-heading {
+            color: var(--tony-navy);
+            letter-spacing: -0.01em;
+        }
+
+        /* The Signature Blue Footer Block */
         .brand-footer-block {
-            background-color: var(--car-blue);
-            height: 220px;
-            border-top-left-radius: 50% 20px;
-            border-top-right-radius: 50% 20px;
+            background-color: var(--electric-blue);
+            height: 240px;
+            border-top-left-radius: 50% 25px;
+            border-top-right-radius: 50% 25px;
             position: relative;
         }
 
-        /* Floating Widgets */
+        /* Action Widgets - Solid Black as per reference */
         .cta-container {
             position: absolute;
             top: -28px;
             left: 50%;
             transform: translateX(-50%);
-            width: 92%;
-            max-width: 500px;
+            width: 90%;
+            max-width: 550px;
             display: flex;
             gap: 12px;
         }
 
-        .black-widget {
+        .action-widget {
             flex: 1;
             background: #000000;
             color: white;
-            padding: 18px;
-            border-radius: 8px;
+            padding: 18px 10px;
+            border-radius: 10px;
             text-align: center;
             font-weight: 800;
             text-transform: uppercase;
             font-size: 13px;
-            letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
         }
 
-        /* The Gradient Border Bottom Widget */
-        .bottom-status-bar {
+        /* Bottom Status Widget with Blue-to-Navy Gradient Border */
+        .status-bar {
             position: absolute;
-            bottom: 30px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
-            width: 85%;
+            width: 88%;
             background: white;
-            padding: 14px;
-            border-radius: 15px;
+            padding: 16px;
+            border-radius: 12px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--tony-navy);
-            border: 4px solid;
-            border-image-source: linear-gradient(90deg, var(--car-blue), var(--tony-red));
+            text-transform: uppercase;
+            border: 3px solid;
+            border-image-source: linear-gradient(90deg, var(--electric-blue), var(--tony-navy));
             border-image-slice: 1;
         }
 
-        .car-display {
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
-            max-height: 280px;
-            margin: 0 auto;
+        .car-hero-img {
+            max-height: 300px;
+            filter: drop-shadow(0 25px 35px rgba(0,0,0,0.12));
         }
     </style>
 </head>
 <body>
 
-    <header class="header-bg py-4 px-6 flex justify-between items-center relative z-50">
-        <div class="flex flex-col">
-            <h2 class="text-2xl font-black italic tracking-tighter leading-none" style="color: var(--tony-navy);">
-                TONY <span style="color: var(--tony-red);">SHIELS</span>
-            </h2>
-            <p class="text-[9px] font-bold tracking-[.3em] uppercase text-gray-500">School of Motoring</p>
+    <header class="header-bg py-5 px-6 flex justify-between items-center relative z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 border-2 border-slate-200 rounded-full flex flex-col items-center justify-center bg-white">
+                <span class="text-[8px] font-bold text-gray-400 leading-none">Driving</span>
+                <span class="text-xl font-black text-[#1a2b56] leading-none">TS</span>
+                <span class="text-[8px] font-bold text-gray-400 leading-none">School</span>
+            </div>
+            <div>
+                <h2 class="ts-logo-text text-xl italic uppercase">Tony Shiels</h2>
+                <p class="text-[9px] font-bold tracking-widest text-blue-500 uppercase">Kirton Lindsey & Surrounding</p>
+            </div>
         </div>
 
         <button class="menu-circle flex items-center justify-center text-white">
-            <i class="fas fa-bars text-xl"></i>
+            <i class="fas fa-bars"></i>
         </button>
     </header>
 
-    <section class="pt-8 overflow-hidden flex flex-col min-h-screen">
-        <div class="text-center px-6 mb-4">
-            <h1 class="text-5xl hero-title uppercase">PREMIER</h1>
-            <p class="hero-subtitle text-lg mt-1 italic font-semibold">Driving Lessons in East London</p>
+    <section class="flex flex-col min-h-screen">
+        <div class="text-center px-6 pt-10 pb-4">
+            <h1 class="hero-heading text-6xl font-black uppercase">PREMIER</h1>
+            <p class="text-slate-500 font-bold text-lg mt-2 tracking-wide">Approved Driving Instructor (ADI)</p>
         </div>
 
-        <div class="flex-grow flex items-center justify-center px-4">
-            <img src="https://i.ibb.co/VWV0p0p/blue-car-side.png" alt="Tony Shiels Blue Car" class="car-display object-contain">
+        <div class="flex-grow flex items-center justify-center px-6">
+            <img src="https://i.ibb.co/VWV0p0p/blue-car-side.png" alt="Tony Shiels Blue Car" class="car-hero-img object-contain">
         </div>
 
-        <div class="brand-footer-block mt-12">
+        <div class="brand-footer-block mt-8">
             <div class="cta-container">
-                <a href="tel:+447752892178" class="black-widget">
+                <a href="tel:+447752892178" class="action-widget">
                     <i class="fas fa-phone-alt"></i>
-                    CALL TONY
+                    <span>Call Tony</span>
                 </a>
-                <div class="black-widget">
-                    <i class="fas fa-calendar-check"></i>
-                    VIEW OFFERS
-                </div>
+                <button class="action-widget">
+                    <i class="fas fa-envelope"></i>
+                    <span>Message</span>
+                </button>
             </div>
 
-            <div class="bottom-status-bar uppercase tracking-tight">
-                East London's Highest Pass Rate
+            <div class="status-bar">
+                Manual Driving Lessons Kirton Lindsey
             </div>
         </div>
     </section>
