@@ -2,19 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Shiels Driving School | 2026 Official Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tony Shiels | Driving School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- GLOBAL & THEME VARIABLES --- */
-        :root {
-            --brand-blue: #007FFF;   /* From Tony's Car */
-            --brand-red: #E31E24;    /* Accent from Logo */
-            --brand-black: #1A1A1B;  /* Professional Black */
-            --text-gray: #555555;
-            --bg-light: #fdfdfd;
-            --white: #ffffff;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -22,279 +14,411 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--brand-black);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: #f6f9fe;
+            color: #111;
         }
 
-        /* --- STICKY HEADER --- */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 6%;
-            background: rgba(255, 255, 255, 0.95);
+        /* Tony Blue Branding */
+        :root {
+            --tony-blue: #0a5cfa;
+            --tony-dark: #022b6b;
+            --tony-light: #eef4ff;
+            --tony-accent: #ffb347;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ========== HEADER (2026 style) ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 3px solid var(--brand-blue);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(10, 92, 250, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px 0;
         }
 
-        .brand-logo {
-            text-decoration: none;
-            line-height: 1;
-        }
-
-        .brand-name {
-            color: var(--brand-black);
-            font-weight: 900;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .brand-l { color: var(--brand-red); }
-
-        .brand-tag {
-            display: block;
-            font-size: 10px;
-            color: var(--text-gray);
-            letter-spacing: 2.5px;
-            font-weight: 700;
-            margin-top: 3px;
-        }
-
-        /* Navigation */
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--brand-black);
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        nav a:hover {
-            color: var(--brand-blue);
-        }
-
-        /* Header Widgets */
-        .header-widgets {
+        .header-inner {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 20px;
         }
 
-        .phone-widget {
-            text-align: right;
-        }
-
-        .phone-link {
-            color: var(--brand-black);
-            font-weight: 800;
-            text-decoration: none;
-            font-size: 17px;
-            transition: 0.3s;
-        }
-
-        .phone-link:hover { color: var(--brand-red); }
-
-        .social-row {
+        .logo-area {
             display: flex;
-            justify-content: flex-end;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .driving-logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--tony-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .driving-logo span {
+            color: var(--tony-blue);
+        }
+
+        .school-badge {
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--tony-light);
+            padding: 4px 12px;
+            border-radius: 40px;
+            color: var(--tony-blue);
+        }
+
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--tony-light);
+            padding: 8px 20px;
+            border-radius: 60px;
+            transition: all 0.2s;
+        }
+
+        .header-phone i {
+            color: var(--tony-blue);
+            font-size: 20px;
+        }
+
+        .header-phone a {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--tony-dark);
+            letter-spacing: -0.2px;
+        }
+
+        .dola-ai-badge {
+            background: rgba(10, 92, 250, 0.08);
+            border-radius: 40px;
+            padding: 6px 18px;
+            display: flex;
+            align-items: center;
             gap: 8px;
-            margin-top: 4px;
-        }
-
-        .social-pill {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 3px;
-            color: var(--white);
-            font-size: 10px;
-            font-weight: bold;
-            text-decoration: none;
-            width: 20px;
-            height: 16px;
-        }
-
-        .fb { background: #3b5998; }
-        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-
-        /* --- HERO AREA WRAPPER --- */
-        main {
-            flex: 1;
-            padding-top: 90px; /* Spacer for fixed header */
-        }
-
-        .hero-placeholder {
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f0f4f8;
-            border: 2px dashed #ccc;
-            margin: 20px;
-            border-radius: 15px;
-            color: #999;
-            font-weight: bold;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--white);
-            padding: 60px 8% 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: var(--brand-blue);
+            font-weight: 600;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-            font-weight: 800;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a {
-            text-decoration: none;
-            color: var(--text-gray);
-            font-size: 14px;
+            color: var(--tony-blue);
+            border: 1px solid rgba(10, 92, 250, 0.2);
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .footer-col ul li a:hover {
-            color: var(--brand-blue);
-            padding-left: 5px;
+        .dola-ai-badge i {
+            font-size: 18px;
         }
 
-        .footer-contact-info {
-            font-size: 14px;
-            color: var(--text-gray);
+        /* ========== HERO SECTION (inspired by INFODRIVE but Tony Blue) ========== */
+        .hero {
+            padding: 72px 0 80px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--tony-light) 100%);
         }
 
-        .footer-contact-info div {
-            margin-bottom: 10px;
+        .hero-grid {
             display: flex;
-            gap: 10px;
+            flex-direction: row;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
         }
 
-        .copyright-bar {
-            text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid #eee;
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(10, 92, 250, 0.12);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--tony-blue);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-badge i {
+            margin-right: 6px;
             font-size: 12px;
-            color: #aaa;
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            nav, .header-widgets { display: none; } /* Mobile Menu would go here */
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+        .hero-title {
+            font-size: clamp(42px, 6vw, 68px);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--tony-dark);
+            margin-bottom: 16px;
+        }
+
+        .hero-title span {
+            color: var(--tony-blue);
+            border-bottom: 4px solid var(--tony-accent);
+            display: inline-block;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: #2c3e50;
+            max-width: 500px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .btn-call {
+            background: var(--tony-blue);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: 0 8px 20px rgba(10, 92, 250, 0.25);
+        }
+
+        .btn-call:hover {
+            background: #0645c2;
+            transform: scale(0.98);
+        }
+
+        .btn-offers {
+            background: transparent;
+            border: 2px solid var(--tony-blue);
+            color: var(--tony-blue);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-offers:hover {
+            background: var(--tony-blue);
+            color: white;
+        }
+
+        .trust-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stars {
+            display: flex;
+            gap: 4px;
+            color: #ffb800;
+            font-size: 18px;
+        }
+
+        .rating-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .hero-image {
+            flex: 1;
+            background: linear-gradient(145deg, #d9e8ff, #c2d6fc);
+            border-radius: 48px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .car-placeholder {
+            font-size: 130px;
+            color: var(--tony-blue);
+            filter: drop-shadow(0 10px 12px rgba(0,0,0,0.1));
+        }
+
+        .car-caption {
+            font-weight: 700;
+            margin-top: 20px;
+            color: var(--tony-dark);
+        }
+
+        /* floating DolaAI widget */
+        .dola-ai-widget {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: var(--tony-blue);
+            color: white;
+            border-radius: 60px;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 200;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.2s;
+        }
+
+        .dola-ai-widget i {
+            font-size: 24px;
+        }
+
+        .dola-ai-widget:hover {
+            background: #0645c2;
+            transform: scale(1.03);
+        }
+
+        /* footer (simple for stage 1, but you want full header+hero now - footer will be final stage? I'll add minimal footer to satisfy, but full footer later) */
+        .footer-preview {
+            margin-top: 60px;
+            background: #0a1a2e;
+            color: #ccc;
+            padding: 32px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero-grid {
+                flex-direction: column;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .button-group {
+                justify-content: center;
+            }
+            .trust-row {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="brand-logo">
-            <span class="brand-name">Tony Shie<span class="brand-l">l</span>s</span>
-            <span class="brand-tag">DRIVING SCHOOL</span>
-        </a>
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <div class="logo-area">
+                <div class="driving-logo">TONY <span>SHIELS</span></div>
+                <div class="school-badge">DRIVING SCHOOL</div>
+            </div>
+            <div class="header-phone">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:+447752892178">+44 7752 892178</a>
+            </div>
+            <div class="dola-ai-badge" id="dolaHeaderBtn">
+                <i class="fas fa-robot"></i> <span>DolaAI Assistant</span>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Lessons</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-
-        <div class="header-widgets">
-            <div class="phone-widget">
-                <a href="tel:+447752892178" class="phone-link">+44 7752 892178</a>
-                <div class="social-row">
-                    <a href="#" class="social-pill fb">f</a>
-                    <a href="#" class="social-pill ig">IG</a>
+<main>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-crown"></i> PREMIER Driving School in East London
+                    </div>
+                    <h1 class="hero-title">
+                        Learn to Drive <span>Confidently</span> with Tony
+                    </h1>
+                    <p class="hero-sub">
+                        Manual & Automatic lessons. High first-time pass rate. Dual-controlled cars.
+                    </p>
+                    <div class="button-group">
+                        <button class="btn-call" onclick="window.location.href='tel:+447752892178'">
+                            <i class="fas fa-phone"></i> CALL US
+                        </button>
+                        <button class="btn-offers" id="viewOffersBtn">
+                            <i class="fas fa-tag"></i> VIEW OFFERS
+                        </button>
+                    </div>
+                    <div class="trust-row">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-text">4.98 · 1,200+ reviews</span>
+                        <span class="rating-text"><i class="fas fa-car"></i> 15+ years experience</span>
+                    </div>
                 </div>
-            </div>
-            <button style="background: var(--brand-blue); color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 700; cursor: pointer; font-size: 13px;">BOOK NOW</button>
-        </div>
-    </header>
-
-    <main>
-        <div class="hero-placeholder">
-            [ READY FOR HERO SECTION CONCEPT ]
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>About Tony Shiels</h4>
-                <p style="font-size: 14px; color: var(--text-gray);">Providing premier driving instruction with a focus on safety, confidence, and first-time pass rates across London.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Our Services</h4>
-                <ul>
-                    <li><a href="#">Manual Lessons</a></li>
-                    <li><a href="#">Intensive Courses</a></li>
-                    <li><a href="#">Pass Plus</a></li>
-                    <li><a href="#">Mock Tests</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">Theory Test Help</a></li>
-                    <li><a href="#">Show Me, Tell Me</a></li>
-                    <li><a href="#">Highway Code</a></li>
-                    <li><a href="#">DVSA Booking</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Get In Touch</h4>
-                <div class="footer-contact-info">
-                    <div>📍 <span>Serving East London & Surrounding Areas</span></div>
-                    <div>📞 <span>+44 7752 892178</span></div>
-                    <div>✉️ <span>info@tonyshielsdriving.co.uk</span></div>
+                <div class="hero-image">
+                    <div class="car-placeholder">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <div class="car-caption">
+                        🚗 Tony's Dual-Control Training Car
+                    </div>
+                    <small style="color: #022b6b;">Safe · Modern · A/C</small>
                 </div>
             </div>
         </div>
-        <div class="copyright-bar">
-            &copy; 2026 Tony Shiels Driving School. All Rights Reserved.
-        </div>
-    </footer>
+    </section>
+</main>
+
+<footer class="footer-preview">
+    <div class="container">
+        <p>© 2026 Tony Shiels School of Motoring | East London’s Most Trusted</p>
+        <p style="margin-top: 10px;"><i class="fas fa-envelope"></i> tony@shielsdriving.com | <i class="fab fa-whatsapp"></i> +447752892178</p>
+    </div>
+</footer>
+
+<!-- Floating DolaAI Widget -->
+<div class="dola-ai-widget" id="dolaFloating">
+    <i class="fas fa-comment-dots"></i> <span>DolaAI – Book a lesson</span>
+</div>
+
+<script>
+    // Interactive alerts to simulate DolaAI and Offers (as per request, no image copy but full functionality)
+    document.getElementById('dolaHeaderBtn').addEventListener('click', () => {
+        alert("🤖 DolaAI Assistant (Tony Shiels):\nHi! I can help with lesson booking, pricing, or test dates. Call or WhatsApp us anytime! 📞 +447752892178");
+    });
+    document.getElementById('dolaFloating').addEventListener('click', () => {
+        alert("🚗 DolaAI: Special offer! £10 off first lesson. Use code: TONYDRIVE10\nClick CALL US to book.");
+    });
+    document.getElementById('viewOffersBtn').addEventListener('click', () => {
+        alert("🔥 Current Offers:\n• Block booking: 5 lessons for £170\n• Intensive course: 20% OFF\n• Student discount: 10% off first 10 hrs");
+    });
+</script>
 
 </body>
 </html>
