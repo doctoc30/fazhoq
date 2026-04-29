@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,62 +46,59 @@
             margin-top: -2px;
         }
 
-        /* Continuous Slow Pan Animation Logic */
+        /* Continuous Smooth Driving Animation */
         .car-hero-container {
             position: relative;
             z-index: 10;
             width: 100%;
+            height: 300px;
             display: flex;
-            justify-content: center;
-            overflow: visible; /* Allows the overflow of the panned image */
-            animation: drive-vibration 3s ease-in-out infinite;
+            align-items: center;
+            overflow: hidden; /* Clips the car as it enters/exits */
         }
         
         #panningCar {
-            max-width: 700px;
-            width: 100%;
+            width: 450px;
             height: auto;
-            border: none; /* Removes any border */
-            border-radius: 0; /* Removes rounded corners */
-            box-shadow: none; /* Removes box shadow */
-            background-color: transparent; /* Ensures image background is isolated */
-            animation: continuousPan 15s linear infinite; /* Slow, continuous pan */
+            position: absolute;
+            animation: driveForward 12s linear infinite;
             will-change: transform;
         }
 
-        @keyframes continuousPan {
-            0% { transform: translateX(0px); }
-            50% { transform: translateX(150px); } /* Pan to the right */
-            100% { transform: translateX(0px); } /* Pan back to start */
+        @keyframes driveForward {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
         }
 
-        @keyframes drive-vibration {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-3px) rotate(0.1deg); }
-            75% { transform: translateY(3px) rotate(-0.1deg); }
+        /* Hamburger Menu Styles */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
         }
 
         .road-indicator {
             height: 4px;
             background: var(--brand-silver);
-            width: 200px;
-            border-radius: 2px;
-            margin: 20px auto;
-            position: relative;
-            overflow: hidden;
+            width: 100%;
+            position: absolute;
+            bottom: 40px;
         }
         .road-indicator::after {
             content: '';
             position: absolute;
-            left: -50%;
-            width: 50%;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: var(--brand-red);
-            animation: dash-move 1.2s linear infinite;
+            background-image: linear-gradient(to right, var(--brand-red) 50%, transparent 50%);
+            background-size: 40px 100%;
+            animation: roadMove 0.5s linear infinite;
         }
-        @keyframes dash-move {
-            0% { left: -50%; }
-            100% { left: 150%; }
+        @keyframes roadMove {
+            0% { background-position: 0 0; }
+            100% { background-position: -40px 0; }
         }
 
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
@@ -125,16 +121,39 @@
                 <div class="logo-wrap">
                     TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
                 </div>
-                <span class="hidden lg:block h-6 w-px bg-slate-300"></span>
-                <span class="hidden lg:block font-bold text-xs text-slate-400 tracking-[0.3em] uppercase">TS-387</span>
             </div>
-            <div class="hidden md:flex space-x-10 font-bold text-xs uppercase tracking-widest">
+            
+            <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-widest">
                 <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
                 <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+                <a href="tel:+447752892178" class="hover:text-[var(--brand-red)] transition">07752 892178</a>
                 <a href="#booking" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Lesson</a>
             </div>
+
+            <button id="menu-btn" class="md:hidden text-[var(--brand-navy)]">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
         </div>
     </nav>
+
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full sm:w-80 bg-[var(--brand-navy)] z-[100] p-10 flex flex-col shadow-2xl">
+        <button id="close-btn" class="self-end text-white mb-12">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div class="flex flex-col space-y-8 text-white font-black text-2xl uppercase tracking-tighter">
+            <a href="#services" class="mobile-link">Tuition</a>
+            <a href="#pricing" class="mobile-link">Pricing</a>
+            <a href="tel:+447752892178" class="mobile-link">Call Tony</a>
+            <a href="#booking" class="text-red-500 mobile-link">Book Online</a>
+        </div>
+        <div class="mt-auto border-t border-white/10 pt-8">
+            <div class="flex space-x-6 text-white/50">
+                <i data-lucide="facebook"></i>
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+            </div>
+        </div>
+    </div>
 
     <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
         <div class="ticker space-x-16">
@@ -145,16 +164,16 @@
         </div>
     </div>
 
-    <section class="relative min-h-[85vh] flex flex-col items-center justify-center bg-white py-12">
-        <div class="max-w-4xl mx-auto px-6 text-center overflow-visible">
-            
-            <div id="heroCar" class="car-hero-container mb-12">
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
-                     alt="Tony Shiels Driving School Car">
+    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-20 overflow-hidden">
+        <div class="w-full mb-16">
+            <div class="car-hero-container">
                 <div class="road-indicator"></div>
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Driving School Car">
             </div>
+        </div>
 
-            <div class="animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="max-w-4xl mx-auto px-6 text-center z-20">
+            <div class="animate__animated animate__fadeInUp">
                 <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
                     Pass with <span class="text-red-600">Precision.</span>
                 </h1>
@@ -191,66 +210,55 @@
         </div>
     </section>
 
-    <section id="services" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
-            <div class="reveal premium-card bg-slate-50 p-12 shadow-sm flex flex-col items-start">
-                <i data-lucide="zap" class="text-red-600 w-8 h-8 mb-6"></i>
-                <h3 class="text-3xl font-black uppercase tracking-tighter mb-4 text-[var(--brand-navy)]">Automatic</h3>
-                <p class="text-slate-600 mb-8 leading-relaxed">Modern, stress-free learning. Focus on the road, not the gears.</p>
-                <span class="text-xs font-black text-red-600 uppercase tracking-widest border-b-2 border-red-600 pb-1">Immediate Availability</span>
-            </div>
-            <div class="reveal premium-card bg-[var(--brand-navy)] p-12 shadow-sm flex flex-col items-start text-white">
-                <i data-lucide="settings" class="text-red-600 w-8 h-8 mb-6"></i>
-                <h3 class="text-3xl font-black uppercase tracking-tighter mb-4">Manual</h3>
-                <p class="text-slate-300 mb-8 leading-relaxed">Classic control. Master the manual transmission with technical coaching.</p>
-                <span class="text-xs font-black text-slate-400 uppercase tracking-widest border-b-2 border-slate-600 pb-1">Waitlist Open</span>
-            </div>
-        </div>
-    </section>
-
     <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Tuition <span class="text-red-600">Packages</span></h2>
+        <div class="max-w-7xl mx-auto px-6 text-center mb-20">
+            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Tuition <span class="text-red-600">Packages</span></h2>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Trial Lesson</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Vehicle Audit</li>
+                    <li>★ Assessment</li>
+                </ul>
+                <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
             </div>
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Trial Lesson</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Vehicle Audit</li>
-                        <li>★ Assessment</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
-                </div>
-                <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
-                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Most Popular</div>
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Mock Test</li>
-                        <li>★ Priority Booking</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
-                </div>
-                <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Block 5</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Door-to-Door</li>
-                        <li>★ Maneuvers</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
-                </div>
+            <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Most Popular</div>
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Mock Test</li>
+                    <li>★ Priority Booking</li>
+                </ul>
+                <a href="#" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
+            </div>
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Block 5</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Door-to-Door</li>
+                    <li>★ Maneuvers</li>
+                </ul>
+                <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-48">
+    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-24">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16">
             <div class="logo-wrap !text-white mb-8 md:mb-0">
                 TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
+            
+            <div class="flex space-x-8 mb-8 md:mb-0">
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="facebook"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="instagram"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="twitter"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="youtube"></i></a>
+            </div>
+
             <div class="text-center md:text-right">
                 <p class="text-2xl font-black">07752 892178</p>
                 <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TS-387 SYSTEM</p>
@@ -258,16 +266,22 @@
         </div>
     </footer>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[500px] z-[100] bg-white shadow-2xl p-4 border-b-4 border-red-600 flex gap-4">
-        <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px]">WhatsApp</a>
-        <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px]">Book Lesson</a>
-    </div>
-
     <script>
         lucide.createIcons();
 
-        // The Scroll-to-Pan logic is removed to allow the new continuous animation
+        // Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -279,6 +293,7 @@
         
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
+            if(!obj) return;
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
@@ -298,7 +313,8 @@
                 statsObserver.unobserve(entries[0].target);
             }
         });
-        statsObserver.observe(document.getElementById('stat1'));
+        const statEl = document.getElementById('stat1');
+        if(statEl) statsObserver.observe(statEl);
     </script>
 </body>
 </html>
