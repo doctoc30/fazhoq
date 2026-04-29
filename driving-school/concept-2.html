@@ -77,7 +77,7 @@
             margin: 1rem 0;
         }
 
-        /* HERO LAYOUT FIX */
+        /* HERO LAYOUT - Pushing text down */
         section.hero-main {
             position: relative;
             min-height: 90vh;
@@ -85,25 +85,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Start from top to prevent overlap */
+            justify-content: flex-start;
             overflow: hidden;
-            padding-top: 1rem;
         }
 
-        /* CAR TRACK - Confined to top to prevent cutting through text */
+        /* CAR TRACK */
         .animation-track {
             position: relative;
             width: 100%;
-            height: 180px;
+            height: 160px; /* Controlled height */
             overflow: visible;
-            margin-bottom: 1rem;
             z-index: 5;
+            margin-top: 2rem;
         }
 
         .car-container {
             position: absolute;
             left: -500px;
-            width: 450px;
+            width: 420px;
             animation: continuousForward 10s linear infinite;
             will-change: transform;
         }
@@ -123,16 +122,13 @@
 
         @keyframes wheel-roll {
             0% { transform: scale(1.1) translateY(0); }
-            100% { transform: scale(1.1) translateY(-4px); }
+            100% { transform: scale(1.1) translateY(-3px); }
         }
 
-        /* Speed line removed - Static Road Line */
-        .road-indicator {
-            height: 4px;
-            background: var(--brand-silver);
-            width: 200px;
-            border-radius: 2px;
-            margin: 10px auto 30px auto;
+        /* This container forces the text lower down the page */
+        .hero-content-wrapper {
+            margin-top: 4rem; 
+            z-index: 20;
             position: relative;
         }
 
@@ -148,9 +144,9 @@
         .premium-card { transition: all 0.4s ease; border-top: 4px solid transparent; }
         .premium-card:hover { transform: translateY(-10px); border-color: var(--brand-red); }
 
-        @media (orientation: landscape) and (max-height: 500px) {
-            section.hero-main { min-height: 160vh; }
-            h1 { font-size: 2.5rem !important; }
+        @media (max-width: 768px) {
+            .hero-content-wrapper { margin-top: 5rem; }
+            .animation-track { height: 140px; }
         }
     </style>
 </head>
@@ -191,8 +187,7 @@
             </div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-6 text-center z-10">
-            <div class="road-indicator"></div>
+        <div class="hero-content-wrapper max-w-4xl mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
                 Pass with <span class="text-red-600">Precision.</span>
             </h1>
