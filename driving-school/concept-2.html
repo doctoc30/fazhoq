@@ -49,63 +49,62 @@
         /* Continuous Single-Direction Animation */
         .car-hero-wrapper {
             width: 100%;
-            overflow: hidden; /* Clips the car as it exits the frame */
+            overflow: hidden;
             position: relative;
-            height: 320px;
+            height: 300px;
             display: flex;
             align-items: center;
+            background: #ffffff;
         }
 
         .car-hero-container {
             position: absolute;
-            white-space: nowrap;
-            /* Linear animation for constant speed, one direction */
-            animation: constantDrive 12s linear infinite;
+            display: flex;
+            align-items: center;
+            /* Constant speed, one direction */
+            animation: constantDrive 10s linear infinite;
             will-change: transform;
         }
         
         #panningCar {
-            max-width: 650px;
-            width: 90vw;
+            max-width: 600px;
+            width: 80vw;
             height: auto;
-            /* Negative margin-bottom/right or clip-path could hide watermark, 
-               but here we use object-position to nudge it out of view */
-            object-fit: cover;
-            object-position: 0 0; 
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.08));
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            background-color: transparent;
+            /* Replaced link with original image but with watermark removed */
+            /* Using clip-path to crop the bottom-right corner where the watermark is */
+            clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%);
         }
 
         @keyframes constantDrive {
             0% { transform: translateX(-100%); }
-            100% { transform: translateX(120vw); }
+            100% { transform: translateX(100vw); }
         }
 
-        /* Vibration effect applied separately to prevent animation conflict */
+        /* Separated vibration so it doesn't interrupt the forward motion */
         .vibration-layer {
-            animation: drive-vibration 0.5s ease-in-out infinite;
+            animation: drive-vibration 3s ease-in-out infinite;
         }
 
         @keyframes drive-vibration {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-2px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-2px) rotate(0.05deg); }
+            75% { transform: translateY(2px) rotate(-0.05deg); }
         }
 
-        /* Landscape Optimization */
-        @media (orientation: landscape) and (max-height: 600px) {
-            .hero-section { padding-top: 2rem; padding-bottom: 2rem; min-height: auto; }
-            .car-hero-wrapper { height: 220px; }
-            h1 { font-size: 2.5rem !important; }
-        }
-
-        .road-line {
+        .road-indicator {
             height: 4px;
             background: var(--brand-silver);
-            width: 240px;
-            margin: 10px auto;
+            width: 200px;
+            border-radius: 2px;
+            margin: 20px auto;
             position: relative;
             overflow: hidden;
         }
-        .road-line::after {
+        .road-indicator::after {
             content: '';
             position: absolute;
             left: -50%;
@@ -119,91 +118,107 @@
             100% { left: 150%; }
         }
 
-        .glass { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
-        .ticker-wrap { background: var(--brand-navy); color: white; padding: 10px 0; border-bottom: 4px solid var(--brand-red); overflow: hidden; }
-        .ticker { display: flex; animation: ticker 30s linear infinite; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s all ease; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        .premium-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 4px solid transparent; }
+        .premium-card:hover { transform: translateY(-12px); border-color: var(--brand-red); box-shadow: 0 25px 50px -12px rgba(26, 54, 93, 0.2); }
+        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
+        .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .btn-red { background: var(--brand-red); color: white; transition: 0.3s; }
-        .btn-red:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(211, 16, 24, 0.2); }
+        .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
+        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <nav class="sticky top-0 z-50 glass border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="logo-wrap scale-90 md:scale-100 origin-left">
-                TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
+    <nav class="sticky top-0 z-50 glass border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="logo-wrap">
+                    TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
+                </div>
+                <span class="hidden lg:block h-6 w-px bg-slate-300"></span>
+                <span class="hidden lg:block font-bold text-xs text-slate-400 tracking-[0.3em] uppercase">TS-387</span>
             </div>
-            <div class="flex gap-4">
-                <a href="#booking" class="btn-red px-5 py-2 rounded text-[10px] font-black uppercase tracking-widest shadow-lg">Book Now</a>
+            <div class="hidden md:flex space-x-10 font-bold text-xs uppercase tracking-widest">
+                <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
+                <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+                <a href="#booking" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Lesson</a>
             </div>
         </div>
     </nav>
 
-    <div class="ticker-wrap font-bold uppercase text-[9px] tracking-[0.2em]">
-        <div class="ticker">
-            <div class="flex space-x-12 px-6">
-                <span>★ DVSA Approved</span><span>★ Established 2005</span><span>★ High Pass Rate</span><span>★ Professional Tuition</span>
-                <span>★ DVSA Approved</span><span>★ Established 2005</span><span>★ High Pass Rate</span><span>★ Professional Tuition</span>
-            </div>
+    <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
+        <div class="ticker space-x-16">
+            <span>★ DVSA Approved</span>
+            <span>★ Established 2005</span>
+            <span>★ First-Time Pass Experts</span>
+            <span>★ TS-387 Certified</span>
         </div>
     </div>
 
-    <section class="hero-section relative min-h-[80vh] flex flex-col items-center justify-center bg-white overflow-hidden">
-        <div class="car-hero-wrapper">
-            <div class="car-hero-container">
-                <div class="vibration-layer">
-                    <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
-                         alt="Tony Shiels Driving School" 
-                         style="clip-path: inset(0 0 5% 0);"> </div>
-            </div>
-        </div>
-        
-        <div class="max-w-4xl mx-auto px-6 text-center z-10 -mt-8">
-            <div class="road-line"></div>
-            <h1 class="text-5xl md:text-8xl font-black text-[var(--brand-navy)] leading-none mb-4 uppercase tracking-tighter animate__animated animate__fadeInUp">
-                Pass with <br><span class="text-red-600">Precision.</span>
-            </h1>
-            <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-8 text-xs md:text-sm">South London's Premier Driving Tuition</p>
+    <section class="relative min-h-[85vh] flex flex-col items-center justify-center bg-white py-12">
+        <div class="max-w-4xl mx-auto px-6 text-center overflow-visible w-full">
             
-            <div class="flex flex-col sm:flex-row justify-center gap-3">
-                <a href="https://wa.me/447752892178" class="px-10 py-4 bg-[#075e54] text-white font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2">
-                    <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
-                </a>
-                <a href="#booking" class="px-10 py-4 btn-red font-black uppercase tracking-widest text-[10px]">Start Driving</a>
+            <div class="car-hero-wrapper mb-12">
+                <div class="car-hero-container">
+                    <div class="vibration-layer">
+                        <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
+                             alt="Tony Shiels Driving School Car">
+                    </div>
+                </div>
+            </div>
+            <div class="road-indicator -mt-16 mb-12"></div>
+
+            <div class="animate__animated animate__fadeInUp animate__delay-1s">
+                <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
+                    Pass with <span class="text-red-600">Precision.</span>
+                </h1>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">South London's Premier Driving Tuition</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#booking" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
+                    <a href="tel:+447752892178" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">07752 892178</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-slate-50 border-y border-slate-100">
+    <section class="py-16 bg-[var(--brand-silver)]">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
                 <div class="reveal">
-                    <div class="text-4xl font-black text-[var(--brand-navy)] mb-1" id="stat1">500+</div>
-                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Licensed</div>
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Licensed</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-4xl font-black text-red-600 mb-1" id="stat2">15+</div>
-                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Years Active</div>
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat2">15+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-4xl font-black text-[var(--brand-navy)] mb-1" id="stat3">95%</div>
-                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Pass Rate</div>
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-4xl font-black text-red-600 mb-1" id="stat4">100%</div>
-                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-widest">DVSA Certified</div>
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="fixed bottom-0 left-0 right-0 z-[100] bg-white border-t-2 border-red-600 p-3 flex gap-2 md:hidden">
-        <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-[#075e54] text-white font-black uppercase tracking-widest text-[10px]">WhatsApp</a>
-        <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px]">Book Lesson</a>
-    </div>
+    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-48">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16">
+            <div class="logo-wrap !text-white mb-8 md:mb-0">
+                TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-2xl font-black">07752 892178</p>
+                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TS-387 SYSTEM</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         lucide.createIcons();
@@ -211,12 +226,12 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
+        
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
             let startTimestamp = null;
