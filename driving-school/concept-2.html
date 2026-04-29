@@ -45,25 +45,23 @@
             margin-top: -2px;
         }
 
-        /* FIXED HERO & CAR ANIMATION */
+        /* ONE DIRECTION INFINITE DRIVE */
         .car-hero-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 250px; /* Fixed height to prevent layout jumps */
+            height: 250px; 
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden; 
-            margin: 0 auto;
         }
         
         #panningCar {
-            max-width: 500px; /* Slightly smaller for better mobile fit */
+            max-width: 500px; 
             width: 90%;
             height: auto;
             clip-path: inset(0 0 15% 0);
-            background-color: transparent;
             animation: driveForward 8s linear infinite;
             will-change: transform;
         }
@@ -73,7 +71,7 @@
             100% { transform: translateX(150%); }
         }
 
-        /* MENU STYLES */
+        /* FULL SCREEN OVERLAY MENU */
         #sideMenu {
             position: fixed;
             top: 0;
@@ -98,8 +96,8 @@
             margin: 0.5rem 0;
             transition: color 0.3s;
         }
+        .menu-link:hover { color: var(--brand-red); }
 
-        /* SOCIAL ICON FIX */
         .social-icon {
             width: 48px;
             height: 48px;
@@ -111,7 +109,7 @@
             transition: 0.3s;
             color: white;
         }
-        .social-icon:hover { background: var(--brand-red); }
+        .social-icon:hover { background: var(--brand-red); color: white; }
 
         .road-indicator {
             height: 4px;
@@ -140,9 +138,15 @@
         }
 
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        .premium-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 4px solid transparent; }
+        .premium-card:hover { transform: translateY(-12px); border-color: var(--brand-red); box-shadow: 0 25px 50px -12px rgba(26, 54, 93, 0.2); }
+        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
+        .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; cursor: pointer; }
+        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
     </style>
 </head>
 <body class="text-slate-900">
@@ -154,7 +158,6 @@
         <a href="#services" onclick="toggleMenu()" class="menu-link">Tuition</a>
         <a href="#pricing" onclick="toggleMenu()" class="menu-link">Pricing</a>
         <a href="#booking" onclick="toggleMenu()" class="menu-link">Book Now</a>
-        
         <div class="mt-12 flex gap-4">
             <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
             <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
@@ -167,13 +170,19 @@
             <div class="logo-wrap">
                 TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
-            <button onclick="toggleMenu()" class="p-2">
-                <i data-lucide="menu" class="text-[var(--brand-navy)] w-8 h-8"></i>
-            </button>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-widest">
+                    <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
+                    <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+                </div>
+                <button onclick="toggleMenu()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                    <i data-lucide="menu" class="text-[var(--brand-navy)] w-8 h-8"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em] overflow-hidden bg-[var(--brand-navy)] text-white py-3 border-b-2 border-red-600">
+    <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
         <div class="ticker space-x-16">
             <span>★ DVSA Approved</span>
             <span>★ Established 2005</span>
@@ -182,11 +191,10 @@
         </div>
     </div>
 
-    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white px-4 py-12">
+    <section class="relative min-h-[75vh] flex flex-col items-center justify-center bg-white px-4 py-12">
         <div class="w-full max-w-4xl text-center">
-            
             <div class="car-hero-container mb-8">
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Driving Car">
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Driving Car">
                 <div class="road-indicator"></div>
             </div>
 
@@ -194,51 +202,62 @@
                 <h1 class="text-4xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase">
                     Pass with <span class="text-red-600">Precision.</span>
                 </h1>
-                <p class="text-slate-500 font-bold uppercase tracking-widest mb-8">South London's Premier Driving Tuition</p>
+                <p class="text-slate-500 font-bold uppercase tracking-widest mb-10">South London's Premier Driving Tuition</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 px-6">
-                    <a href="#booking" class="px-8 py-4 btn-red font-black uppercase text-xs tracking-widest">Start Driving</a>
-                    <a href="tel:+447752892178" class="px-8 py-4 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase text-xs tracking-widest">07752 892178</a>
+                    <a href="#booking" class="px-10 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
+                    <a href="tel:+447752892178" class="px-10 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">07752 892178</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[var(--brand-navy)] text-white py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="logo-wrap !text-white !justify-center mb-8">
+    <section class="py-16 bg-[var(--brand-silver)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div class="reveal"><div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">0</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Licensed</div></div>
+                <div class="reveal"><div class="text-5xl font-black text-red-600 mb-2" id="stat2">0</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div></div>
+                <div class="reveal"><div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">0</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div></div>
+                <div class="reveal"><div class="text-5xl font-black text-red-600 mb-2" id="stat4">0</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[var(--brand-navy)] text-white py-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="logo-wrap !text-white !justify-center mb-10">
                 TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
             
-            <div class="flex justify-center gap-6 mb-10">
+            <div class="flex gap-6 mb-12">
                 <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
                 <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
                 <a href="#" class="social-icon"><i data-lucide="youtube"></i></a>
                 <a href="#" class="social-icon"><i data-lucide="linkedin"></i></a>
             </div>
 
-            <p class="text-2xl font-black mb-2">07752 892178</p>
-            <p class="text-[10px] text-slate-400 font-black uppercase tracking-[0.4em]">&copy; 2026 TS-387 SYSTEM</p>
+            <div class="text-center">
+                <p class="text-2xl font-black">07752 892178</p>
+                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TS-387 SYSTEM</p>
+            </div>
         </div>
     </footer>
 
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[500px] z-[100] bg-white shadow-2xl p-4 border-b-4 border-red-600 flex gap-4">
+        <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px]">WhatsApp</a>
+        <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px]">Book Lesson</a>
+    </div>
+
     <script>
-        // Initial icon creation
         lucide.createIcons();
 
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             menu.classList.toggle('active');
-            
-            // Re-trigger Lucide when menu opens to ensure icons are visible
-            if(menu.classList.contains('active')) {
-                lucide.createIcons();
-            }
-            
+            if(menu.classList.contains('active')) lucide.createIcons();
             document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // Intersection Observer for reveal animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -247,6 +266,31 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        function animateValue(id, start, end, duration, suffix = '+') {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + suffix;
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                animateValue('stat1', 0, 500, 2000, '+');
+                animateValue('stat2', 0, 15, 2000, '+');
+                animateValue('stat3', 0, 95, 2000, '%');
+                animateValue('stat4', 0, 100, 2000, '%');
+                statsObserver.unobserve(entries[0].target);
+            }
+        });
+        const statTarget = document.getElementById('stat1');
+        if(statTarget) statsObserver.observe(statTarget);
     </script>
 </body>
 </html>
