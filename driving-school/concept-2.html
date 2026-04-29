@@ -14,7 +14,13 @@
             --brand-red: #d31018;
             --brand-silver: #f1f5f9;
         }
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; overflow-x: hidden; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+            background-color: #ffffff; 
+            overflow-x: hidden;
+            padding-bottom: 120px; /* Ensures fixed footer doesn't cut off content */
+        }
         
         .logo-wrap {
             display: flex;
@@ -45,144 +51,126 @@
             margin-top: -2px;
         }
 
-        /* HERO CAR ANIMATION - Natural Fade Fix */
+        /* Responsive Hero Container */
         .car-hero-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 220px; 
+            max-width: 100vw;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            /* Creates a soft fade on the edges so the car doesn't "cut off" */
-            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            overflow: hidden; /* Contains the car within the screen bounds */
+            animation: drive-vibration 3s ease-in-out infinite;
+            /* Prevents hard edges during the pan */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
         
         #panningCar {
-            max-width: 550px; 
-            width: 100%;
+            max-width: 600px;
+            width: 90%;
             height: auto;
-            animation: driveForward 10s linear infinite;
+            background-color: transparent;
+            animation: continuousPan 12s linear infinite;
             will-change: transform;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
 
-        @keyframes driveForward {
-            0% { transform: translateX(-120%); }
-            100% { transform: translateX(120%); }
+        /* Panning using percentages to avoid cutting off on small screens */
+        @keyframes continuousPan {
+            0% { transform: translateX(-10%); }
+            50% { transform: translateX(10%); }
+            100% { transform: translateX(-10%); }
         }
 
-        /* FULL SCREEN OVERLAY MENU */
-        #sideMenu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
+        @keyframes drive-vibration {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .road-indicator {
+            height: 4px;
+            background: var(--brand-silver);
+            width: 160px;
+            border-radius: 2px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .road-indicator::after {
+            content: '';
+            position: absolute;
+            left: -50%;
+            width: 50%;
             height: 100%;
-            background: var(--brand-navy);
-            z-index: 200;
-            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            background: var(--brand-red);
+            animation: dash-move 1.2s linear infinite;
         }
-        #sideMenu.active { right: 0; }
-
-        .menu-link {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: white;
-            text-transform: uppercase;
-            margin: 0.5rem 0;
-            transition: color 0.3s;
+        @keyframes dash-move {
+            0% { left: -50%; }
+            100% { left: 150%; }
         }
-        .menu-link:hover { color: var(--brand-red); }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            color: white !important;
-        }
-        .social-icon:hover { background: var(--brand-red); transform: translateY(-3px); }
-        .social-icon svg { width: 24px; height: 24px; stroke-width: 2px; }
 
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
-        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
-        .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .premium-card { transition: all 0.4s ease; border-top: 4px solid transparent; }
+        .premium-card:hover { transform: translateY(-8px); border-color: var(--brand-red); }
         
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; }
+        .ticker { display: flex; animation: ticker 30s linear infinite; white-space: nowrap; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; cursor: pointer; }
-        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
+        .btn-red { background-color: var(--brand-red); color: white; transition: 0.2s; }
+        .btn-red:hover { background-color: #b00d14; transform: scale(1.02); }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <div id="sideMenu">
-        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white">
-            <i data-lucide="x" class="w-10 h-10"></i>
-        </button>
-        <a href="#services" onclick="toggleMenu()" class="menu-link">Tuition</a>
-        <a href="#pricing" onclick="toggleMenu()" class="menu-link">Pricing</a>
-        <a href="#booking" onclick="toggleMenu()" class="menu-link">Book Now</a>
-        <div class="mt-12 flex gap-4">
-            <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
-            <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
-            <a href="#" class="social-icon"><i data-lucide="youtube"></i></a>
-        </div>
-    </div>
-
     <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="logo-wrap">
-                TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-widest">
-                    <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
-                    <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+            <div class="flex items-center space-x-4">
+                <div class="logo-wrap">
+                    TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
                 </div>
-                <button onclick="toggleMenu()" class="p-2 hover:bg-slate-100 rounded-full transition">
-                    <i data-lucide="menu" class="text-[var(--brand-navy)] w-8 h-8"></i>
-                </button>
+            </div>
+            <div class="hidden md:flex space-x-10 font-bold text-xs uppercase tracking-widest">
+                <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
+                <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+                <a href="#booking" class="btn-red px-6 py-3 rounded-sm">Book Lesson</a>
             </div>
         </div>
     </nav>
 
     <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
-        <div class="ticker space-x-16">
-            <span>★ DVSA Approved</span>
-            <span>★ Established 2005</span>
-            <span>★ First-Time Pass Experts</span>
-            <span>★ TS-387 Certified</span>
+        <div class="ticker">
+            <span class="px-8">★ DVSA Approved</span>
+            <span class="px-8">★ Established 2005</span>
+            <span class="px-8">★ First-Time Pass Experts</span>
+            <span class="px-8">★ TS-387 Certified</span>
+            <span class="px-8">★ DVSA Approved</span>
+            <span class="px-8">★ Established 2005</span>
+            <span class="px-8">★ First-Time Pass Experts</span>
+            <span class="px-8">★ TS-387 Certified</span>
         </div>
     </div>
 
-    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white px-4 py-12">
-        <div class="w-full max-w-4xl text-center">
+    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
             
-            <div class="car-hero-container mb-12">
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Car">
+            <div id="heroCar" class="car-hero-container mb-8">
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
+                     alt="Tony Shiels Driving School Car">
             </div>
+            <div class="road-indicator mb-12"></div>
 
             <div class="animate__animated animate__fadeInUp">
-                <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase">
+                <h1 class="text-4xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
                     Pass with <span class="text-red-600">Precision.</span>
                 </h1>
-                <p class="text-slate-500 font-bold uppercase tracking-widest mb-10">South London's Premier Driving Tuition</p>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10 text-xs md:text-sm">South London's Premier Driving Tuition</p>
                 
-                <div class="flex flex-col sm:flex-row justify-center gap-4 px-6">
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="#booking" class="px-10 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
                     <a href="tel:+447752892178" class="px-10 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">07752 892178</a>
                 </div>
@@ -190,58 +178,84 @@
         </div>
     </section>
 
-    <footer class="bg-[var(--brand-navy)] text-white py-24 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <div class="logo-wrap !text-white !justify-center mb-10">
+    <section class="py-16 bg-[var(--brand-silver)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal">
+                    <div class="text-3xl md:text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Licensed</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-3xl md:text-5xl font-black text-red-600 mb-2" id="stat2">15+</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Years Active</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-3xl md:text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Pass Rate</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-3xl md:text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">DVSA Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[var(--brand-navy)] text-white pt-20 pb-20">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/10 pb-12">
+            <div class="logo-wrap !text-white mb-8 md:mb-0">
                 TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
-            
-            <div class="flex gap-6 mb-12">
-                <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
-                <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
-                <a href="#" class="social-icon"><i data-lucide="youtube"></i></a>
-                <a href="#" class="social-icon"><i data-lucide="linkedin"></i></a>
-            </div>
-
-            <div class="text-center">
-                <p class="text-2xl font-black">07752 892178</p>
-                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TS-387 SYSTEM</p>
+            <div class="text-center md:text-right">
+                <p class="text-xl font-black">07752 892178</p>
+                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mt-2">&copy; 2026 TS-387 SYSTEM</p>
             </div>
         </div>
     </footer>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[500px] z-[100] bg-white shadow-2xl p-4 border-b-4 border-red-600 flex gap-4">
-        <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px]">WhatsApp</a>
-        <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px]">Book Lesson</a>
+    <div class="fixed bottom-0 left-0 w-full z-[100] bg-white/90 backdrop-blur-md shadow-[0_-10px_20px_rgba(0,0,0,0.05)] p-4 border-t border-slate-100 flex justify-center gap-4">
+        <div class="w-full max-w-[500px] flex gap-3">
+            <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px] rounded-sm">WhatsApp</a>
+            <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px] rounded-sm">Book Lesson</a>
+        </div>
     </div>
 
     <script>
-        // Initialize icons on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-        });
+        lucide.createIcons();
 
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            menu.classList.toggle('active');
-            
-            // Re-run icon creation for icons inside the dynamic menu
-            if(menu.classList.contains('active')) {
-                lucide.createIcons();
-            }
-            
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
-        }
-
-        // Animation triggers
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
+                    entry.target.classList.add('active');
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+');
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                animateValue('stat1', 0, 500, 2000);
+                animateValue('stat2', 0, 15, 2000);
+                animateValue('stat3', 0, 95, 2000);
+                animateValue('stat4', 0, 100, 2000);
+                statsObserver.unobserve(entries[0].target);
+            }
+        });
+        const statEl = document.getElementById('stat1');
+        if(statEl) statsObserver.observe(statEl);
     </script>
 </body>
 </html>
