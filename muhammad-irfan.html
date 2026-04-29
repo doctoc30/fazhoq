@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Irfan | RED Driving School Glasgow</title>
+    <title>Muhammad Irfan | Independent Driving Instructor Glasgow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -11,8 +11,8 @@
     <style>
         :root {
             --brand-navy: #0f172a; 
-            --brand-red: #e11d48;
-            --brand-silver: #f1f5f9;
+            --brand-red: #dc2626;
+            --brand-silver: #f8fafc;
         }
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; overflow-x: hidden; margin: 0; padding: 0; }
         
@@ -115,7 +115,7 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
-        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
+        .btn-red:hover { background-color: #b91c1c; transform: scale(1.05); }
 
         .faq-item { border-bottom: 1px solid #edf2f7; }
         .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
@@ -149,10 +149,10 @@
             </div>
             
             <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-widest">
-                <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
+                <a href="#about" class="hover:text-[var(--brand-red)] transition">About</a>
+                <a href="#services" class="hover:text-[var(--brand-red)] transition">Lessons</a>
                 <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
-                <a href="https://messenger.com" class="hover:text-[var(--brand-red)] transition">Message</a>
-                <a href="#booking" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Lesson</a>
+                <a href="#contact" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Now</a>
             </div>
 
             <button id="menu-btn" class="md:hidden text-[var(--brand-navy)]">
@@ -166,10 +166,10 @@
             <i data-lucide="x" class="w-10 h-10"></i>
         </button>
         <div class="flex flex-col space-y-8 text-white font-black text-2xl uppercase tracking-tighter">
+            <a href="#about" class="mobile-link">About Irfan</a>
             <a href="#services" class="mobile-link">Tuition</a>
             <a href="#pricing" class="mobile-link">Pricing</a>
-            <a href="#contact" class="mobile-link">Contact Irfan</a>
-            <a href="#booking" class="text-red-500 mobile-link">Book Online</a>
+            <a href="#callback" class="text-red-500 mobile-link">Book Online</a>
         </div>
         <div class="mt-auto border-t border-white/10 pt-8">
             <div class="flex space-x-6 text-white/50">
@@ -182,10 +182,10 @@
 
     <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
         <div class="ticker space-x-16">
-            <span>★ DVSA Approved Instructor</span>
-            <span>★ RED Driving School Partner</span>
-            <span>★ Serving Glasgow & Surroundings</span>
-            <span>★ First-Time Pass Experts</span>
+            <span>★ DVSA Approved Independent</span>
+            <span>★ Professional Glasgow Instructor</span>
+            <span>★ High Pass Rate Mastery</span>
+            <span>★ Modern Teaching Techniques</span>
         </div>
     </div>
 
@@ -193,38 +193,38 @@
         <div class="w-full mb-16">
             <div class="car-hero-container">
                 <div class="road-indicator"></div>
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Muhammad Irfan RED Driving Car">
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Muhammad Irfan Independent Driving">
             </div>
         </div>
 
         <div class="max-w-4xl mx-auto px-6 text-center z-20">
             <div class="animate__animated animate__fadeInUp">
                 <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
-                    Drive with <span class="text-red-600">Irfan.</span>
+                    Independent <br><span class="text-red-600">Precision.</span>
                 </h1>
-                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">Glasgow's Premier RED Driving Tuition</p>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">Glasgow's Elite Professional Driving Tuition</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#booking" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
-                    <a href="https://messenger.com" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">Message Now</a>
+                    <a href="#contact" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Lessons</a>
+                    <a href="https://facebook.com" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">View Reviews</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-white border-t border-slate-100">
+    <section id="about" class="py-24 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="reveal">
-                <h2 class="text-4xl font-black uppercase tracking-tighter mb-6">Master the Road with <span class="text-red-600">Muhammad Irfan</span></h2>
-                <p class="text-slate-600 font-medium mb-6 leading-relaxed">As a DVSA Approved Driving Instructor and a proud partner of RED Driving School UK, I offer professional, patient, and expert driving lessons. Based in Glasgow, I help students from all backgrounds achieve their license with confidence and safety as the top priority.</p>
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-6">Drive Safely with <span class="text-red-600">Muhammad Irfan</span></h2>
+                <p class="text-slate-600 font-medium mb-6 leading-relaxed">I am a professional independent driving instructor based in Glasgow. Educated at the City of Glasgow College and fully certified by the DVSA, I provide tailored, patient instruction for all skill levels. My independent approach ensures personalized coaching focused entirely on your success and safety.</p>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="border-l-4 border-red-600 pl-4">
                         <p class="text-2xl font-black text-[var(--brand-navy)]">Glasgow</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-wrap">And Surrounding Areas</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-wrap">Local Territory Expertise</p>
                     </div>
                     <div class="border-l-4 border-red-600 pl-4">
-                        <p class="text-2xl font-black text-[var(--brand-navy)]">Approved</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">DVSA Certified Instructor</p>
+                        <p class="text-2xl font-black text-[var(--brand-navy)]">Certified</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">DVSA Approved Instructor</p>
                     </div>
                 </div>
             </div>
@@ -237,7 +237,7 @@
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                     </svg>
                 </div>
-                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 z-10">City of Glasgow College Alumnus</p>
+                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 z-10">Professional Independent ADI</p>
                 <div class="absolute bottom-4 right-4 bg-red-600 text-white p-2 rounded-full"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
             </div>
         </div>
@@ -245,27 +245,27 @@
 
     <section id="services" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter text-center mb-16">Custom <span class="text-red-600">Training Paths</span></h2>
+            <h2 class="text-4xl font-black uppercase tracking-tighter text-center mb-16">Premium <span class="text-red-600">Services</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="service-grid-item p-8 bg-white">
                     <i data-lucide="zap" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">RED Training</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Official RED Driving School curriculum and standards.</p>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">1-on-1 Coaching</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Personalized instruction designed for your unique learning pace.</p>
                 </div>
                 <div class="service-grid-item p-8 bg-white">
                     <i data-lucide="timer" class="text-red-600 mb-4"></i>
                     <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Intensive Lessons</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Accelerated learning paths for those on a tight schedule.</p>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Fast-track your license with our condensed professional courses.</p>
                 </div>
                 <div class="service-grid-item p-8 bg-white">
-                    <i data-lucide="help-circle" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Theory Prep</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Comprehensive guidance on hazard perception and theory.</p>
+                    <i data-lucide="navigation" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Local Routes</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Master the specific Glasgow test routes used by examiners.</p>
                 </div>
                 <div class="service-grid-item p-8 bg-white">
                     <i data-lucide="file-check" class="text-red-600 mb-4"></i>
                     <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Mock Test Audit</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Simulated tests on actual Glasgow DVSA exam routes.</p>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Full simulation of the DVSA test to ensure day-one readiness.</p>
                 </div>
             </div>
         </div>
@@ -276,19 +276,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
                 <div class="reveal">
                     <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">1.4K</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Followers</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Community Reach</div>
                 </div>
                 <div class="reveal">
                     <div class="text-5xl font-black text-red-600 mb-2" id="stat2">2+</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Pro</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">870</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Stories</div>
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">92%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div>
                 </div>
                 <div class="reveal">
                     <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">ADI Independent</div>
                 </div>
             </div>
         </div>
@@ -296,23 +296,23 @@
 
     <section class="py-24 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">New <span class="text-red-600">Drivers</span></h2>
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">Recent <span class="text-red-600">Successes</span></h2>
             <div class="gallery-scroll">
                 <div class="gallery-item flex flex-col items-center justify-center p-4">
                     <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">First-Time Pass: Glasgow West</p>
+                    <p class="font-black uppercase text-xs tracking-tighter">Glasgow West Pass!</p>
                 </div>
                 <div class="gallery-item flex flex-col items-center justify-center p-4">
                     <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Successful Test: Baillieston</p>
+                    <p class="font-black uppercase text-xs tracking-tighter">First Time in Baillieston</p>
                 </div>
                 <div class="gallery-item flex flex-col items-center justify-center p-4">
                     <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Passing with Flying Colors</p>
+                    <p class="font-black uppercase text-xs tracking-tighter">Anniesland Success Story</p>
                 </div>
                 <div class="gallery-item flex flex-col items-center justify-center p-4">
                     <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Licensed & Safe in Glasgow</p>
+                    <p class="font-black uppercase text-xs tracking-tighter">Clydebank Center Pass</p>
                 </div>
             </div>
         </div>
@@ -322,12 +322,12 @@
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div id="story-slider" class="slider-wrap">
                 <div class="slide active">
-                    <p class="text-2xl font-bold italic mb-4">"Muhammad is incredibly patient and knows exactly how to prepare you for the test day. Highly recommended!"</p>
-                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Verified Student Review</p>
+                    <p class="text-2xl font-bold italic mb-4">"Muhammad is an amazing instructor. I was so nervous but his independent approach made me feel at ease immediately."</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Verified Local Student</p>
                 </div>
                 <div class="slide">
-                    <p class="text-2xl font-bold italic mb-4">"Learning through RED Driving School with Irfan was the best decision. I passed on my first attempt!"</p>
-                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Glasgow Local Student</p>
+                    <p class="text-2xl font-bold italic mb-4">"Passed first time! Irfan's knowledge of Glasgow roads is unmatched. Professional and patient."</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Glasgow Resident</p>
                 </div>
             </div>
         </div>
@@ -335,36 +335,36 @@
 
     <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
         <div class="max-w-7xl mx-auto px-6 text-center mb-20">
-            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Training <span class="text-red-600">Investments</span></h2>
+            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Professional <span class="text-red-600">Pricing</span></h2>
         </div>
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
             <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Trial Lesson</h4>
-                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£38</div>
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Introductory Lesson</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
                 <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
-                    <li>★ Initial Skill Assessment</li>
-                    <li>★ Beginner-Friendly Intro</li>
+                    <li>★ Skill Assessment</li>
+                    <li>★ Training Roadmap</li>
                 </ul>
-                <a href="https://messenger.com" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+                <a href="#callback" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Trial</a>
             </div>
             <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
-                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">RED Premium</div>
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Best Value</div>
                 <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Block 10</h4>
                 <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£360</div>
                 <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
                     <li>★ Discounted Hourly Rate</li>
-                    <li>★ Full Syllabus Coverage</li>
+                    <li>★ Priority Scheduling</li>
                 </ul>
-                <a href="https://messenger.com" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
+                <a href="#callback" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
             </div>
             <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
                 <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Standard 2hr</h4>
                 <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£76</div>
                 <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
-                    <li>★ Focused Route Mastery</li>
-                    <li>★ High-Intensity Training</li>
+                    <li>★ In-depth Maneuvers</li>
+                    <li>★ Intensive Skillwork</li>
                 </ul>
-                <a href="https://messenger.com" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+                <a href="#callback" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Session</a>
             </div>
         </div>
     </section>
@@ -372,18 +372,18 @@
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
             <div>
-                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Professional <span class="text-red-600">Background</span></h2>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Verified <span class="text-red-600">Testimonials</span></h2>
                 <div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4">
                     <div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
-                    <p class="font-bold text-slate-700 italic">"Muhammad's background from the City of Glasgow College shows in his teaching—methodical and very clear."</p>
+                    <p class="font-bold text-slate-700 italic">"Muhammad's experience really shows. He has a way of explaining technical things that just makes sense."</p>
                 </div>
             </div>
             <div>
                 <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Service <span class="text-red-600">Territory</span></h2>
                 <div class="bg-slate-100 p-8 rounded border border-slate-200 flex flex-col justify-center items-center text-center">
                     <i data-lucide="map-pin" class="text-red-600 w-10 h-10 mb-4"></i>
-                    <p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Glasgow West & North</p>
-                    <p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Clydebank • Baillieston • Partick • Bishopbriggs • Maryhill</p>
+                    <p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Serving Greater Glasgow</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Baillieston • Bishopbriggs • Clydebank • Glasgow West • Anniesland</p>
                 </div>
             </div>
         </div>
@@ -391,48 +391,48 @@
 
     <section class="py-16 bg-red-600 text-white">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The Glasgow Referral Program</h2>
-            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Refer a friend and get a FREE lesson credit when they book their first block.</p>
-            <button onclick="toggleReferModal()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</button>
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The Independent Referral Gift</h2>
+            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Help a friend pass their test and receive 1 FREE lesson as a thank you.</p>
+            <button onclick="toggleReferModal()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Refer a Friend</button>
         </div>
     </section>
 
     <section id="callback" class="py-24 bg-[var(--brand-navy)] text-white">
         <div class="max-w-3xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Call Back</span></h2>
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Consultation within 2 Hours</p>
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Consultation</span></h2>
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Callback within 2 Hours</p>
             </div>
             <form class="space-y-4">
                 <div class="grid md:grid-cols-2 gap-4">
                     <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
                     <input type="tel" placeholder="Phone Number" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
                 </div>
-                <button type="submit" class="w-full btn-red py-6 font-black uppercase tracking-widest text-xs">Confirm Call Request</button>
+                <button type="submit" class="w-full btn-red py-6 font-black uppercase tracking-widest text-xs">Request Info</button>
             </form>
         </div>
     </section>
 
     <section class="py-24 bg-slate-50">
         <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Driver <span class="text-red-600">Knowledge Base</span></h2>
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Student <span class="text-red-600">Knowledge Base</span></h2>
             <div id="faq-container">
                 <div class="faq-item active">
                     <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
-                        What areas of Glasgow do you cover?
+                        What makes an independent instructor better?
                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                     </button>
                     <div class="faq-answer">
-                        <p class="text-slate-500 font-medium">I primarily cover Glasgow and the surrounding areas, including Baillieston, Bishopbriggs, and more.</p>
+                        <p class="text-slate-500 font-medium">Independent instruction allows for more personalized, flexible teaching plans without the rigid structures of large franchises.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
-                        Are you an Approved Driving Instructor?
+                        Are you fully DVSA qualified?
                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                     </button>
                     <div class="faq-answer">
-                        <p class="text-slate-500 font-medium">Yes, I am a fully DVSA Approved Driving Instructor (ADI) partnered with RED Driving School UK.</p>
+                        <p class="text-slate-500 font-medium">Yes, I am a fully qualified and certified Approved Driving Instructor (ADI) regulated by the DVSA.</p>
                     </div>
                 </div>
             </div>
@@ -445,23 +445,20 @@
                     IRFA<div class="l-plate-icon"><span>N</span></div> DRIVING
                 </div>
                 <div class="flex space-x-6">
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                    <a href="https://facebook.com" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
                         <i data-lucide="facebook" class="w-6 h-6"></i>
                     </a>
                     <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
                         <i data-lucide="instagram" class="w-6 h-6"></i>
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
-                        <i data-lucide="twitter" class="w-6 h-6"></i>
-                    </a>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
                 <div class="text-center md:text-left">
-                    <p class="text-xl font-black tracking-tight">Glasgow Approved Tuition</p>
-                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">Partnered with RED Driving School UK since 2024</p>
+                    <p class="text-xl font-black tracking-tight">Glasgow Independent Professional</p>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">DVSA Registered ADI | City of Glasgow College Alumnus</p>
                 </div>
-                <p class="text-[9px] text-slate-500 font-black uppercase tracking-[0.4em]">&copy; 2026 MUHAMMAD IRFAN DRIVING SYSTEM</p>
+                <p class="text-[9px] text-slate-500 font-black uppercase tracking-[0.4em]">&copy; 2026 MUHAMMAD IRFAN INDEPENDENT</p>
             </div>
         </div>
     </footer>
@@ -472,19 +469,20 @@
             <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
                 <i data-lucide="gift" class="w-10 h-10"></i>
             </div>
-            <h3 class="text-2xl font-black uppercase tracking-tighter text-center mb-4">Refer & Earn <span class="text-red-600">Free Credit</span></h3>
-            <p class="text-slate-500 text-center font-medium mb-8 leading-relaxed">Help a friend pass with Muhammad Irfan. Once they book their first lesson, you'll receive 1 FREE hour of tuition.</p>
-            <button class="w-full btn-red py-5 font-black uppercase tracking-widest text-[10px]">Invite via Messenger</button>
+            <h3 class="text-2xl font-black uppercase tracking-tighter text-center mb-4">Refer & Earn <span class="text-red-600">Free Credits</span></h3>
+            <p class="text-slate-500 text-center font-medium mb-8 leading-relaxed">Refer a friend to Muhammad Irfan's independent tuition. Once they book their first lesson, you'll earn 1 FREE hour.</p>
+            <button class="w-full btn-red py-5 font-black uppercase tracking-widest text-[10px]">Invite Friend</button>
         </div>
     </div>
 
     <div class="cta-dock md:hidden">
-        <a href="#"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>MESSENGER</a>
-        <a href="#callback" class="bg-red-600 !border-none"><i data-lucide="clock" class="w-5 h-5 mb-1"></i>CALL BACK</a>
+        <a href="#callback"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a>
+        <a href="#"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>FB MESSAGE</a>
+        <a href="#callback" class="bg-red-600 !border-none"><i data-lucide="clock" class="w-5 h-5 mb-1"></i>BOOK NOW</a>
     </div>
 
     <script>
-        // CRITICAL: Ensure icons are created after DOM is fully ready
+        // Ensure icons are created after DOM is fully ready
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
@@ -519,7 +517,7 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+');
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : (end >= 1000 ? 'K' : '+'));
                 if (progress < 1) window.requestAnimationFrame(step);
             };
             window.requestAnimationFrame(step);
@@ -527,9 +525,9 @@
         
         const statsObserver = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
-                animateValue('stat1', 0, 1400, 2000);
+                animateValue('stat1', 0, 1.4, 2000);
                 animateValue('stat2', 0, 2, 2000);
-                animateValue('stat3', 0, 870, 2000);
+                animateValue('stat3', 0, 92, 2000);
                 animateValue('stat4', 0, 100, 2000);
                 statsObserver.unobserve(entries[0].target);
             }
