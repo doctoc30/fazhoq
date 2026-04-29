@@ -440,17 +440,25 @@
         </div>
     </section>
 
-    <footer class="bg-slate-950 text-white pt-24 pb-24 border-t border-white/5">
+    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-24 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-16">
                 <div class="logo-wrap !text-white mb-8 md:mb-0">
                     TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
                 </div>
                 <div class="flex space-x-6">
-                    <a href="https://www.facebook.com/tonyshielsdrivingschool" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                    <a href="https://www.facebook.com/tonyshielsdrivingschool" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
@@ -490,7 +498,10 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            lucide.createIcons(); // Re-trigger for mobile menu icons
+        });
         closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.remove('open'));
