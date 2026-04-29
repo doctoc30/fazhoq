@@ -46,18 +46,24 @@
             margin-top: -2px;
         }
 
-        /* Minimal Car Driving Animation */
+        /* Slide & Pan Animation Logic */
         .car-hero-container {
             position: relative;
-            animation: drive-vibration 3s ease-in-out infinite;
-            filter: drop-shadow(0 30px 40px rgba(26, 54, 93, 0.15));
             z-index: 10;
+            /* Initial landing animation */
+            animation: landingSlide 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards, drive-vibration 3s ease-in-out infinite 1.2s;
+            will-change: transform;
         }
         
+        @keyframes landingSlide {
+            0% { transform: translateX(-150%) scale(0.9); opacity: 0; }
+            100% { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
         @keyframes drive-vibration {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-4px) rotate(0.2deg); }
-            75% { transform: translateY(4px) rotate(-0.2deg); }
+            25% { transform: translateY(-3px) rotate(0.1deg); }
+            75% { transform: translateY(3px) rotate(-0.1deg); }
         }
 
         .road-indicator {
@@ -124,16 +130,16 @@
     </div>
 
     <section class="relative min-h-[85vh] flex flex-col items-center justify-center bg-white py-12">
-        <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6 text-center overflow-visible">
             
-            <div class="car-hero-container mb-12 animate__animated animate__fadeInDown">
-                <img src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony-sheils.jpg" 
+            <div id="heroCar" class="car-hero-container mb-12">
+                <img src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
                      alt="Tony Shiels Driving School Car" 
-                     class="w-full max-w-[700px] mx-auto rounded-3xl border-8 border-slate-50">
+                     class="w-full max-w-[700px] mx-auto rounded-3xl border-8 border-slate-50 shadow-2xl">
                 <div class="road-indicator"></div>
             </div>
 
-            <div class="animate__animated animate__fadeInUp">
+            <div class="animate__animated animate__fadeInUp animate__delay-1s">
                 <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
                     Pass with <span class="text-red-600">Precision.</span>
                 </h1>
@@ -244,6 +250,17 @@
 
     <script>
         lucide.createIcons();
+
+        // Scroll-to-Pan Parallax Logic
+        window.addEventListener('scroll', () => {
+            const car = document.getElementById('heroCar');
+            const scrollValue = window.scrollY;
+            // Moves the car horizontally as you scroll (Pan effect)
+            // Limit the movement so it doesn't leave the screen
+            const panAmount = Math.min(scrollValue * 0.5, 400); 
+            car.style.transform = `translateX(${panAmount}px)`;
+        });
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
