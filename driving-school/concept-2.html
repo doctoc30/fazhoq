@@ -51,19 +51,20 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 320px; /* Adjusted to give car clearance */
+            height: 320px; 
             display: flex;
-            align-items: flex-end; /* Keeps car on the road */
+            align-items: flex-end; 
             overflow: hidden; 
         }
         
         #panningCar {
             width: 450px;
-            height: 260px; /* Fixed height to crop watermark */
-            object-fit: cover; /* Crops the image edges */
-            object-position: top; /* Specifically hides the bottom watermark */
+            height: 260px; 
+            object-fit: cover; 
+            object-position: top; 
             position: absolute;
-            bottom: 40px; /* Matches the road indicator height */
+            bottom: 30px; /* Adjusted to sit flush on the track */
+            z-index: 20; /* Higher than road to ensure it stays on top */
             animation: driveForward 12s linear infinite;
             will-change: transform;
         }
@@ -87,7 +88,8 @@
             background: var(--brand-silver);
             width: 100%;
             position: absolute;
-            bottom: 40px;
+            bottom: 35px; /* Positioned exactly under the wheels */
+            z-index: 5; /* Lower than the car */
         }
         .road-indicator::after {
             content: '';
@@ -272,7 +274,6 @@
     <script>
         lucide.createIcons();
 
-        // Menu Logic
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -284,7 +285,6 @@
             link.addEventListener('click', () => mobileMenu.classList.remove('open'));
         });
 
-        // Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
