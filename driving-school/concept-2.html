@@ -116,11 +116,28 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
         .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
         .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
+
+        /* ADDON STYLES */
+        .faq-item { border-bottom: 1px solid #edf2f7; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+        .faq-item.active i { transform: rotate(180deg); }
+        
+        .cta-dock { position: fixed; bottom: 0; left: 0; right: 0; background: var(--brand-navy); display: flex; z-index: 100; border-top: 3px solid var(--brand-red); }
+        .cta-dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; color: white; font-size: 10px; font-weight: 700; border-right: 1px solid rgba(255,255,255,0.1); }
+        
+        .gallery-scroll { display: flex; overflow-x: auto; gap: 1rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .gallery-item { min-width: 280px; height: 350px; scroll-snap-align: start; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+        
+        .service-grid-item { border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
+        .service-grid-item:hover { border-color: var(--brand-red); background: #fff; transform: translateY(-5px); }
+
+        .slider-wrap { position: relative; overflow: hidden; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s; }
     </style>
 </head>
-<body class="text-slate-900">
-
-    <nav class="sticky top-0 z-50 glass border-b border-slate-200">
+<body class="text-slate-900 pb-20"> <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <div class="logo-wrap">
@@ -192,6 +209,56 @@
         </div>
     </section>
 
+    <section class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-6">25 Years of <span class="text-red-600">Expertise</span></h2>
+                <p class="text-slate-600 font-medium mb-6 leading-relaxed">Established in 2005, Tony Shiels has built a reputation for excellence across South London. With a focus on patient, high-precision training, we've helped thousands of drivers achieve their license with confidence.</p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="border-l-4 border-red-600 pl-4">
+                        <p class="text-2xl font-black text-[var(--brand-navy)]">Local</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Knowledge Expert</p>
+                    </div>
+                    <div class="border-l-4 border-red-600 pl-4">
+                        <p class="text-2xl font-black text-[var(--brand-navy)]">Master</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">DVSA Grade A</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal bg-slate-100 rounded h-80 flex items-center justify-center">
+                <i data-lucide="shield-check" class="w-32 h-32 text-slate-300"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter text-center mb-16">Premium <span class="text-red-600">Services</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="zap" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2">Guaranteed Pass</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Comprehensive coaching designed for success.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="timer" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2">Crash Course</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Fast-tracked learning for urgent requirements.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="help-circle" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2">Show Me Tell Me</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Master the essential safety questions.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="file-check" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2">Mock Drive</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Simulated test day experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-16 bg-[var(--brand-silver)]">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
@@ -210,6 +277,33 @@
                 <div class="reveal">
                     <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
                     <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">Success <span class="text-red-600">Gallery</span></h2>
+            <div class="gallery-scroll">
+                <div class="gallery-item flex items-center justify-center font-black text-slate-300">PASS PHOTO 1</div>
+                <div class="gallery-item flex items-center justify-center font-black text-slate-300">PASS PHOTO 2</div>
+                <div class="gallery-item flex items-center justify-center font-black text-slate-300">PASS PHOTO 3</div>
+                <div class="gallery-item flex items-center justify-center font-black text-slate-300">PASS PHOTO 4</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--brand-navy)] text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div id="story-slider" class="slider-wrap">
+                <div class="slide active">
+                    <p class="text-2xl font-bold italic mb-4">"Passed first time with zero faults! Tony is the best instructor in London."</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">James R. - Clapham</p>
+                </div>
+                <div class="slide">
+                    <p class="text-2xl font-bold italic mb-4">"So patient and professional. I was a nervous driver, now I'm licensed!"</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Sarah T. - Brixton</p>
                 </div>
             </div>
         </div>
@@ -251,6 +345,56 @@
         </div>
     </section>
 
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Google <span class="text-red-600">Reviews</span></h2>
+                <div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4">
+                    <div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                    <p class="font-bold text-slate-700 italic">"Best instructor in London. Patient and very clear with instructions."</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">London <span class="text-red-600">Coverage</span></h2>
+                <div class="bg-slate-200 h-64 rounded flex items-center justify-center text-slate-400 font-bold">MAP AREA DISPLAY</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-red-600 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">Referral Loyalty Program</h2>
+            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Refer a friend and get 1 FREE lesson when they book a block!</p>
+            <a href="#" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Rewards</a>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Common <span class="text-red-600">Questions</span></h2>
+            <div id="faq-container">
+                <div class="faq-item active">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        How many lessons do I need?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">Every student is unique. The DVSA recommends around 45 hours of professional tuition.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        What areas do you cover?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">We cover all of South London including Brixton, Clapham, and Croydon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-24">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16">
             <div class="logo-wrap !text-white mb-8 md:mb-0">
@@ -270,6 +414,13 @@
             </div>
         </div>
     </footer>
+
+    <div class="cta-dock md:hidden">
+        <a href="tel:+447752892178"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a>
+        <a href="https://wa.me/447752892178"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>WHATSAPP</a>
+        <a href="sms:+447752892178"><i data-lucide="smartphone" class="w-5 h-5 mb-1"></i>TEXT</a>
+        <a href="#booking" class="bg-red-600 !border-none"><i data-lucide="file-text" class="w-5 h-5 mb-1"></i>QUOTE</a>
+    </div>
 
     <script>
         lucide.createIcons();
@@ -318,6 +469,22 @@
         });
         const statEl = document.getElementById('stat1');
         if(statEl) statsObserver.observe(statEl);
+
+        // FAQ LOGIC
+        document.querySelectorAll('.faq-item button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.toggle('active');
+            });
+        });
+
+        // SLIDER LOGIC
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
     </script>
 </body>
 </html>
