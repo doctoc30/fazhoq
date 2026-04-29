@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tony Shiels Driving School | TS-387 Premium Training</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -46,63 +46,50 @@
             margin-top: -2px;
         }
 
-        /* Continuous Smooth Driving Animation for Avatar (no car) */
-        .avatar-hero-container {
+        /* Continuous Smooth Driving Animation */
+        .car-hero-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 340px; 
+            height: 320px; 
             display: flex;
             align-items: flex-end; 
-            justify-content: center;
             overflow: hidden; 
-            background: linear-gradient(145deg, #f8fafc 0%, #eef2f6 100%);
-            border-radius: 2rem 2rem 0 0;
-            margin-bottom: 1rem;
         }
         
-        #panningAvatar {
-            width: 280px;
-            height: auto;
-            max-height: 290px;
-            object-fit: contain; 
+        #panningCar {
+            width: 450px;
+            height: 260px; 
+            object-fit: cover; 
+            object-position: top; 
             position: absolute;
-            bottom: 25px;
-            z-index: 20;
-            animation: gentleFloat 5s ease-in-out infinite, slideHorizontal 20s linear infinite;
-            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.15));
+            bottom: 30px; /* Adjusted to sit flush on the track */
+            z-index: 20; /* Higher than road to ensure it stays on top */
+            animation: driveForward 12s linear infinite;
             will-change: transform;
         }
 
-        /* Smooth horizontal scroll + subtle floating */
-        @keyframes slideHorizontal {
-            0% { transform: translateX(-10%) translateY(0px); }
-            50% { transform: translateX(10%) translateY(-5px); }
-            100% { transform: translateX(-10%) translateY(0px); }
+        @keyframes driveForward {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
         }
-        /* but we want a continuous slow pan from left to right dash? Make more driving-like: slower back and forth across visible area */
-        /* refined: a continuous driving effect that stays within visible range and returns */
-        @keyframes driveForwardAvatar {
-            0% { transform: translateX(-120%) translateY(0px) rotate(0deg); }
-            10% { transform: translateX(-90%) translateY(-2px); }
-            40% { transform: translateX(-10%) translateY(4px); }
-            60% { transform: translateX(30%) translateY(-3px); }
-            85% { transform: translateX(90%) translateY(2px); }
-            100% { transform: translateX(120%) translateY(0px); }
+
+        /* Hamburger Menu Styles */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform: translateX(100%);
         }
-        #panningAvatar {
-            animation: driveForwardAvatar 22s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+        #mobile-menu.open {
+            transform: translateX(0);
         }
 
         .road-indicator {
-            height: 5px;
+            height: 4px;
             background: var(--brand-silver);
             width: 100%;
             position: absolute;
-            bottom: 35px; 
-            z-index: 5; 
-            border-radius: 10px;
-            background: #cbd5e1;
+            bottom: 35px; /* Positioned exactly under the wheels */
+            z-index: 5; /* Lower than the car */
         }
         .road-indicator::after {
             content: '';
@@ -112,8 +99,7 @@
             height: 100%;
             background-image: linear-gradient(to right, var(--brand-red) 50%, transparent 50%);
             background-size: 40px 100%;
-            animation: roadMove 0.6s linear infinite;
-            border-radius: 10px;
+            animation: roadMove 0.5s linear infinite;
         }
         @keyframes roadMove {
             0% { background-position: 0 0; }
@@ -131,6 +117,7 @@
         .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
         .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
 
+        /* ADDON STYLES */
         .faq-item { border-bottom: 1px solid #edf2f7; }
         .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
         .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
@@ -148,19 +135,9 @@
         .slider-wrap { position: relative; overflow: hidden; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s; }
-        
-        /* faceless avatar custom style */
-        .avatar-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            background: transparent;
-        }
     </style>
 </head>
-<body class="text-slate-900 pb-20"> 
-    <nav class="sticky top-0 z-50 glass border-b border-slate-200">
+<body class="text-slate-900 pb-20"> <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <div class="logo-wrap">
@@ -209,51 +186,15 @@
         </div>
     </div>
 
-    <!-- Hero section: replaced car with faceless avatar wearing logo T-shirt -->
-    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-12 overflow-hidden">
-        <div class="w-full max-w-6xl mx-auto px-4 mb-6">
-            <div class="avatar-hero-container">
+    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-20 overflow-hidden">
+        <div class="w-full mb-16">
+            <div class="car-hero-container">
                 <div class="road-indicator"></div>
-                <!-- faceless avatar SVG with exact logo on t-shirt -->
-                <div id="panningAvatar" class="avatar-container">
-                    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 280px;">
-                        <!-- Body / Torso with T-shirt base -->
-                        <rect x="110" y="180" width="180" height="160" rx="45" fill="#dd3b3b" stroke="#a00" stroke-width="2"/>
-                        <!-- T-shirt V-neck detail -->
-                        <path d="M170 180 L200 210 L230 180" stroke="#fff" stroke-width="3" fill="none"/>
-                        <!-- Faceless avatar head (smooth, no face features) -->
-                        <circle cx="200" cy="140" r="55" fill="#f8d5b0" stroke="#c99e72" stroke-width="2"/>
-                        <!-- No eyes, no mouth — creative minimal faceless design -->
-                        <!-- Logo (exact Tony Shiels logo reproduction: TONY SHIE L S) on t-shirt -->
-                        <g transform="translate(135, 250)">
-                            <text x="20" y="20" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="23" fill="#FFD966" letter-spacing="2">TONY SHIE</text>
-                            <rect x="138" y="4" width="28" height="32" fill="white" stroke="#222" stroke-width="1.5" transform="skewX(-5)"/>
-                            <text x="145" y="28" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="28" fill="#d31018">L</text>
-                            <text x="170" y="20" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="23" fill="#FFD966" letter-spacing="2">S</text>
-                        </g>
-                        <!-- arms -->
-                        <path d="M110 210 L75 270 L85 285 L115 230" fill="#dd3b3b" stroke="#a00" stroke-width="2"/>
-                        <path d="M290 210 L325 270 L315 285 L285 230" fill="#dd3b3b" stroke="#a00" stroke-width="2"/>
-                        <!-- hands / gloves minimal -->
-                        <circle cx="80" cy="275" r="10" fill="#f8d5b0"/>
-                        <circle cx="320" cy="275" r="10" fill="#f8d5b0"/>
-                        <!-- subtle driving wheel mockup in front (optional) -->
-                        <circle cx="200" cy="300" r="38" fill="none" stroke="#2c3e50" stroke-width="6" stroke-dasharray="8 6"/>
-                        <line x1="200" y1="262" x2="200" y2="280" stroke="#2c3e50" stroke-width="5"/>
-                        <line x1="162" y1="300" x2="185" y2="300" stroke="#2c3e50" stroke-width="5"/>
-                        <line x1="215" y1="300" x2="238" y2="300" stroke="#2c3e50" stroke-width="5"/>
-                        <!-- legs (jeans) -->
-                        <rect x="140" y="330" width="40" height="60" rx="8" fill="#2c5f8a"/>
-                        <rect x="220" y="330" width="40" height="60" rx="8" fill="#2c5f8a"/>
-                        <!-- shoes -->
-                        <ellipse cx="155" cy="395" rx="22" ry="10" fill="#444"/>
-                        <ellipse cx="245" cy="395" rx="22" ry="10" fill="#444"/>
-                    </svg>
-                </div>
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Driving School Car">
             </div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-6 text-center z-20 mt-4">
+        <div class="max-w-4xl mx-auto px-6 text-center z-20">
             <div class="animate__animated animate__fadeInUp">
                 <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
                     Pass with <span class="text-red-600">Precision.</span>
@@ -268,7 +209,6 @@
         </div>
     </section>
 
-    <!-- Bio section with correct info and no car imagery -->
     <section class="py-24 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="reveal">
@@ -285,26 +225,8 @@
                     </div>
                 </div>
             </div>
-            <div class="reveal bg-slate-100 rounded-xl h-80 flex items-center justify-center overflow-hidden shadow-md">
-                <!-- instructor image replaced with branded faceless avatar but consistent with brand -->
-                <div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center p-6">
-                    <svg viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-48 h-auto">
-                        <circle cx="140" cy="95" r="48" fill="#F0CBA6" stroke="#b98a65" stroke-width="1.5"/>
-                        <rect x="80" y="142" width="120" height="135" rx="30" fill="#cc2a2a" stroke="#9a1515" stroke-width="1.5"/>
-                        <g transform="translate(90, 200)">
-                            <text x="0" y="18" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="18" fill="#FFD966">TONY SHIE</text>
-                            <rect x="88" y="2" width="20" height="26" fill="white" stroke="#333" transform="skewX(-3)"/>
-                            <text x="92" y="22" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="22" fill="#d31018">L</text>
-                            <text x="112" y="18" font-family="'Archivo Black', sans-serif" font-weight="900" font-size="18" fill="#FFD966">S</text>
-                        </g>
-                        <path d="M80 170 L52 210 L62 220 L90 182" fill="#cc2a2a"/>
-                        <path d="M200 170 L228 210 L218 220 L190 182" fill="#cc2a2a"/>
-                        <rect x="108" y="262" width="25" height="60" fill="#326c99"/>
-                        <rect x="147" y="262" width="25" height="60" fill="#326c99"/>
-                        <ellipse cx="115" cy="322" rx="16" ry="8" fill="#2d2d2d"/>
-                        <ellipse cx="165" cy="322" rx="16" ry="8" fill="#2d2d2d"/>
-                    </svg>
-                </div>
+            <div class="reveal bg-slate-100 rounded h-80 flex items-center justify-center overflow-hidden">
+                 <img src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Professional Instruction" class="w-full h-full object-cover">
             </div>
         </div>
     </section>
@@ -340,10 +262,22 @@
     <section class="py-16 bg-[var(--brand-silver)]">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                <div class="reveal"><div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Stories</div></div>
-                <div class="reveal"><div class="text-5xl font-black text-red-600 mb-2" id="stat2">19+</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div></div>
-                <div class="reveal"><div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div></div>
-                <div class="reveal"><div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">ADI Certified</div></div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Stories</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat2">19+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">ADI Certified</div>
+                </div>
             </div>
         </div>
     </section>
@@ -352,10 +286,22 @@
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">New <span class="text-red-600">Drivers</span></h2>
             <div class="gallery-scroll">
-                <div class="gallery-item flex flex-col items-center justify-center p-4 bg-slate-100"><div class="w-full h-64 bg-slate-300 mb-4 rounded flex items-center justify-center text-white text-2xl">📸</div><p class="font-black uppercase text-xs tracking-tighter">Mahesh Nair Chenkayi Passed!</p></div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4 bg-slate-100"><div class="w-full h-64 bg-slate-300 mb-4 rounded flex items-center justify-center text-white text-2xl">🚗</div><p class="font-black uppercase text-xs tracking-tighter">First-Time Pass in Scunthorpe</p></div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4 bg-slate-100"><div class="w-full h-64 bg-slate-300 mb-4 rounded flex items-center justify-center text-white text-2xl">🏆</div><p class="font-black uppercase text-xs tracking-tighter">Brigg Success Story</p></div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4 bg-slate-100"><div class="w-full h-64 bg-slate-300 mb-4 rounded flex items-center justify-center text-white text-2xl">⭐</div><p class="font-black uppercase text-xs tracking-tighter">Lincoln Test Center Pass</p></div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Mahesh Nair Chenkayi Passed!</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">First-Time Pass in Scunthorpe</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Brigg Success Story</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Lincoln Test Center Pass</p>
+                </div>
             </div>
         </div>
     </section>
@@ -363,49 +309,198 @@
     <section class="py-20 bg-[var(--brand-navy)] text-white">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div id="story-slider" class="slider-wrap">
-                <div class="slide active"><p class="text-2xl font-bold italic mb-4">"Awwww... thanks Mahesh! It was a pleasure teaching you. Precision driving at its best."</p><p class="text-red-500 font-black uppercase tracking-widest text-xs">Tony Shiels - ADI Instructor</p></div>
-                <div class="slide"><p class="text-2xl font-bold italic mb-4">"Highly recommend Tony Shiels' Driving School. Patient, professional, and reliable instruction."</p><p class="text-red-500 font-black uppercase tracking-widest text-xs">Mahesh Nair Chenkayi</p></div>
+                <div class="slide active">
+                    <p class="text-2xl font-bold italic mb-4">"Awwww... thanks Mahesh! It was a pleasure teaching you. Precision driving at its best."</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Tony Shiels - ADI Instructor</p>
+                </div>
+                <div class="slide">
+                    <p class="text-2xl font-bold italic mb-4">"Highly recommend Tony Shiels' Driving School. Patient, professional, and reliable instruction."</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Mahesh Nair Chenkayi</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 text-center mb-20"><h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Training <span class="text-red-600">Investments</span></h2></div>
+        <div class="max-w-7xl mx-auto px-6 text-center mb-20">
+            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Training <span class="text-red-600">Investments</span></h2>
+        </div>
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
-            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200"><h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Introductory Lesson</h4><div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div><ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left"><li>★ Initial Skill Assessment</li><li>★ Training Plan Design</li></ul><a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a></div>
-            <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10"><div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Premium Value</div><h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4><div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div><ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left"><li>★ Accelerated Curriculum</li><li>★ Priority Lesson Slots</li></ul><a href="tel:+447752892178" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a></div>
-            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200"><h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Skill Block 5</h4><div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div><ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left"><li>★ Targetted Manoeuvres</li><li>★ Local Route Mastery</li></ul><a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a></div>
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Introductory Lesson</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Initial Skill Assessment</li>
+                    <li>★ Training Plan Design</li>
+                </ul>
+                <a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+            </div>
+            <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Premium Value</div>
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Accelerated Curriculum</li>
+                    <li>★ Priority Lesson Slots</li>
+                </ul>
+                <a href="tel:+447752892178" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
+            </div>
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Skill Block 5</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Targetted Manoeuvres</li>
+                    <li>★ Local Route Mastery</li>
+                </ul>
+                <a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+            </div>
         </div>
     </section>
 
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-            <div><h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Verified <span class="text-red-600">Testimonials</span></h2><div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4"><div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><p class="font-bold text-slate-700 italic">"The most patient instructor I've ever had. Tony really cares about your progress."</p></div></div>
-            <div><h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Service <span class="text-red-600">Territory</span></h2><div class="bg-slate-100 p-8 rounded border border-slate-200 flex flex-col justify-center items-center text-center"><i data-lucide="map-pin" class="text-red-600 w-10 h-10 mb-4"></i><p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Covering DN21 & Beyond</p><p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Lincoln • Gainsborough • Brigg • Scunthorpe • Kirton Lindsey</p></div></div>
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Verified <span class="text-red-600">Testimonials</span></h2>
+                <div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4">
+                    <div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                    <p class="font-bold text-slate-700 italic">"The most patient instructor I've ever had. Tony really cares about your progress."</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Service <span class="text-red-600">Territory</span></h2>
+                <div class="bg-slate-100 p-8 rounded border border-slate-200 flex flex-col justify-center items-center text-center">
+                    <i data-lucide="map-pin" class="text-red-600 w-10 h-10 mb-4"></i>
+                    <p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Covering DN21 & Beyond</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Lincoln • Gainsborough • Brigg • Scunthorpe • Kirton Lindsey</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="py-16 bg-red-600 text-white"><div class="max-w-7xl mx-auto px-6 text-center"><h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The TS-387 Referral Engine</h2><p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Help a friend pass with precision and earn 1 FREE lesson on us.</p><a href="tel:+447752892178" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</a></div></section>
+    <section class="py-16 bg-red-600 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The TS-387 Referral Engine</h2>
+            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Help a friend pass with precision and earn 1 FREE lesson on us.</p>
+            <a href="tel:+447752892178" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</a>
+        </div>
+    </section>
 
-    <section class="py-24 bg-slate-50"><div class="max-w-3xl mx-auto px-6"><h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Driver <span class="text-red-600">Knowledge Base</span></h2><div id="faq-container"><div class="faq-item active"><button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">What is your primary training area?<i data-lucide="chevron-down" class="w-5 h-5"></i></button><div class="faq-answer"><p class="text-slate-500 font-medium">I am based at York Road, Kirton, and cover Scunthorpe, Lincoln, Gainsborough, and Brigg.</p></div></div><div class="faq-item"><button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">How can I contact you directly?<i data-lucide="chevron-down" class="w-5 h-5"></i></button><div class="faq-answer"><p class="text-slate-500 font-medium">You can call/WhatsApp me at +44 7752 892178 or email tonyshielsdriving@hotmail.com.</p></div></div></div></div></section>
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Driver <span class="text-red-600">Knowledge Base</span></h2>
+            <div id="faq-container">
+                <div class="faq-item active">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        What is your primary training area?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">I am based at York Road, Kirton, and cover Scunthorpe, Lincoln, Gainsborough, and Brigg.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        How can I contact you directly?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">You can call/WhatsApp me at +44 7752 892178 or email tonyshielsdriving@hotmail.com.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-24"><div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16"><div class="logo-wrap !text-white mb-8 md:mb-0">TONY SHIE<div class="l-plate-icon"><span>L</span></div>S</div><div class="flex space-x-8 mb-8 md:mb-0"><a href="#" class="hover:text-red-500 transition"><i data-lucide="facebook"></i></a><a href="#" class="hover:text-red-500 transition"><i data-lucide="instagram"></i></a><a href="#" class="hover:text-red-500 transition"><i data-lucide="twitter"></i></a></div><div class="text-center md:text-right"><p class="text-2xl font-black">+44 7752 892178</p><p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TONY SHIELS ADI SYSTEM</p></div></div></footer>
+    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-24">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16">
+            <div class="logo-wrap !text-white mb-8 md:mb-0">
+                TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
+            </div>
+            
+            <div class="flex space-x-8 mb-8 md:mb-0">
+                <a href="https://www.facebook.com/tonyshielsdrivingschool" target="_blank" class="hover:text-red-500 transition"><i data-lucide="facebook"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="instagram"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="twitter"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i data-lucide="youtube"></i></a>
+            </div>
 
-    <div class="cta-dock md:hidden"><a href="tel:+447752892178"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a><a href="https://wa.me/447752892178"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>WHATSAPP</a><a href="sms:+447752892178"><i data-lucide="smartphone" class="w-5 h-5 mb-1"></i>TEXT</a><a href="tel:+447752892178" class="bg-red-600 !border-none"><i data-lucide="file-text" class="w-5 h-5 mb-1"></i>QUOTE</a></div>
+            <div class="text-center md:text-right">
+                <p class="text-2xl font-black">+44 7752 892178</p>
+                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TONY SHIELS ADI SYSTEM</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cta-dock md:hidden">
+        <a href="tel:+447752892178"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a>
+        <a href="https://wa.me/447752892178"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>WHATSAPP</a>
+        <a href="sms:+447752892178"><i data-lucide="smartphone" class="w-5 h-5 mb-1"></i>TEXT</a>
+        <a href="tel:+447752892178" class="bg-red-600 !border-none"><i data-lucide="file-text" class="w-5 h-5 mb-1"></i>QUOTE</a>
+    </div>
 
     <script>
         lucide.createIcons();
-        const menuBtn = document.getElementById('menu-btn'), closeBtn = document.getElementById('close-btn'), mobileMenu = document.getElementById('mobile-menu'), mobileLinks = document.querySelectorAll('.mobile-link');
+
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
         menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
         closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp'); }); }, { threshold: 0.1 });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        function animateValue(id, start, end, duration) { const obj = document.getElementById(id); if(!obj) return; let startTimestamp = null; const step = (timestamp) => { if (!startTimestamp) startTimestamp = timestamp; const progress = Math.min((timestamp - startTimestamp) / duration, 1); obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+'); if (progress < 1) window.requestAnimationFrame(step); }; window.requestAnimationFrame(step); }
-        const statsObserver = new IntersectionObserver((entries) => { if(entries[0].isIntersecting) { animateValue('stat1', 0, 500, 2000); animateValue('stat2', 0, 19, 2000); animateValue('stat3', 0, 95, 2000); animateValue('stat4', 0, 100, 2000); statsObserver.unobserve(entries[0].target); } });
-        const statEl = document.getElementById('stat1'); if(statEl) statsObserver.observe(statEl);
-        document.querySelectorAll('.faq-item button').forEach(btn => { btn.addEventListener('click', () => { btn.parentElement.classList.toggle('active'); }); });
-        let currentSlide = 0; const slides = document.querySelectorAll('.slide'); setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 5000);
+        
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+');
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                animateValue('stat1', 0, 500, 2000);
+                animateValue('stat2', 0, 19, 2000);
+                animateValue('stat3', 0, 95, 2000);
+                animateValue('stat4', 0, 100, 2000);
+                statsObserver.unobserve(entries[0].target);
+            }
+        });
+        const statEl = document.getElementById('stat1');
+        if(statEl) statsObserver.observe(statEl);
+
+        // FAQ LOGIC
+        document.querySelectorAll('.faq-item button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.toggle('active');
+            });
+        });
+
+        // SLIDER LOGIC
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
     </script>
 </body>
 </html>
