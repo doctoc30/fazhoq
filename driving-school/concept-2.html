@@ -135,9 +135,9 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s; }
 
-        /* ADDON: Referral Modal Styles */
-        #referModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        #referModal.active { display: flex; }
+        /* ADDON: Pop Up Offer Modal */
+        #referPopup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        #referPopup.active { display: flex; }
     </style>
 </head>
 <body class="text-slate-900 pb-20"> 
@@ -229,17 +229,15 @@
                     </div>
                 </div>
             </div>
-            <div class="reveal bg-gradient-to-tr from-slate-100 to-white rounded-2xl h-80 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 relative overflow-hidden">
-                <div class="absolute inset-0 opacity-5 pointer-events-none">
-                    <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
-                </div>
-                <div class="w-32 h-32 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-red-600 mb-6 z-10">
-                    <svg viewBox="0 0 24 24" class="w-20 h-20 text-[var(--brand-navy)]" fill="currentColor">
+            <div class="reveal bg-slate-50 rounded-2xl h-80 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 relative group">
+                <div class="w-48 h-48 bg-white rounded-full border-8 border-white shadow-xl flex items-center justify-center overflow-hidden relative">
+                    <svg viewBox="0 0 24 24" class="w-32 h-32 text-slate-300 translate-y-4" fill="currentColor">
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                     </svg>
+                    <div class="absolute inset-0 border-4 border-red-600/20 rounded-full"></div>
                 </div>
-                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 z-10">DVSA Grade A Instructor</p>
-                <div class="absolute bottom-4 right-4 bg-red-600 text-white p-2 rounded-full"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                 <p class="mt-6 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Verified DVSA Instructor</p>
+                 <div class="absolute bottom-4 right-4 bg-red-600 text-white p-2 rounded-full shadow-lg"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
             </div>
         </div>
     </section>
@@ -394,23 +392,7 @@
         <div class="max-w-7xl mx-auto px-6 text-center">
             <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The TS-387 Referral Engine</h2>
             <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Help a friend pass with precision and earn 1 FREE lesson on us.</p>
-            <button onclick="toggleReferModal()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</button>
-        </div>
-    </section>
-
-    <section id="callback" class="py-24 bg-[var(--brand-navy)] text-white">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Call Back</span></h2>
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Consultation within 2 Hours</p>
-            </div>
-            <form class="space-y-4">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
-                    <input type="tel" placeholder="Phone Number" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
-                </div>
-                <button type="submit" class="w-full btn-red py-6 font-black uppercase tracking-widest text-xs">Confirm Call Request</button>
-            </form>
+            <button onclick="openPopup()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest hover:bg-slate-100 transition">View Pop-up Offer</button>
         </div>
     </section>
 
@@ -440,38 +422,63 @@
         </div>
     </section>
 
-    <footer class="bg-slate-950 text-white pt-24 pb-24 border-t border-white/5">
+    <section class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Call Back</span></h2>
+            <p class="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-12">I will return your call within 2 business hours</p>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" placeholder="Full Name" class="p-5 border border-slate-200 font-bold text-xs uppercase focus:outline-none focus:border-red-600" required>
+                <input type="tel" placeholder="Phone Number" class="p-5 border border-slate-200 font-bold text-xs uppercase focus:outline-none focus:border-red-600" required>
+                <button type="submit" class="md:col-span-2 btn-red py-6 font-black uppercase tracking-widest text-xs">Send Request</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white pt-24 pb-32">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16">
-                <div class="logo-wrap !text-white mb-8 md:mb-0">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-white/10 pb-16">
+                <div class="logo-wrap !text-white mb-12 md:mb-0">
                     TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
                 </div>
-                <div class="flex space-x-6">
-                    <a href="https://www.facebook.com/tonyshielsdrivingschool" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                
+                <div class="flex space-x-8">
+                    <a href="#" class="hover:text-red-600 transition"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-red-600 transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-red-600 transition"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-red-600 transition"><i data-lucide="youtube" class="w-6 h-6"></i></a>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
-                <div class="text-center md:text-left">
-                    <p class="text-xl font-black tracking-tight">+44 7752 892178</p>
-                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">Fully Insured & Certified ADI System</p>
+
+            <div class="grid md:grid-cols-3 gap-12 mt-16 text-center md:text-left">
+                <div>
+                    <h5 class="font-black uppercase tracking-widest text-[10px] text-slate-500 mb-6">HQ Address</h5>
+                    <p class="text-xs font-bold leading-loose text-slate-400 uppercase">York Road, Kirton Lindsey<br>Gainsborough, DN21 4PT</p>
                 </div>
-                <p class="text-[9px] text-slate-500 font-black uppercase tracking-[0.4em]">&copy; 2026 TONY SHIELS ADI SYSTEM</p>
+                <div>
+                    <h5 class="font-black uppercase tracking-widest text-[10px] text-slate-500 mb-6">Quick Links</h5>
+                    <div class="flex flex-col space-y-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
+                        <a href="#services" class="hover:text-red-600 transition">Lessons</a>
+                        <a href="#pricing" class="hover:text-red-600 transition">Pricing</a>
+                        <a href="#booking" class="hover:text-red-600 transition">Booking</a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-2xl font-black text-white">+44 7752 892178</p>
+                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TONY SHIELS ADI SYSTEM</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <div id="referModal">
-        <div class="bg-white p-12 max-w-md w-full rounded-2xl relative animate__animated animate__zoomIn">
-            <button onclick="toggleReferModal()" class="absolute top-6 right-6 text-slate-400 hover:text-red-600 transition"><i data-lucide="x"></i></button>
-            <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
-                <i data-lucide="gift" class="w-10 h-10"></i>
+    <div id="referPopup">
+        <div class="bg-white p-12 max-w-md w-full mx-6 rounded shadow-2xl relative text-center">
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-slate-400 hover:text-black"><i data-lucide="x"></i></button>
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="gift" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-2xl font-black uppercase tracking-tighter text-center mb-4">Refer & Earn <span class="text-red-600">Free Credit</span></h3>
-            <p class="text-slate-500 text-center font-medium mb-8 leading-relaxed">Help a friend start their journey with Tony Shiels. Once they book their first lesson, you'll receive 1 FREE hour of tuition on your next block.</p>
-            <button class="w-full btn-red py-5 font-black uppercase tracking-widest text-[10px]">Invite via WhatsApp</button>
+            <h3 class="text-3xl font-black uppercase tracking-tighter mb-4">Refer a <span class="text-red-600">Friend</span></h3>
+            <p class="text-slate-500 font-medium mb-8">Introduce a new learner to Tony Shiels and receive **1 FREE Hour** added to your next lesson block once they sign up.</p>
+            <button class="w-full btn-red py-4 font-black uppercase tracking-widest text-[10px]">Claim Offer Now</button>
         </div>
     </div>
 
@@ -479,7 +486,7 @@
         <a href="tel:+447752892178"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a>
         <a href="https://wa.me/447752892178"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>WHATSAPP</a>
         <a href="sms:+447752892178"><i data-lucide="smartphone" class="w-5 h-5 mb-1"></i>TEXT</a>
-        <a href="#callback" class="bg-red-600 !border-none"><i data-lucide="clock" class="w-5 h-5 mb-1"></i>RECALL</a>
+        <a href="tel:+447752892178" class="bg-red-600 !border-none"><i data-lucide="file-text" class="w-5 h-5 mb-1"></i>QUOTE</a>
     </div>
 
     <script>
@@ -544,10 +551,9 @@
             slides[currentSlide].classList.add('active');
         }, 5000);
 
-        // ADDON: MODAL SCRIPT
-        function toggleReferModal() {
-            document.getElementById('referModal').classList.toggle('active');
-        }
+        // Addon script for Popup
+        function openPopup() { document.getElementById('referPopup').classList.add('active'); }
+        function closePopup() { document.getElementById('referPopup').classList.remove('active'); }
     </script>
 </body>
 </html>
