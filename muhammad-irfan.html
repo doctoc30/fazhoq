@@ -1,1 +1,562 @@
-vvb
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Irfan | RED Driving School Glasgow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-navy: #0f172a; 
+            --brand-red: #e11d48;
+            --brand-silver: #f1f5f9;
+        }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; overflow-x: hidden; margin: 0; padding: 0; }
+        
+        /* Logo Logic */
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: var(--brand-navy);
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+        .l-plate-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #d1d5db;
+            width: 30px;
+            height: 34px;
+            margin: 0 4px;
+            transform: rotate(-6deg);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+        .l-plate-icon span {
+            color: var(--brand-red);
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 26px;
+            line-height: 1;
+            margin-top: -2px;
+        }
+
+        /* Continuous Smooth Driving Animation */
+        .car-hero-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 320px; 
+            display: flex;
+            align-items: flex-end; 
+            overflow: hidden; 
+        }
+        
+        #panningCar {
+            width: 450px;
+            height: 260px; 
+            object-fit: cover; 
+            object-position: top; 
+            position: absolute;
+            bottom: 30px; 
+            z-index: 20; 
+            animation: driveForward 12s linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes driveForward {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* Hamburger Menu Styles */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .road-indicator {
+            height: 4px;
+            background: var(--brand-silver);
+            width: 100%;
+            position: absolute;
+            bottom: 35px; 
+            z-index: 5; 
+        }
+        .road-indicator::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, var(--brand-red) 50%, transparent 50%);
+            background-size: 40px 100%;
+            animation: roadMove 0.5s linear infinite;
+        }
+        @keyframes roadMove {
+            0% { background-position: 0 0; }
+            100% { background-position: -40px 0; }
+        }
+
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        .premium-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 4px solid transparent; }
+        .premium-card:hover { transform: translateY(-12px); border-color: var(--brand-red); box-shadow: 0 25px 50px -12px rgba(26, 54, 93, 0.2); }
+        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
+        .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
+        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
+
+        .faq-item { border-bottom: 1px solid #edf2f7; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+        .faq-item.active i { transform: rotate(180deg); }
+        
+        .cta-dock { position: fixed; bottom: 0; left: 0; right: 0; background: var(--brand-navy); display: flex; z-index: 100; border-top: 3px solid var(--brand-red); }
+        .cta-dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; color: white; font-size: 10px; font-weight: 700; border-right: 1px solid rgba(255,255,255,0.1); }
+        
+        .gallery-scroll { display: flex; overflow-x: auto; gap: 1rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .gallery-item { min-width: 280px; height: 350px; scroll-snap-align: start; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+        
+        .service-grid-item { border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
+        .service-grid-item:hover { border-color: var(--brand-red); background: #fff; transform: translateY(-5px); }
+
+        .slider-wrap { position: relative; overflow: hidden; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s; }
+
+        /* ADDON: Referral Modal Styles */
+        #referModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        #referModal.active { display: flex; }
+    </style>
+</head>
+<body class="text-slate-900"> <nav class="sticky top-0 z-50 glass border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="logo-wrap">
+                    IRFA<div class="l-plate-icon"><span>N</span></div> DRIVING
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-widest">
+                <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
+                <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
+                <a href="https://messenger.com" class="hover:text-[var(--brand-red)] transition">Message</a>
+                <a href="#booking" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Lesson</a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden text-[var(--brand-navy)]">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full sm:w-80 bg-[var(--brand-navy)] z-[100] p-10 flex flex-col shadow-2xl">
+        <button id="close-btn" class="self-end text-white mb-12">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div class="flex flex-col space-y-8 text-white font-black text-2xl uppercase tracking-tighter">
+            <a href="#services" class="mobile-link">Tuition</a>
+            <a href="#pricing" class="mobile-link">Pricing</a>
+            <a href="#contact" class="mobile-link">Contact Irfan</a>
+            <a href="#booking" class="text-red-500 mobile-link">Book Online</a>
+        </div>
+        <div class="mt-auto border-t border-white/10 pt-8">
+            <div class="flex space-x-6 text-white/50">
+                <i data-lucide="facebook"></i>
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
+        <div class="ticker space-x-16">
+            <span>★ DVSA Approved Instructor</span>
+            <span>★ RED Driving School Partner</span>
+            <span>★ Serving Glasgow & Surroundings</span>
+            <span>★ First-Time Pass Experts</span>
+        </div>
+    </div>
+
+    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-20 overflow-hidden">
+        <div class="w-full mb-16">
+            <div class="car-hero-container">
+                <div class="road-indicator"></div>
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Muhammad Irfan RED Driving Car">
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center z-20">
+            <div class="animate__animated animate__fadeInUp">
+                <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
+                    Drive with <span class="text-red-600">Irfan.</span>
+                </h1>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">Glasgow's Premier RED Driving Tuition</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#booking" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
+                    <a href="https://messenger.com" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">Message Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-6">Master the Road with <span class="text-red-600">Muhammad Irfan</span></h2>
+                <p class="text-slate-600 font-medium mb-6 leading-relaxed">As a DVSA Approved Driving Instructor and a proud partner of RED Driving School UK, I offer professional, patient, and expert driving lessons. Based in Glasgow, I help students from all backgrounds achieve their license with confidence and safety as the top priority.</p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="border-l-4 border-red-600 pl-4">
+                        <p class="text-2xl font-black text-[var(--brand-navy)]">Glasgow</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-wrap">And Surrounding Areas</p>
+                    </div>
+                    <div class="border-l-4 border-red-600 pl-4">
+                        <p class="text-2xl font-black text-[var(--brand-navy)]">Approved</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">DVSA Certified Instructor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal bg-gradient-to-tr from-slate-100 to-white rounded-2xl h-80 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-5 pointer-events-none">
+                    <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
+                </div>
+                <div class="w-32 h-32 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-red-600 mb-6 z-10">
+                    <svg viewBox="0 0 24 24" class="w-20 h-20 text-[var(--brand-navy)]" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 z-10">City of Glasgow College Alumnus</p>
+                <div class="absolute bottom-4 right-4 bg-red-600 text-white p-2 rounded-full"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter text-center mb-16">Custom <span class="text-red-600">Training Paths</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="zap" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">RED Training</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Official RED Driving School curriculum and standards.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="timer" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Intensive Lessons</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Accelerated learning paths for those on a tight schedule.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="help-circle" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Theory Prep</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Comprehensive guidance on hazard perception and theory.</p>
+                </div>
+                <div class="service-grid-item p-8 bg-white">
+                    <i data-lucide="file-check" class="text-red-600 mb-4"></i>
+                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Mock Test Audit</h3>
+                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Simulated tests on actual Glasgow DVSA exam routes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-[var(--brand-silver)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div class="reveal">
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">1.4K</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Followers</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat2">2+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Pro</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">870</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Stories</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">New <span class="text-red-600">Drivers</span></h2>
+            <div class="gallery-scroll">
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">First-Time Pass: Glasgow West</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Successful Test: Baillieston</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Passing with Flying Colors</p>
+                </div>
+                <div class="gallery-item flex flex-col items-center justify-center p-4">
+                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
+                    <p class="font-black uppercase text-xs tracking-tighter">Licensed & Safe in Glasgow</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--brand-navy)] text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div id="story-slider" class="slider-wrap">
+                <div class="slide active">
+                    <p class="text-2xl font-bold italic mb-4">"Muhammad is incredibly patient and knows exactly how to prepare you for the test day. Highly recommended!"</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Verified Student Review</p>
+                </div>
+                <div class="slide">
+                    <p class="text-2xl font-bold italic mb-4">"Learning through RED Driving School with Irfan was the best decision. I passed on my first attempt!"</p>
+                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Glasgow Local Student</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-20">
+            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Training <span class="text-red-600">Investments</span></h2>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Trial Lesson</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£38</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Initial Skill Assessment</li>
+                    <li>★ Beginner-Friendly Intro</li>
+                </ul>
+                <a href="https://messenger.com" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+            </div>
+            <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">RED Premium</div>
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Block 10</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£360</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Discounted Hourly Rate</li>
+                    <li>★ Full Syllabus Coverage</li>
+                </ul>
+                <a href="https://messenger.com" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
+            </div>
+            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
+                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Standard 2hr</h4>
+                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£76</div>
+                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
+                    <li>★ Focused Route Mastery</li>
+                    <li>★ High-Intensity Training</li>
+                </ul>
+                <a href="https://messenger.com" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Professional <span class="text-red-600">Background</span></h2>
+                <div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4">
+                    <div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                    <p class="font-bold text-slate-700 italic">"Muhammad's background from the City of Glasgow College shows in his teaching—methodical and very clear."</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Service <span class="text-red-600">Territory</span></h2>
+                <div class="bg-slate-100 p-8 rounded border border-slate-200 flex flex-col justify-center items-center text-center">
+                    <i data-lucide="map-pin" class="text-red-600 w-10 h-10 mb-4"></i>
+                    <p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Glasgow West & North</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Clydebank • Baillieston • Partick • Bishopbriggs • Maryhill</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-red-600 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The Glasgow Referral Program</h2>
+            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Refer a friend and get a FREE lesson credit when they book their first block.</p>
+            <button onclick="toggleReferModal()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</button>
+        </div>
+    </section>
+
+    <section id="callback" class="py-24 bg-[var(--brand-navy)] text-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Call Back</span></h2>
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Consultation within 2 Hours</p>
+            </div>
+            <form class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
+                    <input type="tel" placeholder="Phone Number" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
+                </div>
+                <button type="submit" class="w-full btn-red py-6 font-black uppercase tracking-widest text-xs">Confirm Call Request</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Driver <span class="text-red-600">Knowledge Base</span></h2>
+            <div id="faq-container">
+                <div class="faq-item active">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        What areas of Glasgow do you cover?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">I primarily cover Glasgow and the surrounding areas, including Baillieston, Bishopbriggs, and more.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
+                        Are you an Approved Driving Instructor?
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 font-medium">Yes, I am a fully DVSA Approved Driving Instructor (ADI) partnered with RED Driving School UK.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[var(--brand-navy)] text-white pt-20 pb-32 border-t border-white/5"> <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="logo-wrap !text-white mb-8 md:mb-0">
+                    IRFA<div class="l-plate-icon"><span>N</span></div> DRIVING
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="facebook" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
+                        <i data-lucide="twitter" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
+                <div class="text-center md:text-left">
+                    <p class="text-xl font-black tracking-tight">Glasgow Approved Tuition</p>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">Partnered with RED Driving School UK since 2024</p>
+                </div>
+                <p class="text-[9px] text-slate-500 font-black uppercase tracking-[0.4em]">&copy; 2026 MUHAMMAD IRFAN DRIVING SYSTEM</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="referModal">
+        <div class="bg-white p-12 max-w-md w-full rounded-2xl relative animate__animated animate__zoomIn">
+            <button onclick="toggleReferModal()" class="absolute top-6 right-6 text-slate-400 hover:text-red-600 transition"><i data-lucide="x"></i></button>
+            <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
+                <i data-lucide="gift" class="w-10 h-10"></i>
+            </div>
+            <h3 class="text-2xl font-black uppercase tracking-tighter text-center mb-4">Refer & Earn <span class="text-red-600">Free Credit</span></h3>
+            <p class="text-slate-500 text-center font-medium mb-8 leading-relaxed">Help a friend pass with Muhammad Irfan. Once they book their first lesson, you'll receive 1 FREE hour of tuition.</p>
+            <button class="w-full btn-red py-5 font-black uppercase tracking-widest text-[10px]">Invite via Messenger</button>
+        </div>
+    </div>
+
+    <div class="cta-dock md:hidden">
+        <a href="#"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>MESSENGER</a>
+        <a href="#callback" class="bg-red-600 !border-none"><i data-lucide="clock" class="w-5 h-5 mb-1"></i>CALL BACK</a>
+    </div>
+
+    <script>
+        // CRITICAL: Ensure icons are created after DOM is fully ready
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            lucide.createIcons(); 
+        });
+        closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+');
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                animateValue('stat1', 0, 1400, 2000);
+                animateValue('stat2', 0, 2, 2000);
+                animateValue('stat3', 0, 870, 2000);
+                animateValue('stat4', 0, 100, 2000);
+                statsObserver.unobserve(entries[0].target);
+            }
+        });
+        const statEl = document.getElementById('stat1');
+        if(statEl) statsObserver.observe(statEl);
+
+        document.querySelectorAll('.faq-item button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.toggle('active');
+            });
+        });
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 5000);
+
+        function toggleReferModal() {
+            document.getElementById('referModal').classList.toggle('active');
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
