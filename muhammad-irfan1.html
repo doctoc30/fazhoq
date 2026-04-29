@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRFAN ELITE | Premium Driving Concierge Glasgow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --elite-black: #0a0a0a; 
+            --elite-gold: #c5a059;
+            --elite-gold-muted: #a6864a;
+            --elite-white: #ffffff;
+            --elite-slate: #1a1a1a;
+        }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: var(--elite-white); overflow-x: hidden; color: var(--elite-black); }
+        
+        /* Elite Logo */
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            color: var(--elite-black);
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+        .gold-plate {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--elite-black);
+            width: 28px;
+            height: 28px;
+            margin: 0 6px;
+            border: 1px solid var(--elite-gold);
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+        }
+        .gold-plate span {
+            color: var(--elite-gold);
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* Continuous Driving Animation */
+        .car-hero-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 350px; 
+            display: flex;
+            align-items: flex-end; 
+            overflow: hidden; 
+            background: linear-gradient(to bottom, #ffffff, #fcfcfc);
+        }
+        
+        #panningCar {
+            width: 500px;
+            height: auto; 
+            position: absolute;
+            bottom: 40px; 
+            z-index: 20; 
+            animation: driveForward 15s linear infinite;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+        }
+
+        @keyframes driveForward {
+            0% { transform: translateX(-110%); }
+            100% { transform: translateX(110vw); }
+        }
+
+        .road-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--elite-gold), transparent);
+            width: 100%;
+            position: absolute;
+            bottom: 40px;
+            opacity: 0.4;
+        }
+
+        /* Buttons & UI */
+        .btn-elite {
+            background: var(--elite-black);
+            color: var(--elite-gold);
+            border: 1px solid var(--elite-gold);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-elite:hover {
+            background: var(--elite-gold);
+            color: var(--elite-black);
+            transform: translateY(-2px);
+        }
+
+        .ticker-wrap { 
+            background: var(--elite-black); 
+            color: var(--elite-gold); 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--elite-gold); 
+            font-size: 10px;
+            letter-spacing: 0.4em;
+            font-weight: 700;
+            overflow: hidden;
+        }
+        .ticker-content {
+            display: flex;
+            animation: tickerScroll 30s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes tickerScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .serif-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            background: var(--elite-black);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open { transform: translateX(0); }
+
+        /* Stats & Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid #eee; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+
+        /* Dock */
+        .cta-dock { position: fixed; bottom: 0; left: 0; right: 0; background: var(--elite-black); display: flex; z-index: 100; border-top: 1px solid var(--elite-gold); }
+        .cta-dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; color: var(--elite-gold); font-size: 10px; font-weight: 700; border-right: 1px solid rgba(197, 160, 89, 0.2); }
+
+        /* Referral Modal */
+        #referModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        #referModal.active { display: flex; }
+
+        .gallery-scroll { display: flex; overflow-x: auto; gap: 1.5rem; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 20px; }
+        .gallery-item { min-width: 300px; height: 400px; scroll-snap-align: start; background: var(--elite-slate); border: 1px solid #333; overflow: hidden; }
+        
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 1s; }
+    </style>
+</head>
+<body>
+
+    <div class="ticker-wrap uppercase">
+        <div class="ticker-content space-x-12">
+            <span>The Gold Standard in Tuition</span>
+            <span>★</span>
+            <span>Executive Driving Concierge</span>
+            <span>★</span>
+            <span>Bespoke Road Mastery</span>
+            <span>★</span>
+            <span>DVSA Grade A Independent</span>
+        </div>
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-100">
+        <div class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+            <div class="logo-wrap">
+                IRFA<div class="gold-plate"><span>N</span></div> ELITE
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-12 font-bold text-[10px] uppercase tracking-[0.3em]">
+                <a href="#about" class="hover:text-[var(--elite-gold)] transition">Philosophy</a>
+                <a href="#services" class="hover:text-[var(--elite-gold)] transition">Tuition</a>
+                <a href="#pricing" class="hover:text-[var(--elite-gold)] transition">Investment</a>
+                <a href="#callback" class="btn-elite px-8 py-3 rounded-none shadow-sm">Reserve Session</a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden">
+                <i data-lucide="align-right" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full z-[100] p-10 flex flex-col shadow-2xl">
+        <button id="close-btn" class="self-end text-[var(--elite-gold)] mb-12">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div class="flex flex-col space-y-8 text-white font-light text-4xl tracking-tighter">
+            <a href="#about" class="mobile-link">The Philosophy</a>
+            <a href="#services" class="mobile-link">Executive Tuition</a>
+            <a href="#pricing" class="mobile-link">Pricing Tiers</a>
+            <a href="#callback" class="text-[var(--elite-gold)] mobile-link">Private Consultation</a>
+        </div>
+    </div>
+
+    <section class="relative min-h-[85vh] flex flex-col items-center justify-center pt-10 pb-20 overflow-hidden">
+        <div class="w-full mb-12">
+            <div class="car-hero-container">
+                <div class="road-line"></div>
+                <img id="panningCar" src="https://googleusercontent.com/image_generation_content/7" alt="Irfan Elite Premium Car">
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 text-center z-20">
+            <div class="animate__animated animate__fadeInUp">
+                <h1 class="text-6xl md:text-8xl font-light tracking-tighter mb-6 leading-tight">
+                    Beyond <span class="serif-italic text-[var(--elite-gold)]">Instructions.</span>
+                </h1>
+                <p class="text-stone-400 font-medium uppercase tracking-[0.5em] text-[10px] mb-12">Glasgow's Exclusive Independent Driving Consultancy</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#callback" class="px-12 py-5 btn-elite uppercase tracking-widest text-[10px] font-black">Begin Your Journey</a>
+                    <a href="https://facebook.com" class="px-12 py-5 border border-stone-200 uppercase tracking-widest text-[10px] font-bold hover:bg-stone-50 transition">Client Reviews</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <span class="text-[var(--elite-gold)] font-bold uppercase tracking-[0.4em] text-[10px] block mb-4">The Pedigree</span>
+                <h2 class="text-5xl font-light tracking-tight mb-8">Mastery with <span class="serif-italic">Muhammad Irfan</span></h2>
+                <p class="text-stone-500 font-light leading-relaxed text-lg mb-8">
+                    An alumnus of the City of Glasgow College and a DVSA Certified Specialist, Muhammad Irfan provides a sanctuary for learning. This is independent tuition reimagined for the discerning student who values calm, professional, and bespoke coaching.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="border-l border-[var(--elite-gold)] pl-6">
+                        <p class="text-3xl font-light text-black">Glasgow</p>
+                        <p class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">Territory Mastery</p>
+                    </div>
+                    <div class="border-l border-[var(--elite-gold)] pl-6">
+                        <p class="text-3xl font-light text-black">Certified</p>
+                        <p class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">DVSA ADI Independent</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal relative h-96 bg-stone-900 flex items-center justify-center overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80" alt="Cockpit" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition duration-1000">
+                <div class="z-10 text-center">
+                    <div class="w-24 h-24 border border-[var(--elite-gold)] rounded-full flex items-center justify-center mb-4 mx-auto bg-black/50 backdrop-blur">
+                        <i data-lucide="shield-check" class="text-[var(--elite-gold)] w-10 h-10"></i>
+                    </div>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-[var(--elite-gold)]">Premium Protection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-stone-50 border-y border-stone-100">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div class="reveal">
+                    <div class="text-5xl font-light text-black mb-2" id="stat1">0</div>
+                    <div class="text-[9px] font-bold text-stone-400 uppercase tracking-[0.3em]">Community Reach</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-light text-[var(--elite-gold)] mb-2" id="stat2">0</div>
+                    <div class="text-[9px] font-bold text-stone-400 uppercase tracking-[0.3em]">Years Active</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-light text-black mb-2" id="stat3">0</div>
+                    <div class="text-[9px] font-bold text-stone-400 uppercase tracking-[0.3em]">Success Rate</div>
+                </div>
+                <div class="reveal">
+                    <div class="text-5xl font-light text-[var(--elite-gold)] mb-2" id="stat4">0</div>
+                    <div class="text-[9px] font-bold text-stone-400 uppercase tracking-[0.3em]">ADI Independent</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl font-light tracking-tight text-center mb-20 uppercase tracking-[0.2em]">The <span class="serif-italic">Curriculum</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="p-10 border border-stone-100 hover:border-[var(--elite-gold)] transition duration-500 bg-stone-50/50">
+                    <i data-lucide="zap" class="text-[var(--elite-gold)] mb-6 w-5 h-5"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Executive 1-on-1</h3>
+                    <p class="text-xs text-stone-500 leading-relaxed font-medium">Calm, tailored instruction focused on psychological composure.</p>
+                </div>
+                <div class="p-10 border border-stone-100 hover:border-[var(--elite-gold)] transition duration-500 bg-stone-50/50">
+                    <i data-lucide="timer" class="text-[var(--elite-gold)] mb-6 w-5 h-5"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Intensive Tiers</h3>
+                    <p class="text-xs text-stone-500 leading-relaxed font-medium">Rapid-track licensing for time-sensitive professionals.</p>
+                </div>
+                <div class="p-10 border border-stone-100 hover:border-[var(--elite-gold)] transition duration-500 bg-stone-50/50">
+                    <i data-lucide="navigation" class="text-[var(--elite-gold)] mb-6 w-5 h-5"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Route Mastery</h3>
+                    <p class="text-xs text-stone-500 leading-relaxed font-medium">Surgical analysis of Glasgow's most complex test junctions.</p>
+                </div>
+                <div class="p-10 border border-stone-100 hover:border-[var(--elite-gold)] transition duration-500 bg-stone-50/50">
+                    <i data-lucide="file-check" class="text-[var(--elite-gold)] mb-6 w-5 h-5"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Mock Audits</h3>
+                    <p class="text-xs text-stone-500 leading-relaxed font-medium">Simulated testing conditions to guarantee day-one readiness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl font-light tracking-tight mb-12">The <span class="serif-italic">Success Stories</span></h2>
+            <div class="gallery-scroll">
+                <div class="gallery-item flex flex-col justify-end p-8 relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
+                    <p class="relative z-10 text-[var(--elite-gold)] font-bold uppercase text-[10px] tracking-widest mb-1">Glasgow West</p>
+                    <p class="relative z-10 text-white font-light text-xl">Passed with Zero Faults</p>
+                </div>
+                <div class="gallery-item flex flex-col justify-end p-8 relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
+                    <p class="relative z-10 text-[var(--elite-gold)] font-bold uppercase text-[10px] tracking-widest mb-1">Baillieston</p>
+                    <p class="relative z-10 text-white font-light text-xl">First Time Success</p>
+                </div>
+                <div class="gallery-item flex flex-col justify-end p-8 relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
+                    <p class="relative z-10 text-[var(--elite-gold)] font-bold uppercase text-[10px] tracking-widest mb-1">Anniesland</p>
+                    <p class="relative z-10 text-white font-light text-xl">Confidence Restored</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-[var(--elite-black)] text-white">
+        <div class="max-w-4xl mx-auto px-8 text-center">
+            <div id="story-slider">
+                <div class="slide active">
+                    <p class="text-3xl font-light serif-italic mb-8 text-stone-300">"Irfan’s independent approach provides a level of focus I couldn't find elsewhere. Truly a premium experience."</p>
+                    <p class="text-[var(--elite-gold)] font-bold uppercase tracking-[0.4em] text-[10px]">Verified Student • Glasgow West</p>
+                </div>
+                <div class="slide">
+                    <p class="text-3xl font-light serif-italic mb-8 text-stone-300">"Professional, calm, and highly effective. The best investment I've made this year."</p>
+                    <p class="text-[var(--elite-gold)] font-bold uppercase tracking-[0.4em] text-[10px]">Executive Client • Bishopbriggs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-light tracking-tight">Investment <span class="serif-italic">Tiers.</span></h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="reveal p-12 border border-stone-100 bg-stone-50/30">
+                    <h4 class="font-bold uppercase tracking-[0.3em] text-[10px] text-stone-400 mb-8">Evaluation</h4>
+                    <div class="text-5xl font-light mb-10">£35</div>
+                    <ul class="space-y-4 mb-12 text-[10px] font-bold uppercase tracking-widest text-stone-500">
+                        <li>★ Full Assessment</li>
+                        <li>★ Skill Roadmap</li>
+                    </ul>
+                    <a href="#callback" class="block w-full py-4 border border-black text-center text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition">Book Session</a>
+                </div>
+                <div class="reveal p-12 border border-[var(--elite-gold)] relative bg-white scale-105 shadow-2xl z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--elite-gold)] text-black px-6 py-1 text-[9px] font-black uppercase tracking-widest">Recommended</div>
+                    <h4 class="font-bold uppercase tracking-[0.3em] text-[10px] text-stone-400 mb-8">Block Reserve</h4>
+                    <div class="text-5xl font-light mb-10">£420</div>
+                    <ul class="space-y-4 mb-12 text-[10px] font-bold uppercase tracking-widest text-black">
+                        <li>★ 10 Hour Private Tuition</li>
+                        <li>★ Priority Concierge</li>
+                    </ul>
+                    <a href="#callback" class="block w-full py-4 bg-black text-[var(--elite-gold)] text-center text-[10px] font-black uppercase tracking-widest">Reserve Block</a>
+                </div>
+                <div class="reveal p-12 border border-stone-100 bg-stone-50/30">
+                    <h4 class="font-bold uppercase tracking-[0.3em] text-[10px] text-stone-400 mb-8">Standard</h4>
+                    <div class="text-5xl font-light mb-10">£76</div>
+                    <ul class="space-y-4 mb-12 text-[10px] font-bold uppercase tracking-widest text-stone-500">
+                        <li>★ 2 Hour Intensive</li>
+                        <li>★ Detailed Audit</li>
+                    </ul>
+                    <a href="#callback" class="block w-full py-4 border border-black text-center text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition">Inquire</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 border-t border-stone-100">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12">
+            <div class="bg-stone-50 p-12 text-center">
+                <i data-lucide="map-pin" class="text-[var(--elite-gold)] w-8 h-8 mb-6 mx-auto"></i>
+                <p class="font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Elite Service Areas</p>
+                <p class="text-xs text-stone-500 font-medium leading-loose">Baillieston • Bishopbriggs • Clydebank • Glasgow West • Anniesland</p>
+            </div>
+            <div class="bg-[var(--elite-black)] p-12 text-center text-white">
+                <i data-lucide="star" class="text-[var(--elite-gold)] w-8 h-8 mb-6 mx-auto"></i>
+                <p class="font-bold uppercase tracking-[0.3em] text-[10px] mb-4 text-[var(--elite-gold)]">Verified Ratings</p>
+                <p class="text-2xl font-light serif-italic">"Experience that shows in every mile."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-[var(--elite-gold)] text-black">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <h2 class="text-3xl font-light tracking-tight mb-4 uppercase tracking-widest">The Elite Referral</h2>
+            <p class="font-bold uppercase text-[9px] tracking-[0.3em] opacity-70 mb-8">Introduce a colleague and receive a complimentary 1-hour session.</p>
+            <button onclick="toggleReferModal()" class="px-12 py-4 bg-black text-[var(--elite-gold)] font-black uppercase text-[10px] tracking-[0.4em]">Send Invitation</button>
+        </div>
+    </section>
+
+    <section id="callback" class="py-32 bg-[var(--elite-black)] text-white">
+        <div class="max-w-2xl mx-auto px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-light tracking-tight mb-4">Private <span class="serif-italic text-[var(--elite-gold)]">Consultation</span></h2>
+                <p class="text-[var(--elite-gold)] font-bold uppercase tracking-[0.4em] text-[9px]">Confidential Response within 2 Hours</p>
+            </div>
+            <form class="space-y-6">
+                <input type="text" placeholder="FULL NAME" class="w-full bg-stone-900 border border-stone-800 p-6 font-bold text-[10px] uppercase tracking-widest focus:border-[var(--elite-gold)] outline-none transition">
+                <input type="tel" placeholder="PHONE NUMBER" class="w-full bg-stone-900 border border-stone-800 p-6 font-bold text-[10px] uppercase tracking-widest focus:border-[var(--elite-gold)] outline-none transition">
+                <button type="submit" class="w-full py-6 bg-[var(--elite-gold)] text-black font-black uppercase tracking-[0.5em] text-[10px]">Request Callback</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white">
+        <div class="max-w-3xl mx-auto px-8">
+            <h2 class="text-3xl font-light text-center mb-12 uppercase tracking-[0.2em]">The <span class="serif-italic">Knowledge Base</span></h2>
+            <div id="faq-container">
+                <div class="faq-item active">
+                    <button class="w-full py-8 flex justify-between items-center text-left font-bold uppercase text-[10px] tracking-[0.3em]">
+                        What defines Irfan Elite tuition?
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[var(--elite-gold)]"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-stone-500 text-sm font-light leading-relaxed">It is a bespoke, one-on-one consultancy focused on calm Mastery. We remove the stress of franchise-based lessons to provide a high-end, tailored environment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="w-full py-8 flex justify-between items-center text-left font-bold uppercase text-[10px] tracking-[0.3em]">
+                        Is the instructor DVSA qualified?
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[var(--elite-gold)]"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-stone-500 text-sm font-light leading-relaxed">Absolutely. Muhammad Irfan is a fully qualified, DVSA-registered Approved Driving Instructor with an exceptional independent reputation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white pt-24 pb-32 border-t border-stone-900">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-16">
+                <div class="logo-wrap !text-white mb-8 md:mb-0">
+                    IRFA<div class="gold-plate"><span>N</span></div> ELITE
+                </div>
+                <div class="flex space-x-8">
+                    <i data-lucide="instagram" class="w-5 h-5 text-stone-500 hover:text-[var(--elite-gold)] transition cursor-pointer"></i>
+                    <i data-lucide="facebook" class="w-5 h-5 text-stone-500 hover:text-[var(--elite-gold)] transition cursor-pointer"></i>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-stone-900 flex flex-col md:flex-row justify-between text-[9px] font-bold uppercase tracking-[0.4em] text-stone-600 gap-8">
+                <p>DVSA Registered ADI • City of Glasgow College Alumnus</p>
+                <p>&copy; 2026 Muhammad Irfan Elite</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="referModal">
+        <div class="bg-white p-16 max-w-lg w-full relative animate__animated animate__zoomIn">
+            <button onclick="toggleReferModal()" class="absolute top-8 right-8 text-stone-400 hover:text-black transition"><i data-lucide="x"></i></button>
+            <div class="text-center">
+                <i data-lucide="gift" class="w-12 h-12 text-[var(--elite-gold)] mx-auto mb-8"></i>
+                <h3 class="text-3xl font-light uppercase tracking-widest mb-6">Executive <span class="serif-italic">Referral</span></h3>
+                <p class="text-stone-500 text-sm font-light mb-10 leading-loose">Introduce a friend to Irfan Elite. Upon their first booking, we will credit your account with 1 hour of complimentary tuition.</p>
+                <button class="w-full py-5 bg-black text-[var(--elite-gold)] font-black uppercase tracking-[0.4em] text-[10px]">Invite Colleague</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-dock md:hidden">
+        <a href="#callback"><i data-lucide="phone" class="w-4 h-4 mb-2"></i>CALL</a>
+        <a href="#callback" class="bg-[var(--elite-gold)] !text-black !border-none"><i data-lucide="calendar" class="w-4 h-4 mb-2"></i>RESERVE</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Stats Counter
+        function animateValue(id, start, end, duration, suffix = '') {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                let val = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = val + suffix;
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        const statEl = document.getElementById('stat1');
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                animateValue('stat1', 0, 1.4, 2000, 'K');
+                animateValue('stat2', 0, 2, 2000, '+');
+                animateValue('stat3', 0, 92, 2000, '%');
+                animateValue('stat4', 0, 100, 2000, '%');
+                statsObserver.unobserve(statEl);
+            }
+        });
+        if(statEl) statsObserver.observe(statEl);
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.toggle('active');
+            });
+        });
+
+        // Testimonial Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 5000);
+
+        function toggleReferModal() {
+            document.getElementById('referModal').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
