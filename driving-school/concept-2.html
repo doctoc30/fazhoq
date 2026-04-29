@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tony Shiels Driving School | TS-387 Premium Training</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -14,8 +14,18 @@
             --brand-red: #d31018;
             --brand-silver: #f1f5f9;
         }
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; overflow-x: hidden; }
         
+        /* Prevent Side-to-Side Scroll */
+        html, body { 
+            max-width: 100%; 
+            overflow-x: hidden; 
+            margin: 0; 
+            padding: 0;
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+            background-color: #ffffff;
+        }
+
         /* Logo Logic */
         .logo-wrap {
             display: flex;
@@ -24,7 +34,7 @@
             letter-spacing: 0.15em;
             color: var(--brand-navy);
             text-transform: uppercase;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
         .l-plate-icon {
             display: inline-flex;
@@ -32,80 +42,96 @@
             justify-content: center;
             background: white;
             border: 1px solid #d1d5db;
-            width: 30px;
-            height: 34px;
+            width: 24px;
+            height: 28px;
             margin: 0 4px;
             transform: rotate(-6deg);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
         }
         .l-plate-icon span {
             color: var(--brand-red);
             font-family: 'Archivo Black', sans-serif;
-            font-size: 26px;
+            font-size: 20px;
             line-height: 1;
-            margin-top: -2px;
         }
 
-        /* Hero Container Fix for Landscape/Zoom */
+        /* MOBILE MENU STYLES */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--brand-navy);
+            z-index: 100;
+            transition: right 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #mobile-menu.active { right: 0; }
+        .menu-link {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 1.5rem 0;
+            letter-spacing: -0.05em;
+        }
+
+        /* Hero Container */
         section.hero-main {
             position: relative;
-            min-height: 100svh;
+            min-height: 90svh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Continuous Single-Direction Animation Logic */
+        /* Car Animation */
         .car-hero-container {
             position: relative;
-            z-index: 10;
             width: 100%;
             display: flex;
             justify-content: center;
-            overflow: visible; 
+            overflow: hidden; 
             animation: drive-vibration 3s ease-in-out infinite;
         }
         
         #panningCar {
-            max-width: 700px;
-            width: 100%;
+            max-width: 600px;
+            width: 130%; /* Oversized to ensure watermark is cropped */
             height: auto;
-            border: none; 
-            border-radius: 0; 
-            box-shadow: none; 
-            background-color: transparent; 
-            /* Constant one-way motion */
-            animation: continuousForward 12s linear infinite, wheel-roll 0.4s infinite alternate ease-in-out; 
+            animation: continuousForward 10s linear infinite, wheel-roll 0.4s infinite alternate ease-in-out; 
             will-change: transform;
-            /* Watermark Removal Logic */
-            clip-path: inset(0 0 11% 0);
-            transform: scale(1.15);
+            clip-path: inset(0 0 12% 0);
+            transform: scale(1.1);
         }
 
         @keyframes continuousForward {
-            0% { left: -120%; position: relative; }
-            100% { left: 120%; position: relative; }
+            0% { transform: translateX(-100%) scale(1.1); }
+            100% { transform: translateX(100vw) scale(1.1); }
         }
 
         @keyframes wheel-roll {
-            0% { transform: scale(1.15) translateY(0) skewX(0deg); }
-            100% { transform: scale(1.15) translateY(-3px) skewX(0.5deg); }
+            0% { transform: scale(1.1) translateY(0) skewX(0deg); }
+            100% { transform: scale(1.1) translateY(-3px) skewX(1deg); }
         }
 
         @keyframes drive-vibration {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-3px) rotate(0.1deg); }
-            75% { transform: translateY(3px) rotate(-0.1deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
         }
 
         .road-indicator {
             height: 4px;
             background: var(--brand-silver);
-            width: 200px;
+            width: 160px;
             border-radius: 2px;
-            margin: 20px auto;
+            margin: 10px auto;
             position: relative;
             overflow: hidden;
         }
@@ -118,40 +144,48 @@
             background: var(--brand-red);
             animation: dash-move 1.2s linear infinite;
         }
-        @keyframes dash-move {
-            0% { left: -50%; }
-            100% { left: 150%; }
-        }
+        @keyframes dash-move { 0% { left: -50%; } 100% { left: 150%; } }
 
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
-        .premium-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 4px solid transparent; }
-        .premium-card:hover { transform: translateY(-12px); border-color: var(--brand-red); box-shadow: 0 25px 50px -12px rgba(26, 54, 93, 0.2); }
+        .glass { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
         .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
         .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        
+        .premium-card { transition: all 0.4s ease; border-top: 4px solid transparent; }
+        .premium-card:hover { transform: translateY(-10px); border-color: var(--brand-red); }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
         .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
-        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
 
-        /* Fix for very narrow landscape phones */
         @media (orientation: landscape) and (max-height: 500px) {
             section.hero-main { min-height: 140vh; padding-top: 80px; }
-            h1 { font-size: 3.5rem !important; }
+            h1 { font-size: 3rem !important; }
         }
     </style>
 </head>
-<body class="text-slate-900">
+<body>
+
+    <div id="mobile-menu">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <a href="#services" onclick="toggleMenu()" class="menu-link">Tuition</a>
+        <a href="#pricing" onclick="toggleMenu()" class="menu-link">Pricing</a>
+        <a href="#booking" onclick="toggleMenu()" class="menu-link">Book Now</a>
+        <div class="mt-12 text-white/50 font-bold tracking-widest text-sm">07752 892178</div>
+    </div>
 
     <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <div class="logo-wrap">
-                    TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
-                </div>
-                <span class="hidden lg:block h-6 w-px bg-slate-300"></span>
-                <span class="hidden lg:block font-bold text-xs text-slate-400 tracking-[0.3em] uppercase">TS-387</span>
+            <div class="logo-wrap">
+                TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
+            
+            <button onclick="toggleMenu()" class="md:hidden text-[var(--brand-navy)]">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+
             <div class="hidden md:flex space-x-10 font-bold text-xs uppercase tracking-widest">
                 <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
                 <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
@@ -169,24 +203,22 @@
         </div>
     </div>
 
-    <section class="hero-main relative flex flex-col items-center justify-center bg-white py-12">
-        <div class="max-w-4xl mx-auto px-6 text-center overflow-visible">
-            
-            <div id="heroCar" class="car-hero-container mb-12">
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
-                     alt="Tony Shiels Driving School Car">
-                <div class="road-indicator"></div>
+    <section class="hero-main bg-white">
+        <div class="w-full text-center">
+            <div class="car-hero-container mb-8">
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Car">
             </div>
+            <div class="road-indicator"></div>
 
-            <div class="animate__animated animate__fadeInUp animate__delay-1s">
-                <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
+            <div class="animate__animated animate__fadeInUp">
+                <h1 class="text-4xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter px-4">
                     Pass with <span class="text-red-600">Precision.</span>
                 </h1>
-                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">South London's Premier Driving Tuition</p>
+                <p class="text-slate-500 font-bold uppercase tracking-[0.1em] mb-10 text-xs">South London's Premier Driving Tuition</p>
                 
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#booking" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
-                    <a href="tel:+447752892178" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">07752 892178</a>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 px-6">
+                    <a href="#booking" class="px-10 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
+                    <a href="tel:+447752892178" class="px-10 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs">07752 892178</a>
                 </div>
             </div>
         </div>
@@ -194,101 +226,89 @@
 
     <section class="py-16 bg-[var(--brand-silver)]">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div class="reveal">
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Licensed</div>
+                    <div class="text-3xl md:text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Licensed</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-5xl font-black text-red-600 mb-2" id="stat2">15+</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div>
+                    <div class="text-3xl md:text-5xl font-black text-red-600 mb-2" id="stat2">15+</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Years Active</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div>
+                    <div class="text-3xl md:text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Pass Rate</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">DVSA Certified</div>
+                    <div class="text-3xl md:text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
+                    <div class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">DVSA Certified</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-24 bg-white">
+    <section id="services" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
-            <div class="reveal premium-card bg-slate-50 p-12 shadow-sm flex flex-col items-start">
+            <div class="reveal premium-card bg-slate-50 p-10 flex flex-col items-start">
                 <i data-lucide="zap" class="text-red-600 w-8 h-8 mb-6"></i>
-                <h3 class="text-3xl font-black uppercase tracking-tighter mb-4 text-[var(--brand-navy)]">Automatic</h3>
-                <p class="text-slate-600 mb-8 leading-relaxed">Modern, stress-free learning. Focus on the road, not the gears.</p>
-                <span class="text-xs font-black text-red-600 uppercase tracking-widest border-b-2 border-red-600 pb-1">Immediate Availability</span>
+                <h3 class="text-2xl font-black uppercase mb-4 text-[var(--brand-navy)]">Automatic</h3>
+                <p class="text-slate-600 mb-8 text-sm">Modern, stress-free learning. Focus on the road, not the gears.</p>
+                <span class="text-[10px] font-black text-red-600 uppercase border-b-2 border-red-600 pb-1">Immediate Availability</span>
             </div>
-            <div class="reveal premium-card bg-[var(--brand-navy)] p-12 shadow-sm flex flex-col items-start text-white">
+            <div class="reveal premium-card bg-[var(--brand-navy)] p-10 flex flex-col items-start text-white">
                 <i data-lucide="settings" class="text-red-600 w-8 h-8 mb-6"></i>
-                <h3 class="text-3xl font-black uppercase tracking-tighter mb-4">Manual</h3>
-                <p class="text-slate-300 mb-8 leading-relaxed">Classic control. Master the manual transmission with technical coaching.</p>
-                <span class="text-xs font-black text-slate-400 uppercase tracking-widest border-b-2 border-slate-600 pb-1">Waitlist Open</span>
+                <h3 class="text-2xl font-black uppercase mb-4">Manual</h3>
+                <p class="text-slate-300 mb-8 text-sm">Classic control. Master the manual transmission with technical coaching.</p>
+                <span class="text-[10px] font-black text-slate-400 uppercase border-b-2 border-slate-600 pb-1">Waitlist Open</span>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
+    <section id="pricing" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Tuition <span class="text-red-600">Packages</span></h2>
-            </div>
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Trial Lesson</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Vehicle Audit</li>
-                        <li>★ Assessment</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
+            <h2 class="text-4xl font-black uppercase text-center mb-16 text-[var(--brand-navy)]">Tuition <span class="text-red-600">Packages</span></h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="reveal bg-white p-8 shadow-lg border-t-4 border-slate-200">
+                    <h4 class="font-bold mb-6 uppercase text-sm">Trial Lesson</h4>
+                    <div class="text-4xl font-black text-[var(--brand-navy)] mb-8">£35</div>
+                    <a href="#" class="block text-center py-4 bg-[var(--brand-navy)] text-white font-black uppercase text-[10px]">Book Now</a>
                 </div>
-                <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
-                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Most Popular</div>
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Mock Test</li>
-                        <li>★ Priority Booking</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
+                <div class="reveal bg-white p-8 shadow-2xl border-t-4 border-red-600 relative md:scale-110">
+                    <h4 class="font-bold mb-6 uppercase text-sm">Fast-Pass 20</h4>
+                    <div class="text-4xl font-black text-[var(--brand-navy)] mb-8">£680</div>
+                    <a href="#" class="block text-center py-4 btn-red font-black uppercase text-[10px]">Enroll Now</a>
                 </div>
-                <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                    <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Block 5</h4>
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div>
-                    <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        <li>★ Door-to-Door</li>
-                        <li>★ Maneuvers</li>
-                    </ul>
-                    <a href="#" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Book Now</a>
+                <div class="reveal bg-white p-8 shadow-lg border-t-4 border-slate-200">
+                    <h4 class="font-bold mb-6 uppercase text-sm">Block 5</h4>
+                    <div class="text-4xl font-black text-[var(--brand-navy)] mb-8">£180</div>
+                    <a href="#" class="block text-center py-4 bg-[var(--brand-navy)] text-white font-black uppercase text-[10px]">Book Now</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[var(--brand-navy)] text-white pt-24 pb-48">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center border-b border-white/5 pb-16">
-            <div class="logo-wrap !text-white mb-8 md:mb-0">
+    <footer class="bg-[var(--brand-navy)] text-white py-20 pb-40">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="logo-wrap !text-white justify-center mb-8">
                 TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
             </div>
-            <div class="text-center md:text-right">
-                <p class="text-2xl font-black">07752 892178</p>
-                <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-4">&copy; 2026 TS-387 SYSTEM</p>
-            </div>
+            <p class="text-xl font-black">07752 892178</p>
+            <p class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mt-8">&copy; 2026 TS-387 SYSTEM</p>
         </div>
     </footer>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[500px] z-[100] bg-white shadow-2xl p-4 border-b-4 border-red-600 flex gap-4">
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[500px] z-[90] bg-white shadow-2xl p-4 border-b-4 border-red-600 flex gap-4">
         <a href="https://wa.me/447752892178" class="flex-1 text-center py-4 bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px]">WhatsApp</a>
         <a href="#booking" class="flex-1 text-center py-4 btn-red font-black uppercase tracking-widest text-[10px]">Book Lesson</a>
     </div>
 
     <script>
         lucide.createIcons();
+
+        // Hamburger Toggle
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('active');
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
