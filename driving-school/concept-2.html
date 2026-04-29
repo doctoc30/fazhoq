@@ -3,565 +3,1443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Shiels Driving School | TS-387 Premium Training</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>High Ticket Driving School - Premium Driving Lessons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        /* Exact branding colors from image_0.png */
         :root {
-            --brand-navy: #1a365d; 
-            --brand-red: #d31018;
-            --brand-silver: #f1f5f9;
+            --primary-color: #8c0a1a; /* Deep Red from the background top */
+            --secondary-color: #06403d; /* Dark Green from the car area */
+            --accent-color: #f7ca45; /* Yellow from the SEND button */
+            --light-bg-color: #fcebe6; /* Pale pinkish-peach from the form fields */
+            --text-color: #ffffff; /* General text on dark background */
+            --text-dark-color: #333333; /* Text on light background */
+            --form-border-color: rgba(255, 255, 255, 0.3);
+            --font-family: 'Poppins', sans-serif;
         }
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; overflow-x: hidden; margin: 0; padding: 0; }
-        
-        /* Logo Logic */
-        .logo-wrap {
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+        }
+
+        /* 22 Sticky Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(140, 10, 26, 0.95);
+            z-index: 1000;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            font-weight: 900;
-            letter-spacing: 0.15em;
-            color: var(--brand-navy);
-            text-transform: uppercase;
-            font-size: 1.5rem;
+            padding: 15px 50px;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--form-border-color);
         }
-        .l-plate-icon {
-            display: inline-flex;
+
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 1 Top Section Hero Slider & Contact Text Slider */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color) 40%, var(--secondary-color) 80%);
+            display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
-            border: 1px solid #d1d5db;
-            width: 30px;
-            height: 34px;
-            margin: 0 4px;
-            transform: rotate(-6deg);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
-        }
-        .l-plate-icon span {
-            color: var(--brand-red);
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 26px;
-            line-height: 1;
-            margin-top: -2px;
-        }
-
-        /* Continuous Smooth Driving Animation */
-        .car-hero-container {
             position: relative;
-            z-index: 10;
-            width: 100%;
-            height: 320px; 
-            display: flex;
-            align-items: flex-end; 
-            overflow: hidden; 
-        }
-        
-        #panningCar {
-            width: 450px;
-            height: 260px; 
-            object-fit: cover; 
-            object-position: top; 
-            position: absolute;
-            bottom: 30px; 
-            z-index: 20; 
-            animation: driveForward 12s linear infinite;
-            will-change: transform;
+            padding-top: 80px; /* for header */
+            overflow: hidden;
         }
 
-        @keyframes driveForward {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100vw); }
-        }
-
-        /* Hamburger Menu Styles */
-        #mobile-menu {
-            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            transform: translateX(100%);
-        }
-        #mobile-menu.open {
-            transform: translateX(0);
-        }
-
-        .road-indicator {
-            height: 4px;
-            background: var(--brand-silver);
-            width: 100%;
-            position: absolute;
-            bottom: 35px; 
-            z-index: 5; 
-        }
-        .road-indicator::after {
-            content: '';
-            position: absolute;
-            left: 0;
+        .hero-slider {
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to right, var(--brand-red) 50%, transparent 50%);
-            background-size: 40px 100%;
-            animation: roadMove 0.5s linear infinite;
-        }
-        @keyframes roadMove {
-            0% { background-position: 0 0; }
-            100% { background-position: -40px 0; }
+            display: flex;
+            position: relative;
         }
 
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
-        .premium-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 4px solid transparent; }
-        .premium-card:hover { transform: translateY(-12px); border-color: var(--brand-red); box-shadow: 0 25px 50px -12px rgba(26, 54, 93, 0.2); }
-        .ticker-wrap { overflow: hidden; background: var(--brand-navy); color: white; padding: 12px 0; border-bottom: 3px solid var(--brand-red); }
-        .ticker { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .btn-red { background-color: var(--brand-red); color: white; transition: 0.3s; }
-        .btn-red:hover { background-color: #b00d14; transform: scale(1.05); }
+        .slider-item {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
 
-        .faq-item { border-bottom: 1px solid #edf2f7; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
-        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
-        .faq-item.active i { transform: rotate(180deg); }
-        
-        .cta-dock { position: fixed; bottom: 0; left: 0; right: 0; background: var(--brand-navy); display: flex; z-index: 100; border-top: 3px solid var(--brand-red); }
-        .cta-dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; color: white; font-size: 10px; font-weight: 700; border-right: 1px solid rgba(255,255,255,0.1); }
-        
-        .gallery-scroll { display: flex; overflow-x: auto; gap: 1rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .gallery-item { min-width: 280px; height: 350px; scroll-snap-align: start; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
-        
-        .service-grid-item { border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
-        .service-grid-item:hover { border-color: var(--brand-red); background: #fff; transform: translateY(-5px); }
+        .slider-item.active {
+            opacity: 1;
+        }
 
-        .slider-wrap { position: relative; overflow: hidden; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s; }
+        .slider-item img {
+            width: 80%; /* Match image_0.png scale */
+            height: auto;
+            max-width: 1000px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
 
-        /* ADDON: Referral Modal Styles */
-        #referModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        #referModal.active { display: flex; }
+        /* Branded custom AI image */
+        .branded-car-img {
+            /* Placeholder for a premium, custom AI generated Mini Cooper */
+            content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect width="800" height="600" fill="%2306403d"/><text x="400" y="300" text-anchor="middle" font-size="24" fill="white">CUSTOM AI CAR GRAPHIC</text></svg>');
+        }
+
+        .text-slider {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 200px;
+            text-align: right;
+        }
+
+        .text-slider-inner {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s ease;
+        }
+
+        .text-slider-item {
+            min-height: 20px;
+            white-space: nowrap;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 40%;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-title {
+            font-size: 72px; /* Large, premium */
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            text-transform: capitalize;
+        }
+
+        /* 37 Highlighted Hero Call-to-Action Banner */
+        .hero-cta {
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .hero-cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* Section generic styles */
+        section {
+            padding: 100px 50px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* 3 Lesson Packages (Most Important) - buy now */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--form-border-color);
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px);
+        }
+
+        .package-card.most-popular {
+            border: 2px solid var(--accent-color);
+            background: linear-gradient(135deg, rgba(247, 202, 69, 0.1), rgba(6, 64, 61, 0.1));
+        }
+
+        .package-name { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+        .package-price { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); }
+        .package-features { list-style: none; padding: 0; margin-bottom: 30px; }
+        .package-features li { margin-bottom: 10px; font-size: 16px; opacity: 0.8; }
+
+        .buy-now-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* 2 Large Booking with Calendar Integration */
+        .booking-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        /* 4 Automatic vs Manual Lessons Section */
+        .lesson-types {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .lesson-type-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 15px;
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--form-border-color);
+        }
+
+        .lesson-type-card h3 { font-size: 28px; margin-bottom: 20px; }
+        .lesson-type-card p { opacity: 0.8; margin-bottom: 20px; }
+        
+        /* 42 Bonus services - embedded within lesson types */
+        .bonus-services { font-size: 14px; opacity: 0.6; text-align: left;}
+
+        /* 5 Areas Covered Section */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .area-item {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 11 Animated Stats Counter */
+        .stats-counter {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .stat-item { flex: 1; }
+        .stat-number { font-size: 60px; font-weight: 700; color: var(--accent-color); }
+        .stat-label { font-size: 18px; opacity: 0.8; }
+
+        /* 13 Pass Gallery Showcase */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--form-border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 21 Gallery Lightbox placeholder */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; }
+
+        /* 14 Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            border: 1px solid var(--form-border-color);
+        }
+
+        /* 15 Advanced Testimonials Slider */
+        .testimonials-slider {
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial-item {
+            min-width: 100%;
+            padding: 40px;
+            text-align: center;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .testimonial-item.active { opacity: 1; position: relative; }
+        .testimonial-text { font-size: 18px; line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+        .testimonial-author { font-weight: 600; color: var(--accent-color); }
+
+        /* 7 FAQ Toggle / Accordion */
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--form-border-color);
+            cursor: pointer;
+        }
+        .faq-question {
+            font-size: 20px;
+            font-weight: 600;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            padding: 0 20px;
+            opacity: 0.8;
+            font-size: 16px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* arbitrary large enough value */
+            padding-bottom: 20px;
+        }
+
+        /* 10 Subscribe Form */
+        .subscribe-form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .subscribe-form input[type="email"] {
+            width: calc(100% - 130px);
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+        .subscribe-form button {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Contact Section with exact colors from image_0.png */
+        .contact {
+            background: linear-gradient(0deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+
+        .contact-flex {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-text-area { flex: 1; }
+        .contact-form-area { flex: 1; text-align: right;}
+
+        /* Contact Us Text from Image */
+        .contact-headline {
+            font-size: 48px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+        }
+        .contact-p {
+            font-size: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Contact Form Fields from Image */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin-left: auto;
+        }
+        .contact-input, .contact-textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--form-border-color);
+            background-color: var(--light-bg-color); /* Exact color from image */
+            color: var(--text-dark-color);
+            font-size: 16px;
+        }
+        .contact-textarea { height: 100px; resize: none; }
+        
+        /* Send Button from Image */
+        .send-btn {
+            background-color: var(--accent-color); /* Exact color from image */
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .send-btn:hover { background-color: #ffd04f; }
+
+        /* Footer from Image */
+        .footer {
+            background-color: var(--secondary-color);
+            padding: 30px 50px;
+            text-align: left;
+            font-size: 16px;
+            border-top: 1px solid var(--form-border-color);
+        }
+        .footer-logo { font-size: 20px; font-weight: 600;}
+
+        /* 24 Bottom CTA Dock */
+        .cta-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            gap: 20px;
+            z-index: 1001;
+            border: 1px solid var(--accent-color);
+        }
+        .dock-item {
+            color: var(--accent-color);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 9 Limited-Time Offer Popup */
+        #promo-popup {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; color: black;
+            padding: 40px; border-radius: 15px; z-index: 2000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        #promo-popup button {
+            background: var(--primary-color); color: white;
+            padding: 10px 20px; border: none; border-radius: 5px;
+            cursor: pointer;
+        }
+        .overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1999;
+        }
+
+        /* Custom AI Icons placeholder classes */
+        .icon-package { /* Custom AI designed package icon */ }
+        .icon-trust { /* Custom AI designed trust icon */ }
+        .icon-nervous { /* Custom AI designed nervous specialist icon */ }
+
     </style>
 </head>
-<body class="text-slate-900"> <nav class="sticky top-0 z-50 glass border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <div class="logo-wrap">
-                    TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
-                </div>
-            </div>
-            
-            <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-widest">
-                <a href="#services" class="hover:text-[var(--brand-red)] transition">Tuition</a>
-                <a href="#pricing" class="hover:text-[var(--brand-red)] transition">Pricing</a>
-                <a href="tel:+447752892178" class="hover:text-[var(--brand-red)] transition">07752 892178</a>
-                <a href="#booking" class="btn-red px-6 py-3 rounded-sm shadow-lg">Book Lesson</a>
-            </div>
+<body>
 
-            <button id="menu-btn" class="md:hidden text-[var(--brand-navy)]">
-                <i data-lucide="menu" class="w-8 h-8"></i>
-            </button>
-        </div>
-    </nav>
+<header class="header">
+    <div class="logo">Driving School</div>
+    <ul class="nav-links">
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#areas">Areas</a></li>
+        <li><a href="#trust">Why Us</a></li>
+        <li><a href="#pass">Passes</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    </header>
 
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full sm:w-80 bg-[var(--brand-navy)] z-[100] p-10 flex flex-col shadow-2xl">
-        <button id="close-btn" class="self-end text-white mb-12">
-            <i data-lucide="x" class="w-10 h-10"></i>
-        </button>
-        <div class="flex flex-col space-y-8 text-white font-black text-2xl uppercase tracking-tighter">
-            <a href="#services" class="mobile-link">Tuition</a>
-            <a href="#pricing" class="mobile-link">Pricing</a>
-            <a href="tel:+447752892178" class="mobile-link">Call Tony</a>
-            <a href="#booking" class="text-red-500 mobile-link">Book Online</a>
-        </div>
-        <div class="mt-auto border-t border-white/10 pt-8">
-            <div class="flex space-x-6 text-white/50">
-                <i data-lucide="facebook"></i>
-                <i data-lucide="instagram"></i>
-                <i data-lucide="twitter"></i>
-            </div>
+<section class="hero">
+    <div class="hero-content" data-aos="fade-right">
+        <h1 class="hero-title">Learn to Drive<br>with Confidence</h1>
+        <button class="hero-cta" href="#booking">Reserve First Lesson</button>
+    </div>
+    
+    <div class="text-slider" data-aos="fade-left">
+        <div class="text-slider-inner" id="text-slider-inner">
+            <div class="text-slider-item">15 Years Experience</div>
+            <div class="text-slider-item">Established 2005</div>
+            <div class="text-slider-item">Free Theory Training</div>
+            <div class="text-slider-item">High Pass Rates</div>
+            <div class="text-slider-item">Nervous Specialists</div>
         </div>
     </div>
 
-    <div class="ticker-wrap font-bold uppercase text-[10px] tracking-[0.2em]">
-        <div class="ticker space-x-16">
-            <span>★ DVSA Approved</span>
-            <span>★ Established 2005</span>
-            <span>★ First-Time Pass Experts</span>
-            <span>★ TS-387 Certified</span>
+    <div class="hero-slider">
+        <div class="slider-item branded-car-img active" style="z-index: 1;"></div>
+    </div>
+</section>
+
+<section id="packages">
+    <h2 class="section-title">Buy Now - Lesson Packages</h2>
+    <div class="packages-grid">
+        <div class="package-card" data-aos="fade-up">
+            <div class="package-name">Starter Package (1 Lesson)</div>
+            <div class="package-price">£50</div>
+            <ul class="package-features">
+                <li>Initial driving assessment</li>
+                <li>Pick up & Drop off</li>
+            </ul>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <div class="package-cardmost-popular" data-aos="fade-up" data-aos-delay="100">
+            <div class="package-name">Intensive Package (10 Lessons)</div>
+            <div class="package-price">£450</div>
+            <ul class="package-features">
+                <li>Intensive 1-week/2-week courses</li>
+                <li>DVSA DVSA Approved instruction</li>
+            </ul>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
+        </div>
+</section>
+
+<section id="booking" data-aos="fade-up">
+    <h2 class="section-title">Large Booking with Calendar</h2>
+    <iframe class="booking-iframe" src="https://calendly.com/" title="Booking Calendar"></iframe>
+</section>
+
+<section id="lessons">
+    <h2 class="section-title">Automatic vs Manual Lessons</h2>
+    <div class="lesson-types">
+        <div class="lesson-type-card" data-aos="fade-up">
+            <h3>Manual Lessons</h3>
+            <p>Master the control of the gear shift.</p>
+            <div class="bonus-services">Also covers: Motorway, Parking, Parallel Parking, Bay Parking.</div>
+        </div>
+        <div class="lesson-type-card" data-aos="fade-up" data-aos-delay="100">
+            <h3>Automatic Lessons</h3>
+            <p>Simplified control, focus on the road.</p>
+            <div class="bonus-services">Also covers: Motorway, Parking, Parallel Parking, Bay Parking.```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Ticket Driving School - Premium Driving Lessons</title>
+    <link href="[https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap)" rel="stylesheet">
+    <link href="[https://unpkg.com/aos@2.3.1/dist/aos.css](https://unpkg.com/aos@2.3.1/dist/aos.css)" rel="stylesheet">
+    <style>
+        /* Exact branding colors from image_0.png */
+        :root {
+            --primary-color: #8c0a1a; /* Deep Red from the background top */
+            --secondary-color: #06403d; /* Dark Green from the car area */
+            --accent-color: #f7ca45; /* Yellow from the SEND button */
+            --light-bg-color: #fcebe6; /* Pale pinkish-peach from the form fields */
+            --text-color: #ffffff; /* General text on dark background */
+            --text-dark-color: #333333; /* Text on light background */
+            --form-border-color: rgba(255, 255, 255, 0.3);
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+        }
+
+        /* 22 Sticky Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(140, 10, 26, 0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--form-border-color);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 1 Top Section Hero Slider & Contact Text Slider */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color) 40%, var(--secondary-color) 80%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 80px; /* for header */
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: relative;
+        }
+
+        .slider-item {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slider-item.active {
+            opacity: 1;
+        }
+
+        .slider-item img {
+            width: 80%; /* Match image_0.png scale */
+            height: auto;
+            max-width: 1000px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        /* Branded custom AI image */
+        .branded-car-img {
+            /* Placeholder for a premium, custom AI generated Mini Cooper */
+            content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 800 600"><rect width="800" height="600" fill="%2306403d"/><text x="400" y="300" text-anchor="middle" font-size="24" fill="white">CUSTOM AI CAR GRAPHIC</text></svg>');
+        }
+
+        .text-slider {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 200px;
+            text-align: right;
+        }
+
+        .text-slider-inner {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s ease;
+        }
+
+        .text-slider-item {
+            min-height: 20px;
+            white-space: nowrap;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 40%;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-title {
+            font-size: 72px; /* Large, premium */
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            text-transform: capitalize;
+        }
+
+        /* 37 Highlighted Hero Call-to-Action Banner */
+        .hero-cta {
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .hero-cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* Section generic styles */
+        section {
+            padding: 100px 50px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* 3 Buy Now Lesson Packages (Most Important) - buy now */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--form-border-color);
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px);
+        }
+
+        .package-card.most-popular {
+            border: 2px solid var(--accent-color);
+            background: linear-gradient(135deg, rgba(247, 202, 69, 0.1), rgba(6, 64, 61, 0.1));
+        }
+
+        .package-name { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+        .package-price { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); }
+        .package-features { list-style: none; padding: 0; margin-bottom: 30px; }
+        .package-features li { margin-bottom: 10px; font-size: 16px; opacity: 0.8; }
+
+        .buy-now-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* 2 Large Booking with Calendar Integration */
+        .booking-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        /* 4 Automatic vs Manual Lessons Section */
+        .lesson-types {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .lesson-type-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 15px;
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--form-border-color);
+        }
+
+        .lesson-type-card h3 { font-size: 28px; margin-bottom: 20px; }
+        .lesson-type-card p { opacity: 0.8; margin-bottom: 20px; }
+        
+        /* 42 Bonus services - embedded within lesson types */
+        .bonus-services { font-size: 14px; opacity: 0.6; text-align: left;}
+
+        /* 5 Areas Covered Section */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .area-item {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 11 Animated Stats Counter */
+        .stats-counter {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .stat-item { flex: 1; }
+        .stat-number { font-size: 60px; font-weight: 700; color: var(--accent-color); }
+        .stat-label { font-size: 18px; opacity: 0.8; }
+
+        /* 13 Pass Gallery Showcase */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--form-border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 21 Gallery Lightbox placeholder */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; }
+
+        /* 14 Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            border: 1px solid var(--form-border-color);
+        }
+
+        /* 15 Advanced Testimonials Slider */
+        .testimonials-slider {
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial-item {
+            min-width: 100%;
+            padding: 40px;
+            text-align: center;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .testimonial-item.active { opacity: 1; position: relative; }
+        .testimonial-text { font-size: 18px; line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+        .testimonial-author { font-weight: 600; color: var(--accent-color); }
+
+        /* 7 FAQ Toggle / Accordion */
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--form-border-color);
+            cursor: pointer;
+        }
+        .faq-question {
+            font-size: 20px;
+            font-weight: 600;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            padding: 0 20px;
+            opacity: 0.8;
+            font-size: 16px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* arbitrary large enough value */
+            padding-bottom: 20px;
+        }
+
+        /* 10 Subscribe Form */
+        .subscribe-form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .subscribe-form input[type="email"] {
+            width: calc(100% - 130px);
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+        .subscribe-form button {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Contact Section with exact colors from image_0.png */
+        .contact {
+            background: linear-gradient(0deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+
+        .contact-flex {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-text-area { flex: 1; }
+        .contact-form-area { flex: 1; text-align: right;}
+
+        /* Contact Us Text from Image */
+        .contact-headline {
+            font-size: 48px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+        }
+        .contact-p {
+            font-size: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Contact Form Fields from Image */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin-left: auto;
+        }
+        .contact-input, .contact-textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--form-border-color);
+            background-color: var(--light-bg-color); /* Exact color from image */
+            color: var(--text-dark-color);
+            font-size: 16px;
+        }
+        .contact-textarea { height: 100px; resize: none; }
+        
+        /* Send Button from Image */
+        .send-btn {
+            background-color: var(--accent-color); /* Exact color from image */
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .send-btn:hover { background-color: #ffd04f; }
+
+        /* Footer from Image */
+        .footer {
+            background-color: var(--secondary-color);
+            padding: 30px 50px;
+            text-align: left;
+            font-size: 16px;
+            border-top: 1px solid var(--form-border-color);
+        }
+        .footer-logo { font-size: 20px; font-weight: 600;}
+
+        /* 24 Bottom CTA Dock */
+        .cta-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            gap: 20px;
+            z-index: 1001;
+            border: 1px solid var(--accent-color);
+        }
+        .dock-item {
+            color: var(--accent-color);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 9 Limited-Time Offer Popup */
+        #promo-popup {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; color: black;
+            padding: 40px; border-radius: 15px; z-index: 2000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        #promo-popup button {
+            background: var(--primary-color); color: white;
+            padding: 10px 20px; border: none; border-radius: 5px;
+            cursor: pointer;
+        }
+        .overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1999;
+        }
+
+        /* Custom AI Icons placeholder classes */
+        .icon-package { /* Custom AI designed package icon */ }
+        .icon-trust { /* Custom AI designed trust icon */ }
+        .icon-nervous { /* Custom AI designed nervous specialist icon */ }
+
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Driving School</div>
+    <ul class="nav-links">
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#areas">Areas</a></li>
+        <li><a href="#trust">Why Us</a></li>
+        <li><a href="#pass">Passes</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    </header>
+
+<section class="hero">
+    <div class="hero-content" data-aos="fade-right">
+        <h1 class="hero-title">Learn to Drive<br>with Confidence</h1>
+        <button class="hero-cta" href="#booking">Reserve First Lesson</button>
+    </div>
+    
+    <div class="text-slider" data-aos="fade-left">
+        <div class="text-slider-inner" id="text-slider-inner">
+            <div class="text-slider-item">15 Years Experience</div>
+            <div class="text-slider-item">Established 2005</div>
+            <div class="text-slider-item">Free Theory Training</div>
+            <div class="text-slider-item">High Pass Rates</div>
+            <div class="text-slider-item">Nervous Specialists</div>
         </div>
     </div>
 
-    <section class="relative min-h-[70vh] flex flex-col items-center justify-center bg-white py-20 overflow-hidden">
-        <div class="w-full mb-16">
-            <div class="car-hero-container">
-                <div class="road-indicator"></div>
-                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" alt="Tony Shiels Driving School Car">
-            </div>
-        </div>
+    <div class="hero-slider">
+        <div class="slider-item branded-car-img active" style="z-index: 1;"></div>
+    </div>
+</section>
 
-        <div class="max-w-4xl mx-auto px-6 text-center z-20">
-            <div class="animate__animated animate__fadeInUp">
-                <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
-                    Pass with <span class="text-red-600">Precision.</span>
-                </h1>
-                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-10">Lincolnshire's Premier Driving Tuition</p>
-                
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#booking" class="px-12 py-5 btn-red font-black uppercase tracking-widest text-xs">Start Driving</a>
-                    <a href="tel:+447752892178" class="px-12 py-5 border-2 border-[var(--brand-navy)] text-[var(--brand-navy)] font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-navy)] hover:text-white transition">07752 892178</a>
-                </div>
-            </div>
+<section id="packages">
+    <h2 class="section-title">Buy Now - Lesson Packages</h2>
+    <div class="packages-grid">
+        <div class="package-card" data-aos="fade-up">
+            <div class="package-name">Starter Package (1 Lesson)</div>
+            <div class="package-price">£50</div>
+            <ul class="package-features">
+                <li>Initial driving assessment</li>
+                <li>Pick up & Drop off</li>
+            </ul>
+            <button class="buy-now-btn">Buy Now</button>
         </div>
-    </section>
+        <div class="package-cardmost-popular" data-aos="fade-up" data-aos-delay="100">
+            <div class="package-name">Intensive Package (10 Lessons)</div>
+            <div class="package-price">£450</div>
+            <ul class="package-features">
+                <li>Intensive 1-week/2-week courses</li>
+                <li>DVSA DVSA Approved instruction</li>
+            </ul>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
+        </div>
+</section>
 
-    <section class="py-24 bg-white border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="reveal">
-                <h2 class="text-4xl font-black uppercase tracking-tighter mb-6">Master the Road with <span class="text-red-600">Tony Shiels</span></h2>
-                <p class="text-slate-600 font-medium mb-6 leading-relaxed">Hi, I'm Tony. As a fully qualified ADI based in Kirton Lindsey, I provide professional, reliable, and patient instruction tailored to every skill level. From absolute beginners to refresher courses, my mission is to build safe, confident drivers for life.</p>
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="border-l-4 border-red-600 pl-4">
-                        <p class="text-2xl font-black text-[var(--brand-navy)]">Local</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-wrap">Kirton Lindsey & Surrounding Areas</p>
-                    </div>
-                    <div class="border-l-4 border-red-600 pl-4">
-                        <p class="text-2xl font-black text-[var(--brand-navy)]">Expert</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fully Qualified ADI</p>
-                    </div>
-                </div>
-            </div>
-            <div class="reveal bg-gradient-to-tr from-slate-100 to-white rounded-2xl h-80 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 relative overflow-hidden">
-                <div class="absolute inset-0 opacity-5 pointer-events-none">
-                    <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
-                </div>
-                <div class="w-32 h-32 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-red-600 mb-6 z-10">
-                    <svg viewBox="0 0 24 24" class="w-20 h-20 text-[var(--brand-navy)]" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 z-10">DVSA Grade A Instructor</p>
-                <div class="absolute bottom-4 right-4 bg-red-600 text-white p-2 rounded-full"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
-            </div>
-        </div>
-    </section>
+<section id="booking" data-aos="fade-up">
+    <h2 class="section-title">Large Booking with Calendar</h2>
+    <iframe class="booking-iframe" src="[https://calendly.com/](https://calendly.com/)" title="Booking Calendar"></iframe>
+</section>
 
-    <section id="services" class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter text-center mb-16">Custom <span class="text-red-600">Training Paths</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="service-grid-item p-8 bg-white">
-                    <i data-lucide="zap" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Guaranteed Success</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Systematic coaching designed for first-time pass excellence.</p>
-                </div>
-                <div class="service-grid-item p-8 bg-white">
-                    <i data-lucide="timer" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Intensive Lessons</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Rapid skill acquisition for learners on a tight schedule.</p>
-                </div>
-                <div class="service-grid-item p-8 bg-white">
-                    <i data-lucide="help-circle" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Safety Protocols</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Comprehensive "Show Me Tell Me" technical mastery.</p>
-                </div>
-                <div class="service-grid-item p-8 bg-white">
-                    <i data-lucide="file-check" class="text-red-600 mb-4"></i>
-                    <h3 class="font-black uppercase tracking-tight text-xl mb-2 text-wrap">Mock Test Audit</h3>
-                    <p class="text-xs text-slate-500 font-bold uppercase leading-relaxed">Full DVSA-standard simulation to ensure test-day readiness.</p>
-                </div>
-            </div>
+<section id="lessons">
+    <h2 class="section-title">Automatic vs Manual Lessons</h2>
+    <div class="lesson-types">
+        <div class="lesson-type-card" data-aos="fade-up">
+            <h3>Manual Lessons</h3>
+            <p>Master the control of the gear shift.</p>
+            <div class="bonus-services">Also covers: Motorway, Parking, Parallel Parking, Bay Parking.</div>
         </div>
-    </section>
+        <div class="lesson-type-card" data-aos="fade-up" data-aos-delay="100">
+            <h3>Automatic Lessons</h3>
+            <p>Simplified control, focus on the road.</p>
+            <div class="bonus-services">Also covers: Motorway, Parking, Parallel Parking, Bay Parking.</div>
+        </div>
+    </div>
+</section>
 
-    <section class="py-16 bg-[var(--brand-silver)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                <div class="reveal">
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat1">500+</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Stories</div>
-                </div>
-                <div class="reveal">
-                    <div class="text-5xl font-black text-red-600 mb-2" id="stat2">19+</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Years Active</div>
-                </div>
-                <div class="reveal">
-                    <div class="text-5xl font-black text-[var(--brand-navy)] mb-2" id="stat3">95%</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Pass Rate</div>
-                </div>
-                <div class="reveal">
-                    <div class="text-5xl font-black text-red-600 mb-2" id="stat4">100%</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">ADI Certified</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="areas">
+    <h2 class="section-title">Areas Covered</h2>
+    <div class="areas-grid" data-aos="fade-up">
+        <div class="area-item">Croydon</div>
+        <div class="area-item">Bromley</div>
+        <div class="area-item">Lewisham</div>
+        <div class="area-item">Greenwich</div>
+        <div class="area-item">South London</div>
+        <div class="area-item">And Surrounds...</div>
+    </div>
+</section>
 
-    <section class="py-24 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12">New <span class="text-red-600">Drivers</span></h2>
-            <div class="gallery-scroll">
-                <div class="gallery-item flex flex-col items-center justify-center p-4">
-                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Mahesh Nair Chenkayi Passed!</p>
-                </div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4">
-                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">First-Time Pass in Scunthorpe</p>
-                </div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4">
-                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Brigg Success Story</p>
-                </div>
-                <div class="gallery-item flex flex-col items-center justify-center p-4">
-                    <div class="w-full h-64 bg-slate-200 mb-4 rounded flex items-center justify-center"><i data-lucide="camera" class="text-white w-12 h-12"></i></div>
-                    <p class="font-black uppercase text-xs tracking-tighter">Lincoln Test Center Pass</p>
-                </div>
-            </div>
+<section id="trust">
+    <h2 class="section-title">Why Trust Our Instructors</h2>
+    <div class="features-grid">
+        <div class="feature-item" data-aos="fade-up">
+            <i class="icon-trust"></i>
+            DVSA Approved
         </div>
-    </section>
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+            <i class="icon-trust"></i>
+            Full Insurance
+        </div>
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+            <i class="icon-nervous"></i>
+            Nervous Drivers Specialist
+        </div>
+    </div>
+</section>
 
-    <section class="py-20 bg-[var(--brand-navy)] text-white">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div id="story-slider" class="slider-wrap">
-                <div class="slide active">
-                    <p class="text-2xl font-bold italic mb-4">"Awwww... thanks Mahesh! It was a pleasure teaching you. Precision driving at its best."</p>
-                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Tony Shiels - ADI Instructor</p>
-                </div>
-                <div class="slide">
-                    <p class="text-2xl font-bold italic mb-4">"Highly recommend Tony Shiels' Driving School. Patient, professional, and reliable instruction."</p>
-                    <p class="text-red-500 font-black uppercase tracking-widest text-xs">Mahesh Nair Chenkayi</p>
-                </div>
-            </div>
+<section>
+    <div class="stats-counter" id="stats-counter" data-aos="fade-up">
+        <div class="stat-item">
+            <div class="stat-number" data-count="500">0</div>
+            <div class="stat-label">Students Passed</div>
         </div>
-    </section>
+        <div class="stat-item">
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="95">0</div>
+            <div class="stat-label">First-Time Pass Rate %</div>
+        </div>
+    </div>
+</section>
 
-    <section id="pricing" class="py-32 bg-slate-50 border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 text-center mb-20">
-            <h2 class="text-5xl font-black uppercase tracking-tighter text-[var(--brand-navy)]">Training <span class="text-red-600">Investments</span></h2>
+<section id="pass">
+    <h2 class="section-title">Student Pass Gallery</h2>
+    <div class="gallery-grid" data-aos="fade-up">
+        <div class="gallery-item"><img src="data:image/svg+xml;charset=UTF-8,<svg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23f7ca45'/><text x='100' y='100' text-anchor='middle' fill='black'>AI PASS</text></svg>" alt="Pass 1"></div>
+        <div class="gallery-item"><img src="data:image/svg+xml;charset=UTF-8,<svg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23f7ca45'/><text x='100' y='100' text-anchor='middle' fill='black'>AI PASS</text></svg>" alt="Pass 2"></div>
         </div>
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
-            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Introductory Lesson</h4>
-                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£35</div>
-                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
-                    <li>★ Initial Skill Assessment</li>
-                    <li>★ Training Plan Design</li>
-                </ul>
-                <a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
-            </div>
-            <div class="reveal bg-white p-10 shadow-2xl border-t-8 border-red-600 relative scale-105 z-10">
-                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-1 text-[10px] font-black uppercase tracking-widest">Premium Value</div>
-                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Fast-Pass 20</h4>
-                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£680</div>
-                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
-                    <li>★ Accelerated Curriculum</li>
-                    <li>★ Priority Lesson Slots</li>
-                </ul>
-                <a href="tel:+447752892178" class="block text-center py-5 btn-red font-black uppercase tracking-widest text-[10px]">Enroll Now</a>
-            </div>
-            <div class="reveal bg-white p-10 shadow-xl border-t-8 border-slate-200">
-                <h4 class="text-xl font-bold mb-10 uppercase tracking-tighter">Skill Block 5</h4>
-                <div class="text-5xl font-black text-[var(--brand-navy)] mb-10">£180</div>
-                <ul class="space-y-4 mb-10 text-xs font-bold text-slate-400 uppercase tracking-widest text-left">
-                    <li>★ Targetted Manoeuvres</li>
-                    <li>★ Local Route Mastery</li>
-                </ul>
-                <a href="tel:+447752892178" class="block text-center py-5 bg-[var(--brand-navy)] text-white font-black uppercase tracking-widest text-[10px]">Call to Book</a>
-            </div>
-        </div>
-    </section>
+</section>
 
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-            <div>
-                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Verified <span class="text-red-600">Testimonials</span></h2>
-                <div class="bg-slate-50 p-8 rounded border border-slate-100 mb-4">
-                    <div class="flex text-yellow-400 mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
-                    <p class="font-bold text-slate-700 italic">"The most patient instructor I've ever had. Tony really cares about your progress."</p>
-                </div>
-            </div>
-            <div>
-                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8">Service <span class="text-red-600">Territory</span></h2>
-                <div class="bg-slate-100 p-8 rounded border border-slate-200 flex flex-col justify-center items-center text-center">
-                    <i data-lucide="map-pin" class="text-red-600 w-10 h-10 mb-4"></i>
-                    <p class="font-black uppercase tracking-widest text-sm mb-2 text-[var(--brand-navy)]">Covering DN21 & Beyond</p>
-                    <p class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Lincoln • Gainsborough • Brigg • Scunthorpe • Kirton Lindsey</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section>
+    <h2 class="section-title">Watch Success Stories</h2>
+    <div class="video-grid" data-aos="fade-up">
+        <div class="video-placeholder">Lesson Preview Video</div>
+        <div class="video-placeholder">Instructor Intro Video</div>
+    </div>
+</section>
 
-    <section class="py-16 bg-red-600 text-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-black uppercase tracking-tight mb-4 text-white">The TS-387 Referral Engine</h2>
-            <p class="font-bold opacity-90 uppercase text-xs tracking-widest mb-8">Help a friend pass with precision and earn 1 FREE lesson on us.</p>
-            <button onclick="toggleReferModal()" class="px-8 py-4 bg-white text-red-600 font-black uppercase text-[10px] tracking-widest">Get Referral Details</button>
+<section id="testimonials">
+    <h2 class="section-title">Client Reviews</h2>
+    <div class="testimonials-slider" id="testimonials-slider" data-aos="fade-up">
+        <div class="testimonial-item active">
+            <p class="testimonial-text">"Passed first time! John was calm and amazing."</p>
+            <p class="testimonial-author">- Sarah P.</p>
         </div>
-    </section>
+        <div class="testimonial-item">
+            <p class="testimonial-text">"The best driving school in Lewisham. Worth every penny."</p>
+            <p class="testimonial-author">- Mike D.</p>
+        </div>
+    </div>
+</section>
 
-    <section id="callback" class="py-24 bg-[var(--brand-navy)] text-white">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Request a <span class="text-red-600">Call Back</span></h2>
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Consultation within 2 Hours</p>
-            </div>
-            <form class="space-y-4">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
-                    <input type="tel" placeholder="Phone Number" class="w-full bg-white/5 border border-white/10 p-5 font-bold text-xs uppercase focus:outline-none focus:border-red-600 transition">
-                </div>
-                <button type="submit" class="w-full btn-red py-6 font-black uppercase tracking-widest text-xs">Confirm Call Request</button>
+<section id="faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-accordion" data-aos="fade-up">
+        <div class="faq-item">
+            <div class="faq-question">How much do lessons cost? <i class="faq-icon">+</i></div>
+            <div class="faq-answer">Please see our packages section for transparent pricing. Automatic and manual lessons have different rates.</div>
+        </div>
+        </div>
+</section>
+
+<section>
+    <div class="subscribe-form" data-aos="fade-up">
+        <h3>Theory Help & Offers</h3>
+        <p>Subscribe for updates and theory test guidance.</p>
+        <form>
+            <input type="email" placeholder="Your Email Address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="contact-flex" data-aos="fade-up">
+        <div class="contact-text-area">
+            <h1 class="contact-headline">CONTACT US</h1>
+            <p class="contact-p">Contact us roday to schedule your first lesson!</p>
+        </div>
+        <div class="contact-form-area">
+            <form class="contact-form">
+                <input type="text" placeholder="Name" class="contact-input">
+                <input type="email" placeholder="Email Address" class="contact-input">
+                <input type="tel" placeholder="Phone" class="contact-input">
+                <textarea placeholder="Message" class="contact-textarea"></textarea>
+                <button type="submit" class="send-btn">SEND</button>
             </form>
         </div>
-    </section>
-
-    <section class="py-24 bg-slate-50">
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 text-center">Driver <span class="text-red-600">Knowledge Base</span></h2>
-            <div id="faq-container">
-                <div class="faq-item active">
-                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
-                        What is your primary training area?
-                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-slate-500 font-medium">I am based at York Road, Kirton, and cover Scunthorpe, Lincoln, Gainsborough, and Brigg.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="w-full py-6 flex justify-between items-center text-left font-black uppercase text-sm tracking-widest">
-                        How can I contact you directly?
-                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-slate-500 font-medium">You can call/WhatsApp me at +44 7752 892178 or email tonyshielsdriving@hotmail.com.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-[var(--brand-navy)] text-white pt-20 pb-32 border-t border-white/5"> <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="logo-wrap !text-white mb-8 md:mb-0">
-                    TONY SHIE<div class="l-plate-icon"><span>L</span></div>S
-                </div>
-                <div class="flex space-x-6">
-                    <a href="https://www.facebook.com/tonyshielsdrivingschool" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
-                        <i data-lucide="facebook" class="w-6 h-6"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
-                        <i data-lucide="instagram" class="w-6 h-6"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
-                        <i data-lucide="twitter" class="w-6 h-6"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition duration-500 text-white">
-                        <i data-lucide="youtube" class="w-6 h-6"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
-                <div class="text-center md:text-left">
-                    <p class="text-xl font-black tracking-tight">+44 7752 892178</p>
-                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">Fully Insured & Certified ADI System</p>
-                </div>
-                <p class="text-[9px] text-slate-500 font-black uppercase tracking-[0.4em]">&copy; 2026 TONY SHIELS ADI SYSTEM</p>
-            </div>
-        </div>
-    </footer>
-
-    <div id="referModal">
-        <div class="bg-white p-12 max-w-md w-full rounded-2xl relative animate__animated animate__zoomIn">
-            <button onclick="toggleReferModal()" class="absolute top-6 right-6 text-slate-400 hover:text-red-600 transition"><i data-lucide="x"></i></button>
-            <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
-                <i data-lucide="gift" class="w-10 h-10"></i>
-            </div>
-            <h3 class="text-2xl font-black uppercase tracking-tighter text-center mb-4">Refer & Earn <span class="text-red-600">Free Credit</span></h3>
-            <p class="text-slate-500 text-center font-medium mb-8 leading-relaxed">Help a friend start their journey with Tony Shiels. Once they book their first lesson, you'll receive 1 FREE hour of tuition on your next block.</p>
-            <button class="w-full btn-red py-5 font-black uppercase tracking-widest text-[10px]">Invite via WhatsApp</button>
-        </div>
     </div>
+</section>
 
-    <div class="cta-dock md:hidden">
-        <a href="tel:+447752892178"><i data-lucide="phone" class="w-5 h-5 mb-1"></i>CALL</a>
-        <a href="https://wa.me/447752892178"><i data-lucide="message-square" class="w-5 h-5 mb-1"></i>WHATSAPP</a>
-        <a href="sms:+447752892178"><i data-lucide="smartphone" class="w-5 h-5 mb-1"></i>TEXT</a>
-        <a href="#callback" class="bg-red-600 !border-none"><i data-lucide="clock" class="w-5 h-5 mb-1"></i>RECALL</a>
-    </div>
+<footer class="footer">
+    <div class="footer-logo">Driving School</div>
+    <div class="footer-credit">&copy; 2024 Driving School</div>
+</footer>
 
-    <script>
-        // CRITICAL: Ensure icons are created after DOM is fully ready
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+<div class="cta-dock" data-aos="fade-up" data-aos-offset="0">
+    <a href="tel:1234567890" class="dock-item">Call</a>
+    <a href="sms:1234567890" class="dock-item">Text</a>
+    <a href="#" class="dock-item">WhatsApp</a>
+    <a href="#booking" class="dock-item">Book Now</a>
+</div>
+
+<div id="lightbox"><img src="" alt="Lightbox image"></div>
+
+<div class="overlay" id="overlay"></div>
+<div id="promo-popup">
+    <h2>Limited Time Offer!</h2>
+    <p>First Lesson Only £25! Limited slots available.</p>
+    <button onclick="closePopup()">Claim Now</button>
+</div>
+
+<script src="[https://unpkg.com/aos@2.3.1/dist/aos.js](https://unpkg.com/aos@2.3.1/dist/aos.js)"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
+    // 1 Text Slider logic
+    const textInner = document.getElementById('text-slider-inner');
+    const textItems = document.querySelectorAll('.text-slider-item');
+    let textIndex = 0;
+    function slideText() {
+        textInner.style.transform = `translateY(${-textIndex * 20}px)`;
+        textIndex = (textIndex + 1) % textItems.length;
+    }
+    setInterval(slideText, 3000);
+
+    // 15 Testimonials Slider logic
+    const testimonialItems = document.querySelectorAll('.testimonial-item');
+    let testIndex = 0;
+    function slideTestimonials() {
+        testimonialItems[testIndex].classList.remove('active');
+        testIndex = (testIndex + 1) % testimonialItems.length;
+        testimonialItems[testIndex].classList.add('active');
+    }
+    setInterval(slideTestimonials, 6000);
+
+    // 7 FAQ Accordion logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('active');
         });
+    });
 
-        const menuBtn = document.getElementById('menu-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
-            lucide.createIcons(); 
-        });
-        closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active', 'animate__animated', 'animate__fadeInUp');
+    // 11 Stats Counter logic
+    const counters = document.querySelectorAll('.stat-number');
+    function startCounter() {
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const speed = target / 50; // adjust speed
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + speed);
+                    setTimeout(updateCount, 20);
+                } else {
+                    counter.innerText = target;
                 }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            if(!obj) return;
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start) + (end > 90 ? '%' : '+');
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-        
-        const statsObserver = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                animateValue('stat1', 0, 500, 2000);
-                animateValue('stat2', 0, 19, 2000);
-                animateValue('stat3', 0, 95, 2000);
-                animateValue('stat4', 0, 100, 2000);
-                statsObserver.unobserve(entries[0].target);
             }
+            updateCount();
         });
-        const statEl = document.getElementById('stat1');
-        if(statEl) statsObserver.observe(statEl);
-
-        document.querySelectorAll('.faq-item button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.parentElement.classList.toggle('active');
-            });
-        });
-
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        setInterval(() => {
-            if(slides.length > 0) {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }
-        }, 5000);
-
-        function toggleReferModal() {
-            document.getElementById('referModal').classList.toggle('active');
-            lucide.createIcons();
+    }
+    // Intersection Observer to start counter when in view
+    const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+            startCounter();
+            observer.disconnect(); // start once
         }
-    </script>
+    });
+    observer.observe(document.getElementById('stats-counter'));
+
+    // 9 Promo Popup logic
+    setTimeout(() => {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('promo-popup').style.display = 'block';
+    }, 10000); // show after 10s
+
+    function closePopup() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('promo-popup').style.display = 'none';
+    }
+
+</script>
 </body>
 </html>
