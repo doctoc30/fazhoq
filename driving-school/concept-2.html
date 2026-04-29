@@ -46,18 +46,33 @@
             margin-top: -2px;
         }
 
-        /* Slide & Pan Animation Logic */
+        /* Continuous Slow Pan Animation Logic */
         .car-hero-container {
             position: relative;
             z-index: 10;
-            /* Initial landing animation */
-            animation: landingSlide 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards, drive-vibration 3s ease-in-out infinite 1.2s;
-            will-change: transform;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: visible; /* Allows the overflow of the panned image */
+            animation: drive-vibration 3s ease-in-out infinite;
         }
         
-        @keyframes landingSlide {
-            0% { transform: translateX(-150%) scale(0.9); opacity: 0; }
-            100% { transform: translateX(0) scale(1); opacity: 1; }
+        #panningCar {
+            max-width: 700px;
+            width: 100%;
+            height: auto;
+            border: none; /* Removes any border */
+            border-radius: 0; /* Removes rounded corners */
+            box-shadow: none; /* Removes box shadow */
+            background-color: transparent; /* Ensures image background is isolated */
+            animation: continuousPan 15s linear infinite; /* Slow, continuous pan */
+            will-change: transform;
+        }
+
+        @keyframes continuousPan {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(150px); } /* Pan to the right */
+            100% { transform: translateX(0px); } /* Pan back to start */
         }
 
         @keyframes drive-vibration {
@@ -133,9 +148,8 @@
         <div class="max-w-4xl mx-auto px-6 text-center overflow-visible">
             
             <div id="heroCar" class="car-hero-container mb-12">
-                <img src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
-                     alt="Tony Shiels Driving School Car" 
-                     class="w-full max-w-[700px] mx-auto rounded-3xl border-8 border-slate-50 shadow-2xl">
+                <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
+                     alt="Tony Shiels Driving School Car">
                 <div class="road-indicator"></div>
             </div>
 
@@ -251,15 +265,7 @@
     <script>
         lucide.createIcons();
 
-        // Scroll-to-Pan Parallax Logic
-        window.addEventListener('scroll', () => {
-            const car = document.getElementById('heroCar');
-            const scrollValue = window.scrollY;
-            // Moves the car horizontally as you scroll (Pan effect)
-            // Limit the movement so it doesn't leave the screen
-            const panAmount = Math.min(scrollValue * 0.5, 400); 
-            car.style.transform = `translateX(${panAmount}px)`;
-        });
+        // The Scroll-to-Pan logic is removed to allow the new continuous animation
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
