@@ -51,17 +51,18 @@
             position: relative;
             z-index: 10;
             width: 100%;
+            height: clamp(150px, 25vh, 300px); /* Responsive height for zoom stability */
             display: flex;
             justify-content: center;
-            overflow: visible; 
-            /* Vibration effect layer */
+            overflow: hidden; /* Changed to hidden to contain the moving track */
             animation: drive-vibration 3s ease-in-out infinite;
         }
         
         #panningCar {
             max-width: 700px;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
             border: none; 
             border-radius: 0; 
             box-shadow: none; 
@@ -69,13 +70,14 @@
             /* Constant one-way motion */
             animation: continuousForward 12s linear infinite; 
             will-change: transform;
-            /* Removes Watermark by clipping the bottom 8% */
-            clip-path: inset(0 0 8% 0);
+            /* STRICT WATERMARK REMOVAL: Crop bottom 10% and scale up slightly */
+            clip-path: inset(0 0 10% 0);
+            transform: scale(1.1);
         }
 
         @keyframes continuousForward {
-            0% { transform: translateX(-120%); }
-            100% { transform: translateX(120%); }
+            0% { transform: translateX(-120%) scale(1.1); }
+            100% { transform: translateX(120%) scale(1.1); }
         }
 
         @keyframes drive-vibration {
@@ -87,10 +89,10 @@
         /* Responsive Landscape Fix */
         @media (orientation: landscape) and (max-height: 500px) {
             section.relative.min-h-\[85vh\] {
-                min-height: 120vh; /* Allow enough space for content to stack */
-                padding-top: 60px;
+                min-height: 140vh !important; /* Increased for landscape zoom/scroll space */
+                padding-top: 80px;
             }
-            h1 { font-size: 3rem !important; }
+            h1 { font-size: 2.5rem !important; }
         }
 
         .road-indicator {
@@ -156,14 +158,14 @@
         </div>
     </div>
 
-    <section class="relative min-h-[85vh] flex flex-col items-center justify-center bg-white py-12">
+    <section class="relative min-h-[100svh] flex flex-col items-center justify-center bg-white py-12">
         <div class="max-w-4xl mx-auto px-6 text-center overflow-visible">
             
             <div id="heroCar" class="car-hero-container mb-12">
                 <img id="panningCar" src="https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/tony.jpg" 
                      alt="Tony Shiels Driving School Car">
-                <div class="road-indicator"></div>
             </div>
+            <div class="road-indicator"></div>
 
             <div class="animate__animated animate__fadeInUp animate__delay-1s">
                 <h1 class="text-5xl md:text-7xl font-black text-[var(--brand-navy)] leading-tight mb-4 uppercase tracking-tighter">
