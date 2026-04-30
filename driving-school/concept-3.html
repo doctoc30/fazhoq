@@ -34,7 +34,7 @@
         .btn-outline { border: 2px solid var(--accent); color: var(--accent); }
 
         /* STICKY NAV */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--primary); z-index: 1000; transition: var(--transition); }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--primary); z-index: 1000; transition: var(--transition); border: none; }
         nav.scrolled { padding: 12px 8%; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
         .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
@@ -133,7 +133,7 @@
         .gallery-item:hover { transform: scale(0.98); opacity: 0.8; }
 
         /* STICKY BOTTOM DOCK */
-        .bottom-dock { position: fixed; bottom: 0; width: 100%; background: var(--primary); display: flex; justify-content: space-around; padding: 12px; z-index: 999; border-top: 3px solid var(--accent); }
+        .bottom-dock { position: fixed; bottom: 0; width: 100%; background: var(--primary); display: flex; justify-content: space-around; padding: 12px; z-index: 999; border-top: none; }
         .dock-item { color: var(--white); text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; gap: 5px; }
         .dock-item i { color: var(--accent); font-size: 1.2rem; }
 
@@ -169,6 +169,7 @@
                 box-shadow: -10px 0 20px rgba(0,0,0,0.2);
             }
             .nav-links.active { right: 0; }
+            .social-icons { justify-content: center !important; }
         }
     </style>
 </head>
@@ -504,7 +505,7 @@
             <div>
                 <div class="footer-logo"><b>DRIVING SCHOOL</b></div>
                 <p>Joe's London Establishment Tuition. DVSA Grade A Instructor. Teaching safe drivers since 2014.</p>
-                <div style="margin-top: 25px; display: flex; gap: 15px;">
+                <div class="social-icons" style="margin-top: 25px; display: flex; gap: 15px;">
                     <i class="fab fa-facebook fa-2x"></i>
                     <i class="fab fa-instagram fa-2x"></i>
                     <i class="fab fa-tiktok fa-2x"></i>
