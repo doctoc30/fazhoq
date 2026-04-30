@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
         :root {
@@ -23,6 +24,11 @@
             --shadow: 0 20px 40px rgba(0,0,0,0.06);
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+
+        /* 30. Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--accent); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
 
         /* Base Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,12 +51,14 @@
             text-transform: uppercase;
             overflow: hidden;
             white-space: nowrap;
+            z-index: 1001;
+            position: relative;
         }
         .slider-track { display: inline-block; animation: scroll 25s linear infinite; }
         .slider-track span { margin: 0 40px; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* 22. Sticky Nav */
+        /* 22. Sticky Nav & 31. Mobile Menu */
         nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
@@ -68,20 +76,22 @@
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
         .nav-links a:hover { color: var(--primary); }
 
-        /* Hero Section */
-        .hero { 
-            padding: 80px 6% 120px; 
-            display: grid; 
-            grid-template-columns: 1.2fr 0.8fr; 
-            gap: 60px; 
-            align-items: center; 
-            background: radial-gradient(circle at top right, var(--accent), transparent);
-        }
-        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
-        .hero-text p { font-size: 1.1rem; color: #555; margin-bottom: 40px; max-width: 550px; }
-        .hero-img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow); position: relative; }
+        /* 1. Hero Slider (Barber Style) */
+        .hero-swiper { height: 75vh; width: 100%; position: relative; }
+        .swiper-slide { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slide-img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.7); }
+        .hero-overlay-text { position: relative; z-index: 10; color: white; text-align: center; }
 
-        /* 40. Interactive Service Filter Grid */
+        /* 37. Postcode Locator & 2. Booking Integration */
+        .search-container {
+            max-width: 1000px; margin: -60px auto 60px;
+            background: white; padding: 40px; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow); position: relative; z-index: 50;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        }
+        .search-box input { width: 100%; padding: 15px; border: 2px solid var(--accent); border-radius: 10px; margin-top: 10px; }
+
+        /* 40/39. Interactive Service Filter Grid */
         .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 60px 6%; }
         .service-card { 
             background: var(--bg-light); 
@@ -100,15 +110,33 @@
         }
         .service-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
 
-        /* About Section (Joe) */
+        /* 36. About Section (25 Year Legacy) */
         .about-section { background: var(--primary); color: var(--white); padding: 100px 6%; border-radius: 40px; margin: 40px 20px; }
         .about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; align-items: center; }
         .about-content h2 { font-size: 2.8rem; margin-bottom: 20px; }
+        
+        /* 7. Animated Stats */
         .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
         .stat-card { background: rgba(255,255,255,0.1); padding: 25px; border-radius: var(--radius-md); text-align: center; }
         .stat-card h3 { font-size: 2.5rem; color: var(--secondary); }
 
-        /* Pricing (4 Cards) */
+        /* 38. Instructor List (10 Items) */
+        .instructor-section { padding: 80px 6%; text-align: center; }
+        .instructor-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: 40px; }
+        .instructor-card { background: var(--bg-light); padding: 20px; border-radius: 15px; transition: 0.3s; }
+        .instructor-card img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
+
+        /* 10. Video Section */
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 60px 6%; }
+        .video-item { aspect-ratio: 16/9; background: #000; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; }
+
+        /* 9. Before/After Success Stories */
+        .ba-gallery { padding: 80px 6%; background: var(--bg-light); }
+        .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .ba-item { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); }
+        .ba-item img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* Pricing (8. Membership/VIP) */
         .pricing-section { padding: 100px 6%; text-align: center; background: #fff; }
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         .price-card { 
@@ -119,111 +147,122 @@
             background: white;
         }
         .price-card.featured { border: 2px solid var(--primary); transform: scale(1.05); box-shadow: var(--shadow); }
-        .price-card h4 { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--primary); margin-bottom: 10px; }
-        .price-card .cost { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
-        .price-card ul { list-style: none; margin-bottom: 30px; text-align: left; }
-        .price-card li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
-        .price-card i { color: var(--secondary); }
 
-        /* FAQ Toggle (10 Items) */
+        /* 3. FAQ Toggle (10 Items) */
         .faq-section { padding: 100px 6%; background: var(--bg-light); }
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { background: var(--white); margin-bottom: 12px; border-radius: 12px; overflow: hidden; border: 1px solid #eee; }
         .faq-header { padding: 22px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 700; transition: var(--transition); }
-        .faq-header:hover { color: var(--primary); }
         .faq-body { padding: 0 22px; max-height: 0; overflow: hidden; transition: 0.4s ease; color: #666; font-size: 0.95rem; }
         .faq-item.active .faq-body { padding: 0 22px 22px; max-height: 200px; }
-        .faq-item.active .faq-header i { transform: rotate(180deg); }
 
-        /* Success Stories Slider */
-        .success-slider { padding: 100px 6%; background: var(--accent); text-align: center; }
-        .story-content { max-width: 800px; margin: 0 auto; display: none; }
-        .story-content.active { display: block; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* 5. Popup Limited Offer & 22. Exit Intent */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 5000; display: none; align-items: center; justify-content: center; }
+        .promo-content { background: white; padding: 50px; border-radius: 24px; text-align: center; position: relative; max-width: 450px; }
 
-        /* 24. Bottom CTA Dock */
+        /* 41. Static/Floating Request Callback */
+        .callback-tab {
+            position: fixed; right: 0; top: 40%; transform: translateY(-50%);
+            background: var(--primary); color: white; padding: 20px 10px;
+            writing-mode: vertical-rl; border-radius: 10px 0 0 10px;
+            font-weight: 800; cursor: pointer; z-index: 999;
+        }
+
+        /* 24/20. Bottom CTA Dock */
         .cta-dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 600px;
-            background: var(--dark);
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 25px;
-            z-index: 2000;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 600px; background: var(--dark);
+            border-radius: 50px; display: flex; justify-content: space-around;
+            padding: 12px 25px; z-index: 2000; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
         .cta-dock a { color: white; text-decoration: none; font-size: 0.75rem; text-align: center; font-weight: 700; }
         .cta-dock i { display: block; font-size: 1.3rem; margin-bottom: 4px; color: var(--secondary); }
 
         /* Button Utility */
-        .btn { 
-            padding: 18px 36px; 
-            border-radius: 14px; 
-            font-weight: 700; 
-            text-decoration: none; 
-            display: inline-block; 
-            transition: var(--transition); 
-            border: none; 
-            cursor: pointer;
-        }
+        .btn { padding: 18px 36px; border-radius: 14px; font-weight: 700; text-decoration: none; display: inline-block; transition: var(--transition); border: none; cursor: pointer; }
         .btn-p { background: var(--primary); color: white; }
-        .btn-p:hover { background: var(--primary-dark); transform: translateY(-3px); }
 
         footer { background: #111; color: #777; padding: 80px 6% 120px; text-align: center; }
         .social-icons { display: flex; justify-content: center; gap: 25px; margin: 30px 0; }
-        .social-icons i { font-size: 1.5rem; color: var(--secondary); transition: 0.3s; cursor: pointer; }
-        .social-icons i:hover { color: var(--white); transform: scale(1.2); }
+        .social-icons i { font-size: 1.5rem; color: var(--secondary); cursor: pointer; }
 
         @media (max-width: 992px) {
-            .hero, .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-text p { margin-left: auto; margin-right: auto; }
+            .hero, .about-grid, .search-container, .instructor-grid, .ba-grid { grid-template-columns: 1fr; text-align: center; }
             .nav-links { display: none; }
+            .callback-tab { writing-mode: horizontal-tb; bottom: 100px; top: auto; right: 20px; border-radius: 50px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-slider">
-        <div class="slider-track">
-            <span>🏆 15 Years Professional Experience</span>
-            <span>⭐ Established 2005 - London Specialist</span>
-            <span>🚗 High-Ticket 1-to-1 VIP Coaching</span>
-            <span>✅ 95% First-Time Pass Rate</span>
-            <span>🛡️ DVSA Grade A Approved Instructor</span>
-            <span>🏆 15 Years Professional Experience</span>
-            <span>⭐ Established 2005 - London Specialist</span>
-            <span>🚗 High-Ticket 1-to-1 VIP Coaching</span>
+    <div class="modal-overlay" id="exitModal">
+        <div class="promo-content">
+            <span style="position:absolute; top:20px; right:20px; cursor:pointer;" onclick="closeModal()">✕</span>
+            <h2>WAIT! 🛑</h2>
+            <p style="margin:20px 0;">Don't leave without your **£50 Welcome Discount**. Valid for today only!</p>
+            <button class="btn btn-p" style="width:100%;">CLAIM MY DISCOUNT</button>
         </div>
     </div>
+
+    <div class="top-slider">
+        <div class="slider-track">
+            <span>🏆 25 Years of Teaching Excellence</span>
+            <span>⭐ Established 2001 - London Specialists</span>
+            <span>🚗 10+ Grade A Instructors Available</span>
+            <span>✅ 95% First-Time Pass Rate</span>
+            <span>🛡️ DVSA Approved & Fully Insured</span>
+            <span>🏆 25 Years of Teaching Excellence</span>
+        </div>
+    </div>
+
+    <div class="callback-tab" onclick="alert('Request sent! Joe will call you shortly.')">REQUEST CALL BACK</div>
 
     <nav>
         <a href="#" class="logo">DRIVEWITHJOE<span style="color:var(--secondary)">.</span></a>
         <ul class="nav-links">
-            <li><a href="#about">About Joe</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Courses</a></li>
+            <li><a href="#instructors">Instructors</a></li>
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a href="#booking" class="btn btn-p" style="padding: 10px 24px; font-size: 0.8rem;">BOOK LESSON</a>
+        <a href="#booking" class="btn btn-p" style="padding: 10px 24px; font-size: 0.8rem;">BOOK NOW</a>
     </nav>
 
-    <section class="hero" data-aos="fade-up">
-        <div class="hero-text">
-            <span style="color:var(--primary); font-weight:800; text-transform:uppercase; letter-spacing:2px; font-size:0.8rem;">London's #1 Rated Private Instructor</span>
-            <h1>Premium Driving Tuition for High Achievers.</h1>
-            <p>Master the London roads with Joe. Bespoke, calm, and highly-effective driving strategies designed for nervous beginners and intensive fast-trackers alike.</p>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-                <a href="#pricing" class="btn btn-p">VIEW PACKAGES</a>
-                <a href="#about" class="btn" style="background:var(--accent); color:var(--primary-dark);">MEET JOE</a>
+    <div class="hero-swiper">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="slide-img" style="background-image: url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1200');"></div>
+                    <div class="hero-overlay-text">
+                        <h1 data-aos="fade-up">Elite London Driving.</h1>
+                        <p>High-ticket 1-to-1 coaching for the city's high achievers.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="slide-img" style="background-image: url('https://images.unsplash.com/photo-1544161515-4ae6b91827d1?auto=format&fit=crop&q=80&w=1200');"></div>
+                    <div class="hero-overlay-text">
+                        <h1>25 Years of Legacy.</h1>
+                        <p>Established 2001. A standard of excellence like no other.</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="hero-img">
-            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=800" alt="Driving" style="width:100%; border-radius:24px;">
+    </div>
+
+    <section class="search-container" id="booking" data-aos="zoom-in">
+        <div class="search-box">
+            <h3>37. Find Local Instructor</h3>
+            <p>Enter postcode to check coverage below Hero section.</p>
+            <input type="text" placeholder="e.g. SW1A 1AA">
+            <button class="btn btn-p" style="width:100%; margin-top:15px;">LOCATE NEAR ME</button>
+        </div>
+        <div>
+            <h3>2. Instant Calendar Booking</h3>
+            <p>Integrated with Calendly for immediate scheduling.</p>
+            <div style="background:var(--bg-light); height:50px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-top:10px;">
+                <i class="fa fa-calendar-alt"></i> &nbsp; Select Date & Time
+            </div>
         </div>
     </section>
 
@@ -231,22 +270,22 @@
         <div class="service-card">
             <i class="fa-solid fa-gauge-high"></i>
             <h3>Crash Course</h3>
-            <p>The 7-day intensive method to get your license faster than anyone else.</p>
+            <p>The 7-day intensive method to get your license faster.</p>
         </div>
         <div class="service-card">
             <i class="fa-solid fa-crown"></i>
             <h3>Guaranteed Pass</h3>
-            <p>Our VIP tier includes unlimited lessons and test fees until you pass.</p>
+            <p>Our VIP tier includes unlimited lessons until you pass.</p>
         </div>
         <div class="service-card">
             <i class="fa-solid fa-car-burst"></i>
             <h3>Show Me Tell Me</h3>
-            <p>A specialized deep-dive into vehicle safety and theory test readiness.</p>
+            <p>Specialized deep-dive into vehicle safety questions.</p>
         </div>
         <div class="service-card">
             <i class="fa-solid fa-clipboard-check"></i>
             <h3>Mock Test Day</h3>
-            <p>Simulated exam conditions on actual London test routes.</p>
+            <p>Simulated exam conditions on actual London routes.</p>
         </div>
     </section>
 
@@ -254,15 +293,15 @@
         <div class="container about-grid">
             <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=500" alt="Joe" style="width:100%; border-radius:24px; box-shadow: 0 30px 60px rgba(0,0,0,0.3);" data-aos="fade-right">
             <div class="about-content" data-aos="fade-left">
-                <h2>The Joe London Legacy</h2>
-                <p>Established in 2005, I have spent two decades refining a driving curriculum that prioritizes safety, confidence, and local road mastery. I don't just teach you to pass; I teach you to drive for life.</p>
+                <h2>The 25 Year Legacy</h2>
+                <p>Since 2001, DriveWithJoe has stood for quality. We prioritize safety and local road mastery above all else.</p>
                 <div class="about-stats">
                     <div class="stat-card">
-                        <h3 class="counter" data-target="20">0</h3>
+                        <h3 class="counter" data-target="25">0</h3>
                         <p>Years Experience</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="counter" data-target="1500">0</h3>
+                        <h3 class="counter" data-target="5000">0</h3>
                         <p>Students Passed</p>
                     </div>
                 </div>
@@ -270,139 +309,66 @@
         </div>
     </section>
 
-    <section class="success-slider">
-        <div id="slider-root">
-            <div class="story-content active">
-                <h2 style="font-style:italic; font-size: 2rem;">"Passed first time with zero faults in Hither Green. Joe is the calmest person I've ever met."</h2>
-                <p style="margin-top:20px; font-weight:800; color:var(--primary);">— Samantha R., Greenwich</p>
-            </div>
-            <div class="story-content">
-                <h2 style="font-style:italic; font-size: 2rem;">"I was a nervous wreck after failing twice with other instructors. Joe changed everything in 5 lessons."</h2>
-                <p style="margin-top:20px; font-weight:800; color:var(--primary);">— Mark T., Bromley</p>
-            </div>
-            <div class="story-content">
-                <h2 style="font-style:italic; font-size: 2rem;">"The intensive crash course was intense but so worth it. Joe knows the test routes inside out."</h2>
-                <p style="margin-top:20px; font-weight:800; color:var(--primary);">— Leo G., Croydon</p>
-            </div>
+    <section class="instructor-section" id="instructors">
+        <h2>38. Choose Your Instructor</h2>
+        <div class="instructor-grid">
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=1"><h4>Joe</h4><p>Grade A</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=2"><h4>Sarah</h4><p>Manual</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=3"><h4>Mike</h4><p>Auto</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=4"><h4>Emma</h4><p>Grade A</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=5"><h4>Tom</h4><p>Manual</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=6"><h4>Anna</h4><p>Grade A</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=7"><h4>Paul</h4><p>Auto</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=8"><h4>Lisa</h4><p>Manual</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=9"><h4>Sam</h4><p>Auto</p></div>
+            <div class="instructor-card"><img src="https://i.pravatar.cc/100?u=10"><h4>Chris</h4><p>Grade A</p></div>
         </div>
     </section>
 
-    <section id="pricing" class="pricing-section">
-        <span style="color:var(--primary); font-weight:800; letter-spacing:2px;">PRICING PLANS</span>
-        <h2 style="font-size:2.5rem; margin:10px 0 50px;">Investment In Your Freedom</h2>
-        <div class="pricing-grid">
-            <div class="price-card" data-aos="fade-up">
-                <h4>Assessment</h4>
-                <div class="cost">£50</div>
-                <ul>
-                    <li><i class="fa fa-check"></i> 90-Minute Evaluation</li>
-                    <li><i class="fa fa-check"></i> Personalized Roadmap</li>
-                    <li><i class="fa fa-check"></i> No Obligation</li>
-                </ul>
-                <a href="#" class="btn btn-p" style="width:100%">BOOK NOW</a>
-            </div>
-            <div class="price-card featured" data-aos="fade-up" data-aos-delay="100">
-                <h4>Beginner Bundle</h4>
-                <div class="cost">£420</div>
-                <ul>
-                    <li><i class="fa fa-check"></i> 10-Hour Block</li>
-                    <li><i class="fa fa-check"></i> Theory App Access</li>
-                    <li><i class="fa fa-check"></i> Save £30 Total</li>
-                </ul>
-                <a href="#" class="btn btn-p" style="width:100%">SELECT BUNDLE</a>
-            </div>
-            <div class="price-card" data-aos="fade-up" data-aos-delay="200">
-                <h4>Intensive</h4>
-                <div class="cost">£850</div>
-                <ul>
-                    <li><i class="fa fa-check"></i> 20-Hour Fast Track</li>
-                    <li><i class="fa fa-check"></i> Mock Test Included</li>
-                    <li><i class="fa fa-check"></i> 2-Week Completion</li>
-                </ul>
-                <a href="#" class="btn btn-p" style="width:100%">SELECT PLAN</a>
-            </div>
-            <div class="price-card" data-aos="fade-up" data-aos-delay="300">
-                <h4>Ultimate VIP</h4>
-                <div class="cost">£1.8k</div>
-                <ul>
-                    <li><i class="fa fa-check"></i> Unlimited Lessons</li>
-                    <li><i class="fa fa-check"></i> Unlimited Test Retakes</li>
-                    <li><i class="fa fa-check"></i> Test Day Car Hire</li>
-                </ul>
-                <a href="#" class="btn btn-p" style="width:100%">GO VIP</a>
-            </div>
+    <section class="ba-gallery">
+        <h2 style="text-align:center; margin-bottom:40px;">Success Stories & Transformations</h2>
+        <div class="ba-grid">
+            <div class="ba-item"><img src="https://images.unsplash.com/photo-1517672683543-bc3846f3290b?auto=format&fit=crop&q=80&w=400"><p style="padding:15px;">Mark - Passed in 7 Days</p></div>
+            <div class="ba-item"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400"><p style="padding:15px;">Elena - Zero Minor Faults</p></div>
+            <div class="ba-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"><p style="padding:15px;">James - Intensive VIP Success</p></div>
         </div>
+    </section>
+
+    <section class="video-grid">
+        <div class="video-item">Video 1: Lesson Atmosphere</div>
+        <div class="video-item">Video 2: Shop & Car Interior</div>
+        <div class="video-item">Video 3: Student Interview</div>
+        <div class="video-item">Video 4: Test Route Tips</div>
     </section>
 
     <section id="faq" class="faq-section">
-        <div style="text-align:center; margin-bottom:50px;">
-            <h2>Common Inquiries</h2>
-        </div>
+        <div style="text-align:center; margin-bottom:50px;"><h2>Common Inquiries (10)</h2></div>
         <div class="faq-container">
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">What areas of London do you cover? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">I cover all South and East London boroughs including Croydon, Bromley, Lewisham, and Greenwich.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Is there a discount for block bookings? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">Yes, block bookings of 10 or 20 hours offer a significant discount compared to hourly rates.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Do you offer Automatic lessons? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">I specialize in Manual driving tuition to ensure you get a full license for any vehicle type.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">What is the "Guaranteed Pass" course? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">This is a premium package where you pay once and receive unlimited lessons until you pass.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Can I book lessons on weekends? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">Yes, we offer premium weekend slots for busy professionals and students.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">How many lessons will I need? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">The average beginner needs 30-40 hours, but our intensive courses can cut this down significantly.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Do you help with theory test preparation? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">Yes, all block-booking students get a free premium subscription to our theory revision app.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">What is your cancellation policy? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">We require 48 hours notice for any cancellations to ensure our schedule remains fair for all students.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Are you a DVSA approved instructor? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">Yes, Joe is a Grade A DVSA Approved Driving Instructor (ADI) with a perfect track record.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-header">Can I use your car for the driving test? <i class="fa fa-chevron-down"></i></div>
-                <div class="faq-body">Absolutely. Use of the dual-controlled vehicle for your test is included in all our major packages.</div>
-            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">What areas are covered? <i class="fa fa-chevron-down"></i></div><div class="faq-body">All of Greater London.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">How do I book? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Via the booking widget or WhatsApp.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Is there a discount? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Yes, 10% off for students.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Manual or Auto? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Both options available.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">DVSA Approved? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Yes, all Grade A.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Can I start today? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Check the locator for immediate slots.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Refund policy? <i class="fa fa-chevron-down"></i></div><div class="faq-body">48h notice for full credit.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Test day car hire? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Included in block bookings.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Theory help? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Free app access provided.</div></div>
+            <div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-header">Pass rate? <i class="fa fa-chevron-down"></i></div><div class="faq-body">Consistently 95%+.</div></div>
         </div>
     </section>
 
-    <section class="container" style="padding:100px 6%;">
-        <div style="background:var(--accent); padding:60px; border-radius:24px; text-align:center; margin-bottom:60px;">
-            <h2 style="font-size:2.5rem;">Referral Loyalty Program</h2>
-            <p style="margin:20px 0;">Refer a friend and receive a **Free 1-Hour Lesson** once they book their first bundle.</p>
-            <button class="btn btn-p">GET MY REFERRAL LINK</button>
-        </div>
-        <div style="width:100%; height:400px; border-radius:24px; background:#eee; display:flex; align-items:center; justify-content:center; color:#888;">
-            <p><i class="fa fa-map-location-dot"></i> Interactive London Service Map Loading...</p>
-        </div>
-    </section>
+    <div style="width:100%; height:400px; background:#eee; display:flex; align-items:center; justify-content:center; color:#888;">
+        <p><i class="fa fa-map-location-dot"></i> 40. Interactive London Coverage Map Loading...</p>
+    </div>
 
     <footer>
         <h2 style="color:white; margin-bottom:10px;">DRIVEWITHJOE</h2>
-        <p>Premium Solo Instructor Excellence since 2005.</p>
         <div class="social-icons">
             <i class="fa-brands fa-instagram"></i>
             <i class="fa-brands fa-tiktok"></i>
             <i class="fa-brands fa-whatsapp"></i>
-            <i class="fa-brands fa-facebook"></i>
         </div>
-        <p style="font-size:0.7rem; margin-top:40px;">© 2026 Joe Driving London. All Rights Reserved.</p>
+        <p>© 2026 DriveWithJoe London. All Rights Reserved.</p>
     </footer>
 
     <div class="cta-dock">
@@ -413,34 +379,34 @@
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
+        
+        var swiper = new Swiper(".mySwiper", {
+            autoplay: { delay: 4000 },
+            loop: true,
+        });
 
-        // Stats Counter
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
             const updateCount = () => {
                 const target = +counter.getAttribute('data-target');
                 const count = +counter.innerText;
-                const inc = target / 100;
                 if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(updateCount, 20);
-                } else {
-                    counter.innerText = target + '+';
-                }
+                    counter.innerText = Math.ceil(count + (target/100));
+                    setTimeout(updateCount, 30);
+                } else { counter.innerText = target + '+'; }
             }
             updateCount();
         });
 
-        // Story Slider
-        let currentStory = 0;
-        const stories = document.querySelectorAll('.story-content');
-        setInterval(() => {
-            stories[currentStory].classList.remove('active');
-            currentStory = (currentStory + 1) % stories.length;
-            stories[currentStory].classList.add('active');
-        }, 5000);
+        // 22. Exit Intent logic
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0) { document.getElementById('exitModal').style.display = 'flex'; }
+        });
+
+        function closeModal() { document.getElementById('exitModal').style.display = 'none'; }
     </script>
 </body>
 </html>
