@@ -286,10 +286,8 @@
             const num = i + 1;
             return {
                 code: `D${num}`,
-                // D1 uses your requested GitHub image, others use placeholders
-                image: (num === 1) 
-                    ? "https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/1.jpg" 
-                    : `https://picsum.photos/seed/concept${num}/800/1200`,
+                // Dynamically sets the image URL for all 50 items (1.jpg to 50.jpg)
+                image: `https://raw.githubusercontent.com/doctoc30/fazhoq/main/images/${num}.jpg`,
                 // Every concept button redirects to its specific page
                 url: `https://doctoc30.github.io/fazhoq/driving-school/concept-${num}.html`
             };
