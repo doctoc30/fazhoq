@@ -1,1 +1,483 @@
-dfff
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independent Driving | Premium Solo Instruction</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3d1f05; /* Deep Chocolate from image */
+            --secondary: #f2e3c9; /* Light Cream from image */
+            --accent: #c5a059; /* Gold accent */
+            --white: #ffffff;
+            --text: #2d1a0c;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--secondary); 
+            color: var(--text); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; }
+
+        /* --- Utility Classes --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { 
+            display: inline-block; 
+            padding: 18px 36px; 
+            background: var(--primary); 
+            color: var(--secondary); 
+            text-decoration: none; 
+            font-weight: 600; 
+            border-radius: 4px; 
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(61, 31, 5, 0.2); background: #5a2e08; }
+        
+        .section-padding { padding: 100px 0; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- Navigation --- */
+        nav { 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            background: rgba(242, 227, 201, 0.95); 
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(61, 31, 5, 0.1);
+            padding: 20px 0;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
+
+        /* --- Hero Slider & Offer Bar --- */
+        .top-offer-bar {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .offer-track { display: inline-block; animation: scrollText 20s linear infinite; }
+        @keyframes scrollText { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .hero { 
+            height: 90vh; 
+            display: flex; 
+            align-items: center; 
+            position: relative; 
+            background: linear-gradient(rgba(242, 227, 201, 0.8), rgba(242, 227, 201, 0.8)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover;
+            margin-top: 60px;
+        }
+        .hero-content { max-width: 700px; }
+        .hero h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; color: var(--primary); }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.8; }
+
+        /* --- Stats Counter --- */
+        .stats-grid { 
+            display: grid; grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; text-align: center; margin-top: -50px; 
+            position: relative; z-index: 10;
+        }
+        .stat-card { background: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--primary); display: block; }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); }
+
+        /* --- Packages --- */
+        .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .package-card { 
+            background: var(--white); 
+            padding: 40px; 
+            border-radius: 12px; 
+            border: 1px solid #eee;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .package-card.featured { border: 2px solid var(--primary); transform: scale(1.05); }
+        .package-card:hover { transform: translateY(-10px); }
+        .price { font-size: 3rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
+        .price span { font-size: 1rem; opacity: 0.6; }
+
+        /* --- Areas Covered --- */
+        .areas-section { background: var(--primary); color: var(--secondary); text-align: center; }
+        .area-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; }
+        .area-tag { padding: 10px 20px; border: 1px solid rgba(242, 227, 201, 0.3); border-radius: 50px; font-size: 0.9rem; }
+
+        /* --- FAQ Accordion --- */
+        .faq-item { background: var(--white); margin-bottom: 10px; border-radius: 8px; overflow: hidden; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.3s ease-out; opacity: 0; }
+        .faq-item.active .faq-answer { padding: 0 20px 20px 20px; max-height: 200px; opacity: 1; }
+
+        /* --- Pass Gallery --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-img { 
+            aspect-ratio: 1; background: #ddd; border-radius: 8px; 
+            overflow: hidden; cursor: pointer; position: relative;
+        }
+        .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-img:hover img { transform: scale(1.1); }
+
+        /* --- Sticky Dock & Floating Elements --- */
+        .callback-btn {
+            position: fixed; left: -50px; top: 50%; transform: rotate(-90deg);
+            z-index: 999; background: var(--accent); color: white;
+            padding: 15px 25px; border-radius: 0 0 8px 8px;
+            cursor: pointer; font-weight: 600; text-transform: uppercase;
+        }
+        
+        .sticky-dock {
+            position: fixed; bottom: 0; width: 100%; background: var(--white);
+            display: flex; justify-content: space-around; padding: 15px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1); z-index: 1001;
+            border-top: 1px solid #eee;
+        }
+        .dock-item { text-align: center; color: var(--primary); text-decoration: none; font-size: 0.7rem; font-weight: 700; }
+        .dock-item i { display: block; margin-bottom: 5px; }
+
+        /* --- Popup --- */
+        #exit-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 2000; display: none;
+            align-items: center; justify-content: center;
+        }
+        .popup-content {
+            background: var(--secondary); padding: 50px; max-width: 500px;
+            border-radius: 12px; text-align: center; position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+            .nav-links { display: none; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { height: auto; padding: 100px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-offer-bar">
+        <div class="offer-track">
+            • 15 YEARS PROFESSIONAL EXPERIENCE • ESTABLISHED 2005 • FREE THEORY TEST TRAINING • DVSA APPROVED INSTRUCTOR • NERVOUS DRIVER SPECIALIST • 
+            • 15 YEARS PROFESSIONAL EXPERIENCE • ESTABLISHED 2005 • FREE THEORY TEST TRAINING • DVSA APPROVED INSTRUCTOR • NERVOUS DRIVER SPECIALIST • 
+        </div>
+    </div>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">INDEPENDENT</div>
+            <ul class="nav-links">
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#areas">Areas</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#booking" class="btn" style="padding: 10px 20px; font-size: 0.7rem;">Book Now</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content reveal">
+                <h1>Book A Lesson. <br><span style="color: var(--accent);">Master The Road.</span></h1>
+                <p>Premium bespoke driving tuition for learners who demand excellence. Get on the road with South London's highest-rated independent instructor.</p>
+                <div style="display: flex; gap: 20px;">
+                    <a href="#booking" class="btn">Reserve Your Slot</a>
+                    <a href="#packages" class="btn" style="background: transparent; color: var(--primary); border: 2px solid var(--primary);">View Packages</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card reveal">
+                <span class="stat-number" data-target="500">0</span>
+                <span class="stat-label">Students Passed</span>
+            </div>
+            <div class="stat-card reveal">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-card reveal">
+                <span class="stat-number" data-target="95">0</span>
+                <span class="stat-label">% First-Pass Rate</span>
+            </div>
+            <div class="stat-card reveal">
+                <span class="stat-number" data-target="400">0</span>
+                <span class="stat-label">5-Star Reviews</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-padding" style="text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Manual or Automatic?</h2>
+            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <div class="reveal" style="max-width: 400px; padding: 30px; background: var(--white); border-radius: 12px;">
+                    <i data-lucide="settings" style="width: 48px; height: 48px; color: var(--accent);"></i>
+                    <h3>Manual Lessons</h3>
+                    <p>Total control. Learn the traditional way with our premium dual-controlled manual hatchback.</p>
+                </div>
+                <div class="reveal" style="max-width: 400px; padding: 30px; background: var(--white); border-radius: 12px;">
+                    <i data-lucide="zap" style="width: 48px; height: 48px; color: var(--accent);"></i>
+                    <h3>Automatic Lessons</h3>
+                    <p>Stress-free driving. Perfect for nervous learners or those wanting a faster route to their license.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" class="section-padding" style="background: #fdf8f0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 3rem;">Premium Lesson Packages</h2>
+                <p>Invest in your freedom with our high-conversion training bundles.</p>
+            </div>
+            
+            <div class="package-grid">
+                <div class="package-card reveal">
+                    <span class="stat-label">The Beginner</span>
+                    <h3>Starter Package</h3>
+                    <div class="price">£45<span>/lesson</span></div>
+                    <ul style="list-style: none; margin-bottom: 30px;">
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> 1 x 90 Minute Lesson</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Student Portal Access</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Pickup/Dropoff</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">Buy Now</a>
+                </div>
+                <div class="package-card featured reveal">
+                    <div style="position: absolute; top: 15px; right: -35px; background: var(--accent); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.7rem; font-weight: bold;">BEST VALUE</div>
+                    <span class="stat-label">Most Popular</span>
+                    <h3>The Fast Pass</h3>
+                    <div class="price">£420<span>/10 hrs</span></div>
+                    <ul style="list-style: none; margin-bottom: 30px;">
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> 10 Hours of Instruction</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Priority Booking</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Mock Test Included</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">Buy Now</a>
+                </div>
+                <div class="package-card reveal">
+                    <span class="stat-label">VIP Experience</span>
+                    <h3>The Pro Bundle</h3>
+                    <div class="price">£800<span>/20 hrs</span></div>
+                    <ul style="list-style: none; margin-bottom: 30px;">
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> 20 Hours of Instruction</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Full Theory Support</li>
+                        <li><i data-lucide="check" style="width:16px; color: green;"></i> Guaranteed Test Slot</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding container">
+        <div style="display: flex; align-items: center; gap: 60px; flex-wrap: wrap;">
+            <div class="reveal" style="flex: 1; min-width: 300px;">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" alt="Instructor" style="width: 100%; border-radius: 12px; filter: sepia(20%);">
+            </div>
+            <div class="reveal" style="flex: 1.5; min-width: 300px;">
+                <span class="stat-label">Meet Your Instructor</span>
+                <h2 style="font-size: 3rem; margin: 20px 0;">Calm, Professional, <br>DVSA Approved.</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">I'm John, an independent instructor with over 15 years of experience helping nervous drivers transform into confident road users. My teaching style is patient and tailored to your specific pace.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div><strong>Grade A Instructor</strong><br><small>Highest DVSA rating</small></div>
+                    <div><strong>Fully Insured</strong><br><small>Public liability covered</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="areas" class="section-padding areas-section">
+        <div class="container">
+            <h2>Driving Lessons in South London</h2>
+            <p>I provide door-to-door service in the following postcodes:</p>
+            <div class="area-tags reveal">
+                <span class="area-tag">Croydon</span>
+                <span class="area-tag">Bromley</span>
+                <span class="area-tag">Lewisham</span>
+                <span class="area-tag">Greenwich</span>
+                <span class="area-tag">Catford</span>
+                <span class="area-tag">Beckhenham</span>
+                <span class="area-tag">Shirley</span>
+                <span class="area-tag">West Wickham</span>
+            </div>
+            <div style="margin-top: 50px; background: #2d1a0c; height: 300px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <p style="opacity: 0.5;">[Interactive Google Map Integration]</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 style="text-align: center; margin-bottom: 40px;">Wall of Fame</h2>
+        <div class="gallery-grid">
+            <div class="gallery-img reveal"><img src="https://images.unsplash.com/photo-1549194388-2469d59ec69c?auto=format&fit=crop&q=80&w=400" alt="Pass 1"></div>
+            <div class="gallery-img reveal"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=400" alt="Pass 2"></div>
+            <div class="gallery-img reveal"><img src="https://images.unsplash.com/photo-1533558701576-23c65e0272fb?auto=format&fit=crop&q=80&w=400" alt="Pass 3"></div>
+            <div class="gallery-img reveal"><img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?auto=format&fit=crop&q=80&w=400" alt="Pass 4"></div>
+        </div>
+    </section>
+
+    <section id="faq" class="section-padding" style="background: #eeece8;">
+        <div class="container" style="max-width: 800px;">
+            <h2 style="text-align: center; margin-bottom: 40px;">Common Questions</h2>
+            <div class="faq-item reveal">
+                <div class="faq-question">How much are driving lessons? <i data-lucide="chevron-down"></i></div>
+                <div class="faq-answer">Lessons start at £45 per hour, with significant discounts available for block bookings of 10 or 20 hours.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">Do you offer weekend lessons? <i data-lucide="chevron-down"></i></div>
+                <div class="faq-answer">Yes, we offer Saturday and Sunday morning slots to accommodate working professionals and students.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">Can you help with the theory test? <i data-lucide="chevron-down"></i></div>
+                <div class="faq-answer">Absolutely. All my students get free access to our Theory Pro app and 1-on-1 guidance during lessons.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--primary); color: var(--secondary); padding: 80px 0 120px 0;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+            <div>
+                <div class="logo" style="color: var(--secondary); margin-bottom: 20px;">INDEPENDENT</div>
+                <p style="opacity: 0.7;">Premier driving tuition in South London. Established 2005. DVSA Certified.</p>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul style="list-style: none; opacity: 0.7; margin-top: 10px;">
+                    <li>Manual Lessons</li>
+                    <li>Automatic Lessons</li>
+                    <li>Intensive Courses</li>
+                    <li>Refresher Lessons</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p style="opacity: 0.7; margin-top: 10px;">
+                    07700 900 123<br>
+                    hello@independent-driving.co.uk<br>
+                    Croydon, London
+                </p>
+            </div>
+            <div>
+                <h4>Socials</h4>
+                <div style="display: flex; gap: 15px; margin-top: 15px;">
+                    <i data-lucide="instagram"></i>
+                    <i data-lucide="facebook"></i>
+                    <i data-lucide="twitter"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="callback-btn" onclick="document.getElementById('booking').scrollIntoView()">Request Callback</div>
+
+    <div class="sticky-dock">
+        <a href="tel:07700900123" class="dock-item"><i data-lucide="phone"></i>Call</a>
+        <a href="#" class="dock-item"><i data-lucide="message-circle"></i>WhatsApp</a>
+        <a href="#booking" class="dock-item" style="background: var(--primary); color: white; padding: 5px 15px; border-radius: 4px; margin-top: -5px;"><i data-lucide="calendar" style="color: white; margin: 0 auto 2px auto;"></i>Book</a>
+    </div>
+
+    <div id="exit-popup">
+        <div class="popup-content">
+            <h2 style="font-size: 2rem;">Wait! Get £10 Off</h2>
+            <p>Don't leave yet. Sign up for our newsletter and get £10 off your first block booking!</p>
+            <input type="email" placeholder="Your Email" style="width: 100%; padding: 15px; margin: 20px 0; border: 1px solid #ccc;">
+            <button class="btn" style="width: 100%;">Claim Discount</button>
+            <p onclick="closePopup()" style="margin-top: 15px; cursor: pointer; text-decoration: underline; font-size: 0.8rem;">No thanks, I'll pay full price</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Scroll Reveal Logic
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (entry.target.querySelector('.stat-number')) {
+                        startCounter(entry.target.querySelector('.stat-number'));
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Stats Counter Logic
+        function startCounter(el) {
+            const target = +el.getAttribute('data-target');
+            let count = 0;
+            const speed = target / 50;
+            const update = () => {
+                if (count < target) {
+                    count += speed;
+                    el.innerText = Math.ceil(count);
+                    setTimeout(update, 30);
+                } else {
+                    el.innerText = target + (el.innerText.includes('%') ? '%' : '+');
+                }
+            };
+            update();
+        }
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('active');
+            });
+        });
+
+        // Exit Intent Logic
+        let popupShown = false;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !popupShown) {
+                document.getElementById('exit-popup').style.display = 'flex';
+                popupShown = true;
+            }
+        });
+
+        function closePopup() {
+            document.getElementById('exit-popup').style.display = 'none';
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
